@@ -17,12 +17,12 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/banner.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "assets/images/banner.gif", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
-			enable: false, // Display the credit text of the banner image
-			text: "", // Credit text to be displayed
-			url: "", // (Optional) URL link to the original artwork or artist's page
+			enable: true, // Display the credit text of the banner image
+			text: "pinterest.com", // Credit text to be displayed
+			url: "https://pin.it/3yAF6aKbf", // (Optional) URL link to the original artwork or artist's page
 		},
 	},
 	toc: {
@@ -55,15 +55,15 @@ export const siteConfig: SiteConfig = {
 
 export const navBarConfig = {
 	links: [
-		{ name: "首页", url: "/", icon: "fa6-solid:house" },
-		{ name: "归档", url: "/archive/", icon: "fa6-solid:box-archive" },
-		{ name: "关于", url: "/about/", icon: "fa6-solid:user" },
-		{ name: "友链", url: "/friends/", icon: "fa6-solid:link" },
+		{ name: "初见", url: "/", icon: "fa6-solid:house" },
+		{ name: "旧简", url: "/archive/", icon: "fa6-solid:box-archive" },
+		{ name: "一隅", url: "/about/", icon: "fa6-solid:user" },
+		{ name: "友人", url: "/friends/", icon: "fa6-solid:link" },
 		{
-			name: "GitHub",
-			url: "https://github.com/LeeHero0803",
+			name: "开往",
+			url: "https://www.travellings.cn/train.html",
 			external: true,
-			icon: "fa6-brands:github",
+			icon: "fa6-solid:train-subway",
 		},
 	],
 };

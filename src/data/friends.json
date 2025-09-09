@@ -39,6 +39,13 @@
 		"url": "https://blog.trfox.top",
 		"desc": "欢迎光临～",
 		"avatar": "/friends/TerorFox.jpg"
+	},
+
+		{
+		"name": "Last Blog",
+		"url": "https://blog.imlast.top",
+		"desc": "void of myself",
+		"avatar": "/friends/Last.jpg"
 	}
 
 ]

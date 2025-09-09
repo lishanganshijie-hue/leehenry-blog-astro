@@ -41,11 +41,25 @@
 		"avatar": "/friends/TerorFox.jpg"
 	},
 
-		{
+	{
 		"name": "Last Blog",
 		"url": "https://blog.imlast.top",
 		"desc": "void of myself",
 		"avatar": "/friends/Last.jpg"
+	},
+
+	{
+		"name": "Axi's Blog",
+		"url": "https://axi404.top",
+		"desc": "一只可爱小猫",
+		"avatar": "/friends/Axi.png"
+	},
+
+	{
+		"name": "沈君豪 Junhao Shen",
+		"url": "https://www.jhshen.cn/",
+		"desc": "I am Junhao Shen",
+		"avatar": "/friends/sjh.jpg"
 	}
 
 ]

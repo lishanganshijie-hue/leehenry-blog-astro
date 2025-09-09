@@ -4,11 +4,41 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPostsList } from "../utils/content-utils";
+import Heatmap from "@components/widget/Heatmap.svelte";
 
 const sortedPostsList = await getSortedPostsList();
+
+function pickDateLike(data: any) {
+  const cand =
+    data?.published ??
+    data?.date ??
+    data?.pubDate ??
+    data?.created ??
+    data?.updated;
+  if (!cand) return null;
+  const d = new Date(cand);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+const dates: string[] = Array.from(
+  new Set(
+    (sortedPostsList ?? [])
+      .map((p: any) => pickDateLike(p?.data))
+      .filter(Boolean)
+      .map((d: Date) => d.toISOString().slice(0, 10))
+  )
+);
 ---
 
 <MainGridLayout title={i18n(I18nKey.archive)}>
-    <ArchivePanel sortedPosts={sortedPostsList} client:only="svelte"></ArchivePanel>
+  <section class="archive-heatmap">
+    <Heatmap dates={dates} client:only="svelte" cell={9} gap={2} />
+  </section>
+
+  <ArchivePanel sortedPosts={sortedPostsList} client:only="svelte" />
 </MainGridLayout>
 
+<style>
+  .archive-heatmap { margin-bottom: 20px; }
+  @media (min-width: 768px) { .archive-heatmap { margin-bottom: 20px; } }
+</style>

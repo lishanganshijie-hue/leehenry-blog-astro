@@ -228,8 +228,8 @@
                   <div
                     class={"day " + (c.inYear ? "" : "dim") + " " + colorClass(c.count)}
                     title={`${c.iso}：${c.count} 篇`}
-                    aria-label={`${c.iso}，${c.count} 篇`}
-                  />
+                    aria-label={`${c.iso}，${c.count} 篇`}>
+                  </div>
                 {/each}
               </div>
             {/each}

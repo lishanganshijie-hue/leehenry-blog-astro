@@ -11,7 +11,7 @@ draft: false
 ## 内存组成
 为了讲明白不同方式下数组、字符串定义时在内存中的存放方式，需要先对计算机内存分区组成有所了解：
 
-<img src="./DD-Vol00/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01RMDUyMg==,size_16,color_FFFFFF,t_70.png" alt="在这里插入图片描述" style="zoom:67%;" />
+![在这里插入图片描述](./DD-Vol00/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01RMDUyMg==,size_16,color_FFFFFF,t_70.png)
 
 ### 堆区
 
@@ -202,7 +202,7 @@ int main() {
 
  3.  `*s+1`等价于`(*s)+1`，`s`通过`*`解析首先得到[一维数组`"Lee"`]
       即指向[一维数组`"Lee"`的第一个元素`'L'`*的地址*]的指针`s[0]`；
-   对该指针+1，相当于`s[0]+1`，使得指针指向[一维数组`"Lee"`第二个元素`'e'`*的地址*]
+      对该指针+1，相当于`s[0]+1`，使得指针指向[一维数组`"Lee"`第二个元素`'e'`*的地址*]
     格式控制符`%s`将该元素看成字符串的首地址，因而打印出`"ee"`
 
 ***· 二维数组传参***

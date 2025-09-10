@@ -25,7 +25,7 @@
 
 ### 0x0｜Debug2Deploy · 推理到跑通
 
-> 计算机科学，我理解世界的另一种方式 · Computer science, my path to making sense of the world.
+> 计算机科学，我理解世界的另一种方式 · *Computer science, my path to making sense of the world.*
 
 这里记录下我在 0 与 1 之间的旅程。每一次搞懂、调试、优化与实现，都是我试着撬开黑箱、回应复杂世界的笨拙尝试。
 

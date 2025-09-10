@@ -4,7 +4,7 @@ published: 2025-08-25
 description: '方便日后开发快速回滚，这里记录一下博客从开发、写文到部署上线的工作流。'
 image: ''
 tags: [博客搭建, 复盘总结, 开发]
-category: 我这样做事
+category: 推理到跑通
 draft: false
 ---
 
@@ -126,6 +126,7 @@ lang: ''
 > | 我这样做事 | ["hack", "wz", "HT"]    |
 > | 瞬间备忘录 | ["moment", "sj", "MMs"] |
 > | 话从哪说起 | ["mind", "hc", "MM"]    |
+> | 推理到跑通 | ["code", "tl", "DD"]    |
 
 **方案二 · 手动创建文章**
 

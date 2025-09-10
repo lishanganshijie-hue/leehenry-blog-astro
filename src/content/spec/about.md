@@ -23,31 +23,37 @@
 
 ## 📖 这里写些什么？
 
-### 1｜Moment Memos · 瞬间备忘录
+### 0x0｜Debug2Deploy · 推理到跑通
 
-> 用照片和片语留住光影中的念头 · *Snapshots and short notes that catch the fleeting beauty of the everyday.*
+> 计算机科学，我理解世界的另一种方式 · Computer science, my path to making sense of the world.
 
-生活里那些小小的画面与感受，总是在我们不经意时闪现。这里记录的，是被光照亮的一瞬、是坐地铁听到的一句歌词、是一次不安或喜悦的小起伏。它们看似琐碎，却串联起我生活的感知线索。
+这里记录下我在 0 与 1 之间的旅程。每一次搞懂、调试、优化与实现，都是我试着撬开黑箱、回应复杂世界的笨拙尝试。
 
-### 2｜**Mindlight Maze · 话从哪说起**
+### 0x1｜Moment Memos · 瞬间备忘录
+
+> 用镜头和片语留住稍纵即逝的念头 · *Snapshots and short notes that catch the fleeting beauty of the everyday.*
+
+生活里那些画面与感受的决定性瞬间，总在我们不经意时闪现。此间文字看似琐碎，却是足以串联起我生活的感知线索。
+
+### 0x2｜**Mindlight Maze · 话从哪说起**
 
 > 一念起，思绪在光影中生长 · *Where thoughts wander, words begin — a slow walk through the maze of mind and light.*
 
-总有一些话，不知该从哪句说起。一种情绪、一段沉思，或只是对某件事的反复琢磨。这一栏是我与世界的非线性交谈，是抽象想法、模糊直觉与具象经验交错的地方。
+一次交流、一段沉思，都可能带来某些新的启示。我把与世界的非线性交谈留在此处，这里是抽象想法、模糊直觉与具象经验交错的地方。
 
-### 3｜**Hack & Track · 我这样做事**
+### 0x3｜**Hack & Track · 我这样做事**
 
 > 拆解方法，记录路径，让行动变得清晰 · *My tools, my methods, my messy paths — hacked, tracked, and shared.*
 
-开发回顾、创作流程、效率习惯、兴趣培养，这一栏是我实践中的拆解与复盘。不是“最优解”，而是“我现在这样做”，欢迎参考，也欢迎提出你自己的做法。
+创作流程、效率习惯、兴趣培养，我将实践中的拆解与复盘写在这里。不是“最优解”，而是“我现在这样做”，欢迎参考，也欢迎提出你的做法。
 
-### 4｜**Step by Sense · 多懂一点点**
+### 0x4｜**Step by Sense · 多懂一点点**
 
 > 慢慢学，慢慢看，慢慢懂一些 · *Learning, not rushing — one sense, one step at a time.*
 
-我在学习，也还在摸索。这一栏不是为了展示“我知道什么”，而是记录“我是怎么逐渐懂一点点的”。审美、认知、方法、理解力——一切成长都值得慢慢来。
+好奇心与求知欲驱使，我在摸索中学习。我将在这里留下脚印，告诉你“我是怎么逐渐懂一点点的”。审美到认知，一切成长都值得慢慢来。
 
-### 5｜**Words in Wildness· 野语不成篇**
+### 0x5｜**Words in Wildness· 野语不成篇**
 
 > 佚失归处后的归处。不成章法，自有脉动 · *Words unbound, fragments alive.*
 

@@ -13,6 +13,7 @@ const CATEGORIES = [
   { name: "我这样做事", alias: ["hack", "wz", "HT"] },
   { name: "瞬间备忘录", alias: ["moment", "sj", "MMs"] },
   { name: "话从哪说起", alias: ["mind", "hc", "MM"] },
+  { name: "推理到跑通", alias: ["code", "tl", "DD"] },
 ];
 
 function resolveCategory(input) {

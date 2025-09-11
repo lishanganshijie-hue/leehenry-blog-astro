@@ -247,23 +247,23 @@ powershell -NoProfile -Command ^
   "Write-Host ('[DONE] STEP {0} finished at {1}, duration {2}s' -f $env:STEP_NUM, $end, $secs) -ForegroundColor DarkGreen"
 goto :eof
 
-REM Args: %1 = step number, %2 = step label to retry (e.g., step4_pack)
+REM === 修改点 1：失败自动重试至多三次 ===
 :fail_choice
 set "FAILED_STEP=%~1"
 set "FAILED_LABEL=%~2"
-echo.
-set /p USER_CHOICE="Step %FAILED_STEP% failed. Retry (R) or Exit (E)? "
-if /i "%USER_CHOICE%"=="R" (
+if not defined RETRY_COUNT set "RETRY_COUNT=0"
+set /a RETRY_COUNT+=1
+if %RETRY_COUNT% LEQ 3 (
+    echo Step %FAILED_STEP% failed. Auto retry #%RETRY_COUNT%...
     goto %FAILED_LABEL%
-) else if /i "%USER_CHOICE%"=="E" (
+) else (
+    echo Step %FAILED_STEP% failed after 3 retries. Exit.
     call :end_fail_print
     if "%PAUSE_AT_END%"=="1" pause
     exit /b 1
-) else (
-    echo Please type R or E.
-    goto :fail_choice %FAILED_STEP% %FAILED_LABEL%
 )
 
+REM === 修改点 2：完成后自动打开网站 ===
 :end_ok
 powershell -NoProfile -Command ^
   "$t0 = [int64]$env:RUN_T0_TICKS;" ^
@@ -278,6 +278,7 @@ powershell -NoProfile -Command ^
   "Write-Host '════════════════════════════════════════════════════════' -ForegroundColor DarkGray;" ^
   "Write-Host '';" ^
   "Write-Host ''"
+start "" "http://%HOST%/"
 if "%PAUSE_AT_END%"=="1" pause
 exit /b 0
 
@@ -292,7 +293,4 @@ powershell -NoProfile -Command ^
   "Write-Host '';" ^
   "Write-Host '════════════════════════════════════════════════════════' -ForegroundColor DarkGray;" ^
   "Write-Host ('FAILED — finished in {0} seconds' -f $secs) -ForegroundColor Red;" ^
-  "Write-Host '════════════════════════════════════════════════════════' -ForegroundColor DarkGray;" ^
-  "Write-Host '';" ^
-  "Write-Host ''"
-goto :eof
+  "Write

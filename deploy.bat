@@ -247,7 +247,7 @@ powershell -NoProfile -Command ^
   "Write-Host ('[DONE] STEP {0} finished at {1}, duration {2}s' -f $env:STEP_NUM, $end, $secs) -ForegroundColor DarkGreen"
 goto :eof
 
-REM === 修改点 1：失败自动重试至多三次 ===
+REM === 失败自动重试至多三次 ===
 :fail_choice
 set "FAILED_STEP=%~1"
 set "FAILED_LABEL=%~2"
@@ -263,7 +263,7 @@ if %RETRY_COUNT% LEQ 3 (
     exit /b 1
 )
 
-REM === 修改点 2：完成后自动打开网站 ===
+REM === 完成后自动打开网站 ===
 :end_ok
 powershell -NoProfile -Command ^
   "$t0 = [int64]$env:RUN_T0_TICKS;" ^
@@ -278,7 +278,7 @@ powershell -NoProfile -Command ^
   "Write-Host '════════════════════════════════════════════════════════' -ForegroundColor DarkGray;" ^
   "Write-Host '';" ^
   "Write-Host ''"
-start "" "http://%HOST%/"
+start "" "https://leehenry.top/"
 if "%PAUSE_AT_END%"=="1" pause
 exit /b 0
 

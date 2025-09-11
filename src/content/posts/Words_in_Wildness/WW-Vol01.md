@@ -80,6 +80,9 @@ draft: false
     - Price: ¥359 ｜Purchased: 2019-07-27
 - **Sony PlayStation 5 DualSense Edge Controller**
     - Price: ¥463 ｜Purchased: 2023-12-28
+- **Logitech Pebble 2 Combo (K380s & M350s)**
+    - Price: ¥225｜Purchased: 2025-09-03
+
 
 ### 🔌 充电电源 (Chargers & Power)
 
@@ -91,6 +94,8 @@ draft: false
 ---
 
 ## [2] 投入分析 (Investment Analysis)
+
+> 以下是按 2025-08-26 之前的明细分析
 
 - **总件数**：23 件
 - **主要大类投入占比**：
@@ -107,9 +112,7 @@ draft: false
 
 ------
 
-### 明细表（按 2025-08-26 计算）
-
-<iframe width="402" height="346" frameborder="0" scrolling="no" src="https://1drv.ms/x/c/94ddfdd8fdb83e7c/IQSQAGIUbRgNR6hrjWFFkqDdARxzqpk1iFcwt8ZeZkt7kyA?wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+### 明细表
 
 | Category                  | Item                          | Price (¥) | Purchase Date | Days Since Purchase | Daily Cost (¥/day) |
 | ------------------------- | ----------------------------- | --------- | ------------- | ------------------- | ------------------ |

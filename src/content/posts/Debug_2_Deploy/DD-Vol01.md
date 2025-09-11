@@ -10,14 +10,14 @@ draft: false
 
 上次基于 GitHub Pages 部署博客在两年前，写作流程有些复杂，过了一段时间后甚至完全忘记如何恢复环境。这一次从 0 开始重新部署，我更加注重**环境可迁移性**与**自动化**，并做好流程复盘，方便追溯。
 
-下面记录了我在 Fuwari 博客模板基础上改造的开发与上线工作流。无论是换电脑、重装环境还是切换域名，都可以按照这里的步骤快速恢复写作与部署，让「写一篇文章 → 推送 Git → 一键上线」成为顺畅的日常。
+下面记录了我在 Fuwari 博客模板基础上改造的开发与上线工作流。无论是换电脑、重装环境还是切换域名，都可以按照这里的步骤快速恢复写作环境并部署。
 
 ## 零丨写作/开发到上线的最简流程
 
 **新建文章**
 
 ```powershell
-pnpm run new-post 我这样做事 HT-Vol02
+pnpm run new-post HT HT-Vol02
 ```
 
 → 自动生成 `HT-Vol02.md` 和 `HT-Vol02/` 图片文件夹，在 md 中写文即可。
@@ -113,7 +113,7 @@ lang: ''
 ---
 ```
 
-> [!tip]
+> [!TIP]
 >
 > 封面图推荐放在同级文件夹，如 `./HT-Vol02/cover.jpg`，然后在 front-matter 写：`image: ./HT-Vol02/cover.jpg`
 
@@ -126,7 +126,7 @@ lang: ''
 > | 我这样做事 | ["hack", "wz", "HT"]    |
 > | 瞬间备忘录 | ["moment", "sj", "MMs"] |
 > | 话从哪说起 | ["mind", "hc", "MM"]    |
-> | 推理到跑通 | ["code", "tl", "DD"]    |
+> | 推理到跑通 | [“code”, “tl”, “DD”]    |
 
 **方案二 · 手动创建文章**
 
@@ -168,6 +168,38 @@ git commit -m "feat(nav): add icons for nav links"
 ```powershell
 git push
 ```
+
+- 多设备切换开发：保持「写完即推，开写先拉」，能最大限度避免冲突。
+
+  - 在 A 电脑写完：
+
+    ```powershell
+    git add/commit/push
+    ```
+
+  - 到 B 电脑写前：
+
+    ```powershell
+    git pull
+    ```
+
+ 
+
+  > [!TIP]
+  >
+  > 远程分支有更新，但本地这些文件有修改，如果直接 `git pull` 会导致本地改动被覆盖，Git 报错：
+  >
+  > ```powershell
+  > error: Your local changes to the following files would be overwritten by merge:
+  > ......
+  > Please commit your changes or stash them before you merge.
+  > ```
+  >
+  > **若放弃本地改动**，直接用远程仓库覆盖，需要先执行：
+  >
+  > ```powershell
+  > git reset --hard HEAD
+  > ```
 
 #### 4.3 Commit type 参考
 
@@ -254,18 +286,76 @@ deploy.bat
 
 ### 1. astro 模块消失问题
 
-**场景：在 dev/build 的时候报错找不到 astro 模块，`node_modules` 下的 `astro` 莫名其妙消失，**
+**场景**：在 `dev/build` 的时候报错找不到 astro 模块，`node_modules` 下的 `astro` 文件夹莫名其妙消失。
 
 ```bash
 Error: Cannot find module '...\leehenry-blog\node_modules\astro\astro.js'
 ```
 
-解决：重装一下就好了。在项目目录下执行：
+**解决**：重装一下就好了。在项目目录下执行：
 
 ```powershell
 pnpm install
 pnpm build
 ```
+
+### 2. 多设备切换与冲突解决
+
+**场景**：我在 **A 电脑**开发并 `git push`，接着换到 **B 电脑**继续开发并再次 `git push`。当我回到 **A 电脑**时，**本地仓库就会落后于远端最新状态**。可能此时 A 电脑还有一些未提交或未 push 的改动。
+
+#### 2.1 正常同步
+
+```powershell
+git pull
+```
+
+- 无新提交：直接快进。
+
+- 双方都有提交：可能触发冲突。
+
+  ```bash
+  error: Your local changes to the following files would be overwritten by merge:
+  ......
+  Please commit your changes or stash them before you merge.
+  ```
+
+#### 2.2 舍弃本地改动，直接对齐远端
+
+方案 1：只想丢弃工作区的未提交改动，但保留自己 commit 过的本地工作：
+
+```powershell
+reset --hard HEAD && git pull
+```
+
+方案 2：连本地没 push 的 commit 也不想要，想完全对齐远程：
+
+```powershell
+git fetch origin && git reset --hard origin/main
+```
+
+#### 2.3 冲突解决流程
+
+冲突文件会被标记：
+
+```python
+def hello():
+<<<<<<< HEAD
+    print("Hello from A")
+=======
+    print("Hello from B")
+>>>>>>> origin/main
+```
+
+需要手动处理对本地和远端的保留策略。
+
+解决后执行：
+
+```cmd
+git add 冲突文件
+git commit
+```
+
+完成合并提交。
 
 ## 附 | `deploy.bat` 使用介绍
 
@@ -283,17 +373,17 @@ pnpm build
 
 1. 将脚本命名为 `deploy.bat`，放在和 `leehenry-blog` 同级目录下。
 
-    ```
-    project-root/
-    ├─ leehenry-blog/         # 博客源码目录
-    ├─ deploy.bat             # 部署脚本
-    ```
+   ```
+   project-root/
+   ├─ leehenry-blog/         # 博客源码目录
+   ├─ deploy.bat             # 部署脚本
+   ```
 
 2. 双击运行或在命令行执行：
 
-    ```cmd
-    deploy
-    ```
+   ```cmd
+   deploy
+   ```
 
 3. 脚本会依次执行构建、上传、远端解压和推送 Git。
 
@@ -308,29 +398,29 @@ pnpm build
 
 - **部署参数**
 
-    ```bash
-    set "HOST=39.104.64.173"              REM 远端服务器 IP
-    set "PORT=22"                         REM SSH 端口
-    set "USER=root"                       REM SSH 用户
-    set "REMOTE_DIR=/www/wwwroot/39.104.64.173"   REM 部署目录
-    set "WWW_USER=www"                    REM 文件属主
-    set "WWW_GROUP=www"                   REM 文件属组
-    set "KEY=%USERPROFILE%\.ssh\id_ed25519"       REM SSH 私钥路径
-    ```
+  ```bash
+  set "HOST=39.104.64.173"              REM 远端服务器 IP
+  set "PORT=22"                         REM SSH 端口
+  set "USER=root"                       REM SSH 用户
+  set "REMOTE_DIR=/www/wwwroot/39.104.64.173"   REM 部署目录
+  set "WWW_USER=www"                    REM 文件属主
+  set "WWW_GROUP=www"                   REM 文件属组
+  set "KEY=%USERPROFILE%\.ssh\id_ed25519"       REM SSH 私钥路径
+  ```
 
 - **Git 代理（仅影响 HTTPS 推送，不影响 SSH）**
 
-    ```bash
-    set "GIT_PROXY_ENABLE=1"              REM 1=启用，0=禁用
-    set "GIT_PROXY_URL=http://127.0.0.1:2020"
-    ```
+  ```bash
+  set "GIT_PROXY_ENABLE=1"              REM 1=启用，0=禁用
+  set "GIT_PROXY_URL=http://127.0.0.1:2020"
+  ```
 
 - **其它**
 
-    ```bash
-    set "PAUSE_AT_END=1"                  REM 脚本结束后是否暂停
-    set "BACKUP=1"                        REM 是否自动备份远端旧版本
-    ```
+  ```bash
+  set "PAUSE_AT_END=1"                  REM 脚本结束后是否暂停
+  set "BACKUP=1"                        REM 是否自动备份远端旧版本
+  ```
 
 ### 💡 使用场景
 
@@ -342,10 +432,10 @@ pnpm build
 ### ❓ 常见问题
 
 - **Q: 为什么 Git 推送时报错？**
-     A: 检查远程 URL 是否是 **HTTPS**，只有 HTTPS 才会走代理。SSH (`git@...`) 推送不会使用 HTTP 代理。
+  A: 检查远程 URL 是否是 **HTTPS**，只有 HTTPS 才会走代理。SSH (`git@...`) 推送不会使用 HTTP 代理。
 - **Q: 我不想每次都用代理怎么办？**
-     A: 修改脚本，把 `GIT_PROXY_ENABLE=0`。
+  A: 修改脚本，把 `GIT_PROXY_ENABLE=0`。
 - **Q: 远端文件夹会不会清空？**
-     A: 是的，会清理目标目录下的文件，但保留 `.well-known` 和 `.user.ini`。如果需要更多保留文件，请在 Step 3 修改规则。
+  A: 是的，会清理目标目录下的文件，但保留 `.well-known` 和 `.user.ini`。如果需要更多保留文件，请在 Step 3 修改规则。
 - **Q: 构建工具找不到怎么办？**
-     A: 脚本会优先尝试 `pnpm`，若未安装则 fallback 到 `npm run build`。
+  A: 脚本会优先尝试 `pnpm`，若未安装则 fallback 到 `npm run build`。

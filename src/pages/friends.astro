@@ -4,7 +4,6 @@ import Markdown from "@components/misc/Markdown.astro";
 import friends from "../data/friends.json";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-// 读取 Content Collections 中的 friends.md（与 about 同套路）
 const entry = await getEntry("spec", "friends");
 if (!entry) {
 	throw new Error(
@@ -21,12 +20,8 @@ const description = entry.data.description ?? "互相串门～欢迎交换友链
 <MainGridLayout title={title} description={description}>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-9 py-6 relative w-full">
-      <!-- 上半部：Markdown 正文（自动获得 prose + 暗色反色） -->
-      <Markdown class="mt-2">
-        <Content />
-      </Markdown>
 
-      <!-- 下半部：数据驱动卡片；不走 prose，使用 Tailwind 的明暗色类 -->
+      <!-- 数据驱动卡片 -->
       <section aria-label="friends list" class="not-prose mt-4">
         <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
           {friends.map((f) => (
@@ -64,6 +59,11 @@ const description = entry.data.description ?? "互相串门～欢迎交换友链
           ))}
         </div>
       </section>
+
+      <!-- Markdown 正文 -->
+      <Markdown class="mt-2">
+        <Content />
+      </Markdown>
     </div>
   </div>
 </MainGridLayout>

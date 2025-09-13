@@ -105,6 +105,11 @@ export const profileConfig: ProfileConfig = {
 			icon: "fa6-regular:envelope",
 			url: "mailto:leehenry1024@qq.com",
 		},
+		{
+			name: "RSS 订阅",
+			icon: "fa6-solid:square-rss",
+			url: "https://leehenry.top/rss.xml",
+		},
 	],
 };
 

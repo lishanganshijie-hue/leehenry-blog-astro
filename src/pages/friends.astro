@@ -6,62 +6,93 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 const entry = await getEntry("spec", "friends");
 if (!entry) {
-	throw new Error(
-		"Friends page content not found: make sure src/content/spec/friends.md exists",
-	);
+  throw new Error(
+    "Friends page content not found: make sure src/content/spec/friends.md exists",
+  );
 }
 const { Content } = await render(entry);
 
 // 标题/描述优先取 frontmatter，没有就用默认
 const title = entry.data.title ?? "友情链接";
 const description = entry.data.description ?? "互相串门～欢迎交换友链";
+
+// 枚举映射：机器可读 -> 展示文案
+const CATEGORIES = {
+  real:  { title: "🤝 知交", tip: "山水有逢，风雨同行。日常可晤的至交" },
+  online:{ title: "☁️ 云间", tip: "屏幕相隔，心意相契。同赏风月的素识" },
+  stash: { title: "🌄 远望", tip: "行旅偶遇的好站。高山仰止，遥遥致意" },
+  org:   { title: "🏛️ 同道", tip: "志趣相投之所归。聚以成社，共襄一途" },
+} as const;
+
+type CatKey = keyof typeof CATEGORIES;
+
+// 容错：没有 category 时默认 online
+const normalized = (friends as any[]).map(f => ({
+  ...f,
+  category: (["real","online","stash","org"].includes(f?.category) ? f.category : "online") as CatKey
+}));
+
+// 分组 + 稳定顺序（按上面的映射顺序）
+const groups = (Object.keys(CATEGORIES) as CatKey[])
+  .map((k) => ({
+    key: k,
+    meta: CATEGORIES[k],
+    items: normalized.filter((f) => f.category === k)
+  }))
+  .filter(g => g.items.length > 0);
 ---
 
 <MainGridLayout title={title} description={description}>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-9 py-6 relative w-full">
 
-      <!-- 数据驱动卡片 -->
-      <section aria-label="friends list" class="not-prose mt-4">
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
-          {friends.map((f) => (
-            <a
-              href={f.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group flex items-center gap-4 rounded-xl border p-4 transition hover:shadow
-                     border-neutral-200 dark:border-neutral-800
-                     bg-white/70 dark:bg-neutral-900/70
-                     text-neutral-900 dark:text-neutral-100"
-            >
-              <img
-                src={f.avatar}
-                alt={f.name}
-                width="48"
-                height="48"
-                loading="lazy"
-                class="h-12 w-12 rounded-full object-cover"
-              />
-              <div class="min-w-0">
-                <!-- 主文字：明暗自适应 -->
-                <div class="font-semibold truncate group-hover:underline">
-                  {f.name}
-                </div>
-                <!-- 次要信息：更浅一档 -->
-                <div class="text-sm truncate text-neutral-600 dark:text-neutral-400">
-                  {f.desc}
-                </div>
-                <div class="text-xs truncate text-neutral-500 dark:text-neutral-500">
-                  {f.url}
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
+      <!-- 分类段落渲染 -->
+      {groups.map(({ key, meta, items }) => (
+        <section id={`friends-${key}`} aria-label={meta.title} class="not-prose mt-6">
+          <!-- 分段标题（简洁含蓄） -->
+          <div class="mb-3">
+            <h2 class="text-lg font-normal text-neutral-900 dark:text-neutral-100">
+              {meta.title}
+              <span class="ml-2 align-middle text-base px-2 py-0.5 rounded-full
+                           text-neutral-600 dark:text-neutral-400">
+                {meta.tip}
+              </span>
+            </h2>
+          </div>
 
-      <!-- Markdown 正文 -->
-      <Markdown class="mt-2">
+          <!-- 复用原卡片栅格与样式 -->
+          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
+            {items.map((f) => (
+              <a
+                href={f.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-4 rounded-xl border p-4 transition hover:shadow
+                       border-neutral-200 dark:border-neutral-800
+                       bg-white/70 dark:bg-neutral-900/70
+                       text-neutral-900 dark:text-neutral-100"
+              >
+                <img
+                  src={f.avatar}
+                  alt={f.name}
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  class="h-12 w-12 rounded-full object-cover"
+                />
+                <div class="min-w-0">
+                  <div class="font-semibold truncate group-hover:underline">{f.name}</div>
+                  <div class="text-sm truncate text-neutral-600 dark:text-neutral-400">{f.desc}</div>
+                  <div class="text-xs truncate text-neutral-500 dark:text-neutral-500">{f.url}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <!-- Markdown 正文（保留） -->
+      <Markdown class="mt-6">
         <Content />
       </Markdown>
     </div>

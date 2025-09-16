@@ -1,67 +1,79 @@
 [
-
-	{
-		"name": "secrun",
-		"url": "https://sec.run",
-		"desc": "一切伟大的行动和思想，都有一个微不足道的开始",
-		"avatar": "/friends/Lennox.jpg"
-	},
-
-	{
-		"name": "AL_1S",
-		"url": "https://www.cnblogs.com/mumujun12345",
-		"desc": "AL_1Sのblog",
-		"avatar": "/friends/AL_1S.jpg"
-	},
-
-	{
-		"name": "沈君豪 Junhao Shen",
-		"url": "https://www.jhshen.cn/",
-		"desc": "I am Junhao Shen",
-		"avatar": "/friends/sjh.jpg"
-	},
-
-	{
-		"name": "CDM258's BOX",
-		"url": "http://www.cdm258.tech/",
-		"desc": "最坏的 ctfer",
-		"avatar": "/friends/CDM258.jpg"
-	},
-
-	{
-		"name": "Axi's Blog",
-		"url": "https://axi404.top",
-		"desc": "一只可爱小猫",
-		"avatar": "/friends/Axi.png"
-	},
-
-
-	{
-		"name": "ZYBlog",
-		"url": "https://blog.pljzy.top",
-		"desc": "一个技术探索与分享的平台",
-		"avatar": "/friends/ZYBlog.webp"
-	},
-
-	{
-		"name": "RhoPaperの小站",
-		"url": "https://rhopaper.top",
-		"desc": "纸 至 执",
-		"avatar": "/friends/RhoPaper.png"
-	},
-
-	{
-		"name": "Teror的客栈",
-		"url": "https://blog.trfox.top",
-		"desc": "欢迎光临～",
-		"avatar": "/friends/TerorFox.jpg"
-	},
-
-	{
-		"name": "Last Blog",
-		"url": "https://blog.imlast.top",
-		"desc": "void of myself",
-		"avatar": "/friends/Last.jpg"
-	}
-
+  {
+    "name": "secrun",
+    "url": "https://sec.run",
+    "desc": "一切伟大的行动和思想，都有一个微不足道的开始",
+    "avatar": "/friends/Lennox.jpg",
+    "category": "real"
+  },
+  {
+    "name": "AL_1S",
+    "url": "https://www.cnblogs.com/mumujun12345",
+    "desc": "AL_1Sのblog",
+    "avatar": "/friends/AL_1S.jpg",
+    "category": "real"
+  },
+  {
+    "name": "沈君豪 Junhao Shen",
+    "url": "https://www.jhshen.cn/",
+    "desc": "I am Junhao Shen",
+    "avatar": "/friends/sjh.jpg",
+    "category": "real"
+  },
+  {
+    "name": "CDM258's BOX",
+    "url": "http://www.cdm258.tech/",
+    "desc": "最坏的 ctfer",
+    "avatar": "/friends/CDM258.jpg",
+    "category": "real"
+  },
+  {
+    "name": "Axi's Blog",
+    "url": "https://axi404.top",
+    "desc": "一只可爱小猫",
+    "avatar": "/friends/Axi.png",
+    "category": "real"
+  },
+  {
+    "name": "ZYBlog",
+    "url": "https://blog.pljzy.top",
+    "desc": "一个技术探索与分享的平台",
+    "avatar": "/friends/ZYBlog.webp",
+    "category": "online"
+  },
+  {
+    "name": "RhoPaperの小站",
+    "url": "https://rhopaper.top",
+    "desc": "纸 至 执",
+    "avatar": "/friends/RhoPaper.png",
+    "category": "online"
+  },
+  {
+    "name": "Teror的客栈",
+    "url": "https://blog.trfox.top",
+    "desc": "欢迎光临～",
+    "avatar": "/friends/TerorFox.jpg",
+    "category": "online"
+  },
+  {
+    "name": "Last Blog",
+    "url": "https://blog.imlast.top",
+    "desc": "void of myself",
+    "avatar": "/friends/Last.jpg",
+    "category": "online"
+  },
+  {
+    "name": "开往 Travellings",
+    "url": "https://www.travellings.cn/",
+    "desc": "友链接力，让网络开放起来",
+    "avatar": "/friends/traveling.png",
+    "category": "org"
+  },
+  {
+    "name": "笔墨迹 Blogs·CN",
+    "url": "https://blogscn.fun/",
+    "desc": "致敬还在写博客的我们",
+    "avatar": "https://photo.xiangming.site/img/blogscn_icon.png",
+    "category": "org"
+  }
 ]

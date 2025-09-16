@@ -34,6 +34,13 @@
     "avatar": "/friends/Axi.png",
     "category": "real"
   },
+{
+    "name": "JrHimself",
+    "url": "https://www.jrhim.com/",
+    "desc": "过去一直去，未来一直来，只有现在",
+    "avatar": "/friends/jr.png",
+    "category": "real"
+  },
   {
     "name": "ZYBlog",
     "url": "https://blog.pljzy.top",
@@ -62,6 +69,39 @@
     "avatar": "/friends/Last.jpg",
     "category": "online"
   },
+
+  {
+    "name": "記緒漂流",
+    "url": "https://ttio.cc/",
+    "desc": "雲は泳いで、虹渡って、飛び出して、ね！",
+    "avatar": "/friends/jxpl.png",
+    "category": "stash"
+  },
+
+  {
+    "name": "李鹏坤",
+    "url": "https://www.lipk.org/",
+    "desc": "「执手对影成双」。向往山河大海，林荫小道",
+    "avatar": "/friends/lipk.png",
+    "category": "stash"
+  },
+
+  {
+    "name": "極客死亡計劃",
+    "url": "https://www.geedea.pro/",
+    "desc": "这里只有真情流露和赤裸的思考",
+    "avatar": "/friends/geed.webp",
+    "category": "stash"
+  },
+
+  {
+    "name": "SamWho",
+    "url": "https://samwho.dev/",
+    "desc": "Husband, dad, programmer, whisky-drinker, writer.",
+    "avatar": "/friends/samwho.webp",
+    "category": "stash"
+  },
+
   {
     "name": "开往 Travellings",
     "url": "https://www.travellings.cn/",

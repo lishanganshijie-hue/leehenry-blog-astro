@@ -1,7 +1,7 @@
 ---
-title: 《数据结构》课程笔记·期末
+title: 代码里的逻辑森林：「数据结构」课程笔记·期末
 published: 2024-04-28
-description: '《数据结构》课程笔记·期末'
+description: '「数据结构」课程笔记·期末'
 image: ''
 tags: [课程笔记, 学习笔记]
 category: 推理到跑通

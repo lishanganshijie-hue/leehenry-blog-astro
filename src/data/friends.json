@@ -129,5 +129,19 @@
     "desc": "但行好事，莫问前程",
     "avatar": "/friends/SN.webp",
     "category": "online"
+  },
+  {
+    "name": "莫比乌斯",
+    "url": "https://onojyun.com/",
+    "desc": "凡真实的，必会相遇",
+    "avatar": "/friends/mobius.jpg",
+    "category": "stash"
+  },
+  {
+    "name": "纸鹿摸鱼处",
+    "url": "https://blog.zhilu.site/",
+    "desc": "纸鹿至麓不知路，支炉制露不止漉",
+    "avatar": "https://www.zhilu.site/api/avatar.png",
+    "category": "online"
   }
 ]

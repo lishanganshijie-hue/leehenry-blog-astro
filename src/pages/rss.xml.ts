@@ -13,11 +13,24 @@ function stripInvalidXmlChars(str: string): string {
 }
 
 /** 将 HTML 中的相对 src/href 转为绝对 URL（以 base 为解析基准） */
-function absolutizeHtml(html: string, base: URL): string {
+/** 将 HTML 中的相对 src/href 转为绝对 URL（以 site 为基准） */
+function absolutizeHtml(html: string, site: URL): string {
   return html.replace(/\s(?:src|href)=(['"])(.+?)\1/gi, (_m, quote: string, raw: string) => {
     try {
-      const abs = new URL(raw, base);                 // 绝对/./..// 开头都能解析
-      const attr = _m.trim().split("=")[0];          // "src" 或 "href"
+      const attr = _m.trim().split("=")[0]; // "src" 或 "href"
+
+      // 已经是绝对 URL，就原样返回
+      if (/^https?:\/\//i.test(raw)) {
+        return ` ${attr}=${quote}${raw}${quote}`;
+      }
+
+      // 以站点根开头（例如 "/_astro/..."）
+      if (raw.startsWith("/")) {
+        return ` ${attr}=${quote}${new URL(raw, site).toString()}${quote}`;
+      }
+
+      // 其它情况（./, ../），用文章页面当 base
+      const abs = new URL(raw, site);
       return ` ${attr}=${quote}${abs.toString()}${quote}`;
     } catch {
       return ` ${_m.trim()}`;
@@ -25,12 +38,13 @@ function absolutizeHtml(html: string, base: URL): string {
   });
 }
 
+
 export async function GET(context: APIContext) {
   const posts = await getSortedPosts();
 
   // 站点绝对地址：优先 context.site，否则用配置/兜底
   const site =
-    context.site instanceof URL ? context.site : new URL(siteConfig?.site ?? "https://leehenry.top");
+    context.site instanceof URL ? context.site : "https://leehenry.top";
 
   // ⚠️ 关键：一定要 await
   const feed = await rss({

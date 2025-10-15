@@ -115,5 +115,19 @@
     "desc": "致敬还在写博客的我们",
     "avatar": "https://photo.xiangming.site/img/blogscn_icon.png",
     "category": "org"
+  },
+  {
+    "name": "十年之约",
+    "url": "https://www.foreverblog.cn/",
+    "desc": "一个人的寂寞，一群人的狂欢",
+    "avatar": "/friends/FB.webp",
+    "category": "org"
+  },
+  {
+    "name": "西郊林野",
+    "url": "https://blog.marshuni.fun/",
+    "desc": "但行好事，莫问前程",
+    "avatar": "/friends/SN.webp",
+    "category": "online"
   }
 ]

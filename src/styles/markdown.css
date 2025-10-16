@@ -1,6 +1,16 @@
 .custom-md {
+    font-size: 1.125rem;
+
     h1 {
+        @apply text-4xl;
+    }
+
+    h2 {
         @apply text-3xl;
+    }
+
+    h3 {
+        @apply text-2xl;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -19,9 +29,13 @@
         }
     }
 
+    strong, b {
+        color: var(--primary); 
+    }
+
     a:not(.no-styling) {
-        @apply relative bg-none link font-medium text-[var(--primary)]
-        underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
+        @apply relative bg-none link font-medium text-[inherit]
+        underline decoration-[var(--link-underline)] decoration-2 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
     
@@ -60,7 +74,7 @@
 
     .copy-btn {
         all: initial;
-        @apply btn-regular-dark opacity-0 shadow-lg shadow-black/50 absolute active:scale-90 h-8 w-8 top-3 right-3 text-sm rounded-lg transition-all ease-in-out z-20 cursor-pointer;
+        @apply btn-regular-dark opacity-0 shadow-black/50 absolute active:scale-90 h-8 w-8 top-3 right-3 text-sm rounded-lg transition-all ease-in-out z-20 cursor-pointer;
     }
     .frame:hover .copy-btn {
         opacity: 1;
@@ -84,6 +98,12 @@
 
     .expressive-code {
         @apply my-4;
+        @apply rounded-none;
+
+        pre {
+            @apply rounded-none;
+        }
+
         ::selection {
             @apply bg-[var(--codeblock-selection)];
         }
@@ -97,18 +117,61 @@
     }
 
     blockquote {
-        @apply not-italic border-transparent relative;
+        @apply not-italic relative;
         font-weight: inherit;
-
+    
+        --blockquote-padding: 2rem;
+        --blockquote-border-width: 1px;
+    
+        @apply my-6 rounded-lg 
+              bg-[var(--card-bg)]
+              border-solid 
+              border-[var(--primary)]
+              overflow-hidden; 
+              
+        border-width: var(--blockquote-border-width);
+        padding: 1.5rem var(--blockquote-padding); 
+        box-shadow: 7px 7px 0px 0px var(--btn-plain-bg-hover);
+    
+        /* 确保整个 blockquote 有定位上下文，且层级低于 Admonition */
+        position: relative;
+        z-index: 0; 
+    
+        /* ::before 必须清空 */
         &:before {
-            @apply content-[''] absolute -left-1 block transition bg-[var(--btn-regular-bg)] h-full w-1 rounded-full;
+            @apply content-none; 
         }
-
-        /* Remove the double quotes from default styles */
+    
+        /* 装饰性大引用图标 (::after) */
+        &:after {
+            content: ''; 
+            position: absolute;
+            top: -0.3rem; 
+            left: -1rem; 
+            width: 4rem; 
+            height: 4rem; 
+            background-color: var(--btn-plain-bg-hover);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M448 296c0 66.3-53.7 120-120 120l-8 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l8 0c30.9 0 56-25.1 56-56l0-8-64 0c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l64 0c35.3 0 64 28.7 64 64l0 32 0 32 0 72zm-256 0c0 66.3-53.7 120-120 120l-8 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l8 0c30.9 0 56-25.1 56-56l0-8-64 0c-35.3 0-64-28.7-64-64l0-64c0-35.3 28.7-64 64-64l64 0c35.3 0 64 28.7 64 64l0 32 0 32 0 72z'/%3E%3C/svg%3E");
+            mask-size: contain; 
+            mask-repeat: no-repeat;
+            mask-position: top right; 
+            
+            z-index: 0; 
+            pointer-events: none;
+        }
+        
+        /* 确保内容在装饰图标之上 */
+        > * { 
+            position: relative;
+            z-index: 1; 
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    
+        /* 移除默认双引号 */
         p:before, p:after {
             @apply content-none;
         }
-
     }
 
     .katex-display-container {

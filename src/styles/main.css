@@ -1,3 +1,58 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-BoldItalic.woff2') format('woff2'),
+         url('/fonts/OpenSans-BoldItalic.woff') format('woff');
+    font-weight: 700; /* bold 对应的数值是 700 */
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-Bold.woff2') format('woff2'),
+         url('/fonts/OpenSans-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-Regular.woff2') format('woff2'),
+         url('/fonts/OpenSans-Regular.woff') format('woff');
+    font-weight: 400; /* normal 对应的数值是 400 */
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('/fonts/OpenSans-Italic.woff2') format('woff2'),
+         url('/fonts/OpenSans-Italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'vivo Sans';
+    src: url('/fonts/vivoSans-Bold.woff2') format('woff2'),
+         url('/fonts/vivoSans-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* 6. vivo Sans Regular (常规体) - weight: 400, style: normal */
+@font-face {
+    font-family: 'vivo Sans';
+    src: url('/fonts/vivoSans-Regular.woff2') format('woff2'),
+         url('/fonts/vivoSans-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 @tailwind components;
 
 @layer components {

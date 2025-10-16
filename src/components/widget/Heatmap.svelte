@@ -89,8 +89,6 @@
   }
 
   .card {
-    /* 使用你站内 card-base 的视觉；这里只做内边距微调和圆角统一 */
-    border-radius: 16px;
     padding: 16px 32px;
   }
 
@@ -122,7 +120,7 @@
   }
   .week { display:grid; grid-template-rows: repeat(7, var(--cell)); gap: var(--gap); }
 
-  .day { width: var(--cell); height: var(--cell); border-radius: 2px; }
+  .day { width: var(--cell); height: var(--cell);}
   .dim { opacity: .15; }
 
   /* GitHub 绿阶（亮色） */
@@ -139,7 +137,6 @@
     border: 1px solid var(--panel-border, rgba(0,0,0,.08));
     background: transparent;
     color: var(--fg);
-    border-radius: 10px;
     height: 2.25rem;
     padding: 0 0.75rem;
     display:flex; align-items:center; gap:.35rem;
@@ -154,7 +151,6 @@
     border: 1px solid var(--panel-border, rgba(0,0,0,.08));
     background: var(--card-bg, #fff);
     color: var(--fg);
-    border-radius: 12px;
     padding: 6px;
     box-shadow: 0 6px 24px rgba(0,0,0,.08);
     transform-origin: top right;
@@ -164,7 +160,7 @@
   .menu.show { opacity: 1; transform: scale(1) translateY(0); }
   .menu button {
     width: 100%; text-align: left;
-    border-radius: 8px; padding: 8px 10px;
+    padding: 8px 10px;
     cursor: pointer; border: none; background: transparent; color: inherit;
   }
   .menu button:hover { background: rgba(0,0,0,.05); }

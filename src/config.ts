@@ -20,7 +20,7 @@ export const siteConfig: SiteConfig = {
 		src: "assets/images/banner.gif", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
-			enable: true, // Display the credit text of the banner image
+			enable: false, // Display the credit text of the banner image
 			text: "pinterest.com", // Credit text to be displayed
 			url: "https://pin.it/3yAF6aKbf", // (Optional) URL link to the original artwork or artist's page
 		},
@@ -69,9 +69,9 @@ export const navBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/Avatar-Cyan.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "/friends/my-avatar-portrait-faded.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "伏枥 | Henry Lee",
-	bio: "进一步有进一步的欢喜。",
+	bio: "别让今天叫住我了",
 	links: [
 		{
 			name: "GitHub",

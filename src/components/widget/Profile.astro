@@ -48,7 +48,7 @@ const fallbackQR = "/wechat-qrcode.png";
                   <button
                     type="button"
                     aria-label={item.name}
-                    class="btn-regular rounded-lg h-10 w-10 active:scale-90"
+                    class="btn-regular h-10 w-10 active:scale-90"
                     data-qr-trigger
                     data-qr-src={item.popupImage ?? fallbackQR}
                     title={item.name}
@@ -62,7 +62,7 @@ const fallbackQR = "/wechat-qrcode.png";
                     aria-label={item.name}
                     href={item.url}
                     target="_blank"
-                    class="btn-regular rounded-lg h-10 w-10 active:scale-90"
+                    class="btn-regular h-10 w-10 active:scale-90"
                     title={item.name}
                   >
                     <Icon name={item.icon} class="text-[1.5rem]" />
@@ -75,7 +75,7 @@ const fallbackQR = "/wechat-qrcode.png";
                 <button
                   type="button"
                   aria-label={config.links[0].name}
-                  class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95"
+                  class="btn-regular h-10 gap-2 px-3 font-bold active:scale-95"
                   data-qr-trigger
                   data-qr-src={config.links[0].popupImage ?? fallbackQR}
                   title={config.links[0].name}
@@ -90,7 +90,7 @@ const fallbackQR = "/wechat-qrcode.png";
                   aria-label={config.links[0].name}
                   href={config.links[0].url}
                   target="_blank"
-                  class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95"
+                  class="btn-regular h-10 gap-2 px-3 font-bold active:scale-95"
                   title={config.links[0].name}
                 >
                   <Icon name={config.links[0].icon} class="text-[1.5rem]" />
@@ -201,7 +201,6 @@ const fallbackQR = "/wechat-qrcode.png";
     max-width: min(90vw, 420px);
     width: 100%;
     margin: 0 16px;
-    border-radius: 16px;
     background: var(--card-bg, white);
     color: inherit;
     padding: 1rem 1rem 0.875rem;
@@ -223,7 +222,7 @@ const fallbackQR = "/wechat-qrcode.png";
   }
 
   /* 图片与按钮 */
-  .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; border-radius:8px; background:transparent; }
+  .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; background:transparent; }
   .btn-row { display:flex; justify-content:center; margin-top:0.875rem; }
-  .btn-close { padding:0.5rem 1rem; border-radius:10px; background:var(--primary); color:#fff; cursor:pointer; }
+  .btn-close { padding:0.5rem 1rem; background:var(--primary); color:#fff; cursor:pointer; }
 </style>

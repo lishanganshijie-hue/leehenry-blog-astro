@@ -69,7 +69,7 @@ export const navBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "/friends/my-avatar-portrait-faded.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "/friends/my-avatar-portrait.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "伏枥 | Henry Lee",
 	bio: "别让今天叫住我了",
 	links: [

@@ -239,7 +239,7 @@ int main() {
 >    
 >    int main() {
 >        char s[10][10] = {"Lee","Hero"};
->        f((char **)s);                     //“我一定要把s看做二维指针去传参！”
+>        f((char **)s);                     //「我一定要把s看做二维指针去传参！」
 >        return 0;
 >    }
 
@@ -333,7 +333,7 @@ int main() {
 
 ![请添加图片描述](./DD-Vol00/5e71da950188494c87e0c5b72695ddbf.png)
 
-### 数组结构中对“指针常量”的理解
+### 数组结构中对「指针常量」的理解
 
 **指针常量**：不能修改指针所指向的地址，但指向的值可以改变。
 
@@ -363,7 +363,7 @@ a[0] = a[1];      //非法
 
 ## One More Thing
 
-**“当指针数组、`malloc()`动态分配遇见`qsort()`库函数，关于比较函数`cmp(const void *a, const void *b)`的迷思”**
+**「当指针数组、`malloc()`动态分配遇见`qsort()`库函数，关于比较函数`cmp(const void *a, const void *b)`的迷思」**
 
 
 

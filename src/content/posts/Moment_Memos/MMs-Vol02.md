@@ -1,9 +1,9 @@
 ---
-title: 黄绮珊「晚霞·不晚」2025-上海站
+title: 现场的力量：黄绮珊「晚霞·不晚」2025-上海站
 published: 2025-08-24
 description: "颅内高潮真实袭来，这才感触到现场的魅力：发生在此刻，仅属于这里。"
 image: "./MMs-Vol02/image-20250828212434192.png"
-tags: ["说说", "随笔", "Plog"]
+tags: [随笔]
 category: 瞬间备忘录
 draft: false
 ---

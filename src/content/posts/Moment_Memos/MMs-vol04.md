@@ -3,7 +3,7 @@ title: 寻秋内蒙：向北 3212.9 公里
 published: 2025-10-11
 description: "从赤峰的红山到阿尔山的金林，风卷草浪，车窗装满可触摸的远方。当白桦林的金叶拂过额尔古湿地，才懂得「苍茫」二字该怎样丈量。"
 image: './MMs-vol04/image-20251011235011509.png'
-tags: ["小行迹"]
+tags: [小行迹]
 category: 瞬间备忘录
 draft: false
 ---

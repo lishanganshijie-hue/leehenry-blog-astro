@@ -2,13 +2,13 @@ import Key from "../i18nKey";
 import type { Translation } from "../translation";
 
 export const zh_CN: Translation = {
-	[Key.home]: "主页",
-	[Key.about]: "关于",
-	[Key.archive]: "归档",
-	[Key.search]: "搜索",
+	[Key.home]: "初见",
+	[Key.about]: "一隅",
+	[Key.archive]: "旧简",
+	[Key.search]: "于此寻觅",
 
-	[Key.tags]: "标签",
-	[Key.categories]: "分类",
+	[Key.tags]: "文眼",
+	[Key.categories]: "篇目经纬",
 	[Key.recentPosts]: "最新文章",
 
 	[Key.comments]: "评论",
@@ -26,13 +26,13 @@ export const zh_CN: Translation = {
 
 	[Key.themeColor]: "主题色",
 
-	[Key.lightMode]: "亮色",
-	[Key.darkMode]: "暗色",
-	[Key.systemMode]: "跟随系统",
+	[Key.lightMode]: "昼景",
+	[Key.darkMode]: "夜阑",
+	[Key.systemMode]: "从时",
 
-	[Key.more]: "更多",
+	[Key.more]: "余下",
 
-	[Key.author]: "作者",
-	[Key.publishedAt]: "发布于",
-	[Key.license]: "许可协议",
+	[Key.author]: "著墨人",
+	[Key.publishedAt]: "落笔于",
+	[Key.license]: "署权",
 };

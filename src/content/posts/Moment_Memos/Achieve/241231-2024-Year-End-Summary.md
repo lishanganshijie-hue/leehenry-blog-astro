@@ -3,7 +3,7 @@ title: 写在 2025 年之前
 published: 2024-12-31
 description: "我与我周旋久，宁做我。"
 image: ''
-tags: ["年终"]
+tags: ["又是一年"]
 category: 瞬间备忘录
 draft: false
 ---

@@ -51,10 +51,10 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         <section id={`friends-${key}`} aria-label={meta.title} class="not-prose mt-6">
           <!-- 分段标题（简洁含蓄） -->
           <div class="mb-3">
-            <h2 class="text-lg font-normal text-neutral-900 dark:text-neutral-100">
+            <h2 class="text-lg font-bold text-[var(--primary)]">
               {meta.title}
-              <span class="ml-2 align-middle text-base px-2 py-0.5 rounded-full
-                           text-neutral-600 dark:text-neutral-400">
+              <span class="ml-2 font-normal align-middle text-base px-2 py-0.5
+                           text-[var(--btn-content)] opacity-80">
                 {meta.tip}
               </span>
             </h2>
@@ -67,10 +67,14 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                 href={f.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group flex items-center gap-4 rounded-xl border p-4 transition hover:shadow
-                       border-neutral-200 dark:border-neutral-800
-                       bg-white/70 dark:bg-neutral-900/70
-                       text-neutral-900 dark:text-neutral-100"
+                style={{
+                  'background-color': 'var(--card-bg)',
+                  'border-color': 'var(--btn-card-bg-active)',
+                  'color': 'var(--btn-content)',
+                }}
+                class="friend-card group flex items-center gap-4 rounded-xl border p-4 transition
+                      hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
+                      active:scale-[0.98]"
               >
                 <img
                   src={f.avatar}
@@ -81,13 +85,13 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                   class="h-12 w-12 rounded-full object-cover"
                 />
                 <div class="min-w-0">
-                  <div class="font-semibold truncate group-hover:underline">{f.name}</div>
-                  <div class="text-sm truncate text-neutral-600 dark:text-neutral-400">{f.desc}</div>
-                  <div class="text-xs truncate text-neutral-500 dark:text-neutral-500">{f.url}</div>
+                  <div class="font-semibold truncate">{f.name}</div>
+                  <div class="text-sm truncate text-[var(--btn-content)]">{f.desc}</div>
+                  <div class="text-xs truncate text-[var(--btn-content)] opacity-50">{f.url}</div>
                 </div>
               </a>
-            ))}
-          </div>
+  ))}
+</div>
         </section>
       ))}
 

@@ -3,7 +3,7 @@ title: 世界末日
 published: 2024-04-12
 description: "做了一个特别特别牛逼的梦，惊出一身冷汗。意识清醒后第一件事是尝试回忆这个梦的细节，由此写下了这篇微小说。"
 image: ''
-tags: ["梦"]
+tags: ["大梦一场"]
 category: 瞬间备忘录
 draft: false
 ---

@@ -73,7 +73,7 @@
   {
     "name": "記緒漂流",
     "url": "https://ttio.cc/",
-    "desc": "雲は泳いで、虹渡って、飛び出して、ね！",
+    "desc": "于记忆之川，泛思绪之舟",
     "avatar": "/friends/jxpl.png",
     "category": "stash"
   },
@@ -81,7 +81,7 @@
   {
     "name": "李鹏坤",
     "url": "https://www.lipk.org/",
-    "desc": "「执手对影成双」。向往山河大海，林荫小道",
+    "desc": "「执手对影成双」",
     "avatar": "/friends/lipk.png",
     "category": "stash"
   },
@@ -97,7 +97,7 @@
   {
     "name": "SamWho",
     "url": "https://samwho.dev/",
-    "desc": "Husband, dad, programmer, whisky-drinker, writer.",
+    "desc": "Writes visual essays about software",
     "avatar": "/friends/samwho.webp",
     "category": "stash"
   },
@@ -117,7 +117,7 @@
     "category": "org"
   },
   {
-    "name": "十年之约",
+    "name": "十年之约 Forever-Blog",
     "url": "https://www.foreverblog.cn/",
     "desc": "一个人的寂寞，一群人的狂欢",
     "avatar": "/friends/FB.webp",

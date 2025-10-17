@@ -3,7 +3,7 @@ title: 写在 2024 年之前
 published: 2023-12-31
 description: "慢慢经历，好好成长。"
 image: ''
-tags: ["年终"]
+tags: ["又是一年"]
 category: 瞬间备忘录
 draft: false
 ---

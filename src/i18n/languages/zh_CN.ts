@@ -8,7 +8,7 @@ export const zh_CN: Translation = {
 	[Key.search]: "于此寻觅",
 
 	[Key.tags]: "文眼",
-	[Key.categories]: "篇目经纬",
+	[Key.categories]: "辑录",
 	[Key.recentPosts]: "最新文章",
 
 	[Key.comments]: "评论",

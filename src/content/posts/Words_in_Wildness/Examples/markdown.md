@@ -3,9 +3,9 @@ title: Markdown Example
 published: 2022-01-01
 description: 支持的 Markdown 特性显示测试。
 image: "./cover.jpeg"
-tags: ["显示测试", "博客搭建", "Markdown"]
+tags: ["Markdown"]
 category: 野语不成篇
-draft: false
+draft: true
 ---
 
 # An h1 header

@@ -2,7 +2,7 @@
 title: 冷备份指南：我如何用 robocopy 驯服 OneDrive
 published: 2025-08-30
 description: 一次完整的 OneDrive 冷备份复盘：用 WinDirStat 软件查看文件存储情况， robocopy 命令实现增量复制、错误规避与一致性校验。
-tags: [存储管理, 数据安全, 工作流优化, 折腾记录]
+tags: [折腾记录, 存储管理]
 category: 我这样做事
 draft: false
 ---

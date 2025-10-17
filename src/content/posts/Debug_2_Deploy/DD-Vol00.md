@@ -3,7 +3,7 @@ title: 指针、数组、字符串的恩怨，这有你想知道的一切
 published: 2023-03-25
 description: '关于 C/C++ 中指针、数组、字符串的迷思在此一网打尽。'
 image: ''
-tags: [C/C++, 开发]
+tags: [开发笔记, C/C++]
 category: 推理到跑通
 draft: false
 ---

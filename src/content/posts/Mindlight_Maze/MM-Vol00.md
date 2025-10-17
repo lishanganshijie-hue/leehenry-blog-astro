@@ -3,7 +3,7 @@ title: 《初步举证》：当舞台成为武器
 published: 2025-03-05
 description: "当镜头只剩一个人，情绪、语言与沉默都是武器。当现实无法给予正义，艺术就成了最锋利的发声。"
 image: ""
-tags: [视听生活]
+tags: [视听生活, 艺术脑袋]
 category: 话从哪说起
 draft: false
 ---

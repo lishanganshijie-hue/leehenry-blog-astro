@@ -3,7 +3,7 @@ title: 在撕裂的网络语境里，说话还有意义吗？
 published: 2025-09-10
 description: '理性被情绪裹挟的时代里，我尝试寻找继续表达的理由。'
 image: ''
-tags: [表达与输出, 网络, 随笔]
+tags: [创作方法论]
 category: 话从哪说起
 draft: false
 lang: ''

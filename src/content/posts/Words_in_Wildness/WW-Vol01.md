@@ -3,7 +3,7 @@ title: 个人数码资产清单小记
 published: 2025-08-25
 description: '盘点了一下目前现役的数码资产投入，以此开始，未来个人财务规划的第一步。'
 image: ''
-tags: [财务, 盘点, 数码]
+tags: [数码生活]
 category: 野语不成篇
 draft: false
 ---

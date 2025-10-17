@@ -3,7 +3,7 @@ title: 站长笔记：从笔尖到「伏枥之间」，我做了什么
 published: 2025-08-25
 description: '方便日后开发快速回滚，这里记录下博客从开发、写文到部署上线的工作流。'
 image: ''
-tags: [博客搭建, 复盘总结, 开发]
+tags: [开发日志]
 category: 推理到跑通
 draft: false
 ---

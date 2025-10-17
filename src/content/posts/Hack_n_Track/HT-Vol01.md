@@ -3,7 +3,7 @@ title: Excel 租房记账表的 4 个自动化小技巧
 published: 2025-08-20
 description: "学会 $ 的用法，就打开了一半 Excel 自动化的灵魂。面向需求，让静态账本成为自己计算、分类、高亮的帮手。"
 image: ""
-tags: ["Excel公式", "复盘总结", "办公与效率"]
+tags: [折腾记录, 财务管理]
 category: 我这样做事
 draft: false
 ---

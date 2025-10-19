@@ -1,6 +1,6 @@
 ---
 title: 漫想与杂谈丶十月志：生产力、不确定性与好奇心
-published: 2025-09-31
+published: 2025-10-19
 description: '欢迎来到我的新栏目🎉！'
 image: ''
 tags: [Logcat]

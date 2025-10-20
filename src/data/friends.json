@@ -117,7 +117,7 @@
     "category": "org"
   },
   {
-    "name": "十年之约 Forever-Blog",
+    "name": "十年之约 ForeverBlog",
     "url": "https://www.foreverblog.cn/",
     "desc": "一个人的寂寞，一群人的狂欢",
     "avatar": "/friends/FB.webp",
@@ -143,5 +143,12 @@
     "desc": "纸鹿至麓不知路，支炉制露不止漉",
     "avatar": "https://www.zhilu.site/api/avatar.png",
     "category": "online"
+  },
+  {
+    "name": "Limboy",
+    "url": "https://limboy.me/",
+    "desc": "正在努力成为一个合格的独立创作者",
+    "avatar": "/friends/LB.png",
+    "category": "stash"
   }
 ]

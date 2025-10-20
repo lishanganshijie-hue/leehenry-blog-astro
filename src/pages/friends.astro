@@ -13,15 +13,15 @@ if (!entry) {
 const { Content } = await render(entry);
 
 // 标题/描述优先取 frontmatter，没有就用默认
-const title = entry.data.title ?? "友情链接";
+const title = entry.data.title ?? "友邻";
 const description = entry.data.description ?? "互相串门～欢迎交换友链";
 
 // 枚举映射：机器可读 -> 展示文案
 const CATEGORIES = {
-  real:  { title: "🤝 知交", tip: "山水有逢，风雨同行。日常可晤的至交" },
-  online:{ title: "☁️ 云间", tip: "屏幕相隔，心意相契。同赏风月的素识" },
-  stash: { title: "🌄 远望", tip: "行旅偶遇的好站。高山仰止，遥遥致意" },
-  org:   { title: "🏛️ 同道", tip: "志趣相投之所归。聚以成社，共襄一途" },
+  real:  { title: "🤝 知交", tip: "// 日常可晤的友人" },
+  online:{ title: "☁️ 云间", tip: "// 同赏风月的素识" },
+  stash: { title: "🌄 远望", tip: "// 行旅偶遇的好站" },
+  org:   { title: "🏛️ 同道", tip: "// 志趣相投之所归" },
 } as const;
 
 type CatKey = keyof typeof CATEGORIES;

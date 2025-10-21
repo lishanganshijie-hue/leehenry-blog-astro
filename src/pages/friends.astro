@@ -6,9 +6,9 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 const entry = await getEntry("spec", "friends");
 if (!entry) {
-  throw new Error(
-    "Friends page content not found: make sure src/content/spec/friends.md exists",
-  );
+	throw new Error(
+		"Friends page content not found: make sure src/content/spec/friends.md exists",
+	);
 }
 const { Content } = await render(entry);
 
@@ -18,28 +18,30 @@ const description = entry.data.description ?? "互相串门～欢迎交换友链
 
 // 枚举映射：机器可读 -> 展示文案
 const CATEGORIES = {
-  real:  { title: "🤝 知交", tip: "// 日常可晤的友人" },
-  online:{ title: "☁️ 云间", tip: "// 同赏风月的素识" },
-  stash: { title: "🌄 远望", tip: "// 行旅偶遇的好站" },
-  org:   { title: "🏛️ 同道", tip: "// 志趣相投之所归" },
+	real: { title: "🤝 知交", tip: "// 日常可晤的友人" },
+	online: { title: "☁️ 云间", tip: "// 同赏风月的素识" },
+	stash: { title: "🌄 远望", tip: "// 行旅偶遇的好站" },
+	org: { title: "🏛️ 同道", tip: "// 志趣相投之所归" },
 } as const;
 
 type CatKey = keyof typeof CATEGORIES;
 
 // 容错：没有 category 时默认 online
-const normalized = (friends as any[]).map(f => ({
-  ...f,
-  category: (["real","online","stash","org"].includes(f?.category) ? f.category : "online") as CatKey
+const normalized = (friends as any[]).map((f) => ({
+	...f,
+	category: (["real", "online", "stash", "org"].includes(f?.category)
+		? f.category
+		: "online") as CatKey,
 }));
 
 // 分组 + 稳定顺序（按上面的映射顺序）
 const groups = (Object.keys(CATEGORIES) as CatKey[])
-  .map((k) => ({
-    key: k,
-    meta: CATEGORIES[k],
-    items: normalized.filter((f) => f.category === k)
-  }))
-  .filter(g => g.items.length > 0);
+	.map((k) => ({
+		key: k,
+		meta: CATEGORIES[k],
+		items: normalized.filter((f) => f.category === k),
+	}))
+	.filter((g) => g.items.length > 0);
 ---
 
 <MainGridLayout title={title} description={description}>
@@ -49,46 +51,46 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
       <!-- 分类段落渲染 -->
       {groups.map(({ key, meta, items }) => (
         <section id={`friends-${key}`} aria-label={meta.title} class="not-prose mt-6">
-          <!-- 分段标题（简洁含蓄） -->
-          <div class="mb-3">
-            <h2 class="text-lg font-bold text-[var(--primary)]">
+            <!-- 分段标题（简洁含蓄） -->
+            <div class="mb-3 px-8">
+            <h2 class="text-[1.2rem] font-bold text-[var(--primary)]">
               {meta.title}
               <span class="ml-2 font-normal align-middle text-base px-2 py-0.5
-                           text-[var(--btn-content)] opacity-80">
-                {meta.tip}
+                     text-[var(--btn-content)] opacity-80">
+              {meta.tip}
               </span>
             </h2>
-          </div>
+            </div>
 
-          <!-- 复用原卡片栅格与样式 -->
-          <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
+            <!-- 复用原卡片栅格与样式 -->
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 px-8">
             {items.map((f) => (
               <a
-                href={f.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  'background-color': 'var(--card-bg)',
-                  'border-color': 'var(--btn-card-bg-active)',
-                  'color': 'var(--btn-content)',
-                }}
-                class="friend-card group flex items-center gap-4 rounded-xl border p-4 transition
-                      hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
-                      active:scale-[0.98]"
+              href={f.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                'background-color': 'var(--card-bg)',
+                'border-color': 'var(--btn-card-bg-active)',
+                'color': 'var(--btn-content)',
+              }}
+              class="friend-card group flex items-center gap-4 rounded-xl border p-4 transition
+                  hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
+                  active:scale-[0.98]"
               >
-                <img
-                  src={f.avatar}
-                  alt={f.name}
-                  width="48"
-                  height="48"
-                  loading="lazy"
-                  class="h-12 w-12 rounded-full object-cover"
-                />
-                <div class="min-w-0">
-                  <div class="font-semibold truncate">{f.name}</div>
-                  <div class="text-sm truncate text-[var(--btn-content)]">{f.desc}</div>
-                  <div class="text-xs truncate text-[var(--btn-content)] opacity-50">{f.url}</div>
-                </div>
+              <img
+                src={f.avatar}
+                alt={f.name}
+                width="48"
+                height="48"
+                loading="lazy"
+                class="h-12 w-12 rounded-full object-cover"
+              />
+              <div class="min-w-0">
+                <div class="font-semibold truncate">{f.name}</div>
+                <div class="text-sm truncate text-[var(--btn-content)]">{f.desc}</div>
+                <div class="text-xs truncate text-[var(--btn-content)] opacity-50">{f.url}</div>
+              </div>
               </a>
   ))}
 </div>

@@ -1,12 +1,16 @@
 .custom-md {
-    font-size: 1.125rem;
+    font-size: 1.2rem;
+    padding: 0.5rem 2rem;  /* Only horizontal padding */
+    margin: 0 auto;
 
     h1 {
         @apply text-4xl;
+        margin-top: 2rem;
     }
 
     h2 {
         @apply text-3xl;
+        margin-top: 2rem;  /* 你可以根据需要调整这个值，比如 1.5rem 或 2rem */
     }
 
     h3 {

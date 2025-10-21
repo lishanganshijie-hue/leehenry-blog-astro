@@ -1,7 +1,11 @@
 .custom-md {
     /* font-size: 1rem; */
-    padding: 0.5rem 2rem;  /* Only horizontal padding */
+    padding: 0.5rem 3rem;  /* Only horizontal padding */
     margin: 0 auto;
+
+    p, ul, ol {
+        font-size: 1.2rem; /* 可根据需要调整数值，如1.2rem */
+    }
 
     h1 {
         @apply text-4xl;

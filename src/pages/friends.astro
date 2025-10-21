@@ -52,7 +52,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
       {groups.map(({ key, meta, items }) => (
         <section id={`friends-${key}`} aria-label={meta.title} class="not-prose mt-6">
             <!-- 分段标题（简洁含蓄） -->
-            <div class="mb-3 px-8">
+            <div class="mb-3 px-12">
             <h2 class="text-[1.2rem] font-bold text-[var(--primary)]">
               {meta.title}
               <span class="ml-2 font-normal align-middle text-base px-2 py-0.5
@@ -63,7 +63,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
             </div>
 
             <!-- 复用原卡片栅格与样式 -->
-            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 px-8">
+            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 px-12">
             {items.map((f) => (
               <a
               href={f.url}

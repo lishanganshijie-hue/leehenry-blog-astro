@@ -1,7 +1,12 @@
 .custom-md {
     /* font-size: 1rem; */
-    padding: 0.5rem 3rem;  /* Only horizontal padding */
+    padding: 0.5rem 0;  /* 移动端：无水平边距 */
     margin: 0 auto;
+    
+    /* 电脑端：添加水平边距 */
+    @media (min-width: 768px) {
+        padding: 0.5rem 3rem;
+    }
 
     p, ul, ol {
         font-size: 1.2rem; /* 可根据需要调整数值，如1.2rem */

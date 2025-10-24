@@ -3,6 +3,8 @@ import type { MarkdownHeading } from "astro";
 import Categories from "./Categories.astro";
 import Profile from "./Profile.astro";
 import Tag from "./Tags.astro";
+import TOCWidget from "./TOCWidget.astro";
+import { url } from "../../utils/url-utils";
 
 interface Props {
 	class?: string;
@@ -10,13 +12,29 @@ interface Props {
 }
 
 const className = Astro.props.class;
+const { headings = [] } = Astro.props;
+
+// 检查是否为正文页
+const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
 ---
 <div id="sidebar" class:list={[className, "w-full"]}>
+    <!-- 非正文页：显示简介卡片 -->
+    {!isPostsRoute && 
     <div class="flex flex-col w-full gap-4 mb-4">
         <Profile></Profile>
     </div>
+    }
+    
     <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
-        <Categories class="onload-animation" style="animation-delay: 150ms"></Categories>
-        <Tag class="onload-animation" style="animation-delay: 200ms"></Tag>
+        <!-- 非正文页：显示分类和标签卡片 -->
+        {!isPostsRoute && 
+        <>
+            <Categories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Categories>
+            <Tag class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Tag>
+        </>
+        }
+        
+        <!-- 正文页：只显示目录卡片 -->
+        {isPostsRoute && headings && headings.length > 0 && <TOCWidget headings={headings} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>}
     </div>
 </div>

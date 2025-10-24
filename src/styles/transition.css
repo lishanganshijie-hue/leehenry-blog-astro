@@ -28,7 +28,7 @@ html.is-animating .transition-swup-fade {
     animation-delay: 0ms
 }
 #sidebar {
-    animation-delay: 100ms
+    animation-delay: var(--content-delay)
 }
 #swup-container {
     outline: none;

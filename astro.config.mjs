@@ -38,7 +38,7 @@ export default defineConfig({
 			animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
 			// the default value `transition-` cause transition delay
 			// when the Tailwind class `transition-all` is used
-			containers: ["main", "#toc"],
+			containers: ["main", "#toc", "#sidebar"],
 			smoothScrolling: true,
 			cache: true,
 			preload: true,
@@ -73,7 +73,7 @@ export default defineConfig({
 			},
 			styleOverrides: {
 				codeBackground: "var(--codeblock-bg)",
-				borderRadius: "0.75rem",
+				borderRadius: "0rem",
 				borderColor: "none",
 				codeFontSize: "0.875rem",
 				codeFontFamily:

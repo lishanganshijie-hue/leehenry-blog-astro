@@ -6,10 +6,9 @@
     /* 电脑端：添加水平边距 */
     @media (min-width: 768px) {
         padding: 0.5rem 3rem;
-    }
-
-    p, ul, ol {
-        font-size: 1.2rem; /* 可根据需要调整数值，如1.2rem */
+        p, ul, ol {
+            font-size: 1.2rem; /* 可根据需要调整数值，如1.2rem */
+        }
     }
 
     h1 {

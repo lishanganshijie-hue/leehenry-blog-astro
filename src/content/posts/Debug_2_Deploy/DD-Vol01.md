@@ -46,21 +46,37 @@ deploy.bat
 
 ### 1. 初始化环境（仅首次或换电脑时）
 
-- 先安装好 [Node.js](https://nodejs.org/zh-cn) 的 **LTS 版本**（建议 `20.x`）；
-- 安装好 Node.js 后，使用 `pnpm`（替代 npm，速度更快，磁盘占用更少）。如果未安装，先运行：
+- 先安装好 [Node.js](https://nodejs.org/zh-cn) 的 **LTS 版本**；
+
+  1. Mac 可使用 **Homebrew**
+
+     ```bash
+     brew install node  # 安装最新 LTS 版本
+     # 或指定版本：brew install node@20
+     ```
+
+  2. Win 可使用 **Chocolatey** （若无该包管理器，建议在 [Node.js 官网](https://nodejs.org/zh-cn) 下载安装）
+
+     ```bash
+     choco install nodejs-lts  # 安装 LTS 版本
+     ```
+
+  安装后在终端 / 命令提示符中输入 `node -v` 和 `npm -v`，输出版本号即代表成功安装。
+
+- 安装 `pnpm`，相比 `npm` 速度更快，磁盘占用更少。如果未安装，先运行：
 
 ```powershell
 npm install -g pnpm
 ```
 
-进入项目目录并安装依赖：
+- 进入项目目录并安装依赖：
 
 ```powershell
 cd YOUR\PATH\TO\leehenry-blog
 pnpm install
 ```
 
-结果：生成 `node_modules/` 文件夹，包含 Astro、Tailwind 等依赖。
+- 运行后会生成 `node_modules/` 文件夹，包含 Astro、Tailwind 等依赖。
 
 ### 2. 启动本地开发
 
@@ -68,8 +84,7 @@ pnpm install
 pnpm dev
 ```
 
-- 启动 Vite 开发服务器，浏览器访问 [http://localhost:4321](http://localhost:4321/)。
-- 修改文章/样式/配置文件后页面会自动热更新。
+- 启动 Vite 开发服务器，浏览器访问 [http://localhost:4321](http://localhost:4321/)；修改文章/样式/配置文件后页面会自动热更新。
 
 ### 3. 写文章 / 改配置
 
@@ -183,24 +198,6 @@ git push
     git pull
     ```
 
- 
-
-  > [!TIP]
-  >
-  > 远程分支有更新，但本地这些文件有修改，如果直接 `git pull` 会导致本地改动被覆盖，Git 报错：
-  >
-  > ```powershell
-  > error: Your local changes to the following files would be overwritten by merge:
-  > ......
-  > Please commit your changes or stash them before you merge.
-  > ```
-  >
-  > **若放弃本地改动**，直接用远程仓库覆盖，需要先执行：
-  >
-  > ```powershell
-  > git reset --hard HEAD
-  > ```
-
 #### 4.3 Commit type 参考
 
 | 类型     | 用途说明               | 示例                            |
@@ -222,7 +219,7 @@ git checkout main
 git merge upstream/main
 ```
 
-结果：将模板作者的更新合并到你的仓库，解决冲突后即可使用。
+结果：将模板作者的更新合并到仓库，解决冲突后即可使用。
 
 ### 5. 构建网站（生成静态文件）
 
@@ -335,18 +332,7 @@ git fetch origin && git reset --hard origin/main
 
 #### 2.3 冲突解决流程
 
-冲突文件会被标记：
-
-```python
-def hello():
-<<<<<<< HEAD
-    print("Hello from A")
-=======
-    print("Hello from B")
->>>>>>> origin/main
-```
-
-需要手动处理对本地和远端的保留策略。
+冲突文件会在报错中被标记，需要手动处理对本地和远端的保留策略。
 
 解决后执行：
 

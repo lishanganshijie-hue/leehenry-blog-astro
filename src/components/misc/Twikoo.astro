@@ -1,0 +1,82 @@
+---
+import { siteConfig } from "../../config";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const twikooConfig = siteConfig.twikoo;
+---
+
+{twikooConfig?.enable && (
+  <div class:list={["card-base rounded-[var(--radius-large)] overflow-hidden", className]}>
+    <div class="px-6 md:px-9 py-6">
+      <div id="twikoo"></div>
+    </div>
+  </div>
+)}
+
+<script>
+  import { siteConfig } from "../../config";
+
+  const twikooConfig = siteConfig.twikoo;
+  
+  if (twikooConfig?.enable) {
+    let isInitialized = false;
+    
+    function initTwikoo() {
+      const container = document.getElementById('twikoo');
+      
+      // Check if container exists
+      if (!container) {
+        console.log('Twikoo container not found');
+        return;
+      }
+      
+      // Check if Twikoo script is loaded
+      if (typeof window.twikoo === 'undefined') {
+        setTimeout(initTwikoo, 100);
+        return;
+      }
+
+      // Destroy previous instance if exists
+      if (isInitialized && window.twikoo.destroy) {
+        window.twikoo.destroy();
+      }
+
+      // Clear container
+      container.innerHTML = '';
+
+      // Initialize Twikoo
+      window.twikoo.init({
+        envId: twikooConfig.envId,
+        el: '#twikoo',
+        path: window.location.pathname,
+        lang: 'zh-CN',
+      });
+      
+      isInitialized = true;
+      console.log('Twikoo initialized for:', window.location.pathname);
+    }
+
+    // Setup function to register Swup hooks
+    const setup = () => {
+      // Initialize on first load
+      initTwikoo();
+      
+      // Re-initialize on page view (after Swup navigation)
+      window.swup.hooks.on('page:view', () => {
+        console.log('Page view detected, reinitializing Twikoo...');
+        setTimeout(initTwikoo, 100);
+      });
+    };
+
+    // Initialize when Swup is ready
+    if (window.swup) {
+      setup();
+    } else {
+      document.addEventListener('swup:enable', setup);
+    }
+  }
+</script>

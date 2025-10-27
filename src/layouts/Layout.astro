@@ -147,6 +147,9 @@ const bannerOffset =
 
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
 
+		<!-- Twikoo Script - Load from CDN -->
+		<script src="https://cdn.staticfile.net/twikoo/1.6.39/twikoo.all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
 		  data-overlayscrollbars-initialize

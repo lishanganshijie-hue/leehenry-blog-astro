@@ -34,6 +34,10 @@ export type SiteConfig = {
 		enable: boolean;
 		depth: 1 | 2 | 3;
 	};
+	twikoo: {
+		enable: boolean;
+		envId: string;
+	};
 
 	favicon: Favicon[];
 };

@@ -1,0 +1,38 @@
+---
+import { getEntry, render } from "astro:content";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import Twikoo from "@components/misc/Twikoo.astro";
+
+const entry = await getEntry("spec", "guestbook");
+if (!entry) {
+	throw new Error(
+		"Guestbook page content not found: make sure src/content/spec/guestbook.md exists",
+	);
+}
+const { Content } = await render(entry);
+
+// 标题/描述优先取 frontmatter，没有就用默认
+const title = entry.data.title ?? "留言板";
+const description = entry.data.description ?? "欢迎在这里留下您的足迹和想法";
+---
+
+<MainGridLayout title={title} description={description}>
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 px-9 py-6 relative w-full">
+      
+      <!-- Markdown 正文 -->
+      <Markdown class="mt-6">
+        <Content />
+      </Markdown>
+
+      <!-- 评论区分隔线 -->
+      <div class="my-8 border-t border-[var(--line-divider)]"></div>
+
+      <!-- Twikoo 评论组件 -->
+      <div class="mt-6">
+        <Twikoo class="onload-animation" path="/guestbook/"></Twikoo>
+      </div>
+    </div>
+  </div>
+</MainGridLayout>

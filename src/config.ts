@@ -29,6 +29,10 @@ export const siteConfig: SiteConfig = {
 		enable: true, // Display the table of contents on the right side of the post
 		depth: 2, // Maximum heading depth to show in the table, from 1 to 3
 	},
+	twikoo: {
+		enable: true, // Enable Twikoo comment system
+		envId: 'http://39.104.64.173:8080', // Replace with your Vercel deployment URL
+	},
 	favicon: [
 		// Leave this array empty to use the default favicon
 		{
@@ -58,6 +62,7 @@ export const navBarConfig = {
 		{ name: "初见", url: "/", icon: "fa6-solid:house" },
 		{ name: "旧简", url: "/archive/", icon: "fa6-solid:box-archive" },
 		{ name: "一隅", url: "/about/", icon: "fa6-solid:user" },
+		{ name: "心留", url: "/guestbook/", icon: "fa6-solid:message" },
 		{ name: "友邻", url: "/friends/", icon: "fa6-solid:link" },
 		{
 			name: "开往",

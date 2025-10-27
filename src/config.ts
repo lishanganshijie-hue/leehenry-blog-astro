@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
 	},
 	twikoo: {
 		enable: true, // Enable Twikoo comment system
-		envId: 'http://39.104.64.173:8080', // Replace with your Vercel deployment URL
+		envId: 'https://twikoo.leehenry.top/', // Replace with your Vercel deployment URL
 	},
 	favicon: [
 		// Leave this array empty to use the default favicon

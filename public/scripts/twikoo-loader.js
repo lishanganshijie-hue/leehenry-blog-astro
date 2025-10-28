@@ -75,8 +75,9 @@
 				console.log('[TwikooLoader] 开始加载 Twikoo 脚本');
 				window.twikooLoading = true;
 				const script = document.createElement("script");
+				// 使用 jsDelivr CDN，更稳定可靠
 				script.src =
-					"https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js";
+					"https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js";
 				script.onload = () => {
 					console.log('[TwikooLoader] Twikoo 脚本加载成功');
 					window.twikooLoaded = true;

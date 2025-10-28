@@ -88,13 +88,26 @@ const twikooConfig = siteConfig.twikoo;
         // https://twikoo.js.org/frontend.html CDN指南
         console.log('[Twikoo] 开始加载 twikoo.min.js...');
         const script = document.createElement('script');
-        script.src = 'https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js';
+        // 使用 jsDelivr CDN，更稳定可靠
+        script.src = 'https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js';
         script.onload = function() {
             console.log('[Twikoo] twikoo.min.js 加载成功');
             initTwikoo();
         };
         script.onerror = function(error) {
             console.error('[Twikoo] twikoo.min.js 加载失败:', error);
+            console.error('[Twikoo] 尝试使用备用 CDN...');
+            // 备用 CDN：unpkg
+            const fallbackScript = document.createElement('script');
+            fallbackScript.src = 'https://unpkg.com/twikoo@1.6.44/dist/twikoo.all.min.js';
+            fallbackScript.onload = function() {
+                console.log('[Twikoo] 备用 CDN 加载成功');
+                initTwikoo();
+            };
+            fallbackScript.onerror = function() {
+                console.error('[Twikoo] 所有 CDN 都加载失败，请检查网络或考虑自托管');
+            };
+            document.head.appendChild(fallbackScript);
         };
         document.head.appendChild(script);
         console.log('[Twikoo] script 标签已添加到页面');

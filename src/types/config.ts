@@ -37,6 +37,8 @@ export type SiteConfig = {
 	twikoo: {
 		enable: boolean;
 		envId: string;
+		region?: string;
+		lang?: string;
 	};
 
 	favicon: Favicon[];

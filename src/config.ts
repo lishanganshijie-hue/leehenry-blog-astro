@@ -32,6 +32,8 @@ export const siteConfig: SiteConfig = {
 	twikoo: {
 		enable: true, // Enable Twikoo comment system
 		envId: 'https://twikoo.leehenry.top/', // Replace with your Vercel deployment URL
+		region: '', // Optional: Twikoo region (留空即可)
+		lang: 'zh-CN', // Language for Twikoo
 	},
 	favicon: [
 		// Leave this array empty to use the default favicon

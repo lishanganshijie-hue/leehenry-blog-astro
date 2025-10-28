@@ -88,8 +88,8 @@ const twikooConfig = siteConfig.twikoo;
         // https://twikoo.js.org/frontend.html CDN指南
         console.log('[Twikoo] 开始加载 twikoo.min.js...');
         const script = document.createElement('script');
-        // 使用 jsDelivr CDN，更稳定可靠
-        script.src = 'https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js';
+        // 使用 unpkg CDN，第一优先级
+        script.src = 'https://unpkg.com/twikoo@1.6.44/dist/twikoo.all.min.js';
         script.onload = function() {
             console.log('[Twikoo] twikoo.min.js 加载成功');
             initTwikoo();
@@ -97,9 +97,9 @@ const twikooConfig = siteConfig.twikoo;
         script.onerror = function(error) {
             console.error('[Twikoo] twikoo.min.js 加载失败:', error);
             console.error('[Twikoo] 尝试使用备用 CDN...');
-            // 备用 CDN：unpkg
+            // 备用 CDN：jsDelivr
             const fallbackScript = document.createElement('script');
-            fallbackScript.src = 'https://unpkg.com/twikoo@1.6.44/dist/twikoo.all.min.js';
+            fallbackScript.src = 'https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js';
             fallbackScript.onload = function() {
                 console.log('[Twikoo] 备用 CDN 加载成功');
                 initTwikoo();

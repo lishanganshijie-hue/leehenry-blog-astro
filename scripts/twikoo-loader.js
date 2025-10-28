@@ -75,9 +75,9 @@
 				console.log('[TwikooLoader] 开始加载 Twikoo 脚本');
 				window.twikooLoading = true;
 				const script = document.createElement("script");
-				// 使用 jsDelivr CDN，更稳定可靠
+				// 使用 unpkg CDN，第一优先级
 				script.src =
-					"https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js";
+					"https://unpkg.com/twikoo@1.6.44/dist/twikoo.all.min.js";
 				script.onload = () => {
 					console.log('[TwikooLoader] Twikoo 脚本加载成功');
 					window.twikooLoaded = true;

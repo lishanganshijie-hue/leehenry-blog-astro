@@ -10,54 +10,27 @@ const twikooConfig = siteConfig.twikoo;
 ---
 
 {twikooConfig?.enable && (
-<div class:list={["card-base rounded-[var(--radius-large)] overflow-hidden z-10 relative w-full mb-4 text-black/80 dark:text-white/80", className]} style="overflow: unset">
-    <div class="px-6 md:px-9 py-6">
-        <div id="tcomment" class="twikoo-comment"></div>
-    </div>
+<div class:list={["card-base rounded-[var(--radius-large)] overflow-hidden z-10 px-6 md:px-9 pt-6 pb-4 relative w-full mb-4 text-black/80 dark:text-white/80", className]} style="overflow: unset">
+    <div id="tcomment" class="twikoo-comment"></div>
     <script is:inline define:vars={{ twikooConfig }}>
-        console.log('[Twikoo] 开始初始化...');
-        console.log('[Twikoo] 配置信息:', twikooConfig);
-        console.log('[Twikoo] 当前路径:', location.pathname);
-        
         function initTwikoo() {
-            console.log('[Twikoo] initTwikoo 函数被调用');
-            console.log('[Twikoo] twikoo 对象存在:', !!window.twikoo);
-            
-            if (!window.twikoo) {
-                console.error('[Twikoo] twikoo 对象未定义！');
-                return;
-            }
-            
-            const commentEl = document.getElementById('tcomment');
-            console.log('[Twikoo] #tcomment 元素:', commentEl);
-            
-            if (!commentEl) {
-                console.error('[Twikoo] #tcomment 元素不存在！');
-                return;
-            }
-            
-            try {
-                console.log('[Twikoo] 调用 twikoo.init...');
-                twikoo.init({
-                    envId: twikooConfig.envId,
-                    el: '#tcomment',
-                    region: twikooConfig.region || '',
-                    path: location.pathname,
-                    lang: twikooConfig.lang || 'zh-CN',
-                    onCommentLoaded: function() {
-                        console.log('[Twikoo] 评论加载成功！');
-                        if (window.createPhotoSwipe){
-                            window.createPhotoSwipe()
-                        }
+            twikoo.init({
+                envId: twikooConfig.envId,
+                el: '#tcomment',
+                region: twikooConfig.region || '',
+                path: location.pathname,
+                lang: twikooConfig.lang || 'zh-CN',
+                onCommentLoaded: function() {
+                    console.log('Twikoo comments loaded successfully');
+                    if (window.createPhotoSwipe){
+                        window.createPhotoSwipe()
                     }
-                });
-                console.log('[Twikoo] twikoo.init 调用完成');
-            } catch (error) {
-                console.error('[Twikoo] 初始化错误:', error);
-            }
-            
+                }
+            });
             // 防止 twikoo 内部 a 标签 href="#" 导致页面跳到顶部
-            const commentContainer = document.getElementById("tcomment");
+            // todo: 不知道为啥会导致页面跳到顶部，暂时先用这种方式解决
+            // Prevent Twikoo's internal <a href="#"> tags from causing the page to scroll to the top.
+            const commentContainer = document.getElementById("twikoo");
             if (commentContainer) {
                 commentContainer.addEventListener("click", function (e) {
                     const selector = 'a[href="#"], svg, [class*="tk-action-"]';
@@ -72,45 +45,66 @@ const twikooConfig = siteConfig.twikoo;
                 // 动态创建样式并添加到页面
                 const style = document.createElement('style');
                 style.textContent = `
-                    .tk-content img {
-                        cursor: zoom-in;
-                        transition: opacity 0.2s ease;
-                    }
-                    .tk-content img:hover {
-                        opacity: 0.9;
-                    }
-                `;
+                                            .tk-content img {
+                                                cursor: zoom-in;
+                                                transition: opacity 0.2s ease;
+                                            }
+                                            .tk-content img:hover {
+                                                opacity: 0.9;
+                                            }
+                                         `;
                 document.head.appendChild(style);
-                console.log("[Twikoo] 动态样式已添加到页面");
+                console.log("动态样式已添加到页面");
             }
         }
-        
         // https://twikoo.js.org/frontend.html CDN指南
-        console.log('[Twikoo] 开始加载 twikoo.min.js...');
-        const script = document.createElement('script');
-        // 使用 unpkg CDN，第一优先级
-        script.src = 'https://unpkg.com/twikoo@1.6.44/dist/twikoo.all.min.js';
-        script.onload = function() {
-            console.log('[Twikoo] twikoo.min.js 加载成功');
-            initTwikoo();
-        };
-        script.onerror = function(error) {
-            console.error('[Twikoo] twikoo.min.js 加载失败:', error);
-            console.error('[Twikoo] 尝试使用备用 CDN...');
-            // 备用 CDN：jsDelivr
-            const fallbackScript = document.createElement('script');
-            fallbackScript.src = 'https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js';
-            fallbackScript.onload = function() {
-                console.log('[Twikoo] 备用 CDN 加载成功');
+        // 多CDN源级联加载策略
+        const cdnSources = [
+            { name: 'unpkg (主CDN)', url: 'https://unpkg.com/twikoo@1.6.44/dist/twikoo.all.min.js' },
+            { name: 'npmmirror (中国)', url: 'https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js' },
+            { name: 'zstatic (中国)', url: 'https://s4.zstatic.net/npm/twikoo@1.6.44/dist/twikoo.min.js' },
+            { name: 'jsDelivr (全球)', url: 'https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.min.js' },
+            { name: 'zstatic备用', url: 'https://s4.zstatic.net/ajax/libs/twikoo/1.6.41/twikoo.min.js' },
+            { name: 'baomitu备用', url: 'https://lib.baomitu.com/twikoo/1.6.39/twikoo.min.js' }
+        ];
+        
+        let currentCdnIndex = 0;
+        
+        function loadTwikooScript() {
+            if (currentCdnIndex >= cdnSources.length) {
+                console.error('[Twikoo] 所有 CDN 源均加载失败，请检查网络连接');
+                return;
+            }
+            
+            const cdn = cdnSources[currentCdnIndex];
+            console.log('[Twikoo] 尝试加载 CDN [' + (currentCdnIndex + 1) + '/' + cdnSources.length + ']: ' + cdn.name);
+            console.log('[Twikoo] CDN URL: ' + cdn.url);
+            
+            const script = document.createElement('script');
+            script.src = cdn.url;
+            
+            script.onload = function() {
+                console.log('[Twikoo] ✓ CDN 加载成功: ' + cdn.name);
                 initTwikoo();
             };
-            fallbackScript.onerror = function() {
-                console.error('[Twikoo] 所有 CDN 都加载失败，请检查网络或考虑自托管');
+            
+            script.onerror = function(error) {
+                console.warn('[Twikoo] ✗ CDN 加载失败: ' + cdn.name);
+                currentCdnIndex++;
+                if (currentCdnIndex < cdnSources.length) {
+                    console.log('[Twikoo] 切换到下一个 CDN 源...');
+                    loadTwikooScript();
+                } else {
+                    console.error('[Twikoo] 所有 CDN 源均已尝试，加载失败');
+                }
             };
-            document.head.appendChild(fallbackScript);
-        };
-        document.head.appendChild(script);
-        console.log('[Twikoo] script 标签已添加到页面');
+            
+            document.head.appendChild(script);
+        }
+        
+        // 开始加载
+        console.log('[Twikoo] 开始加载 Twikoo 脚本...');
+        loadTwikooScript();
     </script>
 </div>
 )}

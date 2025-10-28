@@ -64,7 +64,7 @@ export const navBarConfig = {
 		{ name: "初见", url: "/", icon: "fa6-solid:house" },
 		{ name: "旧简", url: "/archive/", icon: "fa6-solid:box-archive" },
 		{ name: "一隅", url: "/about/", icon: "fa6-solid:user" },
-		{ name: "心留", url: "/guestbook/", icon: "fa6-solid:message" },
+		{ name: "留心", url: "/guestbook/", icon: "fa6-solid:message" },
 		{ name: "友邻", url: "/friends/", icon: "fa6-solid:link" },
 		{
 			name: "开往",

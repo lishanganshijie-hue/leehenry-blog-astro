@@ -15,20 +15,47 @@ const twikooConfig = siteConfig.twikoo;
         <div id="tcomment" class="twikoo-comment"></div>
     </div>
     <script is:inline define:vars={{ twikooConfig }}>
+        console.log('[Twikoo] 开始初始化...');
+        console.log('[Twikoo] 配置信息:', twikooConfig);
+        console.log('[Twikoo] 当前路径:', location.pathname);
+        
         function initTwikoo() {
-            twikoo.init({
-                envId: twikooConfig.envId,
-                el: '#tcomment',
-                region: twikooConfig.region || '',
-                path: location.pathname,
-                lang: twikooConfig.lang || 'zh-CN',
-                onCommentLoaded: function() {
-                    console.log('Twikoo comments loaded successfully');
-                    if (window.createPhotoSwipe){
-                        window.createPhotoSwipe()
+            console.log('[Twikoo] initTwikoo 函数被调用');
+            console.log('[Twikoo] twikoo 对象存在:', !!window.twikoo);
+            
+            if (!window.twikoo) {
+                console.error('[Twikoo] twikoo 对象未定义！');
+                return;
+            }
+            
+            const commentEl = document.getElementById('tcomment');
+            console.log('[Twikoo] #tcomment 元素:', commentEl);
+            
+            if (!commentEl) {
+                console.error('[Twikoo] #tcomment 元素不存在！');
+                return;
+            }
+            
+            try {
+                console.log('[Twikoo] 调用 twikoo.init...');
+                twikoo.init({
+                    envId: twikooConfig.envId,
+                    el: '#tcomment',
+                    region: twikooConfig.region || '',
+                    path: location.pathname,
+                    lang: twikooConfig.lang || 'zh-CN',
+                    onCommentLoaded: function() {
+                        console.log('[Twikoo] 评论加载成功！');
+                        if (window.createPhotoSwipe){
+                            window.createPhotoSwipe()
+                        }
                     }
-                }
-            });
+                });
+                console.log('[Twikoo] twikoo.init 调用完成');
+            } catch (error) {
+                console.error('[Twikoo] 初始化错误:', error);
+            }
+            
             // 防止 twikoo 内部 a 标签 href="#" 导致页面跳到顶部
             const commentContainer = document.getElementById("tcomment");
             if (commentContainer) {
@@ -54,16 +81,23 @@ const twikooConfig = siteConfig.twikoo;
                     }
                 `;
                 document.head.appendChild(style);
-                console.log("动态样式已添加到页面");
+                console.log("[Twikoo] 动态样式已添加到页面");
             }
         }
+        
         // https://twikoo.js.org/frontend.html CDN指南
+        console.log('[Twikoo] 开始加载 twikoo.min.js...');
         const script = document.createElement('script');
-        script.src = 'https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js'
+        script.src = 'https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js';
         script.onload = function() {
+            console.log('[Twikoo] twikoo.min.js 加载成功');
             initTwikoo();
         };
+        script.onerror = function(error) {
+            console.error('[Twikoo] twikoo.min.js 加载失败:', error);
+        };
         document.head.appendChild(script);
+        console.log('[Twikoo] script 标签已添加到页面');
     </script>
 </div>
 )}

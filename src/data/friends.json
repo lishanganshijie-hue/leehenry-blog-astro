@@ -32,7 +32,8 @@
     "url": "https://axi404.top",
     "desc": "一只可爱小猫",
     "avatar": "/friends/Axi.png",
-    "category": "real"
+    "category": "real",
+    "star": true
   },
 {
     "name": "JrHimself",
@@ -75,7 +76,8 @@
     "url": "https://ttio.cc/",
     "desc": "于记忆之川，泛思绪之舟",
     "avatar": "/friends/jxpl.png",
-    "category": "stash"
+    "category": "stash",
+    "star": true
   },
 
   {
@@ -91,7 +93,8 @@
     "url": "https://www.geedea.pro/",
     "desc": "这里只有真情流露和赤裸的思考",
     "avatar": "/friends/geed.webp",
-    "category": "stash"
+    "category": "stash",
+    "star": true
   },
 
   {
@@ -135,14 +138,16 @@
     "url": "https://onojyun.com/",
     "desc": "凡真实的，必会相遇",
     "avatar": "/friends/mobius.jpg",
-    "category": "stash"
+    "category": "stash",
+    "star": true
   },
   {
     "name": "纸鹿摸鱼处",
     "url": "https://blog.zhilu.site/",
     "desc": "纸鹿至麓不知路，支炉制露不止漉",
     "avatar": "https://www.zhilu.site/api/avatar.png",
-    "category": "online"
+    "category": "online",
+    "star": true
   },
   {
     "name": "Limboy",

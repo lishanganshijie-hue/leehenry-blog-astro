@@ -34,12 +34,19 @@ const normalized = (friends as any[]).map((f) => ({
 		: "online") as CatKey,
 }));
 
-// 分组 + 稳定顺序（按上面的映射顺序）
+// 分组 + 稳定顺序（按上面的映射顺序），star 站点置顶
 const groups = (Object.keys(CATEGORIES) as CatKey[])
 	.map((k) => ({
 		key: k,
 		meta: CATEGORIES[k],
-		items: normalized.filter((f) => f.category === k),
+		items: normalized
+			.filter((f) => f.category === k)
+			.sort((a, b) => {
+				// star 为 true 的排在前面
+				if (a.star && !b.star) return -1;
+				if (!a.star && b.star) return 1;
+				return 0;
+			}),
 	}))
 	.filter((g) => g.items.length > 0);
 ---
@@ -76,8 +83,16 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
               }}
               class="friend-card group flex items-center gap-4 rounded-xl border p-4 transition
                   hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
-                  active:scale-[0.98]"
+                  active:scale-[0.98] relative overflow-hidden"
               >
+              {f.star && (
+                <>
+                  <div class="star-badge"></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="star-icon">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </>
+              )}
               <img
                 src={f.avatar}
                 alt={f.name}
@@ -104,3 +119,29 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
     </div>
   </div>
 </MainGridLayout>
+
+<style>
+  .star-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 36px 36px 0;
+    border-color: transparent var(--star-bg) transparent transparent;
+    z-index: 1;
+  }
+
+  .star-icon {
+    fill: var(--star-content);
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 15px;
+    height: 15px;
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: 2;
+  }
+</style>

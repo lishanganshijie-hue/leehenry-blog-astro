@@ -109,3 +109,25 @@ export type BlogPostData = {
 export type ExpressiveCodeConfig = {
 	theme: string;
 };
+
+export type TitleSplitConfig = {
+	enable: boolean; // 是否启用标题分割功能
+	opacity: number; // 后半部分的透明度 (0-1)
+	// 首页特殊样式配置
+	homePage: {
+		showSuffix: boolean; // 是否显示副标题（后半部分）
+		showOnHover: boolean; // 鼠标悬停时显示副标题
+		hideSeparator: boolean; // 是否隐藏冒号
+		suffixScale: number; // 后半部分的字体大小缩放比例 (0-1)
+	};
+	// 正文页特殊样式配置
+	postPage: {
+		suffixNewLine: boolean; // 后半部分是否换行显示
+		suffixScale: number; // 后半部分的字体大小缩放比例 (0-1)
+	};
+};
+
+export type PostMetaConfig = {
+	showWordCount: boolean; // 是否显示字数统计
+	showReadTime: boolean; // 是否显示阅读时间
+};

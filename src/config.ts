@@ -2,8 +2,10 @@ import type {
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
+	PostMetaConfig,
 	ProfileConfig,
 	SiteConfig,
+	TitleSplitConfig,
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
@@ -130,4 +132,26 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+
+export const titleSplitConfig: TitleSplitConfig = {
+	enable: true, // 启用标题分割功能（将"AAA：BBBBB"格式的标题，冒号后部分设为细体+半透明）
+	opacity: 0.8, // 后半部分的透明度，0.8 表示 80% 透明度
+	// 首页特殊样式配置
+	homePage: {
+		showSuffix: false, // 不显示副标题（后半部分）
+		showOnHover: true, // 鼠标悬停时显示副标题
+		hideSeparator: true, // 隐藏冒号
+		suffixScale: 0.7, // 后半部分字体大小为原来的 80%
+	},
+	// 正文页特殊样式配置
+	postPage: {
+		suffixNewLine: true, // 后半部分换行显示
+		suffixScale: 0.7, // 后半部分字体大小为原来的 80%
+	},
+};
+
+export const postMetaConfig: PostMetaConfig = {
+	showWordCount: false, // 不显示字数统计
+	showReadTime: false, // 不显示阅读时间
 };

@@ -5,6 +5,8 @@ import { Icon } from "astro-icon/components";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getDir } from "../utils/url-utils";
+import { splitTitle } from "../utils/title-utils";
+import { titleSplitConfig } from "../config";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
 
@@ -41,6 +43,15 @@ const hasCover = image !== undefined && image !== null && image !== "";
 const coverWidth = "28%";
 
 const { remarkPluginFrontmatter } = await entry.render();
+
+// 分割标题以支持细体+半透明显示
+const titleParts = titleSplitConfig.enable ? splitTitle(title) : null;
+const suffixOpacity = titleSplitConfig.opacity;
+// 首页特殊样式配置
+const showSuffix = titleSplitConfig.homePage.showSuffix;
+const showOnHover = titleSplitConfig.homePage.showOnHover;
+const hideSeparator = titleSplitConfig.homePage.hideSeparator;
+const suffixScale = titleSplitConfig.homePage.suffixScale;
 ---
 <div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
     <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 pb-6 relative", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
@@ -51,7 +62,20 @@ const { remarkPluginFrontmatter } = await entry.render();
         before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
         before:absolute before:top-[35px] before:left-[18px] before:hidden md:before:block
         ">
-            {title}
+            {titleParts ? (
+                <>
+                    <span class="font-bold">{titleParts.prefix}</span>
+                    {(showSuffix || showOnHover) && (
+                        <>
+                            {!hideSeparator && <span class="font-bold title-separator transition-opacity duration-300" class:list={[{"opacity-0": !showSuffix && showOnHover}]}>{titleParts.separator}</span>}
+                            {" "}
+                            <span class="font-normal inline-block title-suffix transition-opacity duration-300" class:list={[{"opacity-0": !showSuffix && showOnHover}]} style={`opacity: ${showSuffix ? suffixOpacity : 0}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
+                        </>
+                    )}
+                </>
+            ) : (
+                title
+            )}
             <Icon class="inline text-[2rem] text-[var(--primary)] md:hidden translate-y-0.5 absolute" name="material-symbols:chevron-right-rounded" ></Icon>
             <Icon class="text-[var(--primary)] text-[2rem] transition hidden md:inline absolute translate-y-0.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0" name="material-symbols:chevron-right-rounded"></Icon>
         </a>
@@ -106,5 +130,11 @@ const { remarkPluginFrontmatter } = await entry.render();
 </div>
 <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 md:hidden"></div>
 
-<style define:vars={{coverWidth}}>
+<style define:vars={{coverWidth, suffixOpacity}}>
+    .group:hover .title-suffix {
+        opacity: var(--suffixOpacity) !important;
+    }
+    .group:hover .title-separator {
+        opacity: 1 !important;
+    }
 </style>

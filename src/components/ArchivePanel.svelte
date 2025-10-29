@@ -4,6 +4,8 @@ import { onMount } from "svelte";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { getPostUrlBySlug } from "../utils/url-utils";
+import { splitTitle } from "../utils/title-utils";
+import { titleSplitConfig } from "../config";
 
 export let tags: string[];
 export let categories: string[];
@@ -133,7 +135,12 @@ onMount(async () => {
                      group-hover:translate-x-1 transition-all group-hover:text-[var(--primary)]
                      text-75 pr-8 whitespace-nowrap overflow-ellipsis overflow-hidden"
                         >
-                            {post.data.title}
+                            {#if titleSplitConfig.enable && splitTitle(post.data.title)}
+                                {@const parts = splitTitle(post.data.title)}
+                                <span class="font-bold">{parts.prefix}</span><span class="font-bold">{parts.separator}</span><span class="font-normal" style="opacity: {titleSplitConfig.opacity}">{parts.suffix}</span>
+                            {:else}
+                                {post.data.title}
+                            {/if}
                         </div>
 
                         <!-- tag list -->

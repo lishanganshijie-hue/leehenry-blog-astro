@@ -66,11 +66,11 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
                 <>
                     <span class="font-bold">{titleParts.prefix}</span>
                     {(showSuffix || showOnHover) && (
-                        <>
-                            {!hideSeparator && <span class="font-bold title-separator transition-opacity duration-300" class:list={[{"opacity-0": !showSuffix && showOnHover}]}>{titleParts.separator}</span>}
+                        <span class="inline-block align-top title-suffix-wrapper transition-all duration-300 overflow-hidden" class:list={[{"max-w-0 opacity-0": !showSuffix && showOnHover}]} style={`max-width: ${showSuffix ? '100rem' : '0'}; opacity: ${showSuffix ? 1 : 0};`}>
+                            {!hideSeparator && <span class="font-bold whitespace-nowrap">{titleParts.separator}</span>}
                             {" "}
-                            <span class="font-normal inline-block title-suffix transition-opacity duration-300" class:list={[{"opacity-0": !showSuffix && showOnHover}]} style={`opacity: ${showSuffix ? suffixOpacity : 0}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
-                        </>
+                            <span class="font-normal inline-block whitespace-nowrap" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
+                        </span>
                     )}
                 </>
             ) : (
@@ -130,11 +130,9 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
 </div>
 <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 md:hidden"></div>
 
-<style define:vars={{coverWidth, suffixOpacity}}>
-    .group:hover .title-suffix {
-        opacity: var(--suffixOpacity) !important;
-    }
-    .group:hover .title-separator {
+<style define:vars={{coverWidth}}>
+    .group:hover .title-suffix-wrapper {
+        max-width: 100rem !important;
         opacity: 1 !important;
     }
 </style>

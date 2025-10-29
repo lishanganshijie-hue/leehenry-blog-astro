@@ -35,6 +35,6 @@ const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
         }
         
         <!-- 正文页：只显示目录卡片 -->
-        {isPostsRoute && headings && headings.length > 0 && <TOCWidget headings={headings} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>}
+        {isPostsRoute && <TOCWidget headings={headings} class="onload-animation" style="animation-delay: calc(var(--content-delay))"></TOCWidget>}
     </div>
 </div>

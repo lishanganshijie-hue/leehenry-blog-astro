@@ -140,7 +140,7 @@ export const titleSplitConfig: TitleSplitConfig = {
 	// 首页特殊样式配置
 	homePage: {
 		showSuffix: false, // 不显示副标题（后半部分）
-		showOnHover: true, // 鼠标悬停时显示副标题
+		showOnHover: false, // 鼠标悬停时显示副标题
 		hideSeparator: true, // 隐藏冒号
 		suffixScale: 0.7, // 后半部分字体大小为原来的 80%
 	},

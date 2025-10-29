@@ -17,6 +17,7 @@ export const ko: Translation = {
 	[Key.untitled]: "제목 없음",
 	[Key.uncategorized]: "분류되지 않음",
 	[Key.noTags]: "태그 없음",
+	[Key.noToc]: "이 게시물에는 제목이 없습니다",
 
 	[Key.wordCount]: "단어",
 	[Key.wordsCount]: "단어",

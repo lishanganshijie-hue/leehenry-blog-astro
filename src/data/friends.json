@@ -155,5 +155,42 @@
     "desc": "正在努力成为一个合格的独立创作者",
     "avatar": "/friends/LB.png",
     "category": "stash"
+  },
+  {
+    "name": "Owen",
+    "url": "https://www.owenyoung.com/",
+    "desc": "追求注意力自由而不是财富自由",
+    "avatar": "/friends/owen.jpg",
+    "category": "stash"
+  },
+  {
+    "name": "SkyWT",
+    "url": "https://skywt.cn/",
+    "desc": "理想主義。我還年輕。",
+    "avatar": "https://upload.storeweb.cn/upload/site/logo/1376/8aa06adad607fb7aceb90b439c8f9b92.jpg",
+    "category": "stash",
+    "star": true
+  },
+  {
+    "name": "谢谢所有的鱼",
+    "url": "https://gregueria.icu/",
+    "desc": "您首页的奶牛猫图片转发大使",
+    "avatar": "/friends/fish.webp",
+    "category": "stash"
+  },
+  {
+    "name": "昼河万里",
+    "url": "https://tothemoonriver.icu/",
+    "desc": "一起去看月亮吧",
+    "avatar": "https://tothemoonriver.icu/img/avatar_hu1f7fd3bb10d1d6e480fe680f98f799d1_738451_300x0_resize_box_3.png",
+    "category": "online",
+    "star": true
+  },
+  {
+    "name": "Kyo",
+    "url": "https://www.heykyo.com/",
+    "desc": "Here is Kyo's Garden",
+    "avatar": "https://www.heykyo.com/img/avatar_hu27edd0b5494c0bf46be934fa31d5e4d0_418062_288x288_fill_q96_box_center_3.png",
+    "category": "stash"
   }
 ]

@@ -1,7 +1,7 @@
 ---
 title: 漫想与杂谈丶十月志：生产力、不确定性与好奇心
 published: 2025-10-19
-description: '欢迎来到我的新栏目🎉！'
+description: '欢迎来到我的新栏目🎉！一个摘抄与随记性质的月刊，旨于分享近段时间的生活、收获与随想。不成文、非线性、碎片化。'
 image: ''
 tags: [Logcat]
 category: 野语不成篇
@@ -84,7 +84,7 @@ draft: false
 
 > 「我无法在迷雾中勾画蓝图，只能在行走中辨认足迹。」
 >
-> 🔗 *Reference:* [实现自我价值顺便保研的碎碎念 - 小红书](https://www.xiaohongshu.com/discovery/item/68c15420000000001d017307?source=webshare&xhsshare=pc_web&xsec_token=CBs2c21vPjgKVXUSqJi1aNJVicqO1X9NKNBpk1M8x9-ww=&xsec_source=pc_share)
+> 🔗 *Reference:* [实现自我价值顺便保研的碎碎念 - 小红书](http://xhslink.com/o/AEubKjIZTFj)
 
 我不擅长计划，我信仰活在当下。
 

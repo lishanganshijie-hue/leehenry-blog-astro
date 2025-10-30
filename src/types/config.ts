@@ -65,6 +65,7 @@ export type NavBarLink = {
 
 export type NavBarConfig = {
 	links: (NavBarLink | LinkPreset)[];
+	showHomeButton?: boolean; // 是否显示主页按钮（默认显示）
 };
 
 export type ProfileConfig = {

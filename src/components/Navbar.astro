@@ -19,6 +19,11 @@ let links: NavBarLink[] = navBarConfig.links.map(
 		return item;
 	},
 );
+
+// 根据配置决定是否显示主页按钮
+if (navBarConfig.showHomeButton === false) {
+	links = links.filter(link => link.url !== '/');
+}
 ---
 <div id="navbar" class="z-50 onload-animation">
   <div class="absolute h-8 left-0 right-0 -top-8 bg-[var(--card-bg)] transition"></div>
@@ -26,29 +31,30 @@ let links: NavBarLink[] = navBarConfig.links.map(
       className,
       "card-base !overflow-visible max-w-[var(--page-width)] h-[4.5rem] !rounded-t-none mx-auto flex items-center justify-between px-4"
   ]}>
-    <a href={url('/')} class="btn-plain scale-animation rounded-lg h-[3.25rem] px-5 font-bold active:scale-95">
-      <div class="flex flex-row text-[var(--primary)] items-center text-md">
-        <Icon name="fa6-solid:leaf" class="text-[1.75rem] mb-1 mr-2" />
-        {siteConfig.title}
+    <a href={url('/')} class="btn-plain scale-animation rounded-lg h-[3rem] px-5 active:scale-95">
+      <div class="flex flex-row text-[var(--primary)] items-center">
+        <Icon name="fuli" class="h-[1.5rem] w-auto" />
       </div>
     </a>
 
     <!-- 桌面端链接：在文字前插入 l.icon -->
-    <div class="hidden md:flex">
+    <div class="hidden md:flex gap-1">
       {links.map((l) => {
         return <a aria-label={l.name}
                   href={l.external ? l.url : url(l.url)}
                   target={l.external ? "_blank" : null}
-                  class="btn-plain scale-animation rounded-lg h-11 font-bold px-5 active:scale-95">
-          <div class="flex items-center gap-2">
-            {l.icon && <Icon name={l.icon} class="text-[1rem]" />}
-            <span>{l.name}</span>
-            {l.external && (
-              <Icon
-                name="fa6-solid:arrow-up-right-from-square"
-                class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2]"
-              />
-            )}
+                  class="nav-link-hover group btn-plain scale-animation rounded-lg h-11 font-bold overflow-hidden active:scale-95">
+          <div class="flex items-center h-full px-3">
+            {l.icon && <Icon name={l.icon} class="text-[1.1rem] ml-1 transition-transform duration-300 group-hover:-translate-x-0.5" />}
+            <div class="nav-link-text flex items-center">
+              <span class="whitespace-nowrap font-bold">{l.name}</span>
+              {l.external && (
+                <Icon
+                  name="fa6-solid:arrow-up-right-from-square"
+                  class="text-[0.875rem] transition -translate-y-[1px] ml-1 text-black/[0.2] dark:text-white/[0.2]"
+                />
+              )}
+            </div>
           </div>
         </a>;
       })}
@@ -71,6 +77,23 @@ let links: NavBarLink[] = navBarConfig.links.map(
     <DisplaySettings client:only="svelte" />
   </div>
 </div>
+
+<style>
+  .nav-link-hover .nav-link-text {
+    max-width: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-width 0.3s ease, opacity 0.3s ease, margin-left 0.3s ease;
+    margin-left: 1rem;
+  }
+
+  .nav-link-hover:hover .nav-link-text {
+    max-width: 200px;
+    opacity: 1;
+    margin-left: 0.5rem;
+    margin-right: 0rem;
+  }
+</style>
 
 <script>
 function switchTheme() {

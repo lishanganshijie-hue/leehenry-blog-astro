@@ -62,17 +62,29 @@ export const siteConfig: SiteConfig = {
 // };
 
 export const navBarConfig = {
+	showHomeButton: false, // 是否显示主页按钮（与左上角网站标题功能重复，默认false不显示）
 	links: [
+		// { name: "初见", url: "/", icon: "fa6-solid:house" },
+		// { name: "旧简", url: "/archive/", icon: "fa6-solid:box-archive" },
+		// { name: "一隅", url: "/about/", icon: "fa6-solid:user" },
+		// { name: "留心", url: "/guestbook/", icon: "fa6-solid:message" },
+		// { name: "友邻", url: "/friends/", icon: "fa6-solid:link" },
+		// {
+		// 	name: "开往",
+		// 	url: "https://www.travellings.cn/train.html",
+		// 	external: true,
+		// 	icon: "fa6-solid:train-subway",
+		// },
 		{ name: "初见", url: "/", icon: "fa6-solid:house" },
-		{ name: "旧简", url: "/archive/", icon: "fa6-solid:box-archive" },
-		{ name: "一隅", url: "/about/", icon: "fa6-solid:user" },
-		{ name: "留心", url: "/guestbook/", icon: "fa6-solid:message" },
-		{ name: "友邻", url: "/friends/", icon: "fa6-solid:link" },
+		{ name: "旧简", url: "/archive/", icon: "archive" },
+		{ name: "一隅", url: "/about/", icon: "anchor" },
+		{ name: "留心", url: "/guestbook/", icon: "mail" },
+		{ name: "友邻", url: "/friends/", icon: "smile" },
 		{
 			name: "开往",
 			url: "https://www.travellings.cn/train.html",
 			external: true,
-			icon: "fa6-solid:train-subway",
+			icon: "arcadestick",
 		},
 	],
 };

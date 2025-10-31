@@ -192,5 +192,13 @@
     "desc": "Here is Kyo's Garden",
     "avatar": "https://www.heykyo.com/img/avatar_hu27edd0b5494c0bf46be934fa31d5e4d0_418062_288x288_fill_q96_box_center_3.png",
     "category": "stash"
+  },
+  {
+    "name": "Shadows of the Sun",
+    "url": "https://rovingsun.wordpress.com/",
+    "desc": "但是我从不怕挖出我火热的心",
+    "avatar": "/friends/shadow.webp",
+    "category": "stash",
+    "star": true
   }
 ]

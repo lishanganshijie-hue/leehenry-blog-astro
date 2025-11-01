@@ -4,6 +4,15 @@ import Markdown from "@components/misc/Markdown.astro";
 import friends from "../data/friends.json";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
+// 读取前面的说明文档
+const introEntry = await getEntry("spec", "friends-intro");
+let IntroContent = null;
+if (introEntry) {
+	const rendered = await render(introEntry);
+	IntroContent = rendered.Content;
+}
+
+// 读取后面的说明文档
 const entry = await getEntry("spec", "friends");
 if (!entry) {
 	throw new Error(
@@ -54,6 +63,13 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 <MainGridLayout title={title} description={description}>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-9 py-6 relative w-full">
+
+      <!-- 前面的 Markdown 说明 -->
+      {IntroContent && (
+        <Markdown class="mb-6">
+          <IntroContent />
+        </Markdown>
+      )}
 
       <!-- 分类段落渲染 -->
       {groups.map(({ key, meta, items }) => (

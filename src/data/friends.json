@@ -183,8 +183,7 @@
     "url": "https://tothemoonriver.icu/",
     "desc": "一起去看月亮吧",
     "avatar": "https://tothemoonriver.icu/img/avatar_hu1f7fd3bb10d1d6e480fe680f98f799d1_738451_300x0_resize_box_3.png",
-    "category": "online",
-    "star": true
+    "category": "online"
   },
   {
     "name": "Kyo",
@@ -198,6 +197,14 @@
     "url": "https://rovingsun.wordpress.com/",
     "desc": "但是我从不怕挖出我火热的心",
     "avatar": "/friends/shadow.webp",
+    "category": "stash",
+    "star": true
+  },
+  {
+    "name": "非理勿试",
+    "url": "https://www.ntiy.com/",
+    "desc": "Never Try It Yourself.",
+    "avatar": "/friends/nity.webp",
     "category": "stash",
     "star": true
   }

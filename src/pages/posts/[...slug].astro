@@ -137,7 +137,11 @@ const jsonLd = {
     </div>
 
     <!-- Comments Section - Separate Card -->
-    <Twikoo class="mb-4 onload-animation" path={Astro.url.pathname}></Twikoo>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+        <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full">
+            <Twikoo class="onload-animation" path={Astro.url.pathname}></Twikoo>
+        </div>
+    </div>
 
     <div class="flex flex-col md:flex-row justify-between mb-4 gap-4 overflow-hidden w-full">
         <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}

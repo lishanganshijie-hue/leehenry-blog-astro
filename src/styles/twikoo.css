@@ -1,4 +1,6 @@
-/* ========================twikoo美化====================== */
+/* ======================== Twikoo 评论系统美化样式 ======================= */
+
+/* ==================== 一、容器边距调整 ==================== */
 
 /* 调整 Twikoo 外层容器的左右边距，使其与引用块对齐 */
 .twikoo-container {
@@ -16,14 +18,16 @@
     }
 }
 
-/* 隐藏评论者头像 */
+/* ==================== 二、评论提交表单相关 ==================== */
+
+/* 隐藏评论提交表单中的头像 */
 #twikoo .tk-comments .tk-submit .tk-avatar.tk-has-avatar,
 #tcomment .tk-comments .tk-submit .tk-avatar.tk-has-avatar,
 .twikoo-comment .tk-comments .tk-submit .tk-avatar.tk-has-avatar {
     display: none;
 }
 
-/* 下面表情和按钮那一栏的设置 */
+/* 表情和按钮操作栏的边距调整 */
 #twikoo .tk-comments .tk-submit .tk-row.actions,
 #tcomment .tk-comments .tk-submit .tk-row.actions,
 .twikoo-comment .tk-comments .tk-submit .tk-row.actions {
@@ -31,7 +35,7 @@
     margin-left: 0;
 }
 
-/* 个人信息和文本输入之间的空位置 */
+/* 个人信息输入框和文本输入框之间的间距 */
 .tk-main .tk-submit .tk-col .tk-meta-input,
 #twikoo .tk-comments .tk-submit .tk-col .tk-meta-input,
 #tcomment .tk-comments .tk-submit .tk-col .tk-meta-input,
@@ -39,18 +43,12 @@
     margin-bottom: 16px;
 }
 
-/* 直接固定高度，解决提交按钮有时高度不起作用的问题 */
+/* 提交按钮固定高度，解决高度不起作用的问题 */
 .tk-row.actions button.el-button {
     height: 32px;
 }
 
-/* 解决图片大小超出范围问题 */
-.tk-main .tk-content img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* 圆角设置 - 全部改为直角 */
+/* 输入框圆角设置 - 全部改为直角 */
 .tk-meta-input input {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -61,23 +59,105 @@
     border-bottom-left-radius: 0;
 }
 
-/* 输入框样式 */
+/* 评论输入框样式 */
 .tk-input.el-textarea textarea {
     border-radius: 0;
     min-height: 150px !important;
     height: auto;
 }
 
-/* 宽度太窄的时候去掉预览按钮 */
+/* 输入框边框样式 */
+.tk-input.el-textarea textarea,
+.tk-meta-input input,
+.tk-meta-input div {
+    border: 1px solid var(--line-color);
+    background: var(--card-bg);
+    color: inherit;
+}
+
+/* 输入框聚焦状态 */
+.tk-input.el-textarea textarea:focus,
+.tk-meta-input input:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* 输入框占位符样式 */
+.tk-input.el-textarea textarea::placeholder {
+    color: inherit;
+    opacity: 0.5;
+}
+
+.tk-meta-input input::placeholder {
+    color: inherit;
+    opacity: 0.5;
+}
+
+/* 提交按钮样式 */
+.tk-submit .el-button--primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+.tk-submit .el-button--primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.tk-submit .el-button--primary:active {
+    transform: translateY(0);
+}
+
+/* 表情按钮样式 */
+.tk-owo {
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+.tk-owo:hover {
+    background: var(--btn-plain-bg-hover);
+}
+
+/* 表情选择器弹窗样式 */
+.tk-owo-emotion {
+    background: var(--card-bg);
+    border: 1px solid var(--line-color);
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 评论编辑器工具栏 */
+.tk-editor-toolbar {
+    border-top: 1px solid var(--line-color);
+    background: var(--card-bg);
+}
+
+/* 评论操作按钮组布局 */
+.tk-row.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* 评论提交区域 */
+.tk-submit {
+    position: relative;
+}
+
+/* 宽度太窄时隐藏预览按钮 */
 @media screen and (max-width: 420px) {
     .tk-main .tk-submit .tk-row.actions button.el-button.tk-preview.el-button--default.el-button--small {
         display: none;
     }
 }
 
-/* 使用项目的主题变量 */
+/* ==================== 三、评论显示相关 ==================== */
 
-/* 评论区评论大框 */
+/* 评论大框样式 - 与引用块样式一致 */
 #twikoo .tk-comments-container > .tk-comment,
 #twikoo .tk-comments .tk-submit,
 #tcomment .tk-comments-container > .tk-comment,
@@ -88,16 +168,16 @@
 .twikoo .tk-comments .tk-submit {
     /* 内边距 */
     padding: 1.5rem 1.5rem;
-    /* 外边距 - 与引用块一致 */
+    /* 外边距 */
     margin-top: 0rem;
     margin-bottom: 2rem;
-    /* 圆角 */
+    /* 圆角 - 直角 */
     border-radius: 0;
     /* 背景颜色 */
     background: var(--card-bg);
-    /* 变动动画时长 */
+    /* 过渡动画 */
     transition: 0.3s;
-    /* 评论框边框 - 与引用块一致 */
+    /* 边框 - 与引用块一致 */
     border: 1px solid var(--primary);
     /* 硬性投影 - 与引用块一致 */
     box-shadow: 7px 7px 0px 0px var(--btn-plain-bg-hover);
@@ -121,7 +201,7 @@
     opacity: 0.6;
 }
 
-/* 评论操作按钮 */
+/* 评论操作按钮（点赞、回复等） */
 .tk-action {
     color: inherit;
     opacity: 0.7;
@@ -133,61 +213,14 @@
     color: var(--primary);
 }
 
-/* 输入框边框 */
-.tk-input.el-textarea textarea,
-.tk-meta-input input,
-.tk-meta-input div {
-    border: 1px solid var(--line-color);
-    background: var(--card-bg);
-    color: inherit;
-}
-
-.tk-input.el-textarea textarea:focus,
-.tk-meta-input input:focus {
-    border-color: var(--primary);
-    outline: none;
-}
-
-/* 提交按钮 */
-.tk-submit .el-button--primary {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #fff;
-    border-radius: 0;
+/* 评论操作图标 */
+.tk-action-icon {
     transition: all 0.3s;
 }
 
-.tk-submit .el-button--primary:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-}
-
-.tk-submit .el-button--primary:active {
-    transform: translateY(0);
-}
-
-/* 表情按钮 */
-.tk-owo {
-    border-radius: 0;
-    transition: all 0.3s;
-}
-
-.tk-owo:hover {
-    background: var(--btn-plain-bg-hover);
-}
-
-/* 评论回复框 */
-.tk-replies {
-    margin-top: 0.5rem;
-    padding-left: 0rem;
-}
-
-.tk-replies .tk-comment {
-    margin-bottom: 5px;
-    padding: 10px;
-    background: var(--card-bg);
-    border-radius: 0;
-    border: 1px solid var(--line-color);
+.tk-action-icon:hover {
+    color: var(--primary);
+    transform: scale(1.1);
 }
 
 /* 评论头像 */
@@ -198,14 +231,37 @@
     margin-left: 0.5rem;
 }
 
-/* 评论点赞等操作 */
-.tk-action-icon {
-    transition: all 0.3s;
+/* 评论回复框容器 */
+.tk-replies {
+    margin-top: 0.5rem;
+    padding-left: 0rem;
 }
 
-.tk-action-icon:hover {
+/* 回复评论样式 */
+.tk-replies .tk-comment {
+    margin-bottom: 5px;
+    padding: 10px;
+    background: var(--card-bg);
+    border-radius: 0;
+    border: 1px solid var(--line-color);
+}
+
+/* 评论计数 */
+.tk-count {
+    color: inherit;
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+/* 评论排序 */
+.tk-order {
+    color: inherit;
+    opacity: 0.7;
+}
+
+.tk-order:hover {
     color: var(--primary);
-    transform: scale(1.1);
+    opacity: 1;
 }
 
 /* 评论加载动画 */
@@ -221,45 +277,9 @@
     padding: 40px 20px;
 }
 
-/* 评论分页 */
-.tk-pagination {
-    margin-top: 20px;
-}
+/* ==================== 四、评论内容样式（Markdown 渲染） ==================== */
 
-.tk-pagination .el-pagination button,
-.tk-pagination .el-pagination .el-pager li {
-    background: var(--card-bg);
-    color: inherit;
-    border: 1px solid var(--line-color);
-    border-radius: 0;
-}
-
-.tk-pagination .el-pagination button:hover,
-.tk-pagination .el-pagination .el-pager li:hover {
-    color: var(--primary);
-}
-
-.tk-pagination .el-pagination .el-pager li.active {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
-}
-
-/* 表情选择器 */
-.tk-owo-emotion {
-    background: var(--card-bg);
-    border: 1px solid var(--line-color);
-    border-radius: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* 评论编辑器工具栏 */
-.tk-editor-toolbar {
-    border-top: 1px solid var(--line-color);
-    background: var(--card-bg);
-}
-
-/* 代码块样式 */
+/* 评论中的代码块 */
 .tk-content pre {
     background: var(--codeblock-bg);
     border-radius: 0;
@@ -274,7 +294,7 @@
     font-size: 0.9em;
 }
 
-/* 链接样式 */
+/* 评论中的链接 */
 .tk-content a {
     color: var(--primary);
     text-decoration: none;
@@ -286,7 +306,7 @@
     text-decoration: underline;
 }
 
-/* 引用样式 */
+/* 评论中的引用块 */
 .tk-content blockquote {
     border-left: 3px solid var(--primary);
     padding-left: 16px;
@@ -298,7 +318,7 @@
     border-radius: 0;
 }
 
-/* 列表样式 */
+/* 评论中的列表 */
 .tk-content ul,
 .tk-content ol {
     padding-left: 24px;
@@ -310,7 +330,7 @@
     line-height: 1.6;
 }
 
-/* 表格样式 */
+/* 评论中的表格 */
 .tk-content table {
     width: 100%;
     border-collapse: collapse;
@@ -332,7 +352,8 @@
     font-weight: 600;
 }
 
-/* 图片样式 */
+/* 评论中的图片 */
+.tk-main .tk-content img,
 .tk-content img {
     max-width: 100%;
     height: auto;
@@ -342,50 +363,37 @@
     border: none;
 }
 
-/* 评论输入框占位符 */
-.tk-input.el-textarea textarea::placeholder {
+/* ==================== 五、分页组件 ==================== */
+
+/* 评论分页容器 */
+.tk-pagination {
+    margin-top: 20px;
+}
+
+/* 分页按钮样式 */
+.tk-pagination .el-pagination button,
+.tk-pagination .el-pagination .el-pager li {
+    background: var(--card-bg);
     color: inherit;
-    opacity: 0.5;
+    border: 1px solid var(--line-color);
+    border-radius: 0;
 }
 
-/* 评论者信息输入框 */
-.tk-meta-input input::placeholder {
-    color: inherit;
-    opacity: 0.5;
-}
-
-/* 评论操作按钮组 */
-.tk-row.actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-/* 评论提交区域 */
-.tk-submit {
-    position: relative;
-}
-
-/* 评论计数 */
-.tk-count {
-    color: inherit;
-    opacity: 0.7;
-    font-weight: 500;
-}
-
-/* 评论排序 */
-.tk-order {
-    color: inherit;
-    opacity: 0.7;
-}
-
-.tk-order:hover {
+.tk-pagination .el-pagination button:hover,
+.tk-pagination .el-pagination .el-pager li:hover {
     color: var(--primary);
-    opacity: 1;
 }
 
-/* 评论审核提示 */
+/* 分页当前页样式 */
+.tk-pagination .el-pagination .el-pager li.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* ==================== 六、提示信息 ==================== */
+
+/* 评论审核中提示 */
 .tk-pending {
     background: var(--btn-plain-bg-hover);
     border: 1px solid var(--line-color);
@@ -419,8 +427,10 @@
     text-align: center;
 }
 
-/* 响应式优化 - 移动端 */
+/* ==================== 七、响应式样式 - 移动端 ==================== */
+
 @media screen and (max-width: 767px) {
+    /* 移动端：评论大框样式调整 */
     #twikoo .tk-comments-container > .tk-comment,
     #twikoo .tk-comments .tk-submit,
     #tcomment .tk-comments-container > .tk-comment,
@@ -429,20 +439,40 @@
     .twikoo-comment .tk-comments .tk-submit,
     .twikoo .tk-comments-container > .tk-comment,
     .twikoo .tk-comments .tk-submit {
-        /* 移动端边距已在上面定义，这里只调整底部边距 */
+        /* 减少内边距以适应移动端 */
+        padding: 1rem 1rem;
+        /* 调整底部外边距 */
         margin-bottom: 1.5rem;
     }
 
+    /* 移动端：回复框容器 */
     .tk-replies {
-        padding-left: 0px;
+        padding-left: 0rem;
     }
 
+    /* 移动端：回复评论样式调整 */
     .tk-replies .tk-comment {
-        padding: 1rem 2rem;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+    }
+
+    /* 移动端：调整回复框头像的左边距 */
+    .tk-replies .tk-comment .tk-avatar {
+        margin-left: 0 !important;
+    }
+
+    /* 移动端：隐藏所有评论头像 */
+    #twikoo .tk-comments-container > .tk-comment .tk-avatar,
+    #tcomment .tk-comments-container > .tk-comment .tk-avatar,
+    .twikoo-comment .tk-comments-container > .tk-comment .tk-avatar,
+    .twikoo .tk-comments-container > .tk-comment .tk-avatar,
+    .tk-replies .tk-comment .tk-avatar {
+        display: none !important;
     }
 }
 
-/* 滚动条样式（如果评论区域有滚动） */
+/* ==================== 八、滚动条样式 ==================== */
+
+/* 评论容器滚动条 */
 .tk-comments-container {
     scrollbar-width: thin;
     scrollbar-color: var(--line-color) transparent;
@@ -464,4 +494,3 @@
 .tk-comments-container::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
 }
-

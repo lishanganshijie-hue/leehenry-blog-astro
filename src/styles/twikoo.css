@@ -178,7 +178,7 @@
     /* 过渡动画 */
     transition: 0.3s;
     /* 边框 - 与引用块一致 */
-    border: 1px solid var(--primary);
+    border: 1px solid var(--btn-card-bg-active);
     /* 硬性投影 - 与引用块一致 */
     box-shadow: 7px 7px 0px 0px var(--btn-plain-bg-hover);
 }

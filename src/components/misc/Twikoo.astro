@@ -10,7 +10,7 @@ const twikooConfig = siteConfig.twikoo;
 ---
 
 {twikooConfig?.enable && (
-<div class:list={["card-base rounded-[var(--radius-large)] overflow-hidden z-10 px-6 md:px-9 pt-6 pb-4 relative w-full mb-4 text-black/80 dark:text-white/80", className]} style="overflow: unset">
+<div class:list={["card-base twikoo-container rounded-[var(--radius-large)] overflow-hidden z-10 px-6 md:px-9 pt-6 pb-4 relative w-full mb-4 text-black/80 dark:text-white/80", className]} style="overflow: unset">
     <div id="tcomment" class="twikoo-comment"></div>
     <script is:inline define:vars={{ twikooConfig }}>
         function initTwikoo() {
@@ -41,20 +41,9 @@ const twikooConfig = siteConfig.twikoo;
                     }
                 });
             }
+            // 图片样式已移至 twikoo.css 统一管理
             if (window.createPhotoSwipe){
-                // 动态创建样式并添加到页面
-                const style = document.createElement('style');
-                style.textContent = `
-                                            .tk-content img {
-                                                cursor: zoom-in;
-                                                transition: opacity 0.2s ease;
-                                            }
-                                            .tk-content img:hover {
-                                                opacity: 0.9;
-                                            }
-                                         `;
-                document.head.appendChild(style);
-                console.log("动态样式已添加到页面");
+                // PhotoSwipe 相关逻辑保持不变
             }
         }
         // https://twikoo.js.org/frontend.html CDN指南

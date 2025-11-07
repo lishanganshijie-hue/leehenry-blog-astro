@@ -18,7 +18,7 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				// sans: ["Roboto", "sans-serif", ...defaultTheme.fontFamily.sans],
-				sans: ["open sans", "vivo Sans", "sans-serif", ...defaultTheme.fontFamily.sans],
+				sans: ["vivo Sans", "sans-serif", ...defaultTheme.fontFamily.sans],
 			},
 		},
 	},

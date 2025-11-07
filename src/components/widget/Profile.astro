@@ -32,14 +32,25 @@ const fallbackQR = "/wechat-qrcode.png";
   </a>
 
   <div class="px-2">
-    <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">
-      {config.name}
+    <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition relative signature-container">
+      <!-- 移动端和平板端：始终显示文字 -->
+      <span class="lg:hidden">{config.name}</span>
+      <!-- PC端：根据配置显示签名图片或文字 -->
+      {config.useSignature && config.signature ? (
+        <img
+          src={config.signature}
+          alt="Signature"
+          class="signature-img hidden lg:block"
+        />
+      ) : (
+        <span class="hidden lg:inline">{config.name}</span>
+      )}
     </div>
-    <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>
+    <div class="h-1 w-5 bg-[var(--primary)] mx-auto mb-2 transition"></div>
     <div class="text-center text-neutral-400 mb-2.5 transition">{config.bio}</div>
 
     <!-- 社交图标：支持 popup（弹二维码） -->
-    <div class="flex gap-2 justify-center mb-1">
+    <div class="flex gap-2 justify-center mb-1 relative" style="z-index: 100;">
       {
         config.links.length > 1
           ? config.links.map((item) => (
@@ -225,4 +236,27 @@ const fallbackQR = "/wechat-qrcode.png";
   .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; background:transparent; }
   .btn-row { display:flex; justify-content:center; margin-top:0.875rem; }
   .btn-close { padding:0.5rem 1rem; background:var(--primary); color:#fff; cursor:pointer; }
+
+  /* 签名图片样式 */
+  .signature-container {
+    overflow: visible;
+  }
+  /* 只在桌面端显示签名图片 */
+  .signature-img {
+    max-width: 80%;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    transform: translateY(-80%); /* 上移2/3高度，使上2/3部分覆盖在头像上 */
+    position: relative;
+    z-index: 60; /* 高于头像hover效果的z-50，确保签名在最上层 */
+    margin-bottom: -55%; /* 负边距抵消向上偏移造成的空白 */
+  }
+  /* 移动端和平板端隐藏签名图片，避免布局问题 */
+  @media (max-width: 1023px) {
+    .signature-img {
+      display: none !important;
+    }
+  }
 </style>

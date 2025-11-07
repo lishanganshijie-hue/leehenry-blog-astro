@@ -72,6 +72,8 @@ export type ProfileConfig = {
 	avatar?: string;
 	name: string;
 	bio?: string;
+	useSignature?: boolean; // 是否使用签名图片替代文字名字
+	signature?: string; // 签名图片路径，相对于 /public 目录
 	links: {
 		name: string;
 		url: string;

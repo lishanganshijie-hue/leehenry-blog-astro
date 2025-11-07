@@ -93,6 +93,8 @@ export const profileConfig: ProfileConfig = {
 	avatar: "/friends/my-avatar-portrait.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "伏枥 | Henry Lee",
 	bio: "别让今天叫住我了",
+	useSignature: true, // 是否使用签名图片替代文字名字
+	signature: "/signature.webp", // 签名图片路径，相对于 /public 目录
 	links: [
 		{
 			name: "GitHub",

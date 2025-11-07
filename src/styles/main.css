@@ -53,6 +53,14 @@
     font-display: swap;
 }
 
+/* 斜体文本使用 Open Sans */
+em, i, 
+*[style*="font-style: italic"], 
+*[style*="font-style:italic"],
+*[style*="font-style:italic;"] {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
 @tailwind components;
 
 @layer components {

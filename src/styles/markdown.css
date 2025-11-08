@@ -153,6 +153,12 @@
         li:last-child {
             margin-bottom: 0;
         }
+        
+        /* 取消 li 中多个 p 的段前段后距离 */
+        li p {
+            margin-top: 0.15rem;
+            margin-bottom: 0.15rem;
+        }
     }
 
     /* 自定义外部段落间距，与引用块内保持一致 */
@@ -262,6 +268,28 @@
         max-width: 100%;
         overflow-x: auto;
         margin: 1em 0;
+    }
+
+    /* 分隔线样式：居中的三个宽松的点 */
+    hr {
+        @apply border-none relative;
+        height: 1rem;
+        margin: 2rem 0;
+        background: none;
+        text-align: center;
+        
+        &::before {
+            content: '• • •';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary);
+            opacity: 80%;
+            font-size: 1rem;
+            letter-spacing: 1.5rem;
+            line-height: 1;
+        }
     }
     
 }

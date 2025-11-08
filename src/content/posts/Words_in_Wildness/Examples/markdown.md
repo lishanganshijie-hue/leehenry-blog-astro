@@ -27,6 +27,30 @@ content starts at 4-columns in.
 >
 > They can span multiple paragraphs,
 > if you like.
+>
+> - Here is some text.
+>
+> - Here is some text.
+>
+>   Here is some text.
+>
+>   Here is some text.
+>
+> - Here is some text. Here is some text. Here is some text. Here is some text. Here is some text. Here is some text. 
+>
+> - Here is some text. Here is some text. Here is some text. 
+>
+>   Here is some text. Here is some text. 
+>
+>   - Here is some text. Here is some text. 
+>
+>   - Here is some text. Here is some text. 
+>
+>     Here is some text. Here is some text. 
+>
+>   Here is some text. 
+>
+> Here is some text. 
 
 Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
 in chapters 12--14"). Three dots ... will be converted to an ellipsis.

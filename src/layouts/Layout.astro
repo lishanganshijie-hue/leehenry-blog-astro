@@ -405,7 +405,12 @@ const setup = () => {
 			navbar.classList.add('navbar-hidden')
 		}
 	})
-	window.swup.hooks.on('content:replace', initCustomScrollbar)
+	window.swup.hooks.on('content:replace', () => {
+		initCustomScrollbar();
+		// 重新获取按钮元素引用
+		backToTopBtn = document.getElementById('back-to-top-btn');
+		scrollToCommentBtn = document.getElementById('scroll-to-comment-btn');
+	})
 	window.swup.hooks.on('visit:start', (visit: {to: {url: string}}) => {
 		// change banner height immediately when a link is clicked
 		const bodyElement = document.querySelector('body')
@@ -456,16 +461,33 @@ if (window?.swup?.hooks) {
 }
 
 let backToTopBtn = document.getElementById('back-to-top-btn');
+let scrollToCommentBtn = document.getElementById('scroll-to-comment-btn');
 let toc = document.getElementById('toc-wrapper');
 let navbar = document.getElementById('navbar-wrapper')
 function scrollFunction() {
 	let bannerHeight = window.innerHeight * (BANNER_HEIGHT / 100)
+
+	// 重新获取按钮元素（防止 Swup 替换后元素引用失效）
+	if (!backToTopBtn) {
+		backToTopBtn = document.getElementById('back-to-top-btn');
+	}
+	if (!scrollToCommentBtn) {
+		scrollToCommentBtn = document.getElementById('scroll-to-comment-btn');
+	}
 
 	if (backToTopBtn) {
 		if (document.body.scrollTop > bannerHeight || document.documentElement.scrollTop > bannerHeight) {
 			backToTopBtn.classList.remove('hide')
 		} else {
 			backToTopBtn.classList.add('hide')
+		}
+	}
+
+	if (scrollToCommentBtn && scrollToCommentBtn.style.display !== 'none') {
+		if (document.body.scrollTop > bannerHeight || document.documentElement.scrollTop > bannerHeight) {
+			scrollToCommentBtn.classList.remove('hide')
+		} else {
+			scrollToCommentBtn.classList.add('hide')
 		}
 	}
 

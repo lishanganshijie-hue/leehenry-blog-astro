@@ -12,7 +12,12 @@ import { Icon } from "astro-icon/components";
 import { licenseConfig } from "src/config";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
-import { postMetaConfig, profileConfig, siteConfig, titleSplitConfig } from "../../config";
+import {
+	postMetaConfig,
+	profileConfig,
+	siteConfig,
+	titleSplitConfig,
+} from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
 import { splitTitle } from "../../utils/title-utils";
 
@@ -30,9 +35,17 @@ const { Content, headings } = await entry.render();
 const { remarkPluginFrontmatter } = await entry.render();
 
 // 分割标题以支持细体+半透明显示
-const titleParts = titleSplitConfig.enable ? splitTitle(entry.data.title) : null;
-const nextTitleParts = titleSplitConfig.enable && entry.data.nextTitle ? splitTitle(entry.data.nextTitle) : null;
-const prevTitleParts = titleSplitConfig.enable && entry.data.prevTitle ? splitTitle(entry.data.prevTitle) : null;
+const titleParts = titleSplitConfig.enable
+	? splitTitle(entry.data.title)
+	: null;
+const nextTitleParts =
+	titleSplitConfig.enable && entry.data.nextTitle
+		? splitTitle(entry.data.nextTitle)
+		: null;
+const prevTitleParts =
+	titleSplitConfig.enable && entry.data.prevTitle
+		? splitTitle(entry.data.prevTitle)
+		: null;
 const suffixOpacity = titleSplitConfig.opacity;
 // 正文页特殊样式配置
 const suffixNewLine = titleSplitConfig.postPage.suffixNewLine;
@@ -93,17 +106,15 @@ const jsonLd = {
                     class="transition w-full block font-bold mb-3
                     text-3xl md:text-[2.25rem]/[2.75rem]
                     text-black/90 dark:text-white/90
-                    md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
-                    before:absolute before:top-[0.75rem] before:left-[-1.125rem]
                 ">
                     {titleParts ? (
                         <>
-                            <span class="font-bold">{titleParts.prefix}</span>
+                            <span class="font-bold inline-block pb-2 relative after:absolute after:bottom-0.5 after:left-0 after:right-0 after:h-[6px] after:bg-[var(--primary)] after:rounded-sm">{titleParts.prefix}</span>
                             {suffixNewLine ? <br /> : <span class="font-bold">{titleParts.separator}</span>}
                             <span class="font-normal" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
                         </>
                     ) : (
-                        entry.data.title
+                        <span class="inline-block pb-2 relative after:absolute after:bottom-0.5 after:left-0 after:right-0 after:h-[5px] after:bg-[var(--primary)] after:rounded-sm">{entry.data.title}</span>
                     )}
                 </div>
             </div>
@@ -137,9 +148,9 @@ const jsonLd = {
     </div>
 
     <!-- Comments Section - Separate Card -->
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
+    <div id="comment-section" class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
         <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full">
-            <Twikoo class="onload-animation" path={Astro.url.pathname}></Twikoo>
+            <Twikoo class="onload-animation"></Twikoo>
         </div>
     </div>
 

@@ -248,10 +248,10 @@ const fallbackQR = "/wechat-qrcode.png";
     object-fit: contain;
     margin: 0 auto;
     display: block;
-    transform: translateY(-80%); /* 上移2/3高度，使上2/3部分覆盖在头像上 */
+    transform: translateY(-75%); /* 上移高度覆盖在头像上 */
     position: relative;
     z-index: 60; /* 高于头像hover效果的z-50，确保签名在最上层 */
-    margin-bottom: -55%; /* 负边距抵消向上偏移造成的空白 */
+    margin-bottom: -40%; /* 负边距抵消向上偏移造成的空白 */
   }
   /* 移动端和平板端隐藏签名图片，避免布局问题 */
   @media (max-width: 1023px) {

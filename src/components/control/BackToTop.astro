@@ -6,7 +6,12 @@ import { Icon } from "astro-icon/components";
 <div class="back-to-top-wrapper hidden lg:block">
     <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="backToTop()">
         <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem]">
-            <Icon name="material-symbols:keyboard-arrow-up-rounded" class="mx-auto"></Icon>
+            <Icon name="material-symbols:rocket-outline" class="mx-auto"></Icon>
+        </button>
+    </div>
+    <div id="scroll-to-comment-btn" class="scroll-to-comment-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="scrollToComment()" style="display: none;">
+        <button aria-label="Scroll to Comment" class="btn-card h-[3.75rem] w-[3.75rem]">
+            <Icon name="material-symbols:comic-bubble-outline" class="mx-auto"></Icon>
         </button>
     </div>
 </div>
@@ -14,7 +19,7 @@ import { Icon } from "astro-icon/components";
 <style lang="stylus">
 .back-to-top-wrapper
     width: 3.75rem
-    height: 3.75rem
+    height: auto
     position: absolute
     right: 0
     top: 0
@@ -40,10 +45,73 @@ import { Icon } from "astro-icon/components";
     &:active
       transform: translateX(5rem) scale(0.9)
 
+.scroll-to-comment-btn
+    color: var(--primary)
+    font-size: 2.25rem
+    font-weight: bold
+    border: none
+    position: fixed
+    bottom: 5.5rem
+    opacity: 1
+    cursor: pointer
+    transform: translateX(5rem)
+    pointer-events: auto
+    i
+        font-size: 1.75rem
+    &.hide
+        transform: translateX(5rem) scale(0.9)
+        opacity: 0
+        pointer-events: none
+    &:active
+      transform: translateX(5rem) scale(0.9)
+
 </style>
 
 <script is:raw is:inline>
 function backToTop() {
     window.scroll({ top: 0, behavior: 'smooth' });
+}
+
+function scrollToComment() {
+    const commentSection = document.getElementById('comment-section');
+    if (commentSection) {
+        const offset = 100; // 距离顶部的偏移量，可以根据需要调整
+        const elementPosition = commentSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scroll({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// 根据当前路径显示/隐藏"跳转评论"按钮
+function updateCommentButtonVisibility() {
+    const scrollToCommentBtn = document.getElementById('scroll-to-comment-btn');
+    if (scrollToCommentBtn) {
+        const pathname = window.location.pathname;
+        // 检查是否为文章页面（路径包含 /posts/ 且后面有内容）
+        const postsMatch = pathname.match(/\/posts\/([^\/]+)/);
+        const isPostPage = !!postsMatch;
+        if (isPostPage) {
+            scrollToCommentBtn.style.display = 'flex';
+        } else {
+            scrollToCommentBtn.style.display = 'none';
+        }
+    }
+}
+
+// 页面加载时执行
+updateCommentButtonVisibility();
+
+// 在 Swup 页面切换后更新按钮状态
+if (window.swup) {
+    window.swup.hooks.on('page:view', updateCommentButtonVisibility);
+} else {
+    document.addEventListener('swup:enable', () => {
+        if (window.swup) {
+            window.swup.hooks.on('page:view', updateCommentButtonVisibility);
+        }
+    });
 }
 </script>

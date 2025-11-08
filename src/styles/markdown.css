@@ -45,6 +45,18 @@
         color: var(--primary); 
     }
 
+    /* 删除线样式：默认模糊，hover 时清晰（不显示删除线） */
+    del, s {
+        @apply transition;
+        filter: blur(0.2rem);
+        text-decoration: none;
+        
+        &:hover {
+            filter: blur(0);
+            opacity: 0.8;
+        }
+    }
+
     a:not(.no-styling) {
         @apply relative bg-none link font-medium text-[inherit]
         underline decoration-[var(--link-underline)] decoration-2 decoration-dashed underline-offset-4;
@@ -126,6 +138,35 @@
         li::marker {
             @apply text-[var(--primary)];
         }
+        
+        /* 减少连续列表项之间的间距 */
+        li {
+            margin-top: 0.15rem;
+            margin-bottom: 0.15rem;
+        }
+        
+        /* 第一个和最后一个列表项不需要额外的上下边距 */
+        li:first-child {
+            margin-top: 0;
+        }
+        
+        li:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    /* 自定义外部段落间距，与引用块内保持一致 */
+    p {
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    p:first-child {
+        margin-top: 0;
+    }
+    
+    p:last-child {
+        margin-bottom: 0;
     }
 
     blockquote {
@@ -179,10 +220,41 @@
             margin-top: 0;
             margin-bottom: 0;
         }
+        
+        /* 引用块内的段落保持与外部一致的间距 */
+        p {
+            margin-top: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        /* 第一个和最后一个段落不需要额外的上下边距 */
+        p:first-child {
+            margin-top: 0;
+        }
+        
+        p:last-child {
+            margin-bottom: 0;
+        }
     
         /* 移除默认双引号 */
         p:before, p:after {
             @apply content-none;
+        }
+        
+        /* 引用块内的列表也应用相同的间距样式 */
+        ul, ol {
+            li {
+                margin-top: 0.15rem;
+                margin-bottom: 0.15rem;
+            }
+            
+            li:first-child {
+                margin-top: 0;
+            }
+            
+            li:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 

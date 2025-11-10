@@ -6,6 +6,7 @@ import Icon from "@iconify/svelte";
 import {
 	applyThemeToDocument,
 	getStoredTheme,
+	isThemeFixed,
 	setTheme,
 } from "@utils/setting-utils.ts";
 import { onMount } from "svelte";
@@ -13,8 +14,10 @@ import type { LIGHT_DARK_MODE } from "@/types/config.ts";
 
 const seq: LIGHT_DARK_MODE[] = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 let mode: LIGHT_DARK_MODE = $state(AUTO_MODE);
+let themeFixed: boolean = $state(false);
 
 onMount(() => {
+	themeFixed = isThemeFixed();
 	mode = getStoredTheme();
 	const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
 	const changeThemeWhenSchemeChanged: Parameters<
@@ -37,6 +40,7 @@ function switchScheme(newMode: LIGHT_DARK_MODE) {
 }
 
 function toggleScheme() {
+	// 允许用户切换主题，即使主题固定
 	let i = 0;
 	for (; i < seq.length; i++) {
 		if (seq[i] === mode) {

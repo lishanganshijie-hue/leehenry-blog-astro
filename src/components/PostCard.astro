@@ -56,26 +56,28 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
 <div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
     <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 pb-6 relative", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
         <a href={url}
-           class="transition group inline-block font-bold mb-4 text-3xl text-90
-        hover:text-[var(--primary)] dark:hover:text-[var(--primary)]
+           class="transition group inline-flex items-center font-bold mb-1 text-3xl text-90
         active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
         pb-2 relative
-        after:absolute after:bottom-0.5 after:left-0 after:right-0 after:h-[5px] after:bg-[var(--primary)]
+        after:absolute after:top-1/2 after:-translate-y-1/2 after:left-[-1rem] after:h-[0.95rem] after:bg-[var(--primary)] after:w-[0.3rem] after:opacity-100 after:transition-all after:duration-300 after:ease-out after:z-0
+        hover:after:w-[calc(100%+1.9rem)] hover:after:opacity-30
         ">
-            {titleParts ? (
-                <>
-                    <span class="font-bold">{titleParts.prefix}</span>
-                    {(showSuffix || showOnHover) && (
-                        <span class="inline-block align-top title-suffix-wrapper transition-all duration-300 overflow-hidden" class:list={[{"max-w-0 opacity-0": !showSuffix && showOnHover}]} style={`max-width: ${showSuffix ? '100rem' : '0'}; opacity: ${showSuffix ? 1 : 0};`}>
-                            {!hideSeparator && <span class="font-bold whitespace-nowrap">{titleParts.separator}</span>}
-                            {" "}
-                            <span class="font-normal inline-block whitespace-nowrap" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
-                        </span>
-                    )}
-                </>
-            ) : (
-                title
-            )}
+            <span class="relative z-10">
+                {titleParts ? (
+                    <>
+                        <span class="font-bold">{titleParts.prefix}</span>
+                        {(showSuffix || showOnHover) && (
+                            <span class="inline-block align-top title-suffix-wrapper transition-all duration-300 overflow-hidden" class:list={[{"max-w-0 opacity-0": !showSuffix && showOnHover}]} style={`max-width: ${showSuffix ? '100rem' : '0'}; opacity: ${showSuffix ? 1 : 0};`}>
+                                {!hideSeparator && <span class="font-bold whitespace-nowrap">{titleParts.separator}</span>}
+                                {" "}
+                                <span class="font-normal inline-block whitespace-nowrap" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
+                            </span>
+                        )}
+                    </>
+                ) : (
+                    title
+                )}
+            </span>
             <!-- <Icon class="inline text-[2rem] text-[var(--primary)] md:hidden translate-y-0.5 absolute" name="material-symbols:chevron-right-rounded" ></Icon> -->
             <!-- <Icon class="text-[var(--primary)] text-[2rem] transition hidden md:inline absolute translate-y-0.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0" name="material-symbols:chevron-right-rounded"></Icon> -->
         </a>

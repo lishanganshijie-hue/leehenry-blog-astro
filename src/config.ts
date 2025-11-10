@@ -1,3 +1,4 @@
+import { DARK_MODE } from "./constants/constants";
 import type {
 	ExpressiveCodeConfig,
 	LicenseConfig,
@@ -17,6 +18,10 @@ export const siteConfig: SiteConfig = {
 		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: true, // Hide the theme color picker for visitors
 	},
+	theme: {
+		fixed: true, // 是否固定主题模式（固定后用户无法切换）
+		default: DARK_MODE, // 默认主题模式：'light' | 'dark' | 'auto'
+	},
 	banner: {
 		enable: true,
 		src: "assets/images/banner.gif", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
@@ -33,17 +38,17 @@ export const siteConfig: SiteConfig = {
 	},
 	twikoo: {
 		enable: true, // Enable Twikoo comment system
-		envId: 'https://twikoo.leehenry.top/', // Replace with your Vercel deployment URL
-		region: '', // Optional: Twikoo region (留空即可)
-		lang: 'zh-CN', // Language for Twikoo
+		envId: "https://twikoo.leehenry.top/", // Replace with your Vercel deployment URL
+		region: "", // Optional: Twikoo region (留空即可)
+		lang: "zh-CN", // Language for Twikoo
 	},
 	favicon: [
 		// Leave this array empty to use the default favicon
 		{
-		  src: '/favicon/leaf-solid.svg',    // Path of the favicon, relative to the /public directory
-		//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
-		//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
-		}
+			src: "/favicon/leaf-solid.svg", // Path of the favicon, relative to the /public directory
+			//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
+			//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
+		},
 	],
 };
 

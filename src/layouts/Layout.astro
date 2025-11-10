@@ -39,6 +39,8 @@ const isHomePage = pathsEqual(Astro.url.pathname, url("/"));
 // defines global css variables
 // why doing this in Layout instead of GlobalStyles: https://github.com/withastro/astro/issues/6728#issuecomment-1502203757
 const configHue = siteConfig.themeColor.hue;
+const themeFixed = siteConfig.theme.fixed;
+const themeDefault = siteConfig.theme.default;
 if (!banner || typeof banner !== "string" || banner.trim() === "") {
 	banner = siteConfig.banner.src;
 }
@@ -111,9 +113,18 @@ const bannerOffset =
 		))}
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
-		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
-			// Load the theme from local storage
-			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
+		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue, themeFixed, themeDefault}}>
+			// Load the theme from local storage or use fixed theme default
+			// 优先使用 localStorage 中的值（如果存在）
+			// 如果主题固定且没有存储值，使用配置中的默认主题
+			let theme = localStorage.getItem('theme');
+			if (!theme) {
+				if (themeFixed) {
+					theme = themeDefault;
+				} else {
+					theme = DEFAULT_THEME;
+				}
+			}
 			switch (theme) {
 				case LIGHT_MODE:
 					document.documentElement.classList.remove('dark');

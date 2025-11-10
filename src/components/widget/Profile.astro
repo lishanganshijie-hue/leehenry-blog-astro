@@ -128,57 +128,74 @@ const fallbackQR = "/wechat-qrcode.png";
 </dialog>
 
 <script is:inline>
-  const modal = document.getElementById('profile-qr-modal');
-  const content = document.getElementById('profile-qr-content');
-  const img = document.getElementById('profile-qr-img');
-  const closeBtn = document.getElementById('profile-qr-close');
+  function initQRModal() {
+    const modal = document.getElementById('profile-qr-modal');
+    const content = document.getElementById('profile-qr-content');
+    const img = document.getElementById('profile-qr-img');
+    const closeBtn = document.getElementById('profile-qr-close');
 
-  // 打开
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest?.('[data-qr-trigger]');
-    if (!btn) return;
-    e.preventDefault();
+    if (!modal || !content || !img) {
+      console.warn('QR modal elements not found');
+      return;
+    }
 
-    const src = btn.getAttribute('data-qr-src') || '/wechat-qrcode.png';
-    img.setAttribute('src', src);
+    // 打开
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest?.('[data-qr-trigger]');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
 
-    modal.showModal();
-    modal.classList.remove('is-closing');
-    // 强制 reflow
-    content.offsetHeight;
-    modal.classList.add('is-open');
-  });
+      const src = btn.getAttribute('data-qr-src') || '/wechat-qrcode.png';
+      img.setAttribute('src', src);
 
-  // 关闭
-  function animateClose() {
-    if (!modal.open) return;
-    modal.classList.remove('is-open');
-    modal.classList.add('is-closing');
+      modal.showModal();
+      modal.classList.remove('is-closing');
+      // 强制 reflow
+      content.offsetHeight;
+      modal.classList.add('is-open');
+    });
+
+    // 关闭
+    function animateClose() {
+      if (!modal.open) return;
+      modal.classList.remove('is-open');
+      modal.classList.add('is-closing');
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', animateClose);
+    }
+
+    // 点击遮罩关闭
+    modal.addEventListener('click', (e) => {
+      const r = content.getBoundingClientRect();
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
+        animateClose();
+      }
+    });
+
+    // 动画结束时真正关闭
+    content.addEventListener('transitionend', (ev) => {
+      if (ev.propertyName === 'opacity' && modal.classList.contains('is-closing')) {
+        modal.close();
+        modal.classList.remove('is-closing', 'is-open');
+      }
+    });
+
+    // 页面离开时兜底关闭
+    window.addEventListener('pagehide', () => {
+      if (modal.open) modal.close();
+      modal.classList.remove('is-open', 'is-closing');
+    });
   }
 
-  closeBtn?.addEventListener('click', animateClose);
-
-  // 点击遮罩关闭
-  modal?.addEventListener('click', (e) => {
-    const r = content.getBoundingClientRect();
-    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
-      animateClose();
-    }
-  });
-
-  // 动画结束时真正关闭
-  content.addEventListener('transitionend', (ev) => {
-    if (ev.propertyName === 'opacity' && modal.classList.contains('is-closing')) {
-      modal.close();
-      modal.classList.remove('is-closing', 'is-open');
-    }
-  });
-
-  // 页面离开时兜底关闭
-  window.addEventListener('pagehide', () => {
-    if (modal.open) modal.close();
-    modal.classList.remove('is-open', 'is-closing');
-  });
+  // 确保 DOM 加载完成后再初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initQRModal);
+  } else {
+    initQRModal();
+  }
 </script>
 
 <style is:global>
@@ -233,7 +250,7 @@ const fallbackQR = "/wechat-qrcode.png";
   }
 
   /* 图片与按钮 */
-  .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; background:transparent; }
+  .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; background:transparent; border-radius: 0; }
   .btn-row { display:flex; justify-content:center; margin-top:0.875rem; }
   .btn-close { padding:0.5rem 1rem; background:var(--primary); color:#fff; cursor:pointer; }
 

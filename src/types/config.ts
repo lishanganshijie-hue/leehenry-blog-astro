@@ -20,6 +20,10 @@ export type SiteConfig = {
 		hue: number;
 		fixed: boolean;
 	};
+	theme: {
+		fixed: boolean; // 是否固定主题模式
+		default: LIGHT_DARK_MODE; // 默认主题模式
+	};
 	banner: {
 		enable: boolean;
 		src: string;

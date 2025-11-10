@@ -58,11 +58,27 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
         <a href={url}
            class="transition group inline-flex items-center font-bold mb-1 text-3xl text-90
         active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
-        pb-2 relative
-        after:absolute after:top-1/2 after:-translate-y-1/2 after:left-[-1rem] after:h-[0.95rem] after:bg-[var(--primary)] after:w-[0.3rem] after:opacity-100 after:transition-all after:duration-300 after:ease-out after:z-0
-        hover:after:w-[calc(100%+1.9rem)] hover:after:opacity-30
+        pb-2 relative title-with-stroke
+        after:absolute after:top-1/2 after:-translate-y-1/2 after:left-[-1rem] after:h-[0.5rem] after:bg-[var(--primary)] after:w-[0.5rem] after:opacity-100 after:transition-all after:duration-300 after:ease-out after:z-0
+        hover:after:w-[calc(100%+1.9rem)] hover:after:opacity-100
         ">
             <span class="relative z-10">
+                {titleParts ? (
+                    <>
+                        <span class="font-bold">{titleParts.prefix}</span>
+                        {(showSuffix || showOnHover) && (
+                            <span class="inline-block align-top title-suffix-wrapper transition-all duration-300 overflow-hidden" class:list={[{"max-w-0 opacity-0": !showSuffix && showOnHover}]} style={`max-width: ${showSuffix ? '100rem' : '0'}; opacity: ${showSuffix ? 1 : 0};`}>
+                                {!hideSeparator && <span class="font-bold whitespace-nowrap">{titleParts.separator}</span>}
+                                {" "}
+                                <span class="font-normal inline-block whitespace-nowrap" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
+                            </span>
+                        )}
+                    </>
+                ) : (
+                    title
+                )}
+            </span>
+            <span class="absolute left-0 top-0 title-no-stroke inline-flex items-center">
                 {titleParts ? (
                     <>
                         <span class="font-bold">{titleParts.prefix}</span>
@@ -136,5 +152,15 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
     .group:hover .title-suffix-wrapper {
         max-width: 100rem !important;
         opacity: 1 !important;
+    }
+    .title-with-stroke {
+        -webkit-text-stroke: 8px var(--card-bg);
+        text-stroke: 1px var(--card-bg);
+    }
+    .title-no-stroke {
+        -webkit-text-stroke: 0;
+        text-stroke: 0;
+        z-index: 20;
+        pointer-events: none;
     }
 </style>

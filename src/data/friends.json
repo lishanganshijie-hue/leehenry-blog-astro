@@ -1,211 +1,219 @@
 [
-  {
-    "name": "secrun",
-    "url": "https://sec.run",
-    "desc": "一切伟大的行动和思想，都有一个微不足道的开始",
-    "avatar": "/friends/Lennox.jpg",
-    "category": "real"
-  },
-  {
-    "name": "AL_1S",
-    "url": "https://www.cnblogs.com/mumujun12345",
-    "desc": "AL_1Sのblog",
-    "avatar": "/friends/AL_1S.jpg",
-    "category": "real"
-  },
-  {
-    "name": "沈君豪 Junhao Shen",
-    "url": "https://www.jhshen.cn/",
-    "desc": "I am Junhao Shen",
-    "avatar": "/friends/sjh.jpg",
-    "category": "real"
-  },
-  {
-    "name": "CDM258's BOX",
-    "url": "http://www.cdm258.tech/",
-    "desc": "最坏的 ctfer",
-    "avatar": "/friends/CDM258.jpg",
-    "category": "real"
-  },
-  {
-    "name": "Axi's Blog",
-    "url": "https://axi404.top",
-    "desc": "一只可爱小猫",
-    "avatar": "/friends/Axi.png",
-    "category": "real",
-    "star": true
-  },
-{
-    "name": "JrHimself",
-    "url": "https://www.jrhim.com/",
-    "desc": "过去一直去，未来一直来，只有现在",
-    "avatar": "/friends/jr.png",
-    "category": "real"
-  },
-  {
-    "name": "ZYBlog",
-    "url": "https://blog.pljzy.top",
-    "desc": "一个技术探索与分享的平台",
-    "avatar": "/friends/ZYBlog.webp",
-    "category": "online"
-  },
-  {
-    "name": "RhoPaperの小站",
-    "url": "https://rhopaper.top",
-    "desc": "纸 至 执",
-    "avatar": "/friends/RhoPaper.png",
-    "category": "online"
-  },
-  {
-    "name": "Teror的客栈",
-    "url": "https://blog.trfox.top",
-    "desc": "欢迎光临～",
-    "avatar": "/friends/TerorFox.jpg",
-    "category": "online"
-  },
-  {
-    "name": "Last Blog",
-    "url": "https://blog.imlast.top",
-    "desc": "void of myself",
-    "avatar": "https://s2.loli.net/2024/01/08/aUYMZQjVfqLJTnr.jpg",
-    "category": "online"
-  },
+	{
+		"name": "secrun",
+		"url": "https://sec.run",
+		"desc": "一切伟大的行动和思想，都有一个微不足道的开始",
+		"avatar": "/friends/Lennox.jpg",
+		"category": "real"
+	},
+	{
+		"name": "AL_1S",
+		"url": "https://www.cnblogs.com/mumujun12345",
+		"desc": "AL_1Sのblog",
+		"avatar": "/friends/AL_1S.jpg",
+		"category": "real"
+	},
+	{
+		"name": "沈君豪 Junhao Shen",
+		"url": "https://www.jhshen.cn/",
+		"desc": "I am Junhao Shen",
+		"avatar": "/friends/sjh.jpg",
+		"category": "real"
+	},
+	{
+		"name": "CDM258's BOX",
+		"url": "http://www.cdm258.tech/",
+		"desc": "最坏的 ctfer",
+		"avatar": "/friends/CDM258.jpg",
+		"category": "real"
+	},
+	{
+		"name": "Axi's Blog",
+		"url": "https://axi404.top",
+		"desc": "一只可爱小猫",
+		"avatar": "/friends/Axi.png",
+		"category": "real",
+		"star": true
+	},
+	{
+		"name": "JrHimself",
+		"url": "https://www.jrhim.com/",
+		"desc": "过去一直去，未来一直来，只有现在",
+		"avatar": "/friends/jr.png",
+		"category": "real"
+	},
+	{
+		"name": "ZYBlog",
+		"url": "https://blog.pljzy.top",
+		"desc": "一个技术探索与分享的平台",
+		"avatar": "/friends/ZYBlog.webp",
+		"category": "online"
+	},
+	{
+		"name": "RhoPaperの小站",
+		"url": "https://rhopaper.top",
+		"desc": "纸 至 执",
+		"avatar": "/friends/RhoPaper.png",
+		"category": "online"
+	},
+	{
+		"name": "Teror的客栈",
+		"url": "https://blog.trfox.top",
+		"desc": "欢迎光临～",
+		"avatar": "/friends/TerorFox.jpg",
+		"category": "online"
+	},
+	{
+		"name": "Last Blog",
+		"url": "https://blog.imlast.top",
+		"desc": "void of myself",
+		"avatar": "https://s2.loli.net/2024/01/08/aUYMZQjVfqLJTnr.jpg",
+		"category": "online"
+	},
 
-  {
-    "name": "記緒漂流",
-    "url": "https://ttio.cc/",
-    "desc": "于记忆之川，泛思绪之舟",
-    "avatar": "/friends/jxpl.png",
-    "category": "stash",
-    "star": true
-  },
+	{
+		"name": "記緒漂流",
+		"url": "https://ttio.cc/",
+		"desc": "于记忆之川，泛思绪之舟",
+		"avatar": "/friends/jxpl.png",
+		"category": "stash",
+		"star": true
+	},
 
-  {
-    "name": "李鹏坤",
-    "url": "https://www.lipk.org/",
-    "desc": "「执手对影成双」",
-    "avatar": "/friends/lipk.png",
-    "category": "stash"
-  },
+	{
+		"name": "李鹏坤",
+		"url": "https://www.lipk.org/",
+		"desc": "「执手对影成双」",
+		"avatar": "/friends/lipk.png",
+		"category": "stash"
+	},
 
-  {
-    "name": "極客死亡計劃",
-    "url": "https://www.geedea.pro/",
-    "desc": "这里只有真情流露和赤裸的思考",
-    "avatar": "/friends/geed.webp",
-    "category": "stash",
-    "star": true
-  },
+	{
+		"name": "極客死亡計劃",
+		"url": "https://www.geedea.pro/",
+		"desc": "这里只有真情流露和赤裸的思考",
+		"avatar": "/friends/geed.webp",
+		"category": "stash",
+		"star": true
+	},
 
-  {
-    "name": "SamWho",
-    "url": "https://samwho.dev/",
-    "desc": "Writes visual essays about software",
-    "avatar": "/friends/samwho.webp",
-    "category": "stash"
-  },
+	{
+		"name": "SamWho",
+		"url": "https://samwho.dev/",
+		"desc": "Writes visual essays about software",
+		"avatar": "/friends/samwho.webp",
+		"category": "stash"
+	},
 
-  {
-    "name": "开往 Travellings",
-    "url": "https://www.travellings.cn/",
-    "desc": "友链接力，让网络开放起来",
-    "avatar": "/friends/traveling.png",
-    "category": "org"
-  },
-  {
-    "name": "笔墨迹 Blogs·CN",
-    "url": "https://blogscn.fun/",
-    "desc": "致敬还在写博客的我们",
-    "avatar": "https://photo.xiangming.site/img/blogscn_icon.png",
-    "category": "org"
-  },
-  {
-    "name": "十年之约 ForeverBlog",
-    "url": "https://www.foreverblog.cn/",
-    "desc": "一个人的寂寞，一群人的狂欢",
-    "avatar": "/friends/FB.webp",
-    "category": "org"
-  },
-  {
-    "name": "西郊林野",
-    "url": "https://blog.marshuni.fun/",
-    "desc": "但行好事，莫问前程",
-    "avatar": "/friends/SN.webp",
-    "category": "online"
-  },
-  {
-    "name": "莫比乌斯",
-    "url": "https://onojyun.com/",
-    "desc": "凡真实的，必会相遇",
-    "avatar": "/friends/mobius.jpg",
-    "category": "stash",
-    "star": true
-  },
-  {
-    "name": "纸鹿摸鱼处",
-    "url": "https://blog.zhilu.site/",
-    "desc": "纸鹿至麓不知路，支炉制露不止漉",
-    "avatar": "https://www.zhilu.site/api/avatar.png",
-    "category": "online",
-    "star": true
-  },
-  {
-    "name": "Limboy",
-    "url": "https://limboy.me/",
-    "desc": "正在努力成为一个合格的独立创作者",
-    "avatar": "/friends/LB.png",
-    "category": "stash"
-  },
-  {
-    "name": "Owen",
-    "url": "https://www.owenyoung.com/",
-    "desc": "追求注意力自由而不是财富自由",
-    "avatar": "/friends/owen.jpg",
-    "category": "stash"
-  },
-  {
-    "name": "SkyWT",
-    "url": "https://skywt.cn/",
-    "desc": "理想主義。我還年輕。",
-    "avatar": "https://upload.storeweb.cn/upload/site/logo/1376/8aa06adad607fb7aceb90b439c8f9b92.jpg",
-    "category": "stash",
-    "star": true
-  },
-  {
-    "name": "谢谢所有的鱼",
-    "url": "https://gregueria.icu/",
-    "desc": "您首页的奶牛猫图片转发大使",
-    "avatar": "/friends/fish.webp",
-    "category": "stash"
-  },
-  {
-    "name": "昼河万里",
-    "url": "https://tothemoonriver.icu/",
-    "desc": "一起去看月亮吧",
-    "avatar": "https://tothemoonriver.icu/img/avatar_hu1f7fd3bb10d1d6e480fe680f98f799d1_738451_300x0_resize_box_3.png",
-    "category": "online"
-  },
-  {
-    "name": "Kyo",
-    "url": "https://www.heykyo.com/",
-    "desc": "Here is Kyo's Garden",
-    "avatar": "https://www.heykyo.com/img/avatar_hu27edd0b5494c0bf46be934fa31d5e4d0_418062_288x288_fill_q96_box_center_3.png",
-    "category": "stash"
-  },
-  {
-    "name": "Shadows of the Sun",
-    "url": "https://rovingsun.wordpress.com/",
-    "desc": "但是我从不怕挖出我火热的心",
-    "avatar": "/friends/shadow.webp",
-    "category": "stash",
-    "star": true
-  },
-  {
-    "name": "非理勿试",
-    "url": "https://www.ntiy.com/",
-    "desc": "Never Try It Yourself.",
-    "avatar": "https://gravatar.loli.net/avatar/f8a24e0c241bbc8a305930448f727397",
-    "category": "stash",
-    "star": true
-  }
+	{
+		"name": "开往 Travellings",
+		"url": "https://www.travellings.cn/",
+		"desc": "友链接力，让网络开放起来",
+		"avatar": "/friends/traveling.png",
+		"category": "org"
+	},
+	{
+		"name": "笔墨迹 Blogs·CN",
+		"url": "https://blogscn.fun/",
+		"desc": "致敬还在写博客的我们",
+		"avatar": "https://photo.xiangming.site/img/blogscn_icon.png",
+		"category": "org"
+	},
+	{
+		"name": "十年之约 ForeverBlog",
+		"url": "https://www.foreverblog.cn/",
+		"desc": "一个人的寂寞，一群人的狂欢",
+		"avatar": "/friends/FB.webp",
+		"category": "org"
+	},
+	{
+		"name": "西郊林野",
+		"url": "https://blog.marshuni.fun/",
+		"desc": "但行好事，莫问前程",
+		"avatar": "/friends/SN.webp",
+		"category": "online"
+	},
+	{
+		"name": "莫比乌斯",
+		"url": "https://onojyun.com/",
+		"desc": "凡真实的，必会相遇",
+		"avatar": "/friends/mobius.jpg",
+		"category": "stash",
+		"star": true
+	},
+	{
+		"name": "纸鹿摸鱼处",
+		"url": "https://blog.zhilu.site/",
+		"desc": "纸鹿至麓不知路，支炉制露不止漉",
+		"avatar": "https://www.zhilu.site/api/avatar.png",
+		"category": "online",
+		"star": true
+	},
+	{
+		"name": "Limboy",
+		"url": "https://limboy.me/",
+		"desc": "正在努力成为一个合格的独立创作者",
+		"avatar": "/friends/LB.png",
+		"category": "stash"
+	},
+	{
+		"name": "Owen",
+		"url": "https://www.owenyoung.com/",
+		"desc": "追求注意力自由而不是财富自由",
+		"avatar": "/friends/owen.jpg",
+		"category": "stash"
+	},
+	{
+		"name": "SkyWT",
+		"url": "https://skywt.cn/",
+		"desc": "理想主義。我還年輕。",
+		"avatar": "https://upload.storeweb.cn/upload/site/logo/1376/8aa06adad607fb7aceb90b439c8f9b92.jpg",
+		"category": "stash",
+		"star": true
+	},
+	{
+		"name": "谢谢所有的鱼",
+		"url": "https://gregueria.icu/",
+		"desc": "您首页的奶牛猫图片转发大使",
+		"avatar": "/friends/fish.webp",
+		"category": "stash"
+	},
+	{
+		"name": "昼河万里",
+		"url": "https://tothemoonriver.icu/",
+		"desc": "一起去看月亮吧",
+		"avatar": "https://tothemoonriver.icu/img/avatar_hu1f7fd3bb10d1d6e480fe680f98f799d1_738451_300x0_resize_box_3.png",
+		"category": "online"
+	},
+	{
+		"name": "Kyo",
+		"url": "https://www.heykyo.com/",
+		"desc": "Here is Kyo's Garden",
+		"avatar": "https://www.heykyo.com/img/avatar_hu27edd0b5494c0bf46be934fa31d5e4d0_418062_288x288_fill_q96_box_center_3.png",
+		"category": "stash"
+	},
+	{
+		"name": "Shadows of the Sun",
+		"url": "https://rovingsun.wordpress.com/",
+		"desc": "但是我从不怕挖出我火热的心",
+		"avatar": "/friends/shadow.webp",
+		"category": "stash",
+		"star": true
+	},
+	{
+		"name": "非理勿试",
+		"url": "https://www.ntiy.com/",
+		"desc": "Never Try It Yourself.",
+		"avatar": "https://gravatar.loli.net/avatar/f8a24e0c241bbc8a305930448f727397",
+		"category": "stash",
+		"star": true
+	},
+	{
+		"name": "小倪 BioEZ",
+		"url": "https://bioez.xyz",
+		"desc": "入口即化，生生不息",
+		"avatar": "https://bioez.xyz/upload/minni_spark.png",
+		"category": "online",
+		"star": true
+	}
 ]

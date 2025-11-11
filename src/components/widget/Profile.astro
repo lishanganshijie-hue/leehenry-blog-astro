@@ -50,7 +50,7 @@ const fallbackQR = "/wechat-qrcode.png";
     <div class="text-center text-neutral-400 mb-2.5 transition">{config.bio}</div>
 
     <!-- 社交图标：支持 popup（弹二维码） -->
-    <div class="flex gap-2 justify-center mb-1 relative" style="z-index: 100;">
+    <div class="flex gap-3 justify-center mb-1 relative" style="z-index: 100;">
       {
         config.links.length > 1
           ? config.links.map((item) => (
@@ -59,12 +59,12 @@ const fallbackQR = "/wechat-qrcode.png";
                   <button
                     type="button"
                     aria-label={item.name}
-                    class="btn-regular h-10 w-10 active:scale-90"
+                    class="btn-regular h-8 w-8 active:scale-90"
                     data-qr-trigger
                     data-qr-src={item.popupImage ?? fallbackQR}
                     title={item.name}
                   >
-                    <Icon name={item.icon} class="text-[1.5rem]" />
+                    <Icon name={item.icon} class="text-[1.2rem]" />
                   </button>
                 )
                 : (
@@ -73,10 +73,10 @@ const fallbackQR = "/wechat-qrcode.png";
                     aria-label={item.name}
                     href={item.url}
                     target="_blank"
-                    class="btn-regular h-10 w-10 active:scale-90"
+                    class="btn-regular h-8 w-8 active:scale-90"
                     title={item.name}
                   >
-                    <Icon name={item.icon} class="text-[1.5rem]" />
+                    <Icon name={item.icon} class="text-[1.2rem]" />
                   </a>
                 )
             ))
@@ -86,12 +86,12 @@ const fallbackQR = "/wechat-qrcode.png";
                 <button
                   type="button"
                   aria-label={config.links[0].name}
-                  class="btn-regular h-10 gap-2 px-3 font-bold active:scale-95"
+                  class="btn-regular h-10 gap-3 px-3 font-bold active:scale-95"
                   data-qr-trigger
                   data-qr-src={config.links[0].popupImage ?? fallbackQR}
                   title={config.links[0].name}
                 >
-                  <Icon name={config.links[0].icon} class="text-[1.5rem]" />
+                  <Icon name={config.links[0].icon} class="text-[1.2rem]" />
                   {config.links[0].name}
                 </button>
               )
@@ -104,7 +104,7 @@ const fallbackQR = "/wechat-qrcode.png";
                   class="btn-regular h-10 gap-2 px-3 font-bold active:scale-95"
                   title={config.links[0].name}
                 >
-                  <Icon name={config.links[0].icon} class="text-[1.5rem]" />
+                  <Icon name={config.links[0].icon} class="text-[1.2rem]" />
                   {config.links[0].name}
                 </a>
               )

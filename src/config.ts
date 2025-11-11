@@ -103,7 +103,7 @@ export const profileConfig: ProfileConfig = {
 	links: [
 		{
 			name: "GitHub",
-			icon: "fa6-brands:github",
+			icon: "github",
 			url: "https://github.com/LeeHero0803",
 		},
 		// {
@@ -117,25 +117,25 @@ export const profileConfig: ProfileConfig = {
 		// 	url: "https://www.zhihu.com/people/xxx",
 		// },
 		{
-			name: "B站",
-			icon: "simple-icons:bilibili",
+			name: "Bilibili",
+			icon: "tv",
 			url: "https://space.bilibili.com/29402544",
 		},
 		{
-			name: "微信",
-			icon: "simple-icons:wechat",
+			name: "WeChat",
+			icon: "wechat",
 			url: "#",
 			popup: true,
 			popupImage: "/wechat-qrcode.png",
 		},
 		{
-			name: "邮箱",
-			icon: "fa6-regular:envelope",
+			name: "Email",
+			icon: "email",
 			url: "mailto:leehenry1024@qq.com",
 		},
 		{
-			name: "RSS 订阅",
-			icon: "fa6-solid:square-rss",
+			name: "RSS",
+			icon: "rss",
 			url: "https://leehenry.top/rss.xml",
 		},
 	],

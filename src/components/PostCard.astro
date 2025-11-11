@@ -59,8 +59,8 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
            class="transition group inline-flex items-center font-bold mb-1 text-3xl text-90
         active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
         pb-2 relative title-with-stroke
-        after:absolute after:top-1/2 after:-translate-y-1/2 after:left-[-1rem] after:h-[0.5rem] after:bg-[var(--primary)] after:w-[0.5rem] after:opacity-100 after:transition-all after:duration-300 after:ease-out after:z-0
-        hover:after:w-[calc(100%+1.9rem)] hover:after:opacity-100
+        after:absolute after:top-1/2 after:-translate-y-1/2 after:left-[-1rem] after:h-[0.7rem] after:bg-[var(--primary)] after:w-[0.5rem] after:opacity-100 after:transition-all after:duration-300 after:ease-out after:z-0
+        hover:after:w-[calc(100%+1.9rem)] hover:after:opacity-30
         ">
             <span class="relative z-10">
                 {titleParts ? (
@@ -154,7 +154,7 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
         opacity: 1 !important;
     }
     .title-with-stroke {
-        -webkit-text-stroke: 5px var(--card-bg);
+        -webkit-text-stroke: 0px var(--card-bg);
         text-stroke: 1px var(--card-bg);
     }
     .title-no-stroke {

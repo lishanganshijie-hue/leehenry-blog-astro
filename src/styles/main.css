@@ -55,6 +55,7 @@
 
 /* 斜体文本使用 Open Sans */
 em, i, 
+.italic,
 *[style*="font-style: italic"], 
 *[style*="font-style:italic"],
 *[style*="font-style:italic;"] {

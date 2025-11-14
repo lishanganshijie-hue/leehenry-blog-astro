@@ -22,8 +22,10 @@ if (!entry) {
 const { Content } = await render(entry);
 
 // 标题/描述优先取 frontmatter，没有就用默认
-const title = entry.data.title ?? "友邻";
-const description = entry.data.description ?? "互相串门～欢迎交换友链";
+const title = (entry.data as { title?: string }).title ?? "友邻";
+const description =
+	(entry.data as { description?: string }).description ??
+	"互相串门～欢迎交换友链";
 
 // 枚举映射：机器可读 -> 展示文案
 const CATEGORIES = {
@@ -36,14 +38,39 @@ const CATEGORIES = {
 type CatKey = keyof typeof CATEGORIES;
 
 // 容错：没有 category 时默认 online
-const normalized = (friends as any[]).map((f) => ({
-	...f,
-	category: (["real", "online", "stash", "org"].includes(f?.category)
-		? f.category
-		: "online") as CatKey,
-}));
+interface FriendItem {
+	name: string;
+	url: string;
+	desc: string;
+	avatar: string;
+	category?: string;
+	badge?: string;
+	hidden?: boolean;
+	note?: string;
+}
 
-// 分组 + 稳定顺序（按上面的映射顺序），star 站点置顶
+const normalized = (friends as FriendItem[])
+	.filter((f) => !f.hidden) // 过滤掉隐藏的友链
+	.map((f) => ({
+		...f,
+		category: (f.category &&
+		["real", "online", "stash", "org"].includes(f.category)
+			? f.category
+			: "online") as CatKey,
+	}));
+
+// 标记类型定义
+type BadgeType = "star" | "error" | "stale" | undefined;
+
+// 获取标记的排序权重：star 置顶（权重最小），stale 和 error 置底（权重最大），stale 在 error 之前
+const getBadgeWeight = (badge: BadgeType): number => {
+	if (badge === "star") return 0; // 置顶
+	if (badge === "stale") return 2; // 置底，但在 error 之前
+	if (badge === "error") return 3; // 置底，最后
+	return 1; // 无标记的排在中间
+};
+
+// 分组 + 稳定顺序（按上面的映射顺序），star 站点置顶，error 和 stale 置底
 const groups = (Object.keys(CATEGORIES) as CatKey[])
 	.map((k) => ({
 		key: k,
@@ -51,10 +78,9 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 		items: normalized
 			.filter((f) => f.category === k)
 			.sort((a, b) => {
-				// star 为 true 的排在前面
-				if (a.star && !b.star) return -1;
-				if (!a.star && b.star) return 1;
-				return 0;
+				const aWeight = getBadgeWeight(a.badge as BadgeType);
+				const bWeight = getBadgeWeight(b.badge as BadgeType);
+				return aWeight - bWeight;
 			}),
 	}))
 	.filter((g) => g.items.length > 0);
@@ -92,6 +118,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
               href={f.url}
               target="_blank"
               rel="noopener noreferrer"
+              data-note={f.note || undefined}
               style={{
                 'background-color': 'var(--card-bg)',
                 'border-color': 'var(--btn-card-bg-active)',
@@ -101,12 +128,24 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                   hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
                   active:scale-[0.98] relative overflow-hidden"
               >
-              {f.star && (
+              {f.badge && (
                 <>
-                  <div class="star-badge"></div>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="star-icon">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
+                  <div class={`badge badge-${f.badge}`}></div>
+                  {f.badge === "star" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="badge-icon badge-icon-star">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  )}
+                  {f.badge === "error" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1026 1024" class="badge-icon badge-icon-error">
+                      <path d="M795.648 229.888c-155.648-155.648-409.6-155.648-565.248 0-155.648 155.648-155.648 409.088 0 564.736 74.752 74.752 176.64 117.248 282.624 116.736 102.4 0 204.8-38.912 282.624-116.736 156.16-155.648 156.16-409.088 0-564.736z m-91.136 433.152c14.848 14.848 14.848 38.912 0 53.76-14.848 14.848-38.912 14.848-53.76 0l-140.8-140.8L368.64 716.8c-7.168 7.168-16.896 11.264-27.136 11.264s-19.968-4.096-27.136-11.264c-7.168-7.168-11.264-16.896-11.264-27.136s4.096-19.968 11.264-27.136L455.68 522.24 314.88 381.44c-14.848-14.848-14.848-38.912 0-53.76s38.912-14.848 53.76 0l140.8 140.8 147.456-147.456c14.848-14.848 38.912-14.848 53.76 0 14.848 14.848 14.848 38.912 0 53.76L563.712 522.24l140.8 140.8z"/>
+                    </svg>
+                  )}
+                  {f.badge === "stale" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1224 1024" class="badge-icon badge-icon-stale">
+                      <path d="M996.325855 284.728647c116.311149-21.120545 153.340732 81.052868 169.334741 117.02577 10.662672 23.983387 30.197106 55.189243 58.601123 93.619745-110.469991-47.409021-186.150128 9.845651-227.042587 171.759659-59.315745 234.866383-351.349651 321.971745-475.63057 242.934196-18.31217-11.645277-40.17566-13.213957-58.001975-20.039898-6.693038-2.562179-11.874043-4.834587-15.54737-6.812868-66.636255 20.885243-124.96286 63.88017-174.981991 128.986962C198.030706 1109.863489-109.341413 528.699915 43.313021 512.300664c214.828664 66.806196 352.543591 101.142877 413.142605 103.010042-98.948902-26.532494-175.27394-94.205821-228.975115-203.022161C173.779336 303.474383 170.999285 166.376034 219.138179 1.002213c59.701379 61.856136 132.202757 114.7904 217.501957 158.800613 127.956426 66.017498 126.381209 55.583591 252.627336 138.9568 84.164085 55.579234 126.810417 120.208885 127.941175 193.882417 41.870706-124.527115 101.576443-193.832306 179.117208-207.911217z m56.463796 95.417191c2.766979-7.161464-0.899813-14.837106-8.172391-17.153089-7.272579-2.318162-15.403574 1.588289-18.166196 8.736681-2.749549 7.15057 0.899813 14.837106 8.170213 17.16834 7.272579 2.315983 15.418826-1.599183 18.170553-8.751932z"/>
+                    </svg>
+                  )}
                 </>
               )}
               <img
@@ -136,8 +175,77 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
   </div>
 </MainGridLayout>
 
+<!-- 友链 note 浮层 -->
+<div id="friend-note-tooltip" class="friend-note-tooltip"></div>
+
+<script>
+  const tooltip = document.getElementById('friend-note-tooltip');
+  if (!tooltip) throw new Error('Friend note tooltip element not found');
+  
+  const friendCards = document.querySelectorAll('.friend-card[data-note]');
+  
+  friendCards.forEach((card) => {
+    const note = card.getAttribute('data-note');
+    if (!note) return;
+    
+    card.addEventListener('mouseenter', () => {
+      tooltip.textContent = note;
+      // 先设置位置，再显示（避免动画时位置跳动）
+      tooltip.style.visibility = 'visible';
+      // 使用 requestAnimationFrame 确保样式已应用
+      requestAnimationFrame(() => {
+        tooltip.style.opacity = '0.9';
+      });
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      tooltip.style.opacity = '0';
+      // 等待动画完成后再隐藏，避免影响布局
+      setTimeout(() => {
+        if (tooltip.style.opacity === '0') {
+          tooltip.style.visibility = 'hidden';
+        }
+      }, 200); // 与 CSS transition 时间一致
+    });
+    
+    card.addEventListener('mousemove', (e) => {
+      // 跟随鼠标，偏移一点距离避免遮挡
+      const mouseEvent = e as MouseEvent;
+      const offset = 15;
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const maxWidth = 300; // 与 CSS 中的 max-width 一致
+      
+      let left = mouseEvent.clientX + offset;
+      let top = mouseEvent.clientY + offset;
+      
+      // 防止超出右边界
+      if (left + maxWidth > window.innerWidth) {
+        left = mouseEvent.clientX - maxWidth - offset;
+      }
+      
+      // 防止超出下边界
+      if (top + tooltipRect.height > window.innerHeight) {
+        top = mouseEvent.clientY - tooltipRect.height - offset;
+      }
+      
+      // 防止超出左边界
+      if (left < 0) {
+        left = offset;
+      }
+      
+      // 防止超出上边界
+      if (top < 0) {
+        top = offset;
+      }
+      
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    });
+  });
+</script>
+
 <style>
-  .star-badge {
+  .badge {
     position: absolute;
     top: 0;
     right: 0;
@@ -145,19 +253,63 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
     height: 0;
     border-style: solid;
     border-width: 0 36px 36px 0;
-    border-color: transparent var(--star-bg) transparent transparent;
     z-index: 1;
   }
 
-  .star-icon {
-    fill: var(--star-content);
+  .badge-star {
+    border-color: transparent var(--star-bg) transparent transparent;
+  }
+
+  .badge-error {
+    border-color: transparent var(--error-bg) transparent transparent;
+  }
+
+  .badge-stale {
+    border-color: transparent var(--stale-bg) transparent transparent;
+  }
+
+  .badge-icon {
     position: absolute;
     top: 3px;
     right: 3px;
     width: 15px;
     height: 15px;
-    transform: rotate(45deg);
     pointer-events: none;
     z-index: 2;
+  }
+
+  .badge-icon-star {
+    fill: var(--star-content);
+    transform: rotate(45deg);
+  }
+
+  .badge-icon-error {
+    fill: var(--error-content);
+  }
+
+  .badge-icon-stale {
+    fill: var(--stale-content);
+    transform: rotate(-10deg) scale(0.85);
+  }
+
+  .friend-note-tooltip {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    padding: 0.75rem 1rem;
+    max-width: 300px;
+    background-color: var(--card-bg);
+    /* background-color: var(--btn-regular-bg); */
+    border: 1px solid var(--btn-card-bg-active);
+    /* border: 1px solid var(--primary); */
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: var(--btn-content);
+    font-size: 0.875rem; /* text-sm，与描述文字一致 */
+    line-height: 1.5;
+    word-wrap: break-word;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out, visibility 0s linear 0.2s;
   }
 </style>

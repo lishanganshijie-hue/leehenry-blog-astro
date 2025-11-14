@@ -34,7 +34,7 @@ export const zh_CN: Translation = {
 
 	[Key.more]: "余下",
 
-	[Key.author]: "著墨人",
-	[Key.publishedAt]: "落笔于",
-	[Key.license]: "署权",
+	[Key.author]: "作者",
+	[Key.publishedAt]: "发布于",
+	[Key.license]: "版权所有",
 };

@@ -96,7 +96,7 @@ export const navBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar: "/friends/my-avatar-portrait.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "伏枥 | Henry Lee",
+	name: "伏枥",
 	bio: "别让今天叫住我了",
 	useSignature: true, // 是否使用签名图片替代文字名字
 	signature: "/signature.webp", // 签名图片路径，相对于 /public 目录
@@ -106,16 +106,6 @@ export const profileConfig: ProfileConfig = {
 			icon: "github",
 			url: "https://github.com/LeeHero0803",
 		},
-		// {
-		// 	name: "Twitter",
-		// 	icon: "fa6-brands:twitter",
-		// 	url: "https://twitter.com/yourname",
-		// },
-		// {
-		// 	name: "知乎",
-		// 	icon: "simple-icons:zhihu",
-		// 	url: "https://www.zhihu.com/people/xxx",
-		// },
 		{
 			name: "Bilibili",
 			icon: "tv",

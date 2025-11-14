@@ -14,6 +14,30 @@ let totalZhChars = 0;
 let totalEnWords = 0;
 let totalPosts = 0;
 
+function trimTrailingZeros(value) {
+	return value.replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
+}
+
+function formatCharCount(count) {
+	if (count >= 1e8) {
+		return `${trimTrailingZeros(
+			(count / 1e8).toFixed(count >= 1e9 ? 1 : 2),
+		)} 亿字`;
+	}
+
+	if (count >= 1e4) {
+		return `${trimTrailingZeros(
+			(count / 1e4).toFixed(count >= 1e5 ? 1 : 2),
+		)} 万字`;
+	}
+
+	if (count >= 1e3) {
+		return `${trimTrailingZeros((count / 1e3).toFixed(1))} 千字`;
+	}
+
+	return `${count} 字`;
+}
+
 function stripMdText(input) {
 	let out = input.replace(/^\uFEFF?/, ""); // 去 BOM
 	out = out.replace(/^---[\s\S]*?---\r?\n/, ""); // frontmatter
@@ -67,13 +91,15 @@ function formatDateToBeijing(date) {
 
 walkDir(POSTS_DIR);
 
+const totalChars = totalZhChars + totalEnWords;
+
 const stats = {
 	generatedAt: formatDateToBeijing(new Date()),
 	totalPosts,
 	totalZhChars,
 	totalEnWords,
 	// totalHumanReadable: `${totalZhChars} 字，${totalEnWords} 词`,
-	totalHumanReadable: `${totalZhChars + totalEnWords} 字`,
+	totalHumanReadable: formatCharCount(totalChars),
 };
 
 mkdirSync("public", { recursive: true });

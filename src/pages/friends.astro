@@ -156,8 +156,21 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                 loading="lazy"
                 class="h-12 w-12 rounded-full object-cover"
               />
-              <div class="min-w-0">
-                <div class="font-semibold truncate">{f.name}</div>
+              <div class="min-w-0 flex-1">
+                <div class="font-semibold truncate flex items-center gap-2">
+                  <span class="truncate">{f.name}</span>
+                  {f.note && (
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 24 24" 
+                      fill="none"
+                      class="friend-note-icon flex-shrink-0"
+                      data-note={f.note}
+                    >
+                      <path d="M8 10.5H16M8 14.5H11M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  )}
+                </div>
                 <div class="text-sm truncate text-[var(--btn-content)]">{f.desc}</div>
                 <div class="text-xs truncate text-[var(--btn-content)] opacity-50 italic">{f.url}</div>
               </div>
@@ -176,72 +189,138 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 </MainGridLayout>
 
 <!-- 友链 note 浮层 -->
-<div id="friend-note-tooltip" class="friend-note-tooltip"></div>
+<div id="friend-note-overlay" class="friend-note-overlay"></div>
 
 <script>
-  const tooltip = document.getElementById('friend-note-tooltip');
-  if (!tooltip) throw new Error('Friend note tooltip element not found');
+  // 使用 WeakSet 来跟踪已经绑定事件的图标和卡片，避免重复绑定
+  const boundIcons = new WeakSet<HTMLElement>();
+  const boundCards = new WeakSet<HTMLElement>();
+  let currentActiveIcon: HTMLElement | null = null;
+  let currentActiveCard: HTMLElement | null = null;
   
-  const friendCards = document.querySelectorAll('.friend-card[data-note]');
-  
-  friendCards.forEach((card) => {
-    const note = card.getAttribute('data-note');
-    if (!note) return;
+  function hideOverlay() {
+    const overlay = document.getElementById('friend-note-overlay');
+    if (!overlay) return;
     
-    card.addEventListener('mouseenter', () => {
-      tooltip.textContent = note;
-      // 先设置位置，再显示（避免动画时位置跳动）
-      tooltip.style.visibility = 'visible';
-      // 使用 requestAnimationFrame 确保样式已应用
-      requestAnimationFrame(() => {
-        tooltip.style.opacity = '0.9';
-      });
+    overlay.style.opacity = '0';
+    // 等待动画完成后再隐藏，避免影响布局
+    setTimeout(() => {
+      if (overlay.style.opacity === '0') {
+        overlay.style.visibility = 'hidden';
+        currentActiveIcon = null;
+        currentActiveCard = null;
+      }
+    }, 200); // 与 CSS transition 时间一致
+  }
+  
+  function showOverlay(card: HTMLElement, note: string) {
+    const overlay = document.getElementById('friend-note-overlay');
+    if (!overlay) return;
+    
+    const cardRect = card.getBoundingClientRect();
+    
+    // 先设置位置和大小
+    overlay.style.left = `${cardRect.left}px`;
+    overlay.style.top = `${cardRect.top}px`;
+    overlay.style.width = `${cardRect.width}px`;
+    overlay.style.height = `${cardRect.height}px`;
+    overlay.textContent = note;
+    
+    // 重置为初始状态，确保动画能触发
+    overlay.style.opacity = '0';
+    overlay.style.visibility = 'visible';
+    
+    // 强制浏览器重新计算样式，然后触发 opacity 动画
+    void overlay.offsetHeight; // 触发重排
+    
+    // 在下一帧设置 opacity，触发 transition
+    requestAnimationFrame(() => {
+      overlay.style.opacity = '0.9';
     });
+  }
+  
+  function initFriendNoteOverlay() {
+    const overlay = document.getElementById('friend-note-overlay');
+    if (!overlay) return;
     
-    card.addEventListener('mouseleave', () => {
-      tooltip.style.opacity = '0';
-      // 等待动画完成后再隐藏，避免影响布局
-      setTimeout(() => {
-        if (tooltip.style.opacity === '0') {
-          tooltip.style.visibility = 'hidden';
+    const noteIcons = document.querySelectorAll('.friend-note-icon');
+    
+    noteIcons.forEach((icon) => {
+      // 如果已经绑定过事件，跳过
+      if (boundIcons.has(icon as HTMLElement)) return;
+      
+      const note = icon.getAttribute('data-note');
+      if (!note) return;
+      
+      const card = icon.closest('.friend-card') as HTMLElement;
+      if (!card) return;
+      
+      const handleClick = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // 如果点击的是当前已激活的图标，则关闭
+        if (currentActiveIcon === icon) {
+          hideOverlay();
+          return;
         }
-      }, 200); // 与 CSS transition 时间一致
+        
+        // 关闭之前的弹窗
+        if (currentActiveIcon) {
+          hideOverlay();
+        }
+        
+        // 显示新的弹窗
+        currentActiveIcon = icon as HTMLElement;
+        currentActiveCard = card;
+        showOverlay(card, note);
+      };
+      
+      icon.addEventListener('click', handleClick);
+      
+      // 标记为已绑定
+      boundIcons.add(icon as HTMLElement);
+      
+      // 在卡片上绑定 mouseleave 事件（只绑定一次）
+      if (!boundCards.has(card)) {
+        const handleCardMouseLeave = () => {
+          // 只有当这个卡片是当前激活的卡片时才关闭
+          if (currentActiveCard === card) {
+            hideOverlay();
+          }
+        };
+        
+        card.addEventListener('mouseleave', handleCardMouseLeave);
+        boundCards.add(card);
+      }
     });
-    
-    card.addEventListener('mousemove', (e) => {
-      // 跟随鼠标，偏移一点距离避免遮挡
-      const mouseEvent = e as MouseEvent;
-      const offset = 15;
-      const tooltipRect = tooltip.getBoundingClientRect();
-      const maxWidth = 300; // 与 CSS 中的 max-width 一致
-      
-      let left = mouseEvent.clientX + offset;
-      let top = mouseEvent.clientY + offset;
-      
-      // 防止超出右边界
-      if (left + maxWidth > window.innerWidth) {
-        left = mouseEvent.clientX - maxWidth - offset;
-      }
-      
-      // 防止超出下边界
-      if (top + tooltipRect.height > window.innerHeight) {
-        top = mouseEvent.clientY - tooltipRect.height - offset;
-      }
-      
-      // 防止超出左边界
-      if (left < 0) {
-        left = offset;
-      }
-      
-      // 防止超出上边界
-      if (top < 0) {
-        top = offset;
-      }
-      
-      tooltip.style.left = `${left}px`;
-      tooltip.style.top = `${top}px`;
+  }
+  
+  // 页面加载时初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFriendNoteOverlay);
+  } else {
+    initFriendNoteOverlay();
+  }
+  
+  // Swup 页面切换后重新初始化
+  if (window.swup) {
+    window.swup.hooks.on('page:view', () => {
+      currentActiveIcon = null; // 重置当前激活的图标
+      currentActiveCard = null; // 重置当前激活的卡片
+      initFriendNoteOverlay();
     });
-  });
+  } else {
+    document.addEventListener('swup:enable', () => {
+      if (window.swup) {
+        window.swup.hooks.on('page:view', () => {
+          currentActiveIcon = null; // 重置当前激活的图标
+          currentActiveCard = null; // 重置当前激活的卡片
+          initFriendNoteOverlay();
+        });
+      }
+    });
+  }
 </script>
 
 <style>
@@ -292,24 +371,39 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
     transform: rotate(-10deg) scale(0.85);
   }
 
-  .friend-note-tooltip {
+  .friend-note-icon {
+    width: 16px;
+    height: 16px;
+    stroke: var(--btn-content);
+    stroke-width: 2;
+    opacity: 0.6;
+    cursor: pointer;
+    z-index: 10000; /* 确保图标在最上层，高于覆盖层 */
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .friend-note-icon:hover {
+    opacity: 1;
+  }
+
+  .friend-note-overlay {
     position: fixed;
-    z-index: 9999;
+    z-index: 9999; /* 覆盖层在卡片上方，但低于图标 */
     pointer-events: none;
-    padding: 0.75rem 1rem;
-    max-width: 300px;
+    padding: 1rem; /* p-4 = 1rem，与卡片内边距一致 */
     background-color: var(--card-bg);
-    /* background-color: var(--btn-regular-bg); */
-    border: 1px solid var(--btn-card-bg-active);
-    /* border: 1px solid var(--primary); */
-    border-radius: 0;
+    border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     color: var(--btn-content);
     font-size: 0.875rem; /* text-sm，与描述文字一致 */
     line-height: 1.5;
     word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.1s ease-in-out, visibility 0s linear 0.2s;
+    transition: opacity 0.2s ease-in-out;
   }
 </style>

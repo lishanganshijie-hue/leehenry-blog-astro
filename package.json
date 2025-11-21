@@ -7,7 +7,7 @@
 		"start": "astro dev",
 		"check": "astro check",
 		"gen:stats": "node scripts/gen-stats.mjs",
-		"build": "pnpm gen:stats && astro build && pagefind --site dist",
+		"build": "pnpm gen:stats && astro build && node scripts/fix-rss-images.mjs && pagefind --site dist",
 		"preview": "astro preview",
 		"astro": "astro",
 		"type-check": "tsc --noEmit --isolatedDeclarations",

@@ -102,6 +102,9 @@ powershell -Command "Write-Host '[INFO] Cleaning cache and dist...' -ForegroundC
 if exist ".astro" (
   powershell -Command "Remove-Item -Recurse -Force .astro -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared .astro cache' -ForegroundColor Green"
 )
+if exist "node_modules\.astro" (
+  powershell -Command "Remove-Item -Recurse -Force node_modules\.astro -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared node_modules/.astro cache' -ForegroundColor Green"
+)
 if exist "dist" (
   powershell -Command "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared dist directory' -ForegroundColor Green"
 )

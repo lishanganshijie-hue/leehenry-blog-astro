@@ -3,7 +3,7 @@ title: 漫想与杂谈丶十一月志：水逆请快快结束！
 published: 2025-11-23
 description: '月记虽然目前才发布第二期，丰富度和字数似乎就有点趋向数值爆炸了……总之希望大家读的开心~！'
 image: ''
-tags: [Logcat]
+tags: [🗃️当月事]
 category: 野语不成篇
 draft: false
 ---

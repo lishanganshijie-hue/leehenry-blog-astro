@@ -3,7 +3,7 @@ title: 亲密关系札记 I：我是一块情绪忍耐的海绵
 published: 2024-06-11
 description: '我不奢求改变，我更倾向于选择。'
 image: ''
-tags: [亲密关系]
+tags: [💕呼唤爱, 🔍找自己]
 category: 瞬间备忘录
 draft: false
 lang: ''

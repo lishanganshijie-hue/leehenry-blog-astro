@@ -3,7 +3,7 @@ title: 亲密关系札记 II：心情锚点
 published: 2024-06-19
 description: '我可以，也一定能成为更好的人。'
 image: ''
-tags: [亲密关系]
+tags: [💕呼唤爱, 🔍找自己]
 category: 瞬间备忘录
 draft: false
 lang: ''

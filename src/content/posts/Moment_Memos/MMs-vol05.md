@@ -3,7 +3,7 @@ title: 买了 MacBook Air M4：终于实现了生产力自由？
 published: 2025-10-26
 description: "人生第一台 Mac 上手。18 号拿到新机，到现在刚好一个星期，稍微记录一下这七天的使用体验。"
 image: './MMs-vol05/image-20251026023653607.png'
-tags: [拾·物语, 数码生活]
+tags: [🛒拾物语, 数码生活]
 category: 瞬间备忘录
 draft: false
 

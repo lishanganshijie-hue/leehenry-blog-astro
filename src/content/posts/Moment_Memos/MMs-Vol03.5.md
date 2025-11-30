@@ -3,7 +3,7 @@ title: 亲密关系札记 III：我期待你，但我仍是我自己
 published: 2025-09-09
 description: '亲密关系对我来说，不再是索求对方填满自己，而是邀请，是回应，是态度，是同行。可以不擅长，但需要在场。'
 image: ''
-tags: [亲密关系]
+tags: [💕呼唤爱, 🔍找自己]
 category: 瞬间备忘录
 draft: false
 lang: ''

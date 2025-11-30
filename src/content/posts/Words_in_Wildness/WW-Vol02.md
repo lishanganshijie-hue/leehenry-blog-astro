@@ -3,7 +3,7 @@ title: 漫想与杂谈丶十月志：生产力、不确定性与好奇心
 published: 2025-10-19
 description: '欢迎来到我的新栏目🎉！一个摘抄与随记性质的月刊，旨于分享近段时间的生活、收获与随想。不成文、非线性、碎片化。'
 image: ''
-tags: [Logcat]
+tags: [🗃️当月事]
 category: 野语不成篇
 draft: false
 ---

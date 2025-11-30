@@ -97,6 +97,15 @@ REM 1) Local build
 call :step_begin 1 "Local build · 本地构建"
 pushd "%BLOG_DIR%" || (powershell -Command "Write-Host '[ERR] Failed to enter blog directory.' -ForegroundColor Red" & call :fail_choice 1 step1_build)
 
+REM Clean cache and dist before build
+powershell -Command "Write-Host '[INFO] Cleaning cache and dist...' -ForegroundColor Green"
+if exist ".astro" (
+  powershell -Command "Remove-Item -Recurse -Force .astro -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared .astro cache' -ForegroundColor Green"
+)
+if exist "dist" (
+  powershell -Command "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared dist directory' -ForegroundColor Green"
+)
+
 where pnpm >nul 2>&1
 if %errorlevel%==0 (
   powershell -Command "Write-Host '[INFO] Running: pnpm build' -ForegroundColor Green"

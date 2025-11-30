@@ -64,7 +64,7 @@
 
 安放一些「不成体系」的断简残篇：散落的想法、未竟的句子、偶发的随记、半途的思绪。也许某天会燃起新的火花，谁知道呢。
 
-## 🚩 大事记
+## 🚩 站点大事记
 
 - `2022-11-27` 发布 [第一篇正式公开博文](https://www.cnblogs.com/LeeHero/p/16928837.html)，基于课程项目撰写，发布于博客园。
 - `2023-03-26` 发布 [第一篇技术向公开博文](https://blog.csdn.net/qq_33429910/article/details/129761657)，入选 CSDN 每天最佳新人榜单。
@@ -77,6 +77,14 @@
 
 - ……
 
+## 💌 致谢 Credit
+
+- **头图** Banner：[Dean Johns - Behance](https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589)
+- **图标** Icons：[SVG Repo](https://www.svgrepo.com/collection/chunk-16px-thick-interface-icons/), [Font Awesome 6](https://fontawesome.com/) & [Material Symbols](https://fonts.google.com/icons) (via [Iconify](https://iconify.design/))
+- **上游** Theme：[Fuwari](https://github.com/saicaca/fuwari/tree/main) (built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/) )
+
+本站开源，你可以在文后的 [Github 仓库](https://github.com/LeeHero0803/leehenry-blog) 中找到主题和文章内容的全部源码。
+
 ---
 
 **谢谢你听我说这么多！**
@@ -87,5 +95,5 @@
 
 ::github{repo="LeeHero0803/leehenry-blog"}
 
-
+<mbr>
 

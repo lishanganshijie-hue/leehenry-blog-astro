@@ -28,8 +28,8 @@ export const siteConfig: SiteConfig = {
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: true, // Display the credit text of the banner image
-			text: "pinterest.com", // Credit text to be displayed
-			url: "https://pin.it/3yAF6aKbf", // (Optional) URL link to the original artwork or artist's page
+			text: "Dean Johns", // Credit text to be displayed
+			url: "https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589", // (Optional) URL link to the original artwork or artist's page
 		},
 	},
 	toc: {

@@ -99,12 +99,31 @@ export async function GET(context: APIContext) {
 				// 将相对路径转换为绝对路径（图片路径应该已经是正确的 _astro/ 路径了）
 				const htmlWithAbs = absolutizeHtml(safeHtml, site);
 
+				// 添加感谢信息和评论区链接的引用框
+				const commentUrl = `${articleUrl.toString()}#comment-section`;
+				const thankYouMarkdown = `> 感谢读到这里！您的声音将对我非常重要，欢迎点击[此处](${commentUrl})查看并参与读者们关于本文的讨论:)))。`;
+				const thankYouHtml = md.render(thankYouMarkdown);
+				const thankYouSafe = sanitizeHtml(thankYouHtml, {
+					allowedTags: sanitizeHtml.defaults.allowedTags,
+					allowedAttributes: {
+						a: ["href", "name", "target", "rel"],
+					},
+					transformTags: {
+						a: (_tag, attrs) => ({
+							tagName: "a",
+							attribs: { ...attrs, rel: attrs.rel ?? "noopener noreferrer" },
+						}),
+					},
+				});
+				const thankYouWithAbs = absolutizeHtml(thankYouSafe, site);
+				const finalContent = `${htmlWithAbs}\n${thankYouWithAbs}`;
+
 				return {
 					title: post.data.title,
 					pubDate: post.data.published,
 					description: post.data.description || "",
 					link: articleUrl.toString(),
-					content: htmlWithAbs,
+					content: finalContent,
 					guid: articleUrl.toString(),
 				};
 			}),

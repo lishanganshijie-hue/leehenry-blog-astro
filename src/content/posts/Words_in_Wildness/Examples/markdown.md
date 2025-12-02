@@ -127,7 +127,7 @@ doc](#an-h2-header). Here's a footnote [^1].
 
 Tables can look like this:
 
-size material color
+size material color [^1]
 
 ---
 

@@ -62,7 +62,8 @@
 		"desc": "纸 至 执",
 		"avatar": "/friends/RhoPaper.png",
 		"category": "online",
-		"badge": "stale"
+		"badge": "stale",
+		"hidden": true
 	},
 	{
 		"name": "Teror的客栈",
@@ -83,8 +84,8 @@
 		"name": "記緒漂流",
 		"url": "https://ttio.cc/",
 		"desc": "于记忆之川，泛思绪之舟",
-		"avatar": "/friends/jxpl.png",
-		"category": "stash",
+		"avatar": "/friends/JXPL.webp",
+		"category": "online",
 		"badge": "star",
 		"note": "首个让我「惊艳」的博客站点。审美高级，文笔流畅，开启了我对博客的崭新认知。"
 	},
@@ -95,14 +96,14 @@
 		"desc": "「执手对影成双」",
 		"avatar": "/friends/lipk.png",
 		"category": "stash",
-		"hidden": true
+		"hidden": false
 	},
 
 	{
 		"name": "極客死亡計劃",
 		"url": "https://www.geedea.pro/",
 		"desc": "这里只有真情流露和赤裸的思考",
-		"avatar": "/friends/jk.png",
+		"avatar": "/friends/geed.webp",
 		"category": "stash",
 		"badge": "star",
 		"note": "对很多事情的认知和思考犀利且独到，文笔锋利而精准。我努力追赶学习的对象。"

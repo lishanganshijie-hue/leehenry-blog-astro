@@ -188,6 +188,20 @@
     color: inherit;
 }
 
+/* 统一评论内容中的所有行间距（段落、列表项等） */
+.tk-content p {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.tk-content p:first-child {
+    margin-top: 0;
+}
+
+.tk-content p:last-child {
+    margin-bottom: 0;
+}
+
 /* 评论者昵称 */
 .tk-nick {
     color: var(--text-color);
@@ -322,12 +336,48 @@
 .tk-content ul,
 .tk-content ol {
     padding-left: 24px;
-    margin: 12px 0;
+    margin: 0.75rem 0;
+    list-style-position: outside;
 }
 
+/* 无序列表标记 */
+.tk-content ul {
+    list-style-type: disc;
+}
+
+/* 有序列表标记 */
+.tk-content ol {
+    list-style-type: decimal;
+}
+
+/* 列表项间距与段落保持一致 */
 .tk-content li {
-    margin: 6px 0;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
     line-height: 1.6;
+    display: list-item;
+}
+
+.tk-content li:first-child {
+    margin-top: 0;
+}
+
+.tk-content li:last-child {
+    margin-bottom: 0;
+}
+
+/* 列表项内的段落间距与外部段落保持一致 */
+.tk-content li p {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.tk-content li p:first-child {
+    margin-top: 0;
+}
+
+.tk-content li p:last-child {
+    margin-bottom: 0;
 }
 
 /* 评论中的表格 */

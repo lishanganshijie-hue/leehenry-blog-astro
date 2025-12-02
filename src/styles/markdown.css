@@ -291,5 +291,41 @@
             line-height: 1;
         }
     }
+
+    /* 脚注引用样式（正文中的脚注数字） */
+    sup {
+        /* 确保 sup 标签内的脚注引用有左右对称间距 */
+        margin-left: 0em;
+        margin-right: 0.3em;
+    }
+    
+    a[data-footnote-ref] {
+        text-decoration: none !important; /* 取消下划线 */
+        color: var(--primary) !important; /* 数字颜色设为 primary */
+        
+        &:hover, &:active {
+            text-decoration: none !important;
+            background: none !important; /* 取消 hover 背景 */
+            border-bottom: none !important; /* 取消 hover 边框 */
+        }
+    }
+
+    /* 脚注返回链接图标样式 */
+    a[data-footnote-backref] {
+        text-decoration: none;
+        position: relative;
+        display: inline-block;
+        line-height: 1.5;
+        
+        /* 隐藏原有的 ↩ 文本但保留空间 */
+        font-size: 0;
+        
+        &::after {
+            content: "↲";
+            font-size: 1rem;
+            line-height: inherit;
+            display: inline-block;
+        }
+    }
     
 }

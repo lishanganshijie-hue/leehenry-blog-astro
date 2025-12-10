@@ -44,6 +44,6 @@ draft: false
 
 在家园在记忆中废失之前，在熟悉的周遭中，去感知与珍惜，这种实实在在的拥有感。
 
-![image-20251113205423251](MM-Vol000/image-20251113205423251.png)
+![image-20251113205423251](Reading-A-Village-of-One-Man/image-20251113205423251.png)
 
 <mbr>

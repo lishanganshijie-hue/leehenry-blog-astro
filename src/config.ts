@@ -8,7 +8,6 @@ import type {
 	SiteConfig,
 	TitleSplitConfig,
 } from "./types/config";
-import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
 	title: "伏枥之间",
@@ -66,7 +65,7 @@ export const siteConfig: SiteConfig = {
 // 	],
 // };
 
-export const navBarConfig = {
+export const navBarConfig: NavBarConfig = {
 	showHomeButton: false, // 是否显示主页按钮（与左上角网站标题功能重复，默认false不显示）
 	links: [
 		// { name: "初见", url: "/", icon: "fa6-solid:house" },
@@ -96,10 +95,12 @@ export const navBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar: "/friends/my-avatar-portrait.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatarLight: "/friends/my-avatar-portrait-light.jpg", // 亮色模式头像
 	name: "伏枥",
 	bio: "别让今天叫住我了",
 	useSignature: true, // 是否使用签名图片替代文字名字
-	signature: "/signature.webp", // 签名图片路径，相对于 /public 目录
+	signatureLight: "/signature_light.webp", // 亮色模式签名图片
+	signatureDark: "/signature_dark.webp", // 暗色模式签名图片
 	links: [
 		{
 			name: "GitHub",

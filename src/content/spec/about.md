@@ -80,7 +80,7 @@
 ## 💌 致谢 Credit
 
 - **首图** - Banner：[Dean Johns - Behance](https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589)
-- **头像** - Avatar：[@texrnr - X](https://x.com/textrnr/status/1956856773299622091?s=20)
+- **头像** - Avatar：[@textrnr - X](https://x.com/textrnr/status/1956856773299622091?s=20)
 - **图标** - Icons：[SVG Repo](https://www.svgrepo.com/collection/chunk-16px-thick-interface-icons/), [Font Awesome 6](https://fontawesome.com/) & [Material Symbols](https://fonts.google.com/icons) (via [Iconify](https://iconify.design/))
 - **上游** - Theme：[Fuwari](https://github.com/saicaca/fuwari/tree/main) (built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/) )
 

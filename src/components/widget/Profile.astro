@@ -24,11 +24,26 @@ const fallbackQR = "/wechat-qrcode.png";
         class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white text-5xl"
       />
     </div>
-    <ImageWrapper
-      src={config.avatar || ""}
-      alt="Profile Image of the Author"
-      class="mx-auto lg:w-full h-full lg:mt-0 "
-    />
+    {config.avatarLight ? (
+      <>
+        <ImageWrapper
+          src={config.avatarLight}
+          alt="Profile Image of the Author"
+          class="mx-auto lg:w-full h-full lg:mt-0 dark:hidden"
+        />
+        <ImageWrapper
+          src={config.avatar || ""}
+          alt="Profile Image of the Author"
+          class="mx-auto lg:w/full h/full lg:mt-0 hidden dark:block"
+        />
+      </>
+    ) : (
+      <ImageWrapper
+        src={config.avatar || ""}
+        alt="Profile Image of the Author"
+        class="mx-auto lg:w-full h/full lg:mt-0 "
+      />
+    )}
   </a>
 
   <div class="px-2">
@@ -36,12 +51,24 @@ const fallbackQR = "/wechat-qrcode.png";
       <!-- 移动端和平板端：始终显示文字 -->
       <span class="lg:hidden">{config.name}</span>
       <!-- PC端：根据配置显示签名图片或文字 -->
-      {config.useSignature && config.signature ? (
-        <img
-          src={config.signature}
-          alt="Signature"
-          class="signature-img hidden lg:block"
-        />
+      {config.useSignature &&
+      (config.signatureLight || config.signatureDark) ? (
+        <>
+          {config.signatureLight && (
+            <img
+              src={config.signatureLight}
+              alt="Signature"
+              class="signature-img hidden lg:block dark:lg:hidden"
+            />
+          )}
+          {config.signatureDark && (
+            <img
+              src={config.signatureDark}
+              alt="Signature"
+              class="signature-img hidden lg:hidden dark:lg:block"
+            />
+          )}
+        </>
       ) : (
         <span class="hidden lg:inline">{config.name}</span>
       )}
@@ -264,7 +291,6 @@ const fallbackQR = "/wechat-qrcode.png";
     height: auto;
     object-fit: contain;
     margin: 0 auto;
-    display: block;
     transform: translateY(-75%); /* 上移高度覆盖在头像上 */
     position: relative;
     z-index: 60; /* 高于头像hover效果的z-50，确保签名在最上层 */

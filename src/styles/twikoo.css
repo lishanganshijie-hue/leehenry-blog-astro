@@ -411,6 +411,8 @@
     margin: 12px 0;
     transition: opacity 0.3s;
     border: none;
+    /* 取消任何默认的图片阴影样式 */
+    box-shadow: none !important;
 }
 
 /* ==================== 五、分页组件 ==================== */

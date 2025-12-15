@@ -122,10 +122,11 @@
   .dim { opacity: .15; }
 
   .lvl-0 { background: #e2f0ff; }
-  .lvl-1 { background: #3275b4; }
-
+  /* 高亮格子使用站点主色 */
+  .lvl-1 { background: var(--primary); }
+  
   :global(.dark) .lvl-0 { background: #283747; }
-  :global(.dark) .lvl-1 { background: #63b3ff; }
+  :global(.dark) .lvl-1 { background: var(--primary); }
 
   /* 年份按钮 */
   .hm-year { position: relative; }

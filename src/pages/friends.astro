@@ -31,7 +31,7 @@ const description =
 const CATEGORIES = {
 	real: { title: "🤝 知交", tip: "// 日常可晤的友人" },
 	online: { title: "☁️ 云间", tip: "// 四海同声的知音" },
-	stash: { title: "🌄 远望", tip: "// 行旅偶遇的好站" },
+	stash: { title: "🌄 远望*", tip: "// 行旅偶遇的好站" },
 	org: { title: "🏛️ 同道", tip: "// 志趣相投的归处" },
 } as const;
 
@@ -102,8 +102,17 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         <section id={`friends-${key}`} aria-label={meta.title} class="not-prose mt-6">
             <!-- 分段标题（简洁含蓄） -->
             <div class="mb-3 px-6 md:px-12">
-            <h2 class="text-[1.2rem] font-bold text-[var(--primary)]">
-              {meta.title}
+            <h2 class="text-[1.2rem] font-normal text-[var(--primary)]">
+              {key === "stash" ? (
+                <span class="stash-tip" aria-label="远望分组说明" role="note">
+                  {meta.title}
+                  <div class="stash-tip-panel">
+                    收录偶然遇见、因文字或设计驻足的好站。心有所仰，谨作单向记录，便于时常探访。若有不妥之处，敬请联系删除。
+                  </div>
+                </span>
+              ) : (
+                meta.title
+              )}
               <span class="ml-2 font-normal align-middle text-base px-2 py-0.5
                      text-[var(--btn-content)] opacity-80">
               {meta.tip}
@@ -340,5 +349,41 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
   .friend-card:has(.friend-note-checkbox:checked) .friend-note-content {
     opacity: 0.95 !important;
     visibility: visible !important;
+  }
+
+  .stash-tip {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    vertical-align: middle;
+    line-height: 1;
+    color: var(--stash-tip-color, var(--primary));
+  }
+
+  .stash-tip-panel {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(12px, -50%);
+    min-width: 350px;
+    max-width: 350px;
+    padding: 0.75rem 0.9rem;
+    background: var(--card-bg);
+    color: var(--btn-content);
+    border: 1px solid var(--btn-card-bg-active);
+    border-radius: var(--radius-medium);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    font-size: 0.92rem;
+    line-height: 1.5;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease-in-out, visibility 0.18s ease-in-out;
+    z-index: 12;
+  }
+
+  .stash-tip:hover .stash-tip-panel,
+  .stash-tip:focus-within .stash-tip-panel {
+    opacity: 1;
+    visibility: visible;
   }
 </style>

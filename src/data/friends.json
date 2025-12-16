@@ -96,14 +96,14 @@
 		"desc": "「执手对影成双」",
 		"avatar": "/friends/lipk.png",
 		"category": "stash",
-		"hidden": false
+		"hidden": true
 	},
 
 	{
 		"name": "極客死亡計劃",
 		"url": "https://www.geedea.pro/",
 		"desc": "这里只有真情流露和赤裸的思考",
-		"avatar": "/friends/geed.webp",
+		"avatar": "/friends/jk.png",
 		"category": "stash",
 		"badge": "star",
 		"note": "对很多事情的认知和思考犀利且独到，文笔锋利而精准。我努力追赶学习的对象。"
@@ -173,7 +173,7 @@
 	{
 		"name": "SkyWT",
 		"url": "https://skywt.cn/",
-		"desc": "理想主義。我還年輕。",
+		"desc": "理想主義。我還年輕",
 		"avatar": "https://upload.storeweb.cn/upload/site/logo/1376/8aa06adad607fb7aceb90b439c8f9b92.jpg",
 		"category": "stash"
 	},
@@ -218,5 +218,43 @@
 		"category": "online",
 		"badge": "star",
 		"note": "小倪虽然学的是食品工程，却写得一手很棒的散文感随笔。站点设计优雅又现代。"
+	},
+	{
+		"name": "cry4o4N0tFound",
+		"url": "https://cry4o4n0tfound.cn",
+		"desc": "Just Study for Fun✨",
+		"avatar": "https://picture.cry4o4n0tfound.cn/cry.webp",
+		"category": "online"
+	},
+	{
+		"name": "第三夏尔",
+		"url": "https://thirdshire.com",
+		"desc": "认真生活，积极摸鱼",
+		"avatar": "https://thirdshire.com/blackcat_avatar.jpg",
+		"category": "online",
+		"badge": "star"
+	},
+	{
+		"name": "2750 words",
+		"url": "https://pathos.page/",
+		"desc": "写作是最好的思考方式",
+		"avatar": "/friends/2750wds.png",
+		"category": "stash",
+		"badge": "star"
+	},
+	{
+		"name": "atpX",
+		"url": "https://atpx.com/",
+		"desc": "要玩要写，只要音乐没停",
+		"avatar": "/friends/atpx.png",
+		"category": "stash"
+	},
+	{
+		"name": "椒盐豆豉",
+		"url": "https://blog.douchi.space/",
+		"desc": "喜欢就买 不行就分 多喝热水 重启电脑",
+		"avatar": "https://blog.douchi.space/dino.gif",
+		"category": "stash",
+		"badge": "star"
 	}
 ]

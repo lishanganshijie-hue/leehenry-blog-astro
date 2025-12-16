@@ -181,7 +181,7 @@
 		"name": "谢谢所有的鱼",
 		"url": "https://gregueria.icu/",
 		"desc": "您首页的奶牛猫图片转发大使",
-		"avatar": "/friends/fish.webp",
+		"avatar": "https://gregueria.icu/cat/tuxicon2.gif",
 		"category": "online",
 		"badge": "star",
 		"note": "温柔又充满生命力的鱼鱼。网站设计非常可爱，站点最近已经来到了四周年，特别棒。"
@@ -253,7 +253,7 @@
 		"name": "椒盐豆豉",
 		"url": "https://blog.douchi.space/",
 		"desc": "喜欢就买 不行就分 多喝热水 重启电脑",
-		"avatar": "https://blog.douchi.space/dino.gif",
+		"avatar": "/friends/dino.gif",
 		"category": "stash",
 		"badge": "star"
 	}

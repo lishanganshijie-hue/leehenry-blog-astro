@@ -1,7 +1,7 @@
 ---
 title: 漫想与杂谈 Iss.03 · 冬至：总有些惊奇的际遇
 published: 2025-12-27
-description: '冷不丁梆梆又一年。这2025 年的最后一期月刊。'
+description: '冷不丁梆梆又一年。欢迎来到 2025 年的最后一期月刊。'
 image: ''
 tags: [🗃️当月事]
 category: 野语不成篇

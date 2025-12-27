@@ -238,25 +238,6 @@ Floor 796，W 君推荐的一个特别的网站。这个网站融合了各种 IP
 
 ## ❏ · 快照 Quote
 
-### **关于引号的其他有趣事实**
-
-德文的引号别具一格，左引号看起来像特殊的逗号；
-
-- 例：Vater sagt: „Machen wir eine Pause.“
-
-俄语、法语、西班牙语等语言采用角形引号，后来演化为汉语的书名号；
-
-- 例：«Beispiel in der Schweiz»
-
-日语习惯使用引号来当做书名号
-
-- 例：『稲亭物怪録』
-
-> 🔗 *References:* 
->
-> - [引号 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/引号)
-> - [Requirements for Chinese Text Layout - 中文排版需求](https://w3c.github.io/clreq/)
-
 ### Markdown 中失效的强调符号
 
 前文讲到了我对直角引号的追求，实际上发掘出这个选题的开端是，我发现在 Markdown 中紧邻**引号、冒号前后**出现的**强调符号**有时会失效（Typora 本地会正确显示，但是上传到 GitHub 和博客网站的时候就会出现不渲染的问题。这个问题在生成式 AI 的回答中也非常常见），我尝试搞清楚背后的原因。
@@ -275,30 +256,46 @@ Floor 796，W 君推荐的一个特别的网站。这个网站融合了各种 IP
 
 :::
 
-原来 Markdown 识别 `**` 能否加粗，靠的是一套复杂的「侧翼」规则。
+Markdown 识别 `**` 能否加粗，靠的是一套复杂的「侧翼」规则。
 
-1. 左侧侧翼（Left-Flanking）是开启加粗的判定规则，必须满足：
-   - 后面**不能**跟着空格。
-   - 如果后面跟着标点符号，那么它的前面必须是空格或行的开头。
+> *A [left-flanking delimiter run](https://spec.commonmark.org/0.31.2/#left-flanking-delimiter-run) is a [delimiter run](https://spec.commonmark.org/0.31.2/#delimiter-run) that is (1) not followed by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace), and either (2a) not followed by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character), or (2b) followed by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character) and preceded by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace) or a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character). For purposes of this definition, the beginning and the end of the line count as Unicode whitespace.*
+>
+> *A [right-flanking delimiter run](https://spec.commonmark.org/0.31.2/#right-flanking-delimiter-run) is a [delimiter run](https://spec.commonmark.org/0.31.2/#delimiter-run) that is (1) not preceded by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace), and either (2a) not preceded by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character), or (2b) preceded by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character) and followed by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace) or a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character). For purposes of this definition, the beginning and the end of the line count as Unicode whitespace.*
 
-> 原文：*A [left-flanking delimiter run](https://spec.commonmark.org/0.31.2/#left-flanking-delimiter-run) is a [delimiter run](https://spec.commonmark.org/0.31.2/#delimiter-run) that is (1) not followed by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace), and either (2a) not followed by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character), or (2b) followed by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character) and preceded by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace) or a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character). For purposes of this definition, the beginning and the end of the line count as Unicode whitespace.*
+根据 CommonMark 文档我们知道，左侧侧翼（Left-Flanking）是开启加粗的判定规则，必须满足：
 
-2. 右侧侧翼（Right-Flanking）：结束加粗的判定规则，必须满足：
+- 后面**不能**跟着空格。
+- 如果后面跟着标点符号，那么它的前面必须是空格或行的开头。
 
-   要让 `**` 结束加粗，它必须满足：
+右侧侧翼（Right-Flanking）：结束加粗的判定规则，必须满足：
 
-   - 前面**不能**跟着空格。
-   - 如果前面跟着标点符号，那么它的后面必须是空格或行的结尾。
-
-> 原文：*A [right-flanking delimiter run](https://spec.commonmark.org/0.31.2/#right-flanking-delimiter-run) is a [delimiter run](https://spec.commonmark.org/0.31.2/#delimiter-run) that is (1) not preceded by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace), and either (2a) not preceded by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character), or (2b) preceded by a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character) and followed by [Unicode whitespace](https://spec.commonmark.org/0.31.2/#unicode-whitespace) or a [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character). For purposes of this definition, the beginning and the end of the line count as Unicode whitespace.*
+- 前面**不能**跟着空格。
+- 如果前面跟着标点符号，那么它的后面必须是空格或行的结尾。
 
 而这里的「标点符号」并非仅指英文标点。 Markdown 的原始规范 CommonMark 明确指出其定义的标点符号涵盖了 **Unicode 全部的 Punctuation 类别**。
-
-> 原文：*A [Unicode punctuation character](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character) is a character in the Unicode `P` (puncuation) or `S` (symbol) general categories.*
 
 可见，中文习惯在标点前后不留空格，CommonMark 而是基于英文「空格分词」逻辑设计的。这种设计初衷是为了防止文本中（如公式、代码命名）出现的星号被误认为排版指令，但在中文语境下却成了障碍。
 
 > 🔗 *Reference:* [CommonMark Spec - 6.2 Emphasis and strong emphasis](https://spec.commonmark.org/0.31.2/#emphasis-and-strong-emphasis)
+
+### 关于引号的其他有趣事实
+
+> 德文的引号别具一格，左引号看起来像特殊的逗号；
+>
+> - 例：Vater sagt: „Machen wir eine Pause.“
+>
+> 俄语、法语、西班牙语等语言采用角形引号，后来演化为汉语的书名号；
+>
+> - 例：«Beispiel in der Schweiz»
+>
+> 日语习惯使用引号来当做书名号
+>
+> - 例：『稲亭物怪録』
+>
+> 🔗 *References:* 
+>
+> - [引号 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/引号)
+> - [Requirements for Chinese Text Layout - 中文排版需求](https://w3c.github.io/clreq/)
 
 ### 「全角/半角」的「角」为什么用来指代字宽
 
@@ -460,9 +457,9 @@ Floor 796，W 君推荐的一个特别的网站。这个网站融合了各种 IP
 
 ![image-20251227134547163](WW-Vol05/image-20251227134547163.png)
 
-第一份新年礼物来自很会写诗的朋友。他用自己的诗集做成了 2025 年的月历，配图甚至选用了一些我之前分享给他的摄影作品。
+第一份新年礼物来自很会写诗的醒过（序言引用的那句短诗也摘选于他）。他用自己的诗集做成了 2026 年的月历，配图甚至选用了一些我之前分享给他的摄影作品。
 
-收到他留言「在每个清晨新生，保持故我」的贺卡之时，当天日历的题词正是「忌推翻自己」。
+收到他留言「在每个清晨新生，保持故我」的贺卡之时，书桌上当天日历的题词正是「忌推翻自己」。
 
 ### 切片 五之三
 
@@ -485,3 +482,5 @@ Floor 796，W 君推荐的一个特别的网站。这个网站融合了各种 IP
 ### 切片 五之五
 
 最后，祝大家新年快乐！
+
+<mbr>

@@ -270,6 +270,19 @@
 		"avatar": "https://img.chlo.is/avatar/02.webp",
 		"category": "online",
 		"badge": "star"
+	},
+	{
+		"name": "BlogsClub",
+		"url": "https://www.blogsclub.org/",
+		"desc": "独立且相互包容的博客俱乐部",
+		"avatar": "/friends/blogclub.jpg",
+		"category": "org"
+	},
+	{
+		"name": "博友圈",
+		"url": "https://www.boyouquan.com/",
+		"desc": "散落各处的孤岛连接广袤无垠的大陆",
+		"avatar": "/friends/byq.png",
+		"category": "org"
 	}
-
 ]

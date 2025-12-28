@@ -45,7 +45,7 @@ export const siteConfig: SiteConfig = {
 		// Leave this array empty to use the default favicon
 		{
 			// 放在 /public 根目录，这样编译到 dist 时会出现在根目录
-			src: "/favicon.svg", // Path of the favicon, relative to the /public directory
+			src: "/favicon.ico", // Path of the favicon, relative to the /public directory
 			//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
 			//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		},

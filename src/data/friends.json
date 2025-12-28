@@ -153,8 +153,7 @@
 		"url": "https://blog.zhilu.site/",
 		"desc": "纸鹿至麓不知路，支炉制露不止漉",
 		"avatar": "https://weavatar.com/avatar/47c0f2e82b76d9b10eb3023df9e02e4e3fdbeaf5b74b842063f207971e7fbe7b?s=160",
-		"category": "online",
-		"badge": "star"
+		"category": "online"
 	},
 	{
 		"name": "Limboy",
@@ -230,7 +229,7 @@
 		"name": "第三夏尔",
 		"url": "https://thirdshire.com",
 		"desc": "认真生活，积极摸鱼",
-		"avatar": "https://thirdshire.com/blackcat_avatar.jpg",
+		"avatar": "/friends/TS.jpg",
 		"category": "online",
 		"badge": "star"
 	},
@@ -256,5 +255,21 @@
 		"avatar": "/friends/dino.gif",
 		"category": "stash",
 		"badge": "star"
+	},
+	{
+		"name": "路明笔记",
+		"url": "https://luming.cool",
+		"desc": "不慌张，不绝望，不狂妄，不投降",
+		"avatar": "https://img.luming.cool/i/2025/11/29/692aed1613cb0.webp",
+		"category": "online"
+	},
+	{
+		"name": "Garden of Outlier",
+		"url": "https://chlo.is/",
+		"desc": "An Element-chan who writes",
+		"avatar": "https://img.chlo.is/avatar/02.webp",
+		"category": "online",
+		"badge": "star"
 	}
+
 ]

@@ -260,14 +260,14 @@
 		"name": "路明笔记",
 		"url": "https://luming.cool",
 		"desc": "不慌张，不绝望，不狂妄，不投降",
-		"avatar": "https://img.luming.cool/i/2025/11/29/692aed1613cb0.webp",
+		"avatar": "/friends/luming.webp",
 		"category": "online"
 	},
 	{
 		"name": "Garden of Outlier",
 		"url": "https://chlo.is/",
 		"desc": "An Element-chan who writes",
-		"avatar": "https://img.chlo.is/avatar/02.webp",
+		"avatar": "/friends/cl.webp",
 		"category": "online",
 		"badge": "star"
 	},
@@ -291,6 +291,14 @@
 		"desc": "自由流动的树",
 		"avatar": "https://s2.loli.net/2025/12/25/qf3ZGRr6iuCgO2e.jpg",
 		"category": "online"
+	},
+	{
+		"name": "ENCOM一号机",
+		"url": "https://alanone.top/",
+		"desc": "1,000 lonely stars | Hiding in the cold",
+		"avatar": "https://media.alanone.top/avatar.jpg",
+		"category": "online",
+		"note": "有如接收到了宇宙中的某段电波。JA 有让所想与所爱在自己的数字造物下永生的魔法。"
 	}
 
 ]

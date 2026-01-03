@@ -39,6 +39,14 @@ const dates: string[] = Array.from(dateSet, d => d.toISOString().slice(0, 10));
 </MainGridLayout>
 
 <style>
-  .archive-heatmap { margin-bottom: 20px; }
-  @media (min-width: 768px) { .archive-heatmap { margin-bottom: 20px; } }
+  .archive-heatmap { 
+    margin-bottom: 20px; 
+    display: none; /* 默认隐藏（移动端和平板端） */
+  }
+  @media (min-width: 1024px) { 
+    .archive-heatmap { 
+      display: block; /* 桌面端显示 */
+      margin-bottom: 20px; 
+    } 
+  }
 </style>

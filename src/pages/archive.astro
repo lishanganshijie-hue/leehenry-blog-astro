@@ -1,33 +1,35 @@
 ---
 import ArchivePanel from "@components/ArchivePanel.svelte";
+import Heatmap from "@components/widget/Heatmap.svelte";
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPostsList } from "../utils/content-utils";
-import Heatmap from "@components/widget/Heatmap.svelte";
 
 const sortedPostsList = await getSortedPostsList();
 
 function pickDateLike(data: any) {
-  const cand =
-    data?.published ??
-    data?.date ??
-    data?.pubDate ??
-    data?.created ??
-    data?.updated;
-  if (!cand) return null;
-  const d = new Date(cand);
-  return isNaN(d.getTime()) ? null : d;
+	const cand =
+		data?.published ??
+		data?.date ??
+		data?.pubDate ??
+		data?.created ??
+		data?.updated;
+	if (!cand) return null;
+	const d = new Date(cand);
+	return isNaN(d.getTime()) ? null : d;
 }
 
 // 用类型守卫去掉 null/非法日期，再映射为 YYYY-MM-DD 字符串
 const dateSet = new Set(
-  (sortedPostsList ?? [])
-    .map((p: any) => pickDateLike(p?.data))
-    .filter((d): d is Date => d instanceof Date && !isNaN(d.getTime()))
+	(sortedPostsList ?? [])
+		.map((p: any) => pickDateLike(p?.data))
+		.filter((d): d is Date => d instanceof Date && !isNaN(d.getTime())),
 );
 
-const dates: string[] = Array.from(dateSet, d => d.toISOString().slice(0, 10));
+const dates: string[] = Array.from(dateSet, (d) =>
+	d.toISOString().slice(0, 10),
+);
 ---
 
 <MainGridLayout title={i18n(I18nKey.archive)}>

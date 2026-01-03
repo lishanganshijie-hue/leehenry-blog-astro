@@ -4,8 +4,20 @@ import { Icon } from "astro-icon/components";
 
 <!-- There can't be a filter on parent element, or it will break `fixed` -->
 <div class="back-to-top-wrapper hidden lg:block">
-    <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="backToTop()">
-        <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem]">
+    <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center justify-center rounded-2xl overflow-visible transition" onclick="backToTop()">
+        <!-- 方形边框进度条（连续笔画） -->
+        <svg class="progress-border-svg" width="60" height="60" viewBox="0 0 60 60">
+            <path
+                id="progress-border-path"
+                d="M 2 2 L 58 2 L 58 58 L 2 58 L 2 2"
+                fill="none"
+                stroke="var(--primary)"
+                stroke-width="4"
+                stroke-linecap="square"
+                stroke-linejoin="round"
+            />
+        </svg>
+        <button aria-label="Back to Top" class="btn-card h-[3.75rem] w-[3.75rem] relative z-10">
             <Icon name="material-symbols:rocket-outline" class="mx-auto"></Icon>
         </button>
     </div>
@@ -44,6 +56,19 @@ import { Icon } from "astro-icon/components";
         pointer-events: none
     &:active
       transform: translateX(5rem) scale(0.9)
+
+.progress-border-svg
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    width: 3.75rem
+    height: 3.75rem
+    pointer-events: none
+    z-index: 20
+
+#progress-border-path
+    transition: stroke-dashoffset 0.1s linear
 
 .scroll-to-comment-btn
     color: var(--primary)
@@ -85,6 +110,91 @@ function scrollToComment() {
     }
 }
 
+// 更新滚动进度条（连续笔画边框）
+function updateScrollProgress() {
+    const progressPath = document.getElementById('progress-border-path');
+    if (!progressPath) return;
+
+    // 初始化stroke-dasharray（如果还没有设置）
+    if (!progressPath.getAttribute('stroke-dasharray')) {
+        const pathLength = progressPath.getTotalLength();
+        progressPath.setAttribute('stroke-dasharray', pathLength.toString());
+        progressPath.setAttribute('stroke-dashoffset', pathLength.toString());
+    }
+
+    // 检测是否是文章页面
+    const pathname = window.location.pathname;
+    const postsMatch = pathname.match(/\/posts\/([^\/]+)/);
+    const isPostPage = !!postsMatch;
+    
+    let progress = 0;
+    
+    if (isPostPage) {
+        // 文章页面：只计算正文部分的滚动进度
+        const postContainer = document.getElementById('post-container');
+        const commentSection = document.getElementById('comment-section');
+        
+        if (postContainer) {
+            const postContainerRect = postContainer.getBoundingClientRect();
+            const postContainerTop = postContainerRect.top + window.pageYOffset;
+            const postContainerHeight = postContainerRect.height;
+            
+            // 正文结束位置：如果存在评论区，则到评论区开始；否则到正文容器底部
+            let contentEnd = postContainerTop + postContainerHeight;
+            if (commentSection) {
+                const commentSectionRect = commentSection.getBoundingClientRect();
+                contentEnd = commentSectionRect.top + window.pageYOffset;
+            }
+            
+            // 正文开始位置（考虑可能的偏移，比如banner）
+            const contentStart = postContainerTop;
+            const contentHeight = contentEnd - contentStart;
+            
+            // 当前滚动位置
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            
+            // 计算正文部分的滚动进度
+            // 当滚动位置在正文开始之前时，进度为0
+            // 当滚动位置超过正文结束时，进度为1
+            if (scrollTop < contentStart) {
+                progress = 0;
+            } else if (scrollTop + windowHeight > contentEnd) {
+                progress = 1;
+            } else {
+                // 计算在正文范围内的滚动进度
+                const scrolledInContent = scrollTop - contentStart;
+                const scrollableContentHeight = contentHeight - windowHeight;
+                progress = scrollableContentHeight > 0 
+                    ? Math.min(scrolledInContent / scrollableContentHeight, 1) 
+                    : 1;
+            }
+        } else {
+            // 如果找不到post-container，回退到全页面计算
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollableHeight = documentHeight - windowHeight;
+            progress = scrollableHeight > 0 ? Math.min(scrollTop / scrollableHeight, 1) : 0;
+        }
+    } else {
+        // 非文章页面：计算整个页面的滚动进度
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollableHeight = documentHeight - windowHeight;
+        progress = scrollableHeight > 0 ? Math.min(scrollTop / scrollableHeight, 1) : 0;
+    }
+    
+    // 获取路径总长度
+    const pathLength = progressPath.getTotalLength();
+    
+    // 根据进度计算stroke-dashoffset
+    // 从完全隐藏（offset = pathLength）到完全显示（offset = 0）
+    const offset = pathLength * (1 - progress);
+    progressPath.style.strokeDashoffset = offset;
+}
+
 // 根据当前路径显示/隐藏"跳转评论"按钮
 function updateCommentButtonVisibility() {
     const scrollToCommentBtn = document.getElementById('scroll-to-comment-btn');
@@ -103,14 +213,26 @@ function updateCommentButtonVisibility() {
 
 // 页面加载时执行
 updateCommentButtonVisibility();
+updateScrollProgress();
+
+// 监听滚动事件
+window.addEventListener('scroll', updateScrollProgress);
+window.addEventListener('resize', updateScrollProgress);
 
 // 在 Swup 页面切换后更新按钮状态
 if (window.swup) {
-    window.swup.hooks.on('page:view', updateCommentButtonVisibility);
+    window.swup.hooks.on('page:view', () => {
+        updateCommentButtonVisibility();
+        // 延迟一下确保DOM已更新
+        setTimeout(updateScrollProgress, 100);
+    });
 } else {
     document.addEventListener('swup:enable', () => {
         if (window.swup) {
-            window.swup.hooks.on('page:view', updateCommentButtonVisibility);
+            window.swup.hooks.on('page:view', () => {
+                updateCommentButtonVisibility();
+                setTimeout(updateScrollProgress, 100);
+            });
         }
     });
 }

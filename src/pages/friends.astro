@@ -135,7 +135,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                 'border-color': 'var(--btn-card-bg-active)',
                 'color': 'var(--btn-content)',
               }}
-              class="friend-card group flex items-center gap-4 rounded-xl border p-4 transition
+              class="friend-card group flex items-center gap-4 rounded-xl border p-3 transition
                   hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
                   active:scale-[0.98] relative overflow-hidden"
               >
@@ -165,8 +165,8 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
               <img
                 src={f.avatar}
                 alt={f.name}
-                width="48"
-                height="48"
+                width="50"
+                height="50"
                 loading="lazy"
                 class="h-12 w-12 rounded-full object-cover"
               />
@@ -190,8 +190,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                       </label>
                   )}
                 </div>
-                <div class="text-sm truncate text-[var(--btn-content)]">{f.desc}</div>
-                <div class="text-xs truncate text-[var(--btn-content)] opacity-50 italic">{f.url}</div>
+                <div class="text-sm truncate text-[var(--btn-content)] opacity-50">{f.desc}</div>
               </div>
               {f.note && (
                 <div class="friend-note-content">

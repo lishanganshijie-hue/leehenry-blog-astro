@@ -129,6 +129,11 @@ export async function GET(context: APIContext) {
 			}),
 		),
 		customData: `
+      <image>
+        <url>${new URL("/favicon.ico", site).toString()}</url>
+        <title>${siteConfig.title}</title>
+        <link>${site.toString()}</link>
+      </image>
       <atom:link xmlns:atom="http://www.w3.org/2005/Atom"
                  href="${new URL("/rss.xml", site).toString()}"
                  rel="self"

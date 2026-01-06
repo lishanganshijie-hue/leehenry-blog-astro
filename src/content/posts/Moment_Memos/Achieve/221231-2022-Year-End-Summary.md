@@ -46,4 +46,4 @@ draft: false
 
 2023 祝好
 
-![image-20251017193052708](221231-2022-Year-End-Summary/image-20251017193052708.png)
+![发表于 2022.12.31 的 QQ 空间](221231-2022-Year-End-Summary/image-20251017193052708.png)

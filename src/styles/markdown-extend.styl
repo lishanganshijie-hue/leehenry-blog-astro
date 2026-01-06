@@ -105,6 +105,28 @@
     margin-right: auto
     max-width: 100%
     height: auto
+    margin-top: 1rem
+    margin-bottom: 1rem
+
+    // 当不带注释的图片紧邻另一个不带注释的图片时，减少间距
+    & + img
+      margin-top: 0.5rem
+
+  figure.image-with-caption
+    margin: 1rem 0
+    display: block
+
+    img
+      margin-bottom: 0
+
+    figcaption.image-caption
+      text-align: center
+      font-size: 1rem
+      color: var(--tw-prose-body)
+      opacity: 0.7
+      margin-top: 0.5rem
+      line-height: 1.5
+      display: block
 
   hr
     border-color: var(--line-divider)

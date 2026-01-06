@@ -117,7 +117,7 @@ draft: false
 
 ### 一个有趣的 RPG 图标库
 
-![image-20250923023200702](./WW-Vol02/image-20250923023200702.png)
+![](./WW-Vol02/image-20250923023200702.png)
 
 > 🔗 *Link:* [「极客死亡计划」的设计哲学](https://www.geedea.pro/posts/极客死亡计划的设计哲学/)｜[Rpg Game Filled Icons Collection - SVG Repo](https://www.svgrepo.com/collection/rpg-game-filled-icons/)
 
@@ -125,9 +125,9 @@ draft: false
 
 ### 一本超浓缩易读的排版教材
 
-![image-20251019160546150](WW-Vol02/image-20251019160546150.png)
+![](WW-Vol02/image-20251019160546150.png)
 
-![image-20251019160244764](WW-Vol02/image-20251019160244764.png)
+![](WW-Vol02/image-20251019160244764.png)
 
 > 🔗 *Link:* 《书本印刷设计排版排雷手册》老累 Rei 著｜[淘宝寄售链接](https://e.tb.cn/h.S8MFq66t81K1b6f?tk=q7iVfXPJP0X)
 

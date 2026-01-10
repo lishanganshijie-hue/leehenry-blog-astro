@@ -180,6 +180,24 @@ em, i,
     @apply cursor-zoom-in
 }
 
+/* 全局图片加载过渡动画 */
+img {
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+}
+
+img[loading="lazy"]:not(.loaded):not([data-loaded="true"]) {
+    opacity: 0;
+}
+
+img.img-loading {
+    opacity: 0;
+}
+
+img.img-loaded {
+    opacity: 1;
+}
+
 ::selection {
     background-color: var(--selection-bg)
 }

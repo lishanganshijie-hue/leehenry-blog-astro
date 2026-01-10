@@ -1,0 +1,16 @@
+---
+import GalleryGrid from "@components/GalleryGrid.astro";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+const title = "摄影";
+const description = "用镜头记录生活的瞬间";
+---
+
+<MainGridLayout title={title} description={description}>
+  <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+    <div class="card-base z-10 p-3 relative w-full">
+      <!-- 瀑布流图片 -->
+      <GalleryGrid currentCategory="all" />
+    </div>
+  </div>
+</MainGridLayout>

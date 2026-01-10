@@ -1,0 +1,68 @@
+---
+import galleryData from "../../data/gallery.json";
+import WidgetLayout from "./WidgetLayout.astro";
+
+interface Props {
+	class?: string;
+	style?: string;
+	currentCategory?: string;
+}
+
+const className = Astro.props.class;
+const style = Astro.props.style;
+const currentCategory = Astro.props.currentCategory || "all";
+
+// 计算每个类别的图片数量
+const categoryCounts = galleryData.categories.map((cat) => {
+	if (cat.id === "all") {
+		return { ...cat, count: galleryData.images.length };
+	}
+	return {
+		...cat,
+		count: galleryData.images.filter((img) => img.category === cat.id).length,
+	};
+});
+
+const COLLAPSED_HEIGHT = "7.5rem";
+const COLLAPSE_THRESHOLD = 6;
+const isCollapsed = categoryCounts.length > COLLAPSE_THRESHOLD;
+---
+
+<WidgetLayout name="焦点" id="gallery-categories" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT}
+                class={className} style={style}
+>
+    {categoryCounts.map((cat) => (
+        <button
+            type="button"
+            class:list={[
+                "gallery-category-btn",
+                "w-full",
+                "h-10",
+                "rounded-lg",
+                "bg-none",
+                "hover:bg-[var(--btn-plain-bg-hover)]",
+                "active:bg-[var(--btn-plain-bg-active)]",
+                "transition-all",
+                "pl-2",
+                "hover:pl-3",
+                "text-neutral-700",
+                "hover:text-[var(--primary)]",
+                "dark:text-neutral-300",
+                "dark:hover:text-[var(--primary)]"
+            ]}
+            data-category={cat.id}
+        >
+            <div class="flex items-center justify-between relative mr-2">
+                <div class="overflow-hidden text-left whitespace-nowrap overflow-ellipsis">
+                    {cat.name}
+                </div>
+                <div class="transition px-2 h-7 ml-4 min-w-[2rem] rounded-lg text-sm font-bold
+                    text-[var(--btn-content)] dark:text-[var(--deep-text)]
+                    bg-[oklch(0.95_0.025_var(--hue))] dark:bg-[var(--primary)]
+                    flex items-center justify-center">
+                    {cat.count}
+                </div>
+            </div>
+        </button>
+    ))}
+</WidgetLayout>

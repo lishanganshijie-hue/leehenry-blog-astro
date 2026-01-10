@@ -11,7 +11,33 @@ declare global {
 				}>;
 			}>;
 		};
+		__galleryData?: {
+			images: GalleryImage[];
+			categories: GalleryCategory[];
+			currentCategory: string;
+		};
 	}
+}
+
+interface GalleryImage {
+	src: string;
+	category: string;
+	width: number;
+	height: number;
+	title?: string;
+	description?: string;
+	exif?: {
+		camera?: string;
+		aperture?: string;
+		shutter?: string;
+		iso?: string;
+	};
+}
+
+interface GalleryCategory {
+	id: string;
+	name: string;
+	icon: string;
 }
 
 interface SearchResult {

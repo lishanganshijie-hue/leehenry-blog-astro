@@ -30,11 +30,13 @@ const fallbackQR = "/wechat-qrcode.png";
           src={config.avatarLight}
           alt="Profile Image of the Author"
           class="mx-auto lg:w-full h-full lg:mt-0 dark:hidden"
+          noFade={true}
         />
         <ImageWrapper
           src={config.avatar || ""}
           alt="Profile Image of the Author"
           class="mx-auto lg:w/full h/full lg:mt-0 hidden dark:block"
+          noFade={true}
         />
       </>
     ) : (
@@ -42,6 +44,7 @@ const fallbackQR = "/wechat-qrcode.png";
         src={config.avatar || ""}
         alt="Profile Image of the Author"
         class="mx-auto lg:w-full h/full lg:mt-0 "
+        noFade={true}
       />
     )}
   </a>
@@ -59,6 +62,7 @@ const fallbackQR = "/wechat-qrcode.png";
               src={config.signatureLight}
               alt="Signature"
               class="signature-img hidden lg:block dark:lg:hidden"
+              data-no-fade
             />
           )}
           {config.signatureDark && (
@@ -66,6 +70,7 @@ const fallbackQR = "/wechat-qrcode.png";
               src={config.signatureDark}
               alt="Signature"
               class="signature-img hidden lg:hidden dark:lg:block"
+              data-no-fade
             />
           )}
         </>

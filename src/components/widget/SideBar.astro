@@ -1,10 +1,11 @@
 ---
 import type { MarkdownHeading } from "astro";
+import { url } from "../../utils/url-utils";
 import Categories from "./Categories.astro";
+import GalleryCategories from "./GalleryCategories.astro";
 import Profile from "./Profile.astro";
 import Tag from "./Tags.astro";
 import TOCWidget from "./TOCWidget.astro";
-import { url } from "../../utils/url-utils";
 
 interface Props {
 	class?: string;
@@ -14,8 +15,10 @@ interface Props {
 const className = Astro.props.class;
 const { headings = [] } = Astro.props;
 
-// 检查是否为正文页
+// 检查页面类型
 const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
+const isGalleryRoute = Astro.url.pathname.startsWith(url("/gallery"));
+const isNormalPage = !isPostsRoute && !isGalleryRoute;
 ---
 <div id="sidebar" class:list={[className, "w-full"]}>
     <!-- 非正文页：显示简介卡片 -->
@@ -26,12 +29,17 @@ const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
     }
     
     <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
-        <!-- 非正文页：显示分类和标签卡片 -->
-        {!isPostsRoute && 
+        <!-- 普通页面：显示文章分类和标签卡片 -->
+        {isNormalPage && 
         <>
             <Categories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Categories>
             <Tag class="onload-animation" style="animation-delay: calc(var(--content-delay))"></Tag>
         </>
+        }
+        
+        <!-- 摄影页面：显示图片类别卡片 -->
+        {isGalleryRoute && 
+            <GalleryCategories class="onload-animation" style="animation-delay: calc(var(--content-delay))"></GalleryCategories>
         }
         
         <!-- 正文页：只显示目录卡片 -->

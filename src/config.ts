@@ -82,9 +82,10 @@ export const navBarConfig: NavBarConfig = {
 		// },
 		{ name: "初见", url: "/", icon: "fa6-solid:house" },
 		{ name: "旧简", url: "/archive/", icon: "archive" },
-		{ name: "一隅", url: "/about/", icon: "anchor" },
+		{ name: "光影", url: "/gallery/", icon: "camera" },
 		{ name: "留心", url: "/guestbook/", icon: "mail" },
 		{ name: "友邻", url: "/friends/", icon: "smile" },
+		{ name: "一隅", url: "/about/", icon: "anchor" },
 		{
 			name: "开往",
 			url: "https://www.travellings.cn/train.html",

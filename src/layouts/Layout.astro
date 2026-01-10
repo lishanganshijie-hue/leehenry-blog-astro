@@ -612,3 +612,68 @@ if (window.swup) {
 		</script>
 	</>
 )}
+
+<!-- 全局图片加载过渡动画 -->
+<script is:inline>
+(function() {
+	// 为图片添加加载过渡动画
+	function initImageLoadAnimation() {
+		// 选择所有需要动画的图片（排除已处理的和特殊图片）
+		const images = document.querySelectorAll('img:not([data-no-fade]):not([data-fade-init])');
+		
+		images.forEach(function(img) {
+			// 标记已处理
+			img.setAttribute('data-fade-init', 'true');
+			
+			// 如果图片已经加载完成
+			if (img.complete && img.naturalHeight !== 0) {
+				img.style.opacity = '1';
+				img.setAttribute('data-loaded', 'true');
+				return;
+			}
+			
+			// 设置初始透明度
+			img.style.opacity = '0';
+			img.style.transition = 'opacity 0.4s ease-in-out';
+			
+			// 监听加载完成
+			img.addEventListener('load', function() {
+				img.style.opacity = '1';
+				img.setAttribute('data-loaded', 'true');
+			});
+			
+			// 处理加载错误
+			img.addEventListener('error', function() {
+				img.style.opacity = '1';
+			});
+		});
+	}
+	
+	// 初始化
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initImageLoadAnimation);
+	} else {
+		initImageLoadAnimation();
+	}
+	
+	// 监听 Swup 页面切换
+	document.addEventListener('swup:contentReplaced', initImageLoadAnimation);
+	
+	// 使用 MutationObserver 监听动态添加的图片
+	var observer = new MutationObserver(function(mutations) {
+		var hasNewImages = mutations.some(function(mutation) {
+			return Array.from(mutation.addedNodes).some(function(node) {
+				return node.nodeName === 'IMG' || (node.querySelectorAll && node.querySelectorAll('img').length > 0);
+			});
+		});
+		if (hasNewImages) {
+			initImageLoadAnimation();
+		}
+	});
+	
+	observer.observe(document.body, {
+		childList: true,
+		subtree: true
+	});
+})();
+</script>

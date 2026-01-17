@@ -5,7 +5,7 @@
 		"desc": "一切伟大的行动和思想，都有一个微不足道的开始",
 		"avatar": "/friends/Lennox.jpg",
 		"category": "real",
-		"note": "勒勒叉，帮过我很多的大哥哥。现在是在信工所学网安的厉害博士生。"
+		"note": "勒勒叉，谦逊而随和，帮过我很多。现在是在信工所学网安的厉害博士生。"
 	},
 	{
 		"name": "AL_1S",
@@ -13,7 +13,7 @@
 		"desc": "AL_1Sのblog",
 		"avatar": "/friends/AL_1S.jpg",
 		"category": "real",
-		"note": "木木菌，高中的朋友。对技术有着令我望尘莫及的热情。"
+		"note": "木木菌，高中的朋友。笔耕不辍，对技术有着令我望尘莫及的热情。"
 	},
 	{
 		"name": "沈君豪 Junhao Shen",
@@ -38,7 +38,7 @@
 		"avatar": "/friends/Axi.png",
 		"category": "real",
 		"badge": "star",
-		"note": "网络一线牵，因「开往」项目结识，惊喜发现居然是 Junhao 学长的同门。"
+		"note": "因「开往」项目结识，惊喜发现居然是 Junhao 学长的同门。令人敬佩的技术分享者与开源建设者"
 	},
 	{
 		"name": "JrHimself",
@@ -54,7 +54,7 @@
 		"desc": "一个技术探索与分享的平台",
 		"avatar": "/friends/ZYBlog.webp",
 		"category": "online",
-		"note": "Fuwari 主题改造高手！"
+		"note": "Fuwari 主题改造高手！借鉴贵站方案解决了 Twikoo 评论系统的奇怪跳转 Bug。"
 	},
 	{
 		"name": "RhoPaperの小站",
@@ -87,7 +87,7 @@
 		"avatar": "/friends/JXPL.webp",
 		"category": "online",
 		"badge": "star",
-		"note": "首个让我「惊艳」的博客站点。审美高级，文笔流畅，开启了我对博客的崭新认知。"
+		"note": "设计上第一个让我「惊艳」的站点。审美高级，文笔流畅，是「伏枥之间」启蒙的灯塔。"
 	},
 
 	{
@@ -106,7 +106,7 @@
 		"avatar": "/friends/jk.png",
 		"category": "stash",
 		"badge": "star",
-		"note": "对很多事情的认知和思考犀利且独到，文笔锋利而精准。我努力追赶学习的对象。"
+		"note": "思考犀利且独到，文笔锋利而精准。与文字组织与网站建设使我受益良多。"
 	},
 
 	{
@@ -137,7 +137,7 @@
 		"avatar": "/friends/SN.webp",
 		"category": "online",
 		"badge": "star",
-		"note": "不吝啬夸夸的薯泥。让我从未如此深刻相信：「坚持输出真的会被人听到」。"
+		"note": "薯泥。从数据流走向笔墨，让我从未如此坚信「吸引力法则」真的在发挥作用。"
 	},
 	{
 		"name": "莫比乌斯",
@@ -146,7 +146,7 @@
 		"avatar": "/friends/mobius.jpg",
 		"category": "stash",
 		"badge": "star",
-		"note": "在保证文章质量还能坚持几乎每日一篇的输出，有非常强的写作内驱力。"
+		"note": "思讨深刻，永远为自己而写。令我敬佩的写作内驱力。"
 	},
 	{
 		"name": "纸鹿摸鱼处",
@@ -230,8 +230,7 @@
 		"url": "https://thirdshire.com",
 		"desc": "认真生活，积极摸鱼",
 		"avatar": "/friends/TS.jpg",
-		"category": "online",
-		"badge": "star"
+		"category": "online"
 	},
 	{
 		"name": "2750 words",
@@ -268,8 +267,7 @@
 		"url": "https://chlo.is/",
 		"desc": "An Element-chan who writes",
 		"avatar": "/friends/cl.webp",
-		"category": "online",
-		"badge": "star"
+		"category": "online"
 	},
 	{
 		"name": "BlogsClub",
@@ -299,6 +297,14 @@
 		"avatar": "https://media.alanone.top/avatar.jpg",
 		"category": "online",
 		"note": "有如接收到了宇宙中的某段电波。JA 有让所想与所爱在自己的数字造物下永生的魔法。"
+	},
+	{
+		"name": "1sle",
+		"url": "https://1sle29.github.io/",
+		"desc": "Measure Me Where I Live🏝",
+		"avatar": "https://1sle29.github.io/img/me_hu7174872086350970493.jpg",
+		"category": "online",
+		"note": "她选择让脉搏连接具体的世界，她让人确信善良同样可以有力，她不断书写自己的泪水。她是岛。",
+		"badge": "star"
 	}
-
 ]

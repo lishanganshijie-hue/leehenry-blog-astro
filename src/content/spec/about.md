@@ -4,7 +4,7 @@
 
 ---
 
-你好！这里是<mbr>**「伏枥之间」**<mbr>！
+你好！<mbr>**「伏枥之间」**<mbr>喜欢您来！
 
 > <p style="text-align: center; font-family: serif;">
 >         「莫听穿林打叶声，何妨吟啸且徐行。」
@@ -14,7 +14,7 @@
 
 **你能发现这里真是太好了，茶歇备妥，欢迎进来多坐坐！**
 
-## 👤 关于我自己 Profile
+## 👤 谁是「伏枥」/ Intro
 
 > <p style="text-align: center; font-family: serif;">
 >         「三分钟热度，也有三分钟收获。」
@@ -25,12 +25,10 @@
 - CS 大四生 @ [ECNU, Shanghai](https://www.ecnu.edu.cn/)
 - [ENFP](https://www.16personalities.com/enfp-personality)丨外向随和，也享受独处；喜欢人间烟火，也乐得轻身独行
 - 非典型半吊子工科生 / 带点折腾基因的伪极客 / 在认真生活的业余设计师
-
+- 始终信仰进一步有进一步的欢喜，永远相信美好的事情即将发生。
 - **不求全能，但保持好奇。一直是学徒，永远在路上。**
 
-始终信仰进一步有进一步的欢喜，永远相信美好的事情即将发生。
-
-## 📖 这里写些什么 Words
+## 📖 「伏枥之间」留下什么 / Words
 
 ### 0x0｜[Debug2Deploy · 推理到跑通](https://leehenry.top/archive/?category=推理到跑通)
 
@@ -92,7 +90,7 @@
 
 「不成体系」但也许有些价值的断简残篇。也许某天会燃起新的火花，谁知道呢。
 
-## 🚩 站点大事记 Milestones
+## 🚩 大事记 / Events
 
 - `2022-11-27` 发布 [第一篇正式公开博文](https://www.cnblogs.com/LeeHero/p/16928837.html)，基于课程项目撰写，发布于博客园。
 - `2023-03-26` 发布 [第一篇技术向公开博文](https://blog.csdn.net/qq_33429910/article/details/129761657)，入选 CSDN 每天最佳新人榜单。
@@ -105,7 +103,7 @@
 
 - ……
 
-## 💌 特别致谢 Credits
+## 💌 致谢 / Credits
 
 - **首图** - Banner：[Dean Johns  (Behance)](https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589)
 - **头像** - Avatar：[@textrnr (X)](https://x.com/textrnr/status/1956856773299622091?s=20)
@@ -125,8 +123,8 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 1 月 4 日 |
-| -------------------------------: |
+| ✎ · 最后更新于 2026 年 1 月 19 日 |
+| --------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}
 

@@ -87,7 +87,7 @@
 		"avatar": "/friends/JXPL.webp",
 		"category": "online",
 		"badge": "star",
-		"note": "千绪的站点审美高级，文笔流畅，第一次在设计让我「惊艳」，也是「伏枥之间」启蒙的灯塔。"
+		"note": "千绪的站点审美高级，文笔流畅，在设计让我有「惊艳」之感，更是「伏枥之间」启蒙的灯塔。"
 	},
 
 	{
@@ -106,7 +106,7 @@
 		"avatar": "/friends/jk.png",
 		"category": "stash",
 		"badge": "star",
-		"note": "思考犀利且独到，文笔锋利而精准。在文字组织与网站建设上使我受益良多。"
+		"note": "Eltrac 思考犀利且独到，遣句锋利而精准。在文字组织与网站建设上影响我非常多。"
 	},
 
 	{
@@ -199,8 +199,9 @@
 		"url": "https://rovingsun.wordpress.com/",
 		"desc": "但是我从不怕挖出我火热的心",
 		"avatar": "/friends/shadow.webp",
-		"category": "stash",
-		"note": "献出绝望的日落，不知东方之既白。rovingsun 的站点像是一本独家艺术展览与诗集。"
+		"category": "online",
+		"note": "献出绝望的日落，不知东方之既白。rovingsun 的站点像是一本独家艺术展览与诗集。",
+		"badge": "star"
 	},
 	{
 		"name": "非理勿试",

@@ -14,7 +14,7 @@
 
 **你能发现这里真是太好了，茶歇备妥，欢迎进来多坐坐！**
 
-## 👤 谁是「伏枥」/ Intro
+## 👤 「伏枥」？/ Intro
 
 > <p style="text-align: center; font-family: serif;">
 >         「三分钟热度，也有三分钟收获。」
@@ -28,7 +28,7 @@
 - 始终信仰进一步有进一步的欢喜，永远相信美好的事情即将发生。
 - **不求全能，但保持好奇。一直是学徒，永远在路上。**
 
-## 📖 「伏枥之间」留下什么 / Words
+## 📖 「伏枥之间」？ / Words
 
 ### 0x0｜[Debug2Deploy · 推理到跑通](https://leehenry.top/archive/?category=推理到跑通)
 
@@ -38,7 +38,7 @@
 >     <em>CS, another way to make sense of the world.</em>
 > </p>
 
-代码与数据流之间的纪行。记录下我撬开黑箱、回应复杂世界的笨拙尝试。
+代码之间的纪行。记录下我撬开黑箱、回应复杂世界的笨拙尝试。
 
 ### 0x1｜[Moment Memos · 瞬间备忘录](https://leehenry.top/archive/?category=瞬间备忘录)
 
@@ -48,7 +48,7 @@
 >     <em>To catch the fleeting beauty of daily life.</em>
 > </p>
 
-不期而遇的决定性瞬间。看似琐碎，却是让我「活在当下」的感知线索。
+不期而遇的瞬间。在人生的尺度下琐碎而短暂，但是让我「活在当下」的感知线索。
 
 ### 0x2｜[Mindlight Maze · 话从哪说起](https://leehenry.top/archive/?category=话从哪说起)
 
@@ -58,7 +58,7 @@
 >     <em>Where thoughts wander, words begin.</em>
 > </p>
 
-与世界非线性交谈的访谈集。这里是抽象想法与具象经验交汇的思维峡谷。
+与世界的非线性访谈。是我存放抽象想法与具象经验交汇的暖流地带。
 
 ### 0x3｜[Hack & Track · 我这样做事](https://leehenry.top/archive/?category=我这样做事)
 
@@ -68,7 +68,7 @@
 >     <em>Hack it, track it, and share it.</em>
 > </p>
 
-实践后的行动日志。也许不是「最优解」，但想要告诉你「我现在这样做」。
+实践验证的行动日志。不是「最优解」，但值得告诉你「我现在这样做」。
 
 ### 0x4｜[Step by Sense · 多懂一点点](https://leehenry.top/archive/?category=多懂一点点)
 
@@ -78,7 +78,7 @@
 >     <em>Learning, not rushing — one sense, one step at a time.</em>
 > </p>
 
-好奇心驱使的泛领域学习笔记。审美到认知，一切成长值得慢慢来。
+好奇心驱使的泛领域笔记。审美到认知，我想一切成长值得慢慢来。
 
 ### 0x5｜[Words in Wildness· 野语不成篇](https://leehenry.top/archive/?category=野语不成篇)
 
@@ -88,7 +88,7 @@
 >     <em>Words unbound, fragments that breathe.</em>
 > </p>
 
-「不成体系」但也许有些价值的断简残篇。也许某天会燃起新的火花，谁知道呢。
+或许有些价值的断简残篇。不成体系，也可能在某天燃起新的火花，谁知道呢。
 
 ## 🚩 大事记 / Events
 
@@ -113,6 +113,16 @@
 
 本站开源，你可以在文后的 [Github 仓库](https://github.com/LeeHero0803/leehenry-blog) 中找到主题和文章内容的全部源码。
 
+## 🧠 头脑风暴 / To-Dos
+
+- [ ] 优化「光影」页面的访问体验，集成并迁移至自部署图库项目 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
+- [ ] 重新设计标签卡片「文眼」，将其中的固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
+- [ ] 也许「小行迹」栏目可以用地图的形式展示去过的地方？
+- [ ] 也许可以将「书影音游」+「在役装备」的内容独立成单独的页面？
+    - 也许等这一部分内容写得更多一些会更值得考虑🤔……
+
+- [ ] 或许看到这里的你会有什么好的想法？来 [聊聊看](https://leehenry.top/guestbook/)！
+
 ---
 
 **谢谢你听我说这么多！**
@@ -123,8 +133,8 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 1 月 19 日 |
-| --------------------------------: |
+| ✎ · 最后更新于 2026 年 2 月 1 日 |
+| -------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}
 

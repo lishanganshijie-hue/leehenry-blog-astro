@@ -182,7 +182,6 @@
 		"desc": "您首页的奶牛猫图片转发大使",
 		"avatar": "https://gregueria.icu/cat/tuxicon2.gif",
 		"category": "online",
-		"badge": "star",
 		"note": "温柔又充满生命力的鱼鱼，在站点的四周年继续书写着绮丽的幻想、经验与勇气。"
 	},
 	{
@@ -199,7 +198,7 @@
 		"url": "https://rovingsun.wordpress.com/",
 		"desc": "但是我从不怕挖出我火热的心",
 		"avatar": "/friends/shadow.webp",
-		"category": "online",
+		"category": "stash",
 		"note": "献出绝望的日落，不知东方之既白。rovingsun 的站点像是一本独家艺术展览与诗集。",
 		"badge": "star"
 	},
@@ -289,7 +288,8 @@
 		"url": "https://www.7rees.cc/",
 		"desc": "自由流动的树",
 		"avatar": "https://s2.loli.net/2025/12/25/qf3ZGRr6iuCgO2e.jpg",
-		"category": "online"
+		"category": "online",
+		"badge": "error"
 	},
 	{
 		"name": "ENCOM一号机",

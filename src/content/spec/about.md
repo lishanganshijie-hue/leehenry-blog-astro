@@ -115,13 +115,17 @@
 
 ## 🧠 头脑风暴 / To-Dos
 
-- [ ] 优化「光影」页面的访问体验，集成并迁移至自部署图库项目 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
-- [ ] 重新设计标签卡片「文眼」，将其中的固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
-- [ ] 也许「小行迹」栏目可以用地图的形式展示去过的地方？
-- [ ] 也许可以将「书影音游」+「在役装备」的内容独立成单独的页面？
-    - 也许等这一部分内容写得更多一些会更值得考虑🤔……
+- 📃「光影」页面：优化访问体验，集成图床并迁移至 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
 
-- [ ] 或许看到这里的你会有什么好的想法？来 [聊聊看](https://leehenry.top/guestbook/)！
+- 📃「友邻」页面：增加一个友链邮报的区块，继承展示朋友最新更新的文章标题信息，考虑使用 [Friend-Circle-Lite](https://github.com/willow-god/Friend-Circle-Lite)；
+- 🧩「文眼」卡片：重新设计，将其中的固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)丨[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)丨[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)丨[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)丨[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)丨[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
+- 🧩「小行迹」栏目：可以用地图的形式展示去过的地方；
+- 📈「访问统计」把为了省事使用的糟糕 51.la 换成自建的 [umami](https://github.com/umami-software/umami)；
+
+- 🤔也许可以将「书影音游」+「在役装备」的内容独立成单独页面？
+    - 等这一部分内容写得更多一些会更值得考虑……
+
+- 💡 或许看到这里的你会有什么好的想法？来 [聊聊看](https://leehenry.top/guestbook/)！
 
 ---
 
@@ -133,8 +137,8 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 2 月 1 日 |
-| -------------------------------: |
+| ✎ · 最后更新于 2026 年 2 月 11 日 |
+| --------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}
 

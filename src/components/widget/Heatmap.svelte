@@ -1,79 +1,101 @@
 <script lang="ts">
-  /** 输入：文章发布日期数组 ['YYYY-MM-DD'] */
-  export let dates: string[] = [];
+/** 输入：文章发布日期数组 ['YYYY-MM-DD'] */
+export let dates: string[] = [];
 
-  /** 可调尺寸（默认接近 GitHub） */
-  export let cell = 10;
-  export let gap = 10;
+/** 可调尺寸（默认接近 GitHub） */
+export let cell = 10;
+export let gap = 10;
 
-  // —— 归一化与计数 ——
-  const norm = (d: string) => {
-    const dt = new Date(d);
-    if (isNaN(dt.getTime())) return null;
-    return dt.toISOString().slice(0, 10);
-  };
-  const allDays = Array.from(new Set(dates.map(norm).filter(Boolean) as string[])).sort();
-  const counts = new Map<string, number>();
-  for (const d of allDays) counts.set(d, (counts.get(d) ?? 0) + 1);
+// —— 归一化与计数 ——
+const norm = (d: string) => {
+	const dt = new Date(d);
+	if (isNaN(dt.getTime())) return null;
+	return dt.toISOString().slice(0, 10);
+};
+const allDays = Array.from(
+	new Set(dates.map(norm).filter(Boolean) as string[]),
+).sort();
+const counts = new Map<string, number>();
+for (const d of allDays) counts.set(d, (counts.get(d) ?? 0) + 1);
 
-  // 年份
-  const years = Array.from(new Set(allDays.map(d => Number(d.slice(0, 4))))).sort((a,b)=>a-b);
-  let year = years.at(-1) ?? new Date().getFullYear();
+// 年份
+const years = Array.from(
+	new Set(allDays.map((d) => Number(d.slice(0, 4)))),
+).sort((a, b) => a - b);
+let year = years.at(-1) ?? new Date().getFullYear();
 
-  function colorClass(n: number) {
-    if (n <= 0) return "lvl-0";
-    return "lvl-1";
-  }
+function colorClass(n: number) {
+	if (n <= 0) return "lvl-0";
+	return "lvl-1";
+}
 
-  function makeWeeks(y: number) {
-    const first = new Date(Date.UTC(y, 0, 1));
-    const start = new Date(Date.UTC(y, 0, 1 - first.getUTCDay())); // 周日对齐
-    const end = new Date(Date.UTC(y + 1, 0, 1));
+function makeWeeks(y: number) {
+	const first = new Date(Date.UTC(y, 0, 1));
+	const start = new Date(Date.UTC(y, 0, 1 - first.getUTCDay())); // 周日对齐
+	const end = new Date(Date.UTC(y + 1, 0, 1));
 
-    const weeks: { iso: string; inYear: boolean; count: number }[][] = [];
-    let cur = new Date(start);
-    while (cur < end || cur.getUTCDay() !== 0) {
-      const iso = cur.toISOString().slice(0, 10);
-      const inYear = cur.getUTCFullYear() === y && cur >= new Date(Date.UTC(y,0,1)) && cur < end;
-      const count = counts.get(iso) ?? 0;
+	const weeks: { iso: string; inYear: boolean; count: number }[][] = [];
+	let cur = new Date(start);
+	while (cur < end || cur.getUTCDay() !== 0) {
+		const iso = cur.toISOString().slice(0, 10);
+		const inYear =
+			cur.getUTCFullYear() === y &&
+			cur >= new Date(Date.UTC(y, 0, 1)) &&
+			cur < end;
+		const count = counts.get(iso) ?? 0;
 
-      if (cur.getUTCDay() === 0) weeks.push([]);
-      weeks[weeks.length - 1].push({ iso, inYear, count });
+		if (cur.getUTCDay() === 0) weeks.push([]);
+		weeks[weeks.length - 1].push({ iso, inYear, count });
 
-      cur = new Date(Date.UTC(cur.getUTCFullYear(), cur.getUTCMonth(), cur.getUTCDate() + 1));
-    }
-    return weeks;
-  }
+		cur = new Date(
+			Date.UTC(cur.getUTCFullYear(), cur.getUTCMonth(), cur.getUTCDate() + 1),
+		);
+	}
+	return weeks;
+}
 
-  const M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  $: weeks = makeWeeks(year);
+const M = [
+	"Jan",
+	"Feb",
+	"Mar",
+	"Apr",
+	"May",
+	"Jun",
+	"Jul",
+	"Aug",
+	"Sep",
+	"Oct",
+	"Nov",
+	"Dec",
+];
+$: weeks = makeWeeks(year);
 
-  /** 月份列标签 */
-  function monthLabels(weeks: { iso: string }[][], y: number) {
-    const out: { text: string; col: number }[] = [];
-    let last = -1;
-    for (let i = 0; i < weeks.length; i++) {
-      const iso = weeks[i][0]?.iso;
-      if (!iso) continue;
-      const d = new Date(iso);
-      if (d.getUTCFullYear() !== y) continue;
-      const m = d.getUTCMonth();
-      if (m !== last) {
-        out.push({ text: M[m], col: i });
-        last = m;
-      }
-    }
-    return out;
-  }
-  $: labels = monthLabels(weeks, year);
+/** 月份列标签 */
+function monthLabels(weeks: { iso: string }[][], y: number) {
+	const out: { text: string; col: number }[] = [];
+	let last = -1;
+	for (let i = 0; i < weeks.length; i++) {
+		const iso = weeks[i][0]?.iso;
+		if (!iso) continue;
+		const d = new Date(iso);
+		if (d.getUTCFullYear() !== y) continue;
+		const m = d.getUTCMonth();
+		if (m !== last) {
+			out.push({ text: M[m], col: i });
+			last = m;
+		}
+	}
+	return out;
+}
+$: labels = monthLabels(weeks, year);
 
-  // —— 年份选择：改为点击倒序循环 ——
-  function toggle() {
-    if (years.length === 0) return;
-    const idx = years.indexOf(year);
-    const prev = (idx - 1 + years.length) % years.length;
-    year = years[prev];
-  }
+// —— 年份选择：改为点击倒序循环 ——
+function toggle() {
+	if (years.length === 0) return;
+	const idx = years.indexOf(year);
+	const prev = (idx - 1 + years.length) % years.length;
+	year = years[prev];
+}
 </script>
 
 <style>

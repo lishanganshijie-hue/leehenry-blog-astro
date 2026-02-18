@@ -6,6 +6,7 @@ image: "./MMs-Vol02/image-20250828212434192.png"
 tags: [絮絮叨叨]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 黄妈人生的倒数第二场演唱会，我人生的第一场。

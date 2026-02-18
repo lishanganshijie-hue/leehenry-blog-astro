@@ -6,6 +6,7 @@ image: './MMs-vol04/image-20251011235011509.png'
 tags: [🗺小行迹]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 ## 引子

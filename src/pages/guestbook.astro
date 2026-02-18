@@ -1,8 +1,8 @@
 ---
 import { getEntry, render } from "astro:content";
-import MainGridLayout from "@layouts/MainGridLayout.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import Twikoo from "@components/misc/Twikoo.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 
 const entry = await getEntry("spec", "guestbook");
 if (!entry) {

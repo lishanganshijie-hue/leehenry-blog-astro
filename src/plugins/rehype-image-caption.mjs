@@ -1,5 +1,5 @@
-import { visit } from "unist-util-visit";
 import { h } from "hastscript";
+import { visit } from "unist-util-visit";
 
 /**
  * Rehype plugin to add captions to images based on their alt text.
@@ -10,7 +10,7 @@ export function rehypeImageCaption() {
 		visit(tree, "element", (node, index, parent) => {
 			if (node.tagName === "img" && node.properties?.alt) {
 				const altText = node.properties.alt;
-				
+
 				// Only add caption if alt text is not empty
 				if (altText && altText.trim() !== "") {
 					// Create a figure wrapper with the image and caption
@@ -18,7 +18,7 @@ export function rehypeImageCaption() {
 						node, // The original image
 						h("figcaption", { class: "image-caption" }, altText),
 					]);
-					
+
 					// Replace the img node with the figure wrapper
 					if (parent && typeof index === "number") {
 						parent.children[index] = figure;
@@ -28,4 +28,3 @@ export function rehypeImageCaption() {
 		});
 	};
 }
-

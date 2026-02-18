@@ -6,6 +6,7 @@ image: ""
 tags: [絮絮叨叨]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 ![2025.7.4 摄于上海环球港](MMs-Vol00/image-20251017193448883.png)

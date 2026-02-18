@@ -402,6 +402,141 @@
     font-weight: 600;
 }
 
+.tk-preview-container {
+    color: inherit;
+    margin-top: 1rem;
+    margin-left: 0rem !important;
+    padding: 15px 15px !important;
+    background: var(--card-bg);
+    border: 1px solid var(--line-color);
+    border-radius: 0 !important;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.tk-preview-container p {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.tk-preview-container p:first-child {
+    margin-top: 0;
+}
+
+.tk-preview-container p:last-child {
+    margin-bottom: 0;
+}
+
+.tk-preview-container pre {
+    background: var(--codeblock-bg);
+    border-radius: 0;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+.tk-preview-container code {
+    background: var(--inline-code-bg);
+    padding: 2px 6px;
+    border-radius: 0;
+    font-size: 0.9em;
+}
+
+.tk-preview-container a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.tk-preview-container a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.tk-preview-container blockquote {
+    border-left: 3px solid var(--primary);
+    padding-left: 16px;
+    margin: 16px 0;
+    color: inherit;
+    opacity: 0.8;
+    background: var(--btn-plain-bg-hover);
+    padding: 12px 16px;
+    border-radius: 0;
+}
+
+.tk-preview-container ul,
+.tk-preview-container ol {
+    padding-left: 24px;
+    margin: 0.75rem 0;
+    list-style-position: outside;
+}
+
+.tk-preview-container ul {
+    list-style-type: disc;
+}
+
+.tk-preview-container ol {
+    list-style-type: decimal;
+}
+
+.tk-preview-container li {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    display: list-item;
+}
+
+.tk-preview-container li:first-child {
+    margin-top: 0;
+}
+
+.tk-preview-container li:last-child {
+    margin-bottom: 0;
+}
+
+.tk-preview-container li p {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.tk-preview-container li p:first-child {
+    margin-top: 0;
+}
+
+.tk-preview-container li p:last-child {
+    margin-bottom: 0;
+}
+
+.tk-preview-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    border: 1px solid var(--line-color);
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.tk-preview-container table th,
+.tk-preview-container table td {
+    padding: 12px;
+    border: 1px solid var(--line-color);
+    text-align: left;
+}
+
+.tk-preview-container table th {
+    background: var(--btn-plain-bg-hover);
+    font-weight: 600;
+}
+
+.tk-preview-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0;
+    margin: 12px 0;
+    transition: opacity 0.3s;
+    border: none;
+    box-shadow: none !important;
+}
+
 /* 评论中的图片 */
 .tk-main .tk-content img,
 .tk-content img {

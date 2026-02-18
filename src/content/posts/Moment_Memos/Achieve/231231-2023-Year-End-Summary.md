@@ -6,6 +6,7 @@ image: ''
 tags: ["⏳又一年"]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 365 天，在此时此刻回忆的剪辑下

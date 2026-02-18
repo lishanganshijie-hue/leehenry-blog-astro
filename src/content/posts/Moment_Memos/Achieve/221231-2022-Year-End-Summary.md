@@ -6,6 +6,7 @@ image: ''
 tags: ["⏳又一年"]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 用什么去形容这一年？

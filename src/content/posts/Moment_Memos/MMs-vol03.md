@@ -6,6 +6,7 @@ image: ''
 tags: ["铭刻之时"]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 > 春生夏长，我学会了拥抱和勇敢

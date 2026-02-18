@@ -6,6 +6,7 @@ image: ''
 tags: [🗺小行迹]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 上一次有关雪的回忆已经模糊了。

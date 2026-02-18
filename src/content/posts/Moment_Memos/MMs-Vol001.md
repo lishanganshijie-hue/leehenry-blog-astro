@@ -6,6 +6,7 @@ image: ""
 tags: [絮絮叨叨]
 category: 瞬间备忘录
 draft: false
+serif: true
 ---
 
 在实习地周边看房后返程的路上，肚子叫嚣的热烈。

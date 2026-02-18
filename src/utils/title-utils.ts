@@ -27,4 +27,3 @@ export function splitTitle(title: string): {
 export function getTitleSplitConfig() {
 	return titleSplitConfig;
 }
-

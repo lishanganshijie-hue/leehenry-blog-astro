@@ -19,6 +19,7 @@ module.exports = {
 			fontFamily: {
 				// sans: ["Roboto", "sans-serif", ...defaultTheme.fontFamily.sans],
 				sans: ["vivo Sans", "sans-serif", ...defaultTheme.fontFamily.sans],
+				serif: ["BeiWeiKaiShu", "serif", ...defaultTheme.fontFamily.serif],
 			},
 		},
 	},

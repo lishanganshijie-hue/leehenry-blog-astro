@@ -138,6 +138,24 @@
     }
 
 
+    /* 列表统一内外边距与嵌套间距，避免含子列表的条目显得更松 */
+    ul, ol {
+        margin: 0;                /* 去除默认上下外边距 */
+        padding-left: 1.25rem;    /* 保留缩进 */
+    }
+    /* 顶层同级项的间距由 li 本身控制（下方已有 li margin） */
+    /* 取消 li 直系段落的额外外边距，避免与 li margin 叠加 */
+    li > p {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    /* 嵌套列表仅在顶部留出少量间距；底部不额外拉开 */
+    li > ul,
+    li > ol {
+        margin-top: 0.3rem;
+        margin-bottom: 0;
+    }
+
     ul, ol {
         li::marker {
             @apply text-[var(--primary)];

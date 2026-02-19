@@ -32,7 +32,7 @@ type FCData = {
 	};
 };
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 14;
 let allArticles: Article[] = [];
 let offset = 0;
 
@@ -59,24 +59,21 @@ function formatDate(dateStr: string): string {
 }
 
 function makeCard(art: Article): HTMLElement {
-	const card = document.createElement("div");
+	const card = document.createElement("a");
 	card.className = "fcircle-card";
+	card.href = art.link;
+	card.target = "_blank";
+	card.rel = "noopener noreferrer";
 
-	const titleEl = document.createElement("a");
+	const titleEl = document.createElement("div");
 	titleEl.className = "fcircle-card-title";
-	titleEl.href = art.link;
-	titleEl.target = "_blank";
-	titleEl.rel = "noopener noreferrer";
 	titleEl.textContent = art.title;
 
 	const footer = document.createElement("div");
 	footer.className = "fcircle-card-footer";
 
-	const chip = document.createElement("a");
+	const chip = document.createElement("span");
 	chip.className = "fcircle-card-author";
-	chip.href = art.link;
-	chip.target = "_blank";
-	chip.rel = "noopener noreferrer";
 
 	const av = document.createElement("img");
 	av.src = art.avatar;
@@ -98,16 +95,8 @@ function makeCard(art: Article): HTMLElement {
 	footer.appendChild(chip);
 	footer.appendChild(dateEl);
 
-	const bg = document.createElement("img");
-	bg.className = "fcircle-card-bg";
-	bg.src = art.avatar;
-	bg.alt = "";
-	bg.setAttribute("aria-hidden", "true");
-	bg.loading = "lazy";
-
 	card.appendChild(titleEl);
 	card.appendChild(footer);
-	card.appendChild(bg);
 	return card;
 }
 
@@ -134,7 +123,7 @@ function renderBatch() {
 	if (!batch.length) return;
 	batch.forEach((art) => grid.appendChild(makeCard(art)));
 	offset += batch.length;
-	if (offset < allArticles.length) grid.after(makeMoreBtn());
+	if (offset < allArticles.length) grid.appendChild(makeMoreBtn());
 }
 
 function renderRandom(art: Article) {
@@ -175,24 +164,16 @@ function renderRandom(art: Article) {
 	sep.textContent = "·";
 
 	const date = document.createElement("span");
-	date.textContent = formatDate(art.date);
+	date.textContent = formatDate(art.created);
 
 	meta.appendChild(av);
 	meta.appendChild(author);
 	meta.appendChild(sep);
 	meta.appendChild(date);
 
-	const bg = document.createElement("img");
-	bg.className = "fcircle-random-bg";
-	bg.src = art.avatar;
-	bg.alt = "";
-	bg.setAttribute("aria-hidden", "true");
-	bg.loading = "lazy";
-
 	wrap.appendChild(label);
 	wrap.appendChild(title);
 	wrap.appendChild(meta);
-	wrap.appendChild(bg);
 	el.appendChild(wrap);
 }
 
@@ -242,7 +223,7 @@ async function init() {
 		if (statsEl && data.statistical_data) {
 			const s = data.statistical_data;
 			statsEl.hidden = false;
-			statsEl.textContent = `${s.friends_num} 位友链 · 共 ${s.article_num} 篇 · 更新于 ${s.last_updated_time}`;
+			statsEl.innerHTML = `<span>友链 ${s.friends_num} 条 · 活跃 ${s.active_num} 位 · 载文 ${s.article_num} 篇 · 新更于 ${s.last_updated_time}</span><span>Powered by <a href="https://github.com/willow-god/Friend-Circle-Lite" target="_blank" rel="noopener noreferrer">FriendCircleLite</a></span>`;
 		}
 	} catch (e) {
 		console.warn("[FriendCircle]", e);
@@ -289,14 +270,13 @@ else document.addEventListener("swup:enable", setup);
 	.fcircle-random {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		gap: 0.5rem;
-		position: relative;
-		overflow: hidden;
 		background-color: var(--card-bg);
 		border: 1px solid var(--btn-card-bg-active);
-		padding: 1.1rem 1.5rem 1.25rem;
-		margin-bottom: 0.5rem;
-		min-height: 110px;
+		padding: 0.75rem;
+		margin-bottom: 1rem;
+		height: 125px;
 		text-decoration: none;
 		transition: border-color 0.2s, box-shadow 0.2s;
 	}
@@ -307,17 +287,15 @@ else document.addEventListener("swup:enable", setup);
 	}
 
 	.fcircle-random-label {
-		font-size: 0.7rem;
+		font-size: 0.875rem;
 		color: var(--primary);
 		opacity: 0.75;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		position: relative;
-		z-index: 1;
 	}
 
 	.fcircle-random-title {
-		font-size: 1.1rem;
+		font-size: 1.5rem;
 		font-weight: 600;
 		color: var(--btn-content);
 		display: -webkit-box;
@@ -325,8 +303,7 @@ else document.addEventListener("swup:enable", setup);
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		line-height: 1.45;
-		position: relative;
-		z-index: 1;
+		text-align: center;
 		transition: color 0.2s;
 	}
 
@@ -341,8 +318,7 @@ else document.addEventListener("swup:enable", setup);
 		font-size: 0.78rem;
 		color: var(--btn-content);
 		opacity: 0.5;
-		position: relative;
-		z-index: 1;
+		margin-top: auto;
 	}
 
 	.fcircle-random-meta img {
@@ -355,41 +331,22 @@ else document.addEventListener("swup:enable", setup);
 		opacity: 0.5;
 	}
 
-	.fcircle-random-bg {
-		position: absolute;
-		bottom: -20px;
-		right: -16px;
-		width: 150px;
-		height: 150px;
-		border-radius: 50%;
-		opacity: 0.15;
-		object-fit: cover;
-		pointer-events: none;
-		z-index: 0;
-		transition: transform 0.6s ease;
-	}
-
-	.fcircle-random:hover .fcircle-random-bg {
-		transform: scale(1.1);
-	}
-
 	/* ── 文章卡片网格 ──────────────────────────────────────────── */
 	.fcircle-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-		gap: 0.5rem;
+		gap: 1rem;
 	}
 
 	.fcircle-card {
 		background-color: var(--card-bg);
 		border: 1px solid var(--btn-card-bg-active);
 		padding: 0.75rem;
-		position: relative;
-		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		height: 140px;
+		height: 125px;
+		text-decoration: none;
 		transition: border-color 0.2s, box-shadow 0.2s;
 	}
 
@@ -399,22 +356,14 @@ else document.addEventListener("swup:enable", setup);
 	}
 
 	.fcircle-card-title {
-		font-size: 0.875rem;
+		font-size: 1rem;
 		color: var(--btn-content);
-		font-weight: 500;
-		text-decoration: none;
+		font-weight: 600;
 		display: -webkit-box;
-		-webkit-line-clamp: 3;
+		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		line-height: 1.5;
-		position: relative;
-		z-index: 1;
-		transition: color 0.2s;
-	}
-
-	.fcircle-card-title:hover {
-		color: var(--primary);
 	}
 
 	.fcircle-card-footer {
@@ -422,8 +371,6 @@ else document.addEventListener("swup:enable", setup);
 		align-items: center;
 		justify-content: space-between;
 		gap: 0.5rem;
-		position: relative;
-		z-index: 1;
 	}
 
 	.fcircle-card-author {
@@ -444,9 +391,6 @@ else document.addEventListener("swup:enable", setup);
 		transition: opacity 0.2s;
 	}
 
-	.fcircle-card-author:hover {
-		opacity: 0.85;
-	}
 
 	.fcircle-card-author img {
 		border-radius: 50%;
@@ -468,37 +412,17 @@ else document.addEventListener("swup:enable", setup);
 		flex-shrink: 0;
 	}
 
-	.fcircle-card-bg {
-		position: absolute;
-		bottom: -10px;
-		right: -8px;
-		width: 90px;
-		height: 90px;
-		border-radius: 50%;
-		opacity: 0.18;
-		object-fit: cover;
-		pointer-events: none;
-		z-index: 0;
-		transition: transform 0.5s ease;
-	}
-
-	.fcircle-card:hover .fcircle-card-bg {
-		transform: scale(1.1);
-	}
-
-	/* ── 加载更多按钮（与 gallery 按钮保持一致） ────────────────── */
+	/* ── 加载更多按钮（卡片大小，跟在末尾） ────────────────────── */
 	.fcircle-more-btn {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
-		aspect-ratio: 4 / 1;
+		height: 125px;
 		background-color: var(--enter-btn-bg);
 		border: none;
 		cursor: pointer;
 		color: var(--primary);
 		transition: background-color 0.15s ease, transform 0.15s ease;
-		margin-top: 0.5rem;
 	}
 
 	.fcircle-more-btn:hover {
@@ -518,10 +442,24 @@ else document.addEventListener("swup:enable", setup);
 
 	/* ── 统计信息 ─────────────────────────────────────────────── */
 	.fcircle-stats {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.2rem;
 		font-size: 0.72rem;
 		text-align: right;
 		margin-top: 0.75rem;
 		color: var(--btn-content);
 		opacity: 0.35;
+	}
+
+	.fcircle-stats a {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.fcircle-stats a:hover {
+		opacity: 0.7;
 	}
 </style>

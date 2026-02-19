@@ -211,7 +211,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
           <h2 class="text-[1.2rem] font-normal text-[var(--primary)]">
             📮 邮报
             <span class="ml-2 font-normal align-middle text-base px-2 py-0.5 text-[var(--btn-content)] opacity-80">
-              // 近期散落的灵光
+              // 友邻散落的灵光
             </span>
           </h2>
         </div>
@@ -259,6 +259,10 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 </MainGridLayout>
 
 <style>
+  .friend-card:hover {
+    border-color: var(--primary) !important;
+  }
+
   .badge {
     position: absolute;
     top: 0;

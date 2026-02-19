@@ -20,11 +20,11 @@
 
 /* ==================== 二、评论提交表单相关 ==================== */
 
-/* 隐藏评论提交表单中的头像 */
-#twikoo .tk-comments .tk-submit .tk-avatar.tk-has-avatar,
-#tcomment .tk-comments .tk-submit .tk-avatar.tk-has-avatar,
-.twikoo-comment .tk-comments .tk-submit .tk-avatar.tk-has-avatar {
-    display: none;
+/* 隐藏评论提交表单中的头像（无论是否有 Gravatar） */
+#twikoo .tk-comments .tk-submit .tk-avatar,
+#tcomment .tk-comments .tk-submit .tk-avatar,
+.twikoo-comment .tk-comments .tk-submit .tk-avatar {
+    display: none !important;
 }
 
 /* 表情和按钮操作栏的边距调整 */

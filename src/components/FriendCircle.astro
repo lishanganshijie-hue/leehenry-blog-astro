@@ -1,0 +1,521 @@
+---
+interface Props {
+	apiUrl?: string;
+}
+const { apiUrl = "https://twikoo.leehenry.top/fcircle/all.json" } = Astro.props;
+---
+
+<div id="fcircle-root" data-api={apiUrl}>
+	<div id="fcircle-loading" class="fcircle-loading">加载中…</div>
+	<div id="fcircle-random" hidden></div>
+	<div id="fcircle-articles" class="fcircle-grid"></div>
+	<div id="fcircle-stats" class="fcircle-stats" hidden></div>
+	<div id="fcircle-error" class="fcircle-error" hidden></div>
+</div>
+
+<script>
+type Article = {
+	title: string;
+	link: string;
+	author: string;
+	description?: string;
+	date: string;
+	avatar: string;
+};
+
+type FCData = {
+	articles: Article[];
+	friends: [string, string, string][];
+};
+
+const PAGE_SIZE = 20;
+let allArticles: Article[] = [];
+let offset = 0;
+
+function getApiUrl(): string {
+	return (
+		(document.getElementById("fcircle-root") as HTMLElement | null)?.dataset
+			.api ?? "https://fc.leehenry.top/all.json"
+	);
+}
+
+function formatDate(dateStr: string): string {
+	try {
+		const d = new Date(dateStr);
+		if (isNaN(d.getTime())) return dateStr;
+		const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+		if (days === 0) return "今天";
+		if (days === 1) return "昨天";
+		if (days < 7) return `${days} 天前`;
+		return d.toLocaleDateString("zh-CN", { month: "short", day: "numeric" });
+	} catch {
+		return dateStr;
+	}
+}
+
+function makeCard(art: Article): HTMLElement {
+	const card = document.createElement("div");
+	card.className = "fcircle-card";
+
+	const titleEl = document.createElement("a");
+	titleEl.className = "fcircle-card-title";
+	titleEl.href = art.link;
+	titleEl.target = "_blank";
+	titleEl.rel = "noopener noreferrer";
+	titleEl.textContent = art.title;
+
+	const footer = document.createElement("div");
+	footer.className = "fcircle-card-footer";
+
+	const chip = document.createElement("a");
+	chip.className = "fcircle-card-author";
+	chip.href = art.link;
+	chip.target = "_blank";
+	chip.rel = "noopener noreferrer";
+
+	const av = document.createElement("img");
+	av.src = art.avatar;
+	av.alt = "";
+	av.width = 14;
+	av.height = 14;
+	av.loading = "lazy";
+
+	const name = document.createElement("span");
+	name.textContent = art.author;
+
+	chip.appendChild(av);
+	chip.appendChild(name);
+
+	const dateEl = document.createElement("span");
+	dateEl.className = "fcircle-card-date";
+	dateEl.textContent = formatDate(art.date);
+
+	footer.appendChild(chip);
+	footer.appendChild(dateEl);
+
+	const bg = document.createElement("img");
+	bg.className = "fcircle-card-bg";
+	bg.src = art.avatar;
+	bg.alt = "";
+	bg.setAttribute("aria-hidden", "true");
+	bg.loading = "lazy";
+
+	card.appendChild(titleEl);
+	card.appendChild(footer);
+	card.appendChild(bg);
+	return card;
+}
+
+function makeMoreBtn(): HTMLButtonElement {
+	const btn = document.createElement("button");
+	btn.id = "fcircle-more";
+	btn.className = "fcircle-more-btn";
+	btn.type = "button";
+	btn.setAttribute("aria-label", "加载更多文章");
+	btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+		<path fill="currentColor" d="M12.6 12L8.7 8.1q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.6 4.6q.15.15.213.325t.062.375t-.062.375t-.213.325l-4.6 4.6q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7z"/>
+	</svg>`;
+	btn.addEventListener("click", () => {
+		btn.remove();
+		renderBatch();
+	});
+	return btn;
+}
+
+function renderBatch() {
+	const grid = document.getElementById("fcircle-articles");
+	if (!grid) return;
+	const batch = allArticles.slice(offset, offset + PAGE_SIZE);
+	if (!batch.length) return;
+	batch.forEach((art) => grid.appendChild(makeCard(art)));
+	offset += batch.length;
+	if (offset < allArticles.length) grid.after(makeMoreBtn());
+}
+
+function renderRandom(art: Article) {
+	const el = document.getElementById("fcircle-random");
+	if (!el) return;
+	el.innerHTML = "";
+	el.hidden = false;
+
+	const wrap = document.createElement("a");
+	wrap.className = "fcircle-random";
+	wrap.href = art.link;
+	wrap.target = "_blank";
+	wrap.rel = "noopener noreferrer";
+
+	const label = document.createElement("span");
+	label.className = "fcircle-random-label";
+	label.textContent = "随机一读";
+
+	const title = document.createElement("div");
+	title.className = "fcircle-random-title";
+	title.textContent = art.title;
+
+	const meta = document.createElement("div");
+	meta.className = "fcircle-random-meta";
+
+	const av = document.createElement("img");
+	av.src = art.avatar;
+	av.alt = "";
+	av.width = 18;
+	av.height = 18;
+	av.loading = "lazy";
+
+	const author = document.createElement("span");
+	author.textContent = art.author;
+
+	const sep = document.createElement("span");
+	sep.className = "fcircle-random-sep";
+	sep.textContent = "·";
+
+	const date = document.createElement("span");
+	date.textContent = formatDate(art.date);
+
+	meta.appendChild(av);
+	meta.appendChild(author);
+	meta.appendChild(sep);
+	meta.appendChild(date);
+
+	const bg = document.createElement("img");
+	bg.className = "fcircle-random-bg";
+	bg.src = art.avatar;
+	bg.alt = "";
+	bg.setAttribute("aria-hidden", "true");
+	bg.loading = "lazy";
+
+	wrap.appendChild(label);
+	wrap.appendChild(title);
+	wrap.appendChild(meta);
+	wrap.appendChild(bg);
+	el.appendChild(wrap);
+}
+
+async function init() {
+	if (!document.getElementById("fcircle-root")) return;
+
+	allArticles = [];
+	offset = 0;
+
+	const gridEl = document.getElementById("fcircle-articles");
+	const randomEl = document.getElementById("fcircle-random");
+	const statsEl = document.getElementById("fcircle-stats");
+	const loadingEl = document.getElementById("fcircle-loading");
+	const errorEl = document.getElementById("fcircle-error");
+
+	if (gridEl) gridEl.innerHTML = "";
+	if (randomEl) {
+		randomEl.innerHTML = "";
+		randomEl.hidden = true;
+	}
+	if (statsEl) {
+		statsEl.innerHTML = "";
+		statsEl.hidden = true;
+	}
+	if (errorEl) {
+		errorEl.innerHTML = "";
+		errorEl.hidden = true;
+	}
+	if (loadingEl) loadingEl.hidden = false;
+	document.getElementById("fcircle-more")?.remove();
+
+	try {
+		const res = await fetch(getApiUrl());
+		if (!res.ok) throw new Error(`HTTP ${res.status}`);
+		const data: FCData = await res.json();
+
+		if (loadingEl) loadingEl.hidden = true;
+		allArticles = data.articles ?? [];
+
+		if (allArticles.length > 0) {
+			const idx = Math.floor(Math.random() * Math.min(allArticles.length, 30));
+			renderRandom(allArticles[idx]);
+		}
+
+		renderBatch();
+
+		if (statsEl && data.friends) {
+			statsEl.hidden = false;
+			statsEl.textContent = `${data.friends.length} 位友链 · 共 ${allArticles.length} 篇`;
+		}
+	} catch (e) {
+		console.warn("[FriendCircle]", e);
+		if (loadingEl) loadingEl.hidden = true;
+		if (errorEl) {
+			errorEl.hidden = false;
+			errorEl.textContent = "友链邮报暂时无法加载，请稍后再试";
+		}
+	}
+}
+
+init();
+
+const setup = () => {
+	window.swup?.hooks?.on("page:view", () => {
+		if (document.getElementById("fcircle-root")) init();
+	});
+	window.swup?.hooks?.on(
+		"content:replace",
+		() => {
+			document.getElementById("fcircle-more")?.remove();
+		},
+		{ before: true },
+	);
+};
+
+if (window.swup) setup();
+else document.addEventListener("swup:enable", setup);
+</script>
+
+<!-- is:global 确保样式作用于 JS 动态创建的元素 -->
+<style is:global>
+	/* ── 加载 / 错误状态 ───────────────────────────────────────── */
+	.fcircle-loading,
+	.fcircle-error {
+		text-align: center;
+		padding: 2.5rem 1rem;
+		color: var(--btn-content);
+		opacity: 0.45;
+		font-size: 0.875rem;
+	}
+
+	/* ── 随机文章条 ───────────────────────────────────────────── */
+	.fcircle-random {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		position: relative;
+		overflow: hidden;
+		background-color: var(--card-bg);
+		border: 1px solid var(--btn-card-bg-active);
+		padding: 1.1rem 1.5rem 1.25rem;
+		margin-bottom: 0.5rem;
+		min-height: 110px;
+		text-decoration: none;
+		transition: border-color 0.2s, box-shadow 0.2s;
+	}
+
+	.fcircle-random:hover {
+		border-color: var(--primary);
+		box-shadow: 6px 6px 0 var(--btn-plain-bg-hover);
+	}
+
+	.fcircle-random-label {
+		font-size: 0.7rem;
+		color: var(--primary);
+		opacity: 0.75;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		position: relative;
+		z-index: 1;
+	}
+
+	.fcircle-random-title {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--btn-content);
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		line-height: 1.45;
+		position: relative;
+		z-index: 1;
+		transition: color 0.2s;
+	}
+
+	.fcircle-random:hover .fcircle-random-title {
+		color: var(--primary);
+	}
+
+	.fcircle-random-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.78rem;
+		color: var(--btn-content);
+		opacity: 0.5;
+		position: relative;
+		z-index: 1;
+	}
+
+	.fcircle-random-meta img {
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+	}
+
+	.fcircle-random-sep {
+		opacity: 0.5;
+	}
+
+	.fcircle-random-bg {
+		position: absolute;
+		bottom: -20px;
+		right: -16px;
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+		opacity: 0.15;
+		object-fit: cover;
+		pointer-events: none;
+		z-index: 0;
+		transition: transform 0.6s ease;
+	}
+
+	.fcircle-random:hover .fcircle-random-bg {
+		transform: scale(1.1);
+	}
+
+	/* ── 文章卡片网格 ──────────────────────────────────────────── */
+	.fcircle-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+		gap: 0.5rem;
+	}
+
+	.fcircle-card {
+		background-color: var(--card-bg);
+		border: 1px solid var(--btn-card-bg-active);
+		padding: 0.75rem;
+		position: relative;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 140px;
+		transition: border-color 0.2s, box-shadow 0.2s;
+	}
+
+	.fcircle-card:hover {
+		border-color: var(--primary);
+		box-shadow: 6px 6px 0 var(--btn-plain-bg-hover);
+	}
+
+	.fcircle-card-title {
+		font-size: 0.875rem;
+		color: var(--btn-content);
+		font-weight: 500;
+		text-decoration: none;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		line-height: 1.5;
+		position: relative;
+		z-index: 1;
+		transition: color 0.2s;
+	}
+
+	.fcircle-card-title:hover {
+		color: var(--primary);
+	}
+
+	.fcircle-card-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		position: relative;
+		z-index: 1;
+	}
+
+	.fcircle-card-author {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.7rem;
+		color: var(--btn-content);
+		opacity: 0.55;
+		text-decoration: none;
+		background-color: var(--btn-regular-bg);
+		border: 1px solid var(--btn-card-bg-active);
+		border-radius: 100px;
+		padding: 1px 7px 1px 2px;
+		max-width: 55%;
+		overflow: hidden;
+		white-space: nowrap;
+		transition: opacity 0.2s;
+	}
+
+	.fcircle-card-author:hover {
+		opacity: 0.85;
+	}
+
+	.fcircle-card-author img {
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+	}
+
+	.fcircle-card-author span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.fcircle-card-date {
+		font-size: 0.68rem;
+		color: var(--btn-content);
+		opacity: 0.4;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	.fcircle-card-bg {
+		position: absolute;
+		bottom: -10px;
+		right: -8px;
+		width: 90px;
+		height: 90px;
+		border-radius: 50%;
+		opacity: 0.18;
+		object-fit: cover;
+		pointer-events: none;
+		z-index: 0;
+		transition: transform 0.5s ease;
+	}
+
+	.fcircle-card:hover .fcircle-card-bg {
+		transform: scale(1.1);
+	}
+
+	/* ── 加载更多按钮（与 gallery 按钮保持一致） ────────────────── */
+	.fcircle-more-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		aspect-ratio: 4 / 1;
+		background-color: var(--enter-btn-bg);
+		border: none;
+		cursor: pointer;
+		color: var(--primary);
+		transition: background-color 0.15s ease, transform 0.15s ease;
+		margin-top: 0.5rem;
+	}
+
+	.fcircle-more-btn:hover {
+		background-color: var(--enter-btn-bg-hover);
+	}
+
+	.fcircle-more-btn:active {
+		background-color: var(--enter-btn-bg-active);
+		transform: scale(0.98);
+	}
+
+	.fcircle-more-btn svg {
+		width: 2.25rem;
+		height: 2.25rem;
+		transform: rotate(90deg);
+	}
+
+	/* ── 统计信息 ─────────────────────────────────────────────── */
+	.fcircle-stats {
+		font-size: 0.72rem;
+		text-align: right;
+		margin-top: 0.75rem;
+		color: var(--btn-content);
+		opacity: 0.35;
+	}
+</style>

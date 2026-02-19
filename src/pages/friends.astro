@@ -1,5 +1,6 @@
 ---
 import { getEntry, render } from "astro:content";
+import FriendCircle from "@components/FriendCircle.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import friends from "../data/friends.json";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
@@ -203,6 +204,21 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 </div>
         </section>
       ))}
+
+      <!-- 友链邮报 -->
+      <section id="friend-circle-section" aria-label="友链邮报" class="not-prose mt-6">
+        <div class="mb-3 px-6 md:px-12">
+          <h2 class="text-[1.2rem] font-normal text-[var(--primary)]">
+            📮 邮报
+            <span class="ml-2 font-normal align-middle text-base px-2 py-0.5 text-[var(--btn-content)] opacity-80">
+              // 近期散落的灵光
+            </span>
+          </h2>
+        </div>
+        <div class="px-6 md:px-12">
+          <FriendCircle />
+        </div>
+      </section>
 
       <!-- Markdown 正文（保留） -->
       <Markdown class="mt-6">

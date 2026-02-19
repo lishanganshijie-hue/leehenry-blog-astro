@@ -336,6 +336,11 @@
         }
     }
 
+    /* 表格对齐：remark-gfm 生成已废弃的 align 属性而非 style，需手动映射 */
+    th[align="left"],   td[align="left"]   { text-align: left; }
+    th[align="center"], td[align="center"] { text-align: center; }
+    th[align="right"],  td[align="right"]  { text-align: right !important; }
+
     /* 脚注返回链接图标样式 */
     a[data-footnote-backref] {
         text-decoration: none;

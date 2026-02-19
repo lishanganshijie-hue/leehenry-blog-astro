@@ -14,7 +14,7 @@
 
 **你能发现这里真是太好了，茶歇备妥，欢迎进来多坐坐！**
 
-## 👤 「伏枥」？/ Intro
+## 👤 Intro
 
 > <p style="text-align: center; font-family: serif;">
 >         「三分钟热度，也有三分钟收获。」
@@ -28,7 +28,7 @@
 - 始终信仰进一步有进一步的欢喜，永远相信美好的事情即将发生。
 - **不求全能，但保持好奇。一直是学徒，永远在路上。**
 
-## 📖 「伏枥之间」？ / Words
+## 📖 Words
 
 ### 0x0｜[Debug2Deploy · 推理到跑通](https://leehenry.top/archive/?category=推理到跑通)
 
@@ -90,7 +90,7 @@
 
 或许有些价值的断简残篇。不成体系，也可能在某天燃起新的火花，谁知道呢。
 
-## 🚩 大事记 / Events
+## 🚩 Events
 
 - `2022-11-27` 发布 [第一篇正式公开博文](https://www.cnblogs.com/LeeHero/p/16928837.html)，基于课程项目撰写，发布于博客园。
 - `2023-03-26` 发布 [第一篇技术向公开博文](https://blog.csdn.net/qq_33429910/article/details/129761657)，入选 CSDN 每天最佳新人榜单。
@@ -103,24 +103,24 @@
 
 - ……
 
-## 💌 致谢 / Credits
+## 💌 Credits
 
 - **首图** - Banner：[Dean Johns  (Behance)](https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589)
 - **头像** - Avatar：[@textrnr (X)](https://x.com/textrnr/status/1956856773299622091?s=20)
 - **图标** - Icons：[SVG Repo](https://www.svgrepo.com/collection/chunk-16px-thick-interface-icons/), [Font Awesome 6](https://fontawesome.com/) & [Material Symbols](https://fonts.google.com/icons) (via [Iconify](https://iconify.design/))
 - **上游** - Theme：[Fuwari](https://github.com/saicaca/fuwari/tree/main) (built with [Astro](https://astro.build/) & [Tailwind CSS](https://tailwindcss.com/))
-- **字体** - Fonts：[vivo Sans](https://developers.vivo.com/doc/d/314fa33cbaec4a93be351cd44757d9d9) (sans), FZBeiWeiKaiShu (serif) & [Open Sans](https://fonts.google.com/specimen/Open+Sans) (italic sans)
+- **字体** - Fonts：FZBeiWeiKaiShu (serif), [vivo Sans](https://developers.vivo.com/doc/d/314fa33cbaec4a93be351cd44757d9d9) (sans-serif) & [Open Sans](https://fonts.google.com/specimen/Open+Sans) (italic)
 
 本站开源，你可以在文后的 [Github 仓库](https://github.com/LeeHero0803/leehenry-blog) 中找到主题和文章内容的全部源码。
 
-## 🧠 头脑风暴 / To-Dos
+## 🧠 To-Dos
 
-- 📃「光影」页面：优化访问体验，集成图床并迁移至 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
+- 📃「光影」页面：展示精选作品。全量作品迁移至 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
 
-- 📃「友邻」页面：增加一个友链邮报的区块，继承展示朋友最新更新的文章标题信息，考虑使用 [Friend-Circle-Lite](https://github.com/willow-god/Friend-Circle-Lite)；
-- 🧩「文眼」卡片：重新设计，将其中的固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)丨[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)丨[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)丨[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)丨[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)丨[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
+- 📃「友邻」页面：增加友链邮报，展示朋友最新更新的文章标题信息，考虑使用 [Friend-Circle-Lite](https://github.com/willow-god/Friend-Circle-Lite)；
+- 🧩「文眼」卡片：将固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)丨[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)丨[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)丨[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)丨[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)丨[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
 - 🧩「小行迹」栏目：可以用地图的形式展示去过的地方；
-- 🔧「访问统计」把为了省事使用的糟糕 51.la 换成自建的 [umami](https://github.com/umami-software/umami)；
+- ⚙「访问统计」把为了省事使用的糟糕 51.la 换成自建的 [umami](https://github.com/umami-software/umami)；
 
 - 💡 也许可以将「书影音游」+「在役装备」的内容独立出来？
     - 等这一部分内容写得更多一些会更值得考虑……

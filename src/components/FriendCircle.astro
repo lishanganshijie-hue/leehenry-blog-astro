@@ -140,11 +140,23 @@ function renderRandom(art: Article) {
 
 	const label = document.createElement("span");
 	label.className = "fcircle-random-label";
-	label.textContent = "随机一读";
+	label.textContent = "- 随机一读 -";
+	label.addEventListener("click", (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const pool = Math.min(allArticles.length, 30);
+		if (pool <= 1) return;
+		const currentIdx = allArticles.indexOf(art);
+		let idx;
+		do { idx = Math.floor(Math.random() * pool); } while (idx === currentIdx);
+		renderRandom(allArticles[idx]);
+	});
 
 	const title = document.createElement("div");
 	title.className = "fcircle-random-title";
-	title.textContent = art.title;
+	const titleInner = document.createElement("span");
+	titleInner.textContent = art.title;
+	title.appendChild(titleInner);
 
 	const meta = document.createElement("div");
 	meta.className = "fcircle-random-meta";
@@ -292,24 +304,36 @@ else document.addEventListener("swup:enable", setup);
 		opacity: 0.75;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
+		cursor: pointer;
+		transition: opacity 0.15s;
+	}
+
+	.fcircle-random-label:hover {
+		opacity: 1;
 	}
 
 	.fcircle-random-title {
 		font-size: 1.5rem;
-		font-weight: 600;
+		font-weight: 400;
+		font-family: 'BeiWeiKaiShu', serif;
 		color: var(--btn-content);
 		display: -webkit-box;
-		-webkit-line-clamp: 2;
+		-webkit-line-clamp: 1;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		line-height: 1.45;
 		text-align: center;
-		transition: color 0.2s;
 	}
 
-	.fcircle-random:hover .fcircle-random-title {
-		color: var(--primary);
+	.fcircle-random-title span {
+		text-decoration: underline;
+		text-decoration-style: solid;
+		text-decoration-color: var(--link-underline);
+		text-decoration-thickness: 8px;
+		text-underline-offset: 4px;
+		transition: text-decoration-color 0.2s;
 	}
+
 
 	.fcircle-random-meta {
 		display: flex;
@@ -358,7 +382,8 @@ else document.addEventListener("swup:enable", setup);
 	.fcircle-card-title {
 		font-size: 1rem;
 		color: var(--btn-content);
-		font-weight: 600;
+		font-weight: 400;
+		font-family: 'BeiWeiKaiShu', serif;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
@@ -461,5 +486,20 @@ else document.addEventListener("swup:enable", setup);
 
 	.fcircle-stats a:hover {
 		opacity: 0.7;
+	}
+
+	/* ── 移动端适配 ────────────────────────────────────────────── */
+	@media (max-width: 767px) {
+		.fcircle-card {
+			height: 80px;
+		}
+
+		.fcircle-card-title {
+			-webkit-line-clamp: 1;
+		}
+
+		.fcircle-more-btn {
+			height: 80px;
+		}
 	}
 </style>

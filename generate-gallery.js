@@ -1,5 +1,5 @@
 import fs from "fs";
-import sharp from "sharp";
+import { execSync } from "child_process";
 
 const data = {
 	categories: [
@@ -13,22 +13,55 @@ const data = {
 };
 
 const dirs = ["portrait", "landscape", "street", "still"];
+const allImages = [];
 
 for (const dir of dirs) {
-	const path = `public/gallery/${dir}`;
-	if (fs.existsSync(path)) {
-		const files = fs.readdirSync(path).filter((f) => /\.(webp|jpg|jpeg|png|avif)$/i.test(f));
-		for (const file of files) {
-			const { width, height } = await sharp(`${path}/${file}`).metadata();
-			data.images.push({
-				src: `/gallery/${dir}/${file}`,
-				category: dir,
-				w: width,
-				h: height,
+	const dirPath = `public/gallery/${dir}`;
+	if (fs.existsSync(dirPath)) {
+		fs.readdirSync(dirPath)
+			.filter((f) => /\.(webp|jpg|jpeg|png|avif)$/i.test(f))
+			.forEach((file) => {
+				allImages.push({
+					path: `${dirPath}/${file}`,
+					src: `/gallery/${dir}/${file}`,
+					category: dir,
+				});
 			});
-		}
 	}
 }
+
+// 用 Python Pillow 一次性读取所有图片尺寸（纯 Python，无需原生依赖）
+const tmpScript = "/tmp/_gallery_sizes.py";
+fs.writeFileSync(
+	tmpScript,
+	`import sys, json
+from PIL import Image
+paths = json.load(sys.stdin)
+out = []
+for p in paths:
+    try:
+        img = Image.open(p)
+        out.append([img.width, img.height])
+    except Exception:
+        out.append([0, 0])
+print(json.dumps(out))
+`,
+);
+
+const output = execSync(`python3 ${tmpScript}`, {
+	input: JSON.stringify(allImages.map((img) => img.path)),
+	encoding: "utf8",
+});
+fs.unlinkSync(tmpScript);
+
+const dims = JSON.parse(output.trim());
+
+data.images = allImages.map((img, i) => ({
+	src: img.src,
+	category: img.category,
+	w: dims[i]?.[0] ?? 0,
+	h: dims[i]?.[1] ?? 0,
+}));
 
 fs.writeFileSync("src/data/gallery.json", JSON.stringify(data, null, "\t"));
 console.log(`Generated gallery.json with ${data.images.length} images`);

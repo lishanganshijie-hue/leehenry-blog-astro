@@ -18,14 +18,18 @@ type Article = {
 	title: string;
 	link: string;
 	author: string;
-	description?: string;
-	date: string;
+	created: string;
 	avatar: string;
 };
 
 type FCData = {
-	articles: Article[];
-	friends: [string, string, string][];
+	article_data: Article[];
+	statistical_data: {
+		friends_num: number;
+		active_num: number;
+		article_num: number;
+		last_updated_time: string;
+	};
 };
 
 const PAGE_SIZE = 20;
@@ -41,7 +45,8 @@ function getApiUrl(): string {
 
 function formatDate(dateStr: string): string {
 	try {
-		const d = new Date(dateStr);
+		// FC-Lite 返回 "2026-02-19 21:43" 格式，替换空格为 T 确保跨浏览器解析正确
+		const d = new Date(dateStr.replace(" ", "T"));
 		if (isNaN(d.getTime())) return dateStr;
 		const days = Math.floor((Date.now() - d.getTime()) / 86400000);
 		if (days === 0) return "今天";
@@ -88,7 +93,7 @@ function makeCard(art: Article): HTMLElement {
 
 	const dateEl = document.createElement("span");
 	dateEl.className = "fcircle-card-date";
-	dateEl.textContent = formatDate(art.date);
+	dateEl.textContent = formatDate(art.created);
 
 	footer.appendChild(chip);
 	footer.appendChild(dateEl);
@@ -225,7 +230,7 @@ async function init() {
 		const data: FCData = await res.json();
 
 		if (loadingEl) loadingEl.hidden = true;
-		allArticles = data.articles ?? [];
+		allArticles = data.article_data ?? [];
 
 		if (allArticles.length > 0) {
 			const idx = Math.floor(Math.random() * Math.min(allArticles.length, 30));
@@ -234,9 +239,10 @@ async function init() {
 
 		renderBatch();
 
-		if (statsEl && data.friends) {
+		if (statsEl && data.statistical_data) {
+			const s = data.statistical_data;
 			statsEl.hidden = false;
-			statsEl.textContent = `${data.friends.length} 位友链 · 共 ${allArticles.length} 篇`;
+			statsEl.textContent = `${s.friends_num} 位友链 · 共 ${s.article_num} 篇 · 更新于 ${s.last_updated_time}`;
 		}
 	} catch (e) {
 		console.warn("[FriendCircle]", e);

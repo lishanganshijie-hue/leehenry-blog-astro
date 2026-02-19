@@ -9,18 +9,19 @@ interface Props {
 interface GalleryImage {
 	src: string;
 	category: string;
+	w: number;
+	h: number;
 }
 
 const className = Astro.props.class;
 const currentCategory = Astro.props.currentCategory || "all";
 
-// 根据类别筛选图片
+const images = galleryData.images as GalleryImage[];
 const filteredImages =
 	currentCategory === "all"
-		? galleryData.images
-		: galleryData.images.filter((img) => img.category === currentCategory);
+		? images
+		: images.filter((img) => img.category === currentCategory);
 
-// 传递数据给客户端
 const allImagesData = JSON.stringify(galleryData.images);
 const categoriesData = JSON.stringify(galleryData.categories);
 ---
@@ -28,24 +29,24 @@ const categoriesData = JSON.stringify(galleryData.categories);
 <div class:list={["gallery-container", className]} id="gallery-container">
     <div class="gallery-masonry" id="gallery-masonry">
         {filteredImages.map((img, index) => (
-            <div 
-                class="gallery-item" 
+            <div
+                class="gallery-item"
                 data-category={img.category}
                 data-src={img.src}
             >
-                <img 
+                <img
                     src={img.src}
+                    width={img.w}
+                    height={img.h}
                     alt={`摄影作品 ${index + 1}`}
                     loading="lazy"
                     decoding="async"
-                    data-loaded="true"
                 />
             </div>
         ))}
     </div>
 </div>
 
-<!-- 传递数据给客户端脚本 -->
 <script is:inline define:vars={{ allImagesData, categoriesData, currentCategory }}>
     window.__galleryData = {
         images: JSON.parse(allImagesData),
@@ -57,7 +58,6 @@ const categoriesData = JSON.stringify(galleryData.categories);
 <script>
 import PhotoSwipeLightbox from "photoswipe/lightbox";
 
-// 初始化灯箱
 function initGalleryLightbox() {
     const lightbox = new PhotoSwipeLightbox({
         gallery: '#gallery-masonry',
@@ -74,11 +74,11 @@ function initGalleryLightbox() {
     });
 
     lightbox.addFilter('domItemData', (itemData, element) => {
-        const img = element.querySelector('img');
+        const img = element.querySelector('img') as HTMLImageElement | null;
         if (img) {
             itemData.src = img.src;
-            itemData.w = img.naturalWidth || window.innerWidth;
-            itemData.h = img.naturalHeight || window.innerHeight;
+            itemData.w = img.naturalWidth || img.width || window.innerWidth;
+            itemData.h = img.naturalHeight || img.height || window.innerHeight;
             itemData.msrc = img.src;
         }
         return itemData;
@@ -88,71 +88,45 @@ function initGalleryLightbox() {
     return lightbox;
 }
 
-// 类别筛选功能
 function initCategoryFilter() {
     const categoryBtns = document.querySelectorAll('.gallery-category-btn');
     const galleryMasonry = document.getElementById('gallery-masonry');
-    
     if (!categoryBtns.length || !galleryMasonry) return;
 
     categoryBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const category = btn.dataset.category;
+            const category = (btn as HTMLElement).dataset.category;
             if (!category) return;
 
-            // 筛选图片
-            const items = galleryMasonry.querySelectorAll('.gallery-item');
-            items.forEach(item => {
-                const itemCategory = (item as HTMLElement).dataset.category;
-                if (category === 'all' || itemCategory === category) {
-                    (item as HTMLElement).style.display = '';
-                    // 添加渐入动画
-                    item.classList.remove('fade-in');
-                    void (item as HTMLElement).offsetWidth; // 触发重排
-                    item.classList.add('fade-in');
-                } else {
-                    (item as HTMLElement).style.display = 'none';
-                }
+            galleryMasonry.querySelectorAll<HTMLElement>('.gallery-item').forEach(item => {
+                item.style.display =
+                    (category === 'all' || item.dataset.category === category) ? '' : 'none';
             });
 
-            // 滚动到页面顶部
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 }
 
-// 初始化
 let lightbox: PhotoSwipeLightbox | null = null;
 
 function init() {
-    if (lightbox) {
-        lightbox.destroy();
-    }
+    if (lightbox) lightbox.destroy();
     lightbox = initGalleryLightbox();
     initCategoryFilter();
 }
 
-// 页面加载时初始化
 init();
 
-// Swup 页面切换时重新初始化
 const setup = () => {
-    window.swup?.hooks?.on('page:view', () => {
-        init();
-    });
+    window.swup?.hooks?.on('page:view', () => init());
     window.swup?.hooks?.on('content:replace', () => {
-        if (lightbox) {
-            lightbox.destroy();
-            lightbox = null;
-        }
+        if (lightbox) { lightbox.destroy(); lightbox = null; }
     }, { before: true });
 };
 
-if (window.swup) {
-    setup();
-} else {
-    document.addEventListener('swup:enable', setup);
-}
+if (window.swup) setup();
+else document.addEventListener('swup:enable', setup);
 </script>
 
 <style>
@@ -165,13 +139,6 @@ if (window.swup) {
         column-gap: 0.5rem;
     }
 
-    @media (min-width: 640px) {
-        .gallery-masonry {
-            column-count: 2;
-            column-gap: 0.5rem;
-        }
-    }
-
     @media (min-width: 1024px) {
         .gallery-masonry {
             column-count: 3;
@@ -181,41 +148,19 @@ if (window.swup) {
     .gallery-item {
         break-inside: avoid;
         margin-bottom: 0.5rem;
-        position: relative;
         overflow: hidden;
         cursor: pointer;
-        background-color: transparent;
     }
 
     .gallery-item img {
         width: 100%;
         height: auto;
         display: block;
-        position: relative;
-        z-index: 1;
         cursor: zoom-in;
         transition: transform 0.2s ease-in-out;
-        opacity: 1;
-        visibility: visible;
     }
 
     .gallery-item:hover img {
         transform: scale(1.05);
-    }
-
-    /* 筛选时的渐入动画 */
-    .gallery-item.fade-in {
-        animation: fadeIn 0.4s ease forwards;
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
     }
 </style>

@@ -1,4 +1,5 @@
 import fs from "fs";
+import sharp from "sharp";
 
 const data = {
 	categories: [
@@ -13,18 +14,21 @@ const data = {
 
 const dirs = ["portrait", "landscape", "street", "still"];
 
-dirs.forEach((dir) => {
+for (const dir of dirs) {
 	const path = `public/gallery/${dir}`;
 	if (fs.existsSync(path)) {
-		const files = fs.readdirSync(path).filter((f) => f.endsWith(".webp"));
-		files.forEach((file) => {
+		const files = fs.readdirSync(path).filter((f) => /\.(webp|jpg|jpeg|png|avif)$/i.test(f));
+		for (const file of files) {
+			const { width, height } = await sharp(`${path}/${file}`).metadata();
 			data.images.push({
 				src: `/gallery/${dir}/${file}`,
 				category: dir,
+				w: width,
+				h: height,
 			});
-		});
+		}
 	}
-});
+}
 
 fs.writeFileSync("src/data/gallery.json", JSON.stringify(data, null, "\t"));
 console.log(`Generated gallery.json with ${data.images.length} images`);

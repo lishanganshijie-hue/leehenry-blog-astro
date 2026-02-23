@@ -38,7 +38,7 @@
 >     <em>CS, another way to make sense of the world.</em>
 > </p>
 
-代码之间的纪行。记录下我撬开黑箱、回应复杂世界的笨拙尝试。
+代码之间的纪行。记录我撬开黑箱、回应复杂世界的尝试。
 
 ### 0x1｜[Moment Memos · 瞬间备忘录](https://leehenry.top/archive/?category=瞬间备忘录)
 
@@ -48,7 +48,7 @@
 >     <em>To catch the fleeting beauty of daily life.</em>
 > </p>
 
-不期而遇的瞬间。在人生的尺度下琐碎而短暂，但是让我「活在当下」的感知线索。
+不期而遇的瞬间。琐碎而短暂，但却是我「活在当下」的感知线索。
 
 ### 0x2｜[Mindlight Maze · 话从哪说起](https://leehenry.top/archive/?category=话从哪说起)
 
@@ -58,7 +58,7 @@
 >     <em>Where thoughts wander, words begin.</em>
 > </p>
 
-与世界的非线性访谈。是我存放抽象想法与具象经验交汇的暖流地带。
+与世界的非线性访谈。抽象想法与具象经验交汇的暖流地带。
 
 ### 0x3｜[Hack & Track · 我这样做事](https://leehenry.top/archive/?category=我这样做事)
 
@@ -68,7 +68,7 @@
 >     <em>Hack it, track it, and share it.</em>
 > </p>
 
-实践验证的行动日志。不是「最优解」，但值得告诉你「我现在这样做」。
+实践验证的行动日志。我认为值得告诉你「我现在这样做」。
 
 ### 0x4｜[Step by Sense · 多懂一点点](https://leehenry.top/archive/?category=多懂一点点)
 
@@ -78,7 +78,7 @@
 >     <em>Learning, not rushing — one sense, one step at a time.</em>
 > </p>
 
-好奇心驱使的泛领域笔记。审美到认知，我想一切成长值得慢慢来。
+好奇心驱使的泛领域笔记。审美到认知，成长值得慢慢来。
 
 ### 0x5｜[Words in Wildness· 野语不成篇](https://leehenry.top/archive/?category=野语不成篇)
 
@@ -88,7 +88,7 @@
 >     <em>Words unbound, fragments that breathe.</em>
 > </p>
 
-或许有些价值的断简残篇。不成体系，也可能在某天燃起新的火花，谁知道呢。
+或许有价值的断简残篇。不成体系，也可能在某天燃起新的火花，谁知道呢。
 
 ## 🚩 Events
 
@@ -117,10 +117,10 @@
 
 - 📃「光影」页面：展示精选作品。全量作品迁移至 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
 
-- 📃「友邻」页面：增加友链邮报，展示朋友最新更新的文章标题信息，考虑使用 [Friend-Circle-Lite](https://github.com/willow-god/Friend-Circle-Lite)；
+- ✔「友邻」页面：增加友链邮报，展示朋友最新更新的文章标题信息，考虑使用 [Friend-Circle-Lite](https://github.com/willow-god/Friend-Circle-Lite)；
 - 🧩「文眼」卡片：将固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)丨[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)丨[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)丨[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)丨[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)丨[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
 - 🧩「小行迹」栏目：可以用地图的形式展示去过的地方；
-- ⚙「访问统计」把为了省事使用的糟糕 51.la 换成自建的 [umami](https://github.com/umami-software/umami)；
+- ⚙「访问统计」插件：把为了省事使用的垃圾 51.LA 换成自建的 [umami](https://github.com/umami-software/umami)；
 
 - 💡 也许可以将「书影音游」+「在役装备」的内容独立出来？
     - 等这一部分内容写得更多一些会更值得考虑……
@@ -137,7 +137,7 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 2 月 19 日 |
+| ✎ · 最后更新于 2026 年 2 月 23 日 |
 | --------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}

@@ -315,5 +315,19 @@
 		"category": "online",
 		"note": "鹅玉把这里打造成一本会生长与流动的手账，用心剪贴着、涂鸦着自己的爱、童真与自由。",
 		"badge": "star"
+	},
+	{
+		"name": "Bluepikachu",
+		"url": "https://bluepika.life/",
+		"desc": "A Designer.",
+		"avatar": "https://pub-acdbc21bc3964d18a684b0c51010a4e5.r2.dev/notion-face-portrait.png",
+		"category": "stash"
+	},
+	{
+		"name": "SO!AZY",
+		"url": "https://blog.solazy.me/",
+		"desc": "Just a Lazy Sol.",
+		"avatar": "/friends/solazy.webp",
+		"category": "stash"
 	}
 ]

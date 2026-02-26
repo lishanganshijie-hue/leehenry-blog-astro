@@ -172,7 +172,7 @@
 	{
 		"name": "SkyWT",
 		"url": "https://skywt.cn/",
-		"desc": "理想主義。我還年輕",
+		"desc": "理想主義，我還年輕",
 		"avatar": "https://upload.storeweb.cn/upload/site/logo/1376/8aa06adad607fb7aceb90b439c8f9b92.jpg",
 		"category": "stash"
 	},
@@ -313,7 +313,7 @@
 		"desc": "我在飞翔，回时风与我盘旋",
 		"avatar": "https://favicon.pub/api/ro3or.com?s=128",
 		"category": "online",
-		"note": "鹅玉把这里打造成一本会生长与流动的手账，用心剪贴着、涂鸦着自己的爱、童真与自由。",
+		"note": "鹅玉把这里打造成一本会生长与流动的手账，用心剪贴涂鸦着爱、童真与自由。",
 		"badge": "star"
 	},
 	{
@@ -329,5 +329,14 @@
 		"desc": "Just a Lazy Sol.",
 		"avatar": "/friends/solazy.webp",
 		"category": "stash"
+	},
+	{
+		"name": "金色河流",
+		"url": "https://goldenriver.site/",
+		"desc": "生活，思考，困惑，成长",
+		"avatar": "https://goldenriver.site/avatar_hu_9a4ef5a8c8ee9aa9.webp",
+		"category": "online",
+		"note": "和我一样，Goldenriver 用「非典型理工男」自喻。他珍惜表达者的主体性，于喧哗众生中发声。",
+		"badge": "star"
 	}
 ]

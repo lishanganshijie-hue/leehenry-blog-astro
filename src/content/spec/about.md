@@ -107,7 +107,7 @@
 
 - **首图** - Banner：[Dean Johns  (Behance)](https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589)
 - **头像** - Avatar：[@textrnr (X)](https://x.com/textrnr/status/1956856773299622091?s=20)
-- **图标** - Icons：[SVG Repo](https://www.svgrepo.com/collection/chunk-16px-thick-interface-icons/), [Font Awesome 6](https://fontawesome.com/) & [Material Symbols](https://fonts.google.com/icons) (via [Iconify](https://iconify.design/))
+- **图标** - Icons：[SVG Repo](https://www.svgrepo.com/collection/16pxls-tiny-sharp-icons/), [Font Awesome 6](https://fontawesome.com/) & [Material Symbols](https://fonts.google.com/icons) (via [Iconify](https://iconify.design/))
 - **上游** - Theme：[Fuwari](https://github.com/saicaca/fuwari/tree/main) (built with [Astro](https://astro.build/) & [Tailwind CSS](https://tailwindcss.com/))
 - **字体** - Fonts：FZBeiWeiKaiShu (serif), [vivo Sans](https://developers.vivo.com/doc/d/314fa33cbaec4a93be351cd44757d9d9) (sans-serif) & [Open Sans](https://fonts.google.com/specimen/Open+Sans) (italic)
 
@@ -116,15 +116,15 @@
 ## 🧠 To-Dos
 
 - 📃「光影」页面：展示精选作品。全量作品迁移至 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
-
-- ✔「友邻」页面：增加友链邮报，展示朋友最新更新的文章标题信息，考虑使用 [Friend-Circle-Lite](https://github.com/willow-god/Friend-Circle-Lite)；
+- 📃「藏阁」页面：将书影音游页面独立出来，数据来源于 [NeoDB](https://neodb.net/)；
 - 🧩「文眼」卡片：将固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)丨[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)丨[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)丨[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)丨[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)丨[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
 - 🧩「小行迹」栏目：可以用地图的形式展示去过的地方；
+- 🧩「AI 创作」声明：为 AI 的使用增加标签和披露。参考：
+    - [AI创作等级标识 | 碎言](https://www.suiyan.cc/AI-Label)；
+    - [AI 使用披露 - 小倪 | BioEZ](https://bioez.xyz/ben-bo-ke-ai-shi-yong-pi-lu)
+    - [Not By AI — 为你的非AI创作贴上这个贴纸吧！](https://notbyai.fyi/cn/)
+
 - ⚙「访问统计」插件：把为了省事使用的垃圾 51.LA 换成自建的 [umami](https://github.com/umami-software/umami)；
-
-- 💡 也许可以将「书影音游」+「在役装备」的内容独立出来？
-    - 等这一部分内容写得更多一些会更值得考虑……
-
 - 💡 或许看到这里的你会有什么好的想法？来 [聊聊看](https://leehenry.top/guestbook/)！
 
 ---
@@ -137,7 +137,7 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 2 月 23 日 |
+| ✎ · 最后更新于 2026 年 2 月 28 日 |
 | --------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}

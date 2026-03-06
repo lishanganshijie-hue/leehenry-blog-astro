@@ -88,7 +88,7 @@
 >     <em>Words unbound, fragments that breathe.</em>
 > </p>
 
-或许有价值的断简残篇。不成体系，也可能在某天燃起新的火花，谁知道呢。
+或许有价值的断简残篇。可能在某天燃起新的火花，谁知道呢。
 
 ## 🚩 Events
 
@@ -120,7 +120,7 @@
 - 🧩「文眼」卡片：将固定栏目（[⏳又一年](https://leehenry.top/archive/?tag=⏳又一年)丨[💕呼唤爱](https://leehenry.top/archive/?tag=💕呼唤爱)丨[🔍找自己](https://leehenry.top/archive/?tag=🔍找自己)丨[🗃️当月事](https://leehenry.top/archive/?tag=🗃️当月事)丨[🗺小行迹](https://leehenry.top/archive/?tag=🗺小行迹)丨[🛒拾物语](https://leehenry.top/archive/?tag=🛒拾物语)）重新设计得更加醒目；
 - 🧩「小行迹」栏目：可以用地图的形式展示去过的地方；
 - 🧩「AI 创作」声明：为 AI 的使用增加标签和披露。参考：
-    - [AI创作等级标识 | 碎言](https://www.suiyan.cc/AI-Label)；
+    - [AI创作等级标识 | 碎言](https://www.suiyan.cc/AI-Label)
     - [AI 使用披露 - 小倪 | BioEZ](https://bioez.xyz/ben-bo-ke-ai-shi-yong-pi-lu)
     - [Not By AI — 为你的非AI创作贴上这个贴纸吧！](https://notbyai.fyi/cn/)
 
@@ -137,8 +137,8 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 2 月 28 日 |
-| --------------------------------: |
+| ✎ · 最后更新于 2026 年 3 月 6 日 |
+| -------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}
 

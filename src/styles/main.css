@@ -80,6 +80,7 @@ em, i,
 }
 
 @tailwind components;
+@tailwind utilities;
 
 @layer components {
     .card-base {

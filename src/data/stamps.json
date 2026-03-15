@@ -1,0 +1,87 @@
+[
+	{
+		"type": "cool-sites",
+		"url": "https://leehenry.top",
+		"img": "/88x31.gif",
+		"alt": "leehenry.top"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://www.geedea.pro",
+		"img": "https://www.geedea.pro/88x31.png",
+		"alt": "geedea.pro",
+		"style": "filter:invert(1)"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://ro3or.com/",
+		"img": "https://ro3or.com/button.gif",
+		"alt": "ro3or.com"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://lok.computer",
+		"img": "https://lok.computer/88x31.gif",
+		"alt": "lok.computer"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://v1sta.xyz",
+		"img": "https://v1sta.xyz/wp-content/uploads/2026/02/88x31.png",
+		"alt": "v1sta.xyz"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://net7.blog",
+		"img": "https://net7.blog/wp-content/uploads/2026/01/net7_88x31.png",
+		"alt": "net7.blog"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://dimden.dev/",
+		"img": "https://dimden.dev/services/images/88x31.gif",
+		"alt": "net7.blog"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/anlucas3.gif",
+		"alt": "WWW connecting people since 1991"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/base64stamp.gif",
+		"alt": "made with Windows"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/minecraft.png",
+		"alt": "I love Minecraft!"	
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/smile.gif",
+		"alt": "have a smile:)"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/button5.gif",
+		"alt": "site is GAY!"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/created-by-a-human.png",
+		"alt": "created by a human"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/bestviewedcomputer.gif",
+		"alt": "best viewed computer"
+	}
+]

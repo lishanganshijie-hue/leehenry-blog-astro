@@ -1,8 +1,10 @@
 ---
 import { getEntry, render } from "astro:content";
+import { Icon } from "astro-icon/components";
 import FriendCircle from "@components/FriendCircle.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import friends from "../data/friends.json";
+import stamps from "../data/stamps.json";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 // 读取前面的说明文档
@@ -97,6 +99,61 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
           <IntroContent />
         </Markdown>
       )}
+
+      <!-- 88×31 Stamps -->
+      {stamps.length > 0 && (() => {
+        type StampItem = { type?: string; url: string; img: string; alt: string; style?: string };
+        const typedStamps = stamps as StampItem[];
+        const self = typedStamps[0];
+        const coolSites = typedStamps.slice(1).filter(s => !s.type || s.type === 'cool-sites');
+        const attitude = typedStamps.filter(s => s.type === 'attitude');
+        return (
+          <div class="not-prose mb-6 px-6 md:px-12">
+            <div class="stamps-container">
+              <div class="stamps-header">
+                <div class="stamps-title">
+                  <span class="stamps-title-text">88×31 stamps</span>
+                  <span class="stamps-info-trigger" role="note">
+                    <Icon name="fa6-regular:circle-question" class="stamps-info-icon" />
+                    <div class="stamps-title-tip-panel">
+                      这是一面 88×31 徽章墙。<a href="https://indieweb.org/88x31" target="_blank" rel="noopener noreferrer" class="stamps-tip-link">88×31</a> 徽章文化诞生于 1990s 的 Web 1.0 时期。站长们用精心设计的徽章介绍自己、表达态度，形成一种特别的独立网站文化。如果你也拥有，欢迎 <a href="mailto:leehenry1024@qq.com" class="stamps-tip-link">来信</a> 交换！
+                    </div>
+                  </span>
+                </div>
+                <a href={self.url} target="_blank" rel="noopener noreferrer" title={self.alt} class="stamps-self">
+                  <img src={self.img} alt={self.alt} width="88" height="31" loading="lazy" style={self.style} />
+                </a>
+              </div>
+
+              <div class="stamps-section-label">cool sites</div>
+              <div class="stamps-grid">
+                {coolSites.map((s) => (
+                  <a href={s.url} target="_blank" rel="noopener noreferrer" title={s.alt} class="stamps-link">
+                    <img src={s.img} alt={s.alt} width="88" height="31" loading="lazy" style={s.style} />
+                  </a>
+                ))}
+              </div>
+
+              {attitude.length > 0 && (
+                <>
+                  <div class="stamps-section-label" style="margin-top: 0.75rem;">what's more</div>
+                  <div class="stamps-grid">
+                    {attitude.map((s) => (
+                      s.url
+                        ? <a href={s.url} target="_blank" rel="noopener noreferrer" title={s.alt} class="stamps-link">
+                            <img src={s.img} alt={s.alt} width="88" height="31" loading="lazy" style={s.style} />
+                          </a>
+                        : <span title={s.alt} class="stamps-link">
+                            <img src={s.img} alt={s.alt} width="88" height="31" loading="lazy" style={s.style} />
+                          </span>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        );
+      })()}
 
       <!-- 分类段落渲染 -->
       {groups.map(({ key, meta, items }) => (
@@ -404,5 +461,160 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
   .stash-tip:focus-within .stash-tip-panel {
     opacity: 1;
     visibility: visible;
+  }
+
+  /* 88×31 Stamps */
+  .stamps-container {
+    border: 1px solid var(--btn-card-bg-active);
+    padding: 0.875rem 1.125rem;
+  }
+
+  .stamps-header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    z-index: 10;
+  }
+
+  .stamps-self {
+    display: block;
+    line-height: 0;
+    position: absolute;
+    left: 48%;
+    top: 50%;
+    transform: translateX(calc(-100% - 4rem)) translateY(-50%) rotate(-5deg);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .stamps-self:hover {
+    transform: translateX(calc(-100% - 4rem)) translateY(-50%) rotate(0deg);
+    opacity: 0.85;
+  }
+
+  .stamps-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono Variable', 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transform: translateX(0.5rem);
+  }
+
+  .stamps-title-text {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-decoration-color: var(--link-underline);
+    text-decoration-thickness: 6px;
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.2s;
+  }
+
+  .stamps-info-trigger {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    cursor: default;
+    line-height: 1;
+  }
+
+  .stamps-info-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--btn-content);
+    opacity: 0.45;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  .stamps-info-trigger:hover .stamps-info-icon {
+    opacity: 1;
+  }
+
+  .stamps-tip-link {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 2px;
+  }
+
+  .stamps-title-tip-panel {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(8px, -50%);
+    min-width: 280px;
+    max-width: 280px;
+    padding: 0.75rem 0.9rem;
+    background: var(--card-bg);
+    color: var(--btn-content);
+    border: 1px solid var(--btn-card-bg-active);
+    border-radius: var(--radius-medium);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    font-size: 0.85rem;
+    font-family: inherit;
+    font-weight: normal;
+    letter-spacing: normal;
+    text-transform: none;
+    line-height: 1.6;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease-in-out, visibility 0.18s ease-in-out;
+    z-index: 50;
+  }
+
+  .stamps-info-trigger:hover .stamps-title-tip-panel,
+  .stamps-info-trigger:focus-within .stamps-title-tip-panel {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .stamps-section-label {
+    font-family: 'JetBrains Mono Variable', 'Courier New', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--btn-content);
+    opacity: 0.4;
+    margin-bottom: 0.375rem;
+  }
+
+  .stamps-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .stamps-link {
+    display: block;
+    line-height: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .stamps-link:nth-child(7n+1) { transform: rotate(-2.5deg); }
+  .stamps-link:nth-child(7n+2) { transform: rotate(1.8deg); }
+  .stamps-link:nth-child(7n+3) { transform: rotate(-1.2deg); }
+  .stamps-link:nth-child(7n+4) { transform: rotate(2.8deg); }
+  .stamps-link:nth-child(7n+5) { transform: rotate(-2deg); }
+  .stamps-link:nth-child(7n+6) { transform: rotate(1.2deg); }
+  .stamps-link:nth-child(7n+7) { transform: rotate(-0.8deg); }
+
+  .stamps-link:hover {
+    transform: rotate(0deg);
+    opacity: 0.85;
+  }
+
+  .stamps-link img {
+    display: block;
+    width: 88px;
+    height: 31px;
   }
 </style>

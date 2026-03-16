@@ -110,13 +110,25 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         return (
           <div class="not-prose mb-6 px-6 md:px-12">
             <div class="stamps-container">
+              <div class="stamps-titlebar">
+                <div class="stamps-titlebar-left">
+                  <span class="stamps-titlebar-dot"></span>
+                  <span class="stamps-titlebar-name">LINKS.ZIP</span>
+                </div>
+                <div class="stamps-xp-btns">
+                  <svg viewBox="0 0 10 10" class="stamps-xp-icon"><line x1="2" y1="7" x2="8" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <svg viewBox="0 0 10 10" class="stamps-xp-icon"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                  <svg viewBox="0 0 10 10" class="stamps-xp-icon"><line x1="2" y1="2" x2="8" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="8" y1="2" x2="2" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+              </div>
+              <div class="stamps-inner">
               <div class="stamps-header">
                 <div class="stamps-title">
                   <span class="stamps-title-text">88×31 stamps</span>
                   <span class="stamps-info-trigger" role="note">
                     <Icon name="fa6-regular:circle-question" class="stamps-info-icon" />
                     <div class="stamps-title-tip-panel">
-                      这是一面 88×31 徽章墙。<a href="https://indieweb.org/88x31" target="_blank" rel="noopener noreferrer" class="stamps-tip-link">88×31</a> 徽章文化诞生于 1990s 的 Web 1.0 时期。站长们用精心设计的徽章介绍自己、表达态度，形成一种特别的独立网站文化。如果你也拥有，欢迎 <a href="mailto:leehenry1024@qq.com" class="stamps-tip-link">来信</a> 交换！
+                      这是一面 88×31 徽章墙。<a href="https://indieweb.org/88x31" target="_blank" rel="noopener noreferrer" class="stamps-tip-link">88×31</a> 诞生于 1990s。站长们用精心设计的徽章介绍自己、表达态度，形成一种特别的独立网站文化。欢迎 <a href="mailto:leehenry1024@qq.com" class="stamps-tip-link">来信</a> 交换！
                     </div>
                   </span>
                 </div>
@@ -150,6 +162,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                   </div>
                 </>
               )}
+              </div>
             </div>
           </div>
         );
@@ -466,7 +479,57 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
   /* 88×31 Stamps */
   .stamps-container {
     border: 1px solid var(--btn-card-bg-active);
+  }
+
+  .stamps-titlebar {
+    height: 18px;
+    border-bottom: 1px solid var(--btn-card-bg-active);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+  }
+
+  .stamps-titlebar-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .stamps-titlebar-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  .stamps-titlebar-name {
+    font-family: 'JetBrains Mono Variable', 'Courier New', monospace;
+    font-size: 0.6rem;
+    color: var(--primary);
+    opacity: 0.5;
+    user-select: none;
+  }
+
+  .stamps-inner {
     padding: 0.875rem 1.125rem;
+  }
+
+  .stamps-xp-btns {
+    display: flex;
+    gap: 6px;
+  }
+
+  .stamps-xp-icon {
+    width: 10px;
+    height: 10px;
+    color: var(--primary);
+    opacity: 0.5;
+    cursor: default;
+    user-select: none;
+    flex-shrink: 0;
   }
 
   .stamps-header {
@@ -556,11 +619,12 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
     border: 1px solid var(--btn-card-bg-active);
     border-radius: var(--radius-medium);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    font-size: 0.85rem;
-    font-family: inherit;
+    font-size: 0.92rem;
+    font-family: 'vivo Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
     font-weight: normal;
     letter-spacing: normal;
     text-transform: none;
+    text-align: left;
     line-height: 1.6;
     opacity: 0;
     visibility: hidden;

@@ -2,6 +2,7 @@
 import { getEntry, render } from "astro:content";
 import { Icon } from "astro-icon/components";
 import FriendCircle from "@components/FriendCircle.astro";
+import LikeButton from "@components/misc/LikeButton.svelte";
 import Markdown from "@components/misc/Markdown.astro";
 import friends from "../data/friends.json";
 import stamps from "../data/stamps.json";
@@ -294,6 +295,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
       <Markdown class="mt-0">
         <Content />
       </Markdown>
+      <LikeButton client:load />
     </div>
   </div>
 

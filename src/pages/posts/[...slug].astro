@@ -1,6 +1,7 @@
 ---
 import path from "node:path";
 import License from "@components/misc/License.astro";
+import LikeButton from "@components/misc/LikeButton.svelte";
 import Markdown from "@components/misc/Markdown.astro";
 import Twikoo from "@components/misc/Twikoo.astro";
 import I18nKey from "@i18n/i18nKey";
@@ -154,6 +155,7 @@ const jsonLd = {
     <!-- Comments Section - Separate Card -->
     <div id="comment-section" class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
         <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full">
+            <LikeButton client:load />
             <Twikoo class="onload-animation"></Twikoo>
         </div>
     </div>

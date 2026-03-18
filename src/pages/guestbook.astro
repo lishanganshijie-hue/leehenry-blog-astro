@@ -1,5 +1,6 @@
 ---
 import { getEntry, render } from "astro:content";
+import LikeButton from "@components/misc/LikeButton.svelte";
 import Markdown from "@components/misc/Markdown.astro";
 import Twikoo from "@components/misc/Twikoo.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -25,6 +26,7 @@ const description = entry.data.description ?? "欢迎在这里留下您的足迹
       <Markdown class="mt-0">
         <Content />
       </Markdown>
+      <LikeButton client:load />
 
       <!-- 评论区分隔线 -->
       <div class="my-8 border-t border-[var(--line-divider)]"></div>

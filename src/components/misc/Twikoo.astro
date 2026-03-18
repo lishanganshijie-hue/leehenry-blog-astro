@@ -25,6 +25,7 @@ const twikooConfig = siteConfig.twikoo;
                     if (window.createPhotoSwipe){
                         window.createPhotoSwipe()
                     }
+                    initEmojiZoom();
                 }
             });
             // 防止 twikoo 内部 a 标签 href="#" 导致页面跳到顶部
@@ -46,6 +47,78 @@ const twikooConfig = siteConfig.twikoo;
                 // PhotoSwipe 相关逻辑保持不变
             }
         }
+
+        // 表情放大：挂在 document 上，不依赖 Twikoo 加载时序
+        (function initEmojiZoom() {
+            if (window._tkEmojiZoom) return;
+            window._tkEmojiZoom = true;
+
+            const SCALE = 3;
+            let overlay = null;
+            let hideTimer = null;
+
+            document.addEventListener('mouseover', function(e) {
+                const img = e.target;
+                if (!(img instanceof HTMLImageElement)) return;
+                if (!img.closest('.tk-content p')) return;
+
+                // 取消正在进行的收起动画
+                if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+                if (overlay) { overlay.remove(); overlay = null; }
+
+                const rect = img.getBoundingClientRect();
+                const w = rect.width * SCALE;
+                const h = rect.height * SCALE;
+
+                // 以原图中心为基准定位
+                let left = rect.left + rect.width / 2 - w / 2;
+                let top  = rect.top  + rect.height / 2 - h / 2;
+                left = Math.max(8, Math.min(left, window.innerWidth  - w - 8));
+                top  = Math.max(8, Math.min(top,  window.innerHeight - h - 8));
+
+                overlay = document.createElement('img');
+                overlay.src = img.src;
+                overlay.setAttribute('aria-hidden', 'true');
+                overlay.style.cssText =
+                    'position:fixed;left:' + left + 'px;top:' + top + 'px;' +
+                    'width:' + w + 'px;height:' + h + 'px;' +
+                    'z-index:9999;pointer-events:none;' +
+                    'filter:drop-shadow(0 2px 12px rgba(0,0,0,0.3));' +
+                    'transform:scale(' + (1 / SCALE) + ');' +
+                    'transform-origin:center center;' +
+                    'transition:transform 0.12s ease;';
+                document.body.appendChild(overlay);
+
+                // 触发过渡
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        if (overlay) overlay.style.transform = 'scale(1)';
+                    });
+                });
+            });
+
+            // 滚动时立即销毁
+            window.addEventListener('scroll', function() {
+                if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
+                if (overlay) { overlay.remove(); overlay = null; }
+            }, { passive: true });
+
+            document.addEventListener('mouseout', function(e) {
+                const img = e.target;
+                if (!(img instanceof HTMLImageElement)) return;
+                if (!img.closest('.tk-content p')) return;
+                if (!overlay) return;
+
+                // 缩回后再移除
+                overlay.style.transform = 'scale(' + (1 / SCALE) + ')';
+                var el = overlay;
+                hideTimer = setTimeout(function() {
+                    el.remove();
+                    if (overlay === el) overlay = null;
+                    hideTimer = null;
+                }, 120);
+            });
+        })();
         // https://twikoo.js.org/frontend.html CDN指南
         // 多CDN源级联加载策略
         const cdnSources = [

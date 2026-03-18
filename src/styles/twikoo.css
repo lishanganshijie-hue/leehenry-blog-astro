@@ -550,6 +550,21 @@
     box-shadow: none !important;
 }
 
+/* 段落内的表情图片：行内对齐，大小与字号一致 */
+.tk-content p img {
+    display: inline-block !important;
+    vertical-align: middle !important;
+    height: 1.8em !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 0.05em !important;
+    background: transparent !important;
+    transition: transform 0.15s ease, filter 0.15s ease !important;
+    cursor: zoom-in !important;
+}
+
+
+
 /* ==================== 五、分页组件 ==================== */
 
 /* 评论分页容器 */

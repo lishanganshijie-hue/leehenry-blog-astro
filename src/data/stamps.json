@@ -49,20 +49,32 @@
 		"alt": "1sle.xyz"
 	},
 	{
+		"type": "cool-sites",
+		"url": "https://taxodium.ink",
+		"img": "https://taxodium.ink/images/88x31/taxodium.ink.gif",
+		"alt": "taxodium.ink"
+	},
+	{
+		"type": "cool-sites",
+		"url": "https://saki.net7.blog/",
+		"img": "/stamps/sakiblog.png",
+		"alt": "saki.net7.blog"
+	},
+	{
 		"type": "attitude",
-		"url": "",
+		"url": "https://en.wikipedia.org/wiki/WorldWideWeb",
 		"img": "/stamps/anlucas3.gif",
 		"alt": "WWW connecting people since 1991"
 	},
 	{
 		"type": "attitude",
-		"url": "",
+		"url": "https://win32.run/",
 		"img": "/stamps/base64stamp.gif",
 		"alt": "made with Windows"
 	},
 	{
 		"type": "attitude",
-		"url": "",
+		"url": "https://www.minecraft.net/",
 		"img": "/stamps/minecraft.png",
 		"alt": "I love Minecraft!"	
 	},

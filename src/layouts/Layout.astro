@@ -171,7 +171,9 @@ const bannerOffset =
 		}
 		trackPage();
 		document.addEventListener('swup:page:view', function() {
-			if (window.umami) window.umami.track();
+			if (window.umami) window.umami.track(function(props) {
+				return Object.assign({}, props, { url: window.location.pathname, title: document.title });
+			});
 		});
 	})();
 	</script>

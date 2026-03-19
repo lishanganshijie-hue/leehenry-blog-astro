@@ -72,7 +72,7 @@ const totalHuman =
   loadStats();
   if (!window._statsListenerAdded) {
     window._statsListenerAdded = true;
-    document.addEventListener('swup:contentReplaced', loadStats);
+    document.addEventListener('swup:page:view', loadStats);
   }
 })();
 </script>

@@ -170,7 +170,7 @@ const bannerOffset =
 			if (window.umami) { window.umami.track(); } else { setTimeout(trackPage, 200); }
 		}
 		trackPage();
-		document.addEventListener('swup:contentReplaced', function() {
+		document.addEventListener('swup:page:view', function() {
 			if (window.umami) window.umami.track();
 		});
 	})();
@@ -674,7 +674,7 @@ if (window.swup) {
 	}
 	
 	// 监听 Swup 页面切换
-	document.addEventListener('swup:contentReplaced', initImageLoadAnimation);
+	document.addEventListener('swup:page:view', initImageLoadAnimation);
 	
 	// 使用 MutationObserver 监听动态添加的图片
 	var observer = new MutationObserver(function(mutations) {

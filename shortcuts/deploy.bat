@@ -139,7 +139,7 @@ REM 3) Remote backup & clean (keep .well-known / .user.ini)
 call :step_begin 3 "Remote backup & clean · 远端备份并清理"
 if "%BACKUP%"=="1" (
   powershell -Command "Write-Host '[INFO] Creating remote backup...' -ForegroundColor Green"
-  %SSH% "set -e; SITE='%REMOTE_DIR%'; BK=/www/backup/$(date +%%F_%%H%%M%%S).tar.gz; mkdir -p /www/backup; tar -czf ""$BK"" -C ""$SITE"" .; echo Backup to $BK done." || (powershell -Command "Write-Host '[ERR] Remote backup failed.' -ForegroundColor Red" & call :fail_choice 3 step3_backup_clean)
+  %SSH% "set -e; SITE='%REMOTE_DIR%'; BK=/www/backup/$(date +%%F_%%H%%M%%S).tar.gz; mkdir -p /www/backup; tar -czf ""$BK"" -C ""$SITE"" .; echo Backup to $BK done.; ls -t /www/backup/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9]*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm -f; echo Old backups pruned." || (powershell -Command "Write-Host '[ERR] Remote backup failed.' -ForegroundColor Red" & call :fail_choice 3 step3_backup_clean)
 )
 powershell -Command "Write-Host '[INFO] Cleaning remote directory...' -ForegroundColor Green"
 %SSH% "set -e; SITE='%REMOTE_DIR%'; cd ""$SITE""; find . -mindepth 1 -maxdepth 1 -not -name '.well-known' -not -name '.user.ini' -exec rm -rf {} +;" || (powershell -Command "Write-Host '[ERR] Remote clean failed.' -ForegroundColor Red" & call :fail_choice 3 step3_backup_clean)

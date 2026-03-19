@@ -12,7 +12,6 @@ const totalHuman =
 	(typeof stats?.totalZhChars === "number" ? `${stats.totalZhChars} 字` : null);
 ---
 
-<script defer src="https://umami.leehenry.top/script.js" data-website-id="1c0605dc-1e61-4db8-9a4f-5578e5e8480c"></script>
 
 <footer class="site-footer">
   <div class="footer-row">
@@ -24,7 +23,7 @@ const totalHuman =
 <div class="footer-row">
     <span>最后落笔于 {stats.generatedAt}</span>
     <span class="sep">/</span>
-    留存 <span id="footer-pv">—</span> 枚足迹，您是第 <span id="footer-uv">—</span> 位同行者
+    留存 <span class="footer-pv">—</span> 枚足迹，您是第 <span class="footer-uv">—</span> 位同行者
   </div>
 
   <div class="footer-row powered">
@@ -65,18 +64,15 @@ const totalHuman =
     fetch('https://twikoo.leehenry.top/stats/')
       .then(function(r) { return r.json(); })
       .then(function(d) {
-        var pv = document.getElementById('footer-pv');
-        var uv = document.getElementById('footer-uv');
-        if (pv) pv.textContent = d.pv ?? '—';
-        if (uv) uv.textContent = d.uv ?? '—';
+        document.querySelectorAll('.footer-pv').forEach(function(el) { el.textContent = d.pv ?? '—'; });
+        document.querySelectorAll('.footer-uv').forEach(function(el) { el.textContent = d.uv ?? '—'; });
       })
       .catch(function() {});
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', loadStats);
-  } else {
+  if (!window._statsLoaded) {
+    window._statsLoaded = true;
     loadStats();
+    document.addEventListener('swup:contentReplaced', loadStats);
   }
-  document.addEventListener('swup:contentReplaced', loadStats);
 })();
 </script>

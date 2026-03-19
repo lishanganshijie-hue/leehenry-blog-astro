@@ -123,8 +123,6 @@
     - [AI创作等级标识 | 碎言](https://www.suiyan.cc/AI-Label)
     - [AI 使用披露 - 小倪 | BioEZ](https://bioez.xyz/ben-bo-ke-ai-shi-yong-pi-lu)
     - [Not By AI — 为你的非AI创作贴上这个贴纸吧！](https://notbyai.fyi/cn/)
-
-- ⚙「访问统计」插件：把为了省事使用的垃圾 51.LA 换成自建的 [umami](https://github.com/umami-software/umami)；
 - 💡 或许看到这里的你会有什么好的想法？来 [聊聊看](https://leehenry.top/guestbook/)！
 
 ---
@@ -137,8 +135,8 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 3 月 6 日 |
-| -------------------------------: |
+| ✎ · 最后更新于 2026 年 3 月 19 日 |
+| --------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}
 

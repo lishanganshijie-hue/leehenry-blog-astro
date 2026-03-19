@@ -92,98 +92,10 @@ REM =========================
 REM ======= STEPS ===========
 REM =========================
 
-REM 1) Local build
-:step1_build
-call :step_begin 1 "Local build · 本地构建"
-pushd "%BLOG_DIR%" || (powershell -Command "Write-Host '[ERR] Failed to enter blog directory.' -ForegroundColor Red" & call :fail_choice 1 step1_build)
-
-REM Clean cache and dist before build
-powershell -Command "Write-Host '[INFO] Cleaning cache and dist...' -ForegroundColor Green"
-if exist ".astro" (
-  powershell -Command "Remove-Item -Recurse -Force .astro -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared .astro cache' -ForegroundColor Green"
-)
-if exist "node_modules\.astro" (
-  powershell -Command "Remove-Item -Recurse -Force node_modules\.astro -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared node_modules/.astro cache' -ForegroundColor Green"
-)
-if exist "dist" (
-  powershell -Command "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared dist directory' -ForegroundColor Green"
-)
-
-where pnpm >nul 2>&1
-if %errorlevel%==0 (
-  powershell -Command "Write-Host '[INFO] Running: pnpm build' -ForegroundColor Green"
-  call pnpm build || (popd & powershell -Command "Write-Host '[ERR] Build failed.' -ForegroundColor Red" & call :fail_choice 1 step1_build)
-) else (
-  powershell -Command "Write-Host '[WARN] pnpm not found, fallback to: npm run build' -ForegroundColor Yellow"
-  call npm run build || (popd & powershell -Command "Write-Host '[ERR] Build failed.' -ForegroundColor Red" & call :fail_choice 1 step1_build)
-)
-
-if not exist "%BLOG_DIR%\%OUTPUT_DIR%" (
-  popd
-  powershell -Command "Write-Host '[ERR] Build output not found:' -ForegroundColor Red"
-  powershell -Command "Write-Host '      %BLOG_DIR%\%OUTPUT_DIR%' -ForegroundColor Red"
-  call :fail_choice 1 step1_build
-)
-popd
-call :step_end 1
-
-REM 2) Ensure remote dir
-:step2_remote_dir
-call :step_begin 2 "Ensure remote dir · 确保远端目录存在"
-powershell -Command "Write-Host '[INFO] Ensuring remote directory...' -ForegroundColor Green"
-%SSH% "mkdir -p %REMOTE_DIR%" || (powershell -Command "Write-Host '[ERR] Remote mkdir failed.' -ForegroundColor Red" & call :fail_choice 2 step2_remote_dir)
-call :step_end 2
-
-REM 3) Remote backup & clean (keep .well-known / .user.ini)
-:step3_backup_clean
-call :step_begin 3 "Remote backup & clean · 远端备份并清理"
-if "%BACKUP%"=="1" (
-  powershell -Command "Write-Host '[INFO] Creating remote backup...' -ForegroundColor Green"
-  %SSH% "set -e; SITE='%REMOTE_DIR%'; BK=/www/backup/$(date +%%F_%%H%%M%%S).tar.gz; mkdir -p /www/backup; tar -czf ""$BK"" -C ""$SITE"" .; echo Backup to $BK done.; ls -t /www/backup/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9]*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm -f; echo Old backups pruned." || (powershell -Command "Write-Host '[ERR] Remote backup failed.' -ForegroundColor Red" & call :fail_choice 3 step3_backup_clean)
-)
-powershell -Command "Write-Host '[INFO] Cleaning remote directory...' -ForegroundColor Green"
-%SSH% "set -e; SITE='%REMOTE_DIR%'; cd ""$SITE""; find . -mindepth 1 -maxdepth 1 -not -name '.well-known' -not -name '.user.ini' -exec rm -rf {} +;" || (powershell -Command "Write-Host '[ERR] Remote clean failed.' -ForegroundColor Red" & call :fail_choice 3 step3_backup_clean)
-call :step_end 3
-
-REM 4) Pack dist -> tar.gz
-:step4_pack
-call :step_begin 4 "Pack dist -> tar.gz · 打包 dist"
-if exist "%PKG_TGZ%" del /f /q "%PKG_TGZ%" >nul 2>&1
-powershell -Command "Write-Host '[INFO] Packing dist into tar.gz...' -ForegroundColor Green"
-"%TAR_CMD%" -czf "%PKG_TGZ%" -C "%BLOG_DIR%\%OUTPUT_DIR%" .
-if errorlevel 1 (powershell -Command "Write-Host '[ERR] Local packing failed.' -ForegroundColor Red" & call :fail_choice 4 step4_pack)
-call :step_end 4
-
-REM 5) Upload package
-:step5_upload
-call :step_begin 5 "Upload package · 上传压缩包到远端"
-powershell -Command "Write-Host '[INFO] Uploading package to server...' -ForegroundColor Green"
-%SSH% "mkdir -p %REMOTE_DIR%/.upload" || (powershell -Command "Write-Host '[ERR] Remote temp mkdir failed.' -ForegroundColor Red" & call :fail_choice 5 step5_upload)
-%SCP% "%PKG_TGZ%" %USER%@%HOST%:%REMOTE_DIR%/.upload/dist.tar.gz || (powershell -Command "Write-Host '[ERR] Upload failed.' -ForegroundColor Red" & call :fail_choice 5 step5_upload)
-if exist "%PKG_TGZ%" (
-  del /f /q "%PKG_TGZ%" >nul 2>&1
-  powershell -Command "Write-Host '[INFO] Local package removed.' -ForegroundColor Green"
-)
-call :step_end 5
-
-REM 6) Remote unpack & cleanup
-:step6_unpack
-call :step_begin 6 "Remote unpack & cleanup · 远端解压并清理"
-powershell -Command "Write-Host '[INFO] Extracting package on remote...' -ForegroundColor Green"
-%SSH% "set -e; SITE='%REMOTE_DIR%'; PKG=""$SITE/.upload/dist.tar.gz""; mkdir -p ""$SITE""; tar -xzf ""$PKG"" -C ""$SITE""; rm -f ""$PKG""; echo Unpacked dist.tar.gz." || (powershell -Command "Write-Host '[ERR] Remote unpack failed.' -ForegroundColor Red" & call :fail_choice 6 step6_unpack)
-call :step_end 6
-
-REM 7) Fix ownership & perms
-:step7_fixperms
-call :step_begin 7 "Fix ownership & perms · 修正属主与权限"
-powershell -Command "Write-Host '[INFO] Fixing file ownership and permissions...' -ForegroundColor Green"
-%SSH% "set -e; SITE='%REMOTE_DIR%'; find ""$SITE"" -not -name '.user.ini' -exec chown %WWW_USER%:%WWW_GROUP% {} +; find ""$SITE"" -type d -not -name '.user.ini' -exec chmod 755 {} \; ; find ""$SITE"" -type f -not -name '.user.ini' -exec chmod 644 {} \; ; echo Permission fixed." || (powershell -Command "Write-Host '[ERR] Ownership/permission fix failed.' -ForegroundColor Red" & call :fail_choice 7 step7_fixperms)
-call :step_end 7
-
-REM 8) Git commit & push (with repo-scoped proxy)
-:step8_gitpush
-call :step_begin 8 "Git commit & push · 提交并推送到远程仓库"
-pushd "%BLOG_DIR%" || (powershell -Command "Write-Host '[ERR] Failed to enter blog directory for git.' -ForegroundColor Red" & call :fail_choice 8 step8_gitpush)
+REM 1) Git commit & push (with repo-scoped proxy)
+:step1_gitpush
+call :step_begin 1 "Git commit & push · 提交并推送到远程仓库"
+pushd "%BLOG_DIR%" || (powershell -Command "Write-Host '[ERR] Failed to enter blog directory for git.' -ForegroundColor Red" & call :fail_choice 1 step1_gitpush)
 
 set "DEFAULT_MSG=feat: update new posts"
 set /p COMMIT_MSG="Enter commit message (default: %DEFAULT_MSG%): "
@@ -203,14 +115,14 @@ if "%GIT_PROXY_ENABLE%"=="1" (
 
 git add . || (
   if "%_GIT_PROXY_SET%"=="1" (git config --unset http.proxy >nul 2>&1 & git config --unset https.proxy >nul 2>&1)
-  popd & powershell -Command "Write-Host '[ERR] git add failed.' -ForegroundColor Red" & call :fail_choice 8 step8_gitpush
+  popd & powershell -Command "Write-Host '[ERR] git add failed.' -ForegroundColor Red" & call :fail_choice 1 step1_gitpush
 )
 
 git commit -m "%COMMIT_MSG%" || powershell -Command "Write-Host '[WARN] git commit skipped (maybe no changes).' -ForegroundColor Yellow"
 
 git push || (
   if "%_GIT_PROXY_SET%"=="1" (git config --unset http.proxy >nul 2>&1 & git config --unset https.proxy >nul 2>&1)
-  popd & powershell -Command "Write-Host '[ERR] git push failed.' -ForegroundColor Red" & call :fail_choice 8 step8_gitpush
+  popd & powershell -Command "Write-Host '[ERR] git push failed.' -ForegroundColor Red" & call :fail_choice 1 step1_gitpush
 )
 
 REM ---- cleanup repo-scoped git proxy to avoid pollution
@@ -221,6 +133,94 @@ if "%_GIT_PROXY_SET%"=="1" (
 )
 
 popd
+call :step_end 1
+
+REM 2) Local build
+:step2_build
+call :step_begin 2 "Local build · 本地构建"
+pushd "%BLOG_DIR%" || (powershell -Command "Write-Host '[ERR] Failed to enter blog directory.' -ForegroundColor Red" & call :fail_choice 2 step2_build)
+
+REM Clean cache and dist before build
+powershell -Command "Write-Host '[INFO] Cleaning cache and dist...' -ForegroundColor Green"
+if exist ".astro" (
+  powershell -Command "Remove-Item -Recurse -Force .astro -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared .astro cache' -ForegroundColor Green"
+)
+if exist "node_modules\.astro" (
+  powershell -Command "Remove-Item -Recurse -Force node_modules\.astro -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared node_modules/.astro cache' -ForegroundColor Green"
+)
+if exist "dist" (
+  powershell -Command "Remove-Item -Recurse -Force dist -ErrorAction SilentlyContinue; Write-Host '[INFO] Cleared dist directory' -ForegroundColor Green"
+)
+
+where pnpm >nul 2>&1
+if %errorlevel%==0 (
+  powershell -Command "Write-Host '[INFO] Running: pnpm build' -ForegroundColor Green"
+  call pnpm build || (popd & powershell -Command "Write-Host '[ERR] Build failed.' -ForegroundColor Red" & call :fail_choice 2 step2_build)
+) else (
+  powershell -Command "Write-Host '[WARN] pnpm not found, fallback to: npm run build' -ForegroundColor Yellow"
+  call npm run build || (popd & powershell -Command "Write-Host '[ERR] Build failed.' -ForegroundColor Red" & call :fail_choice 2 step2_build)
+)
+
+if not exist "%BLOG_DIR%\%OUTPUT_DIR%" (
+  popd
+  powershell -Command "Write-Host '[ERR] Build output not found:' -ForegroundColor Red"
+  powershell -Command "Write-Host '      %BLOG_DIR%\%OUTPUT_DIR%' -ForegroundColor Red"
+  call :fail_choice 2 step2_build
+)
+popd
+call :step_end 2
+
+REM 3) Ensure remote dir
+:step3_remote_dir
+call :step_begin 3 "Ensure remote dir · 确保远端目录存在"
+powershell -Command "Write-Host '[INFO] Ensuring remote directory...' -ForegroundColor Green"
+%SSH% "mkdir -p %REMOTE_DIR%" || (powershell -Command "Write-Host '[ERR] Remote mkdir failed.' -ForegroundColor Red" & call :fail_choice 3 step3_remote_dir)
+call :step_end 3
+
+REM 4) Remote backup & clean (keep .well-known / .user.ini)
+:step4_backup_clean
+call :step_begin 4 "Remote backup & clean · 远端备份并清理"
+if "%BACKUP%"=="1" (
+  powershell -Command "Write-Host '[INFO] Creating remote backup...' -ForegroundColor Green"
+  %SSH% "set -e; SITE='%REMOTE_DIR%'; BK=/www/backup/$(date +%%F_%%H%%M%%S).tar.gz; mkdir -p /www/backup; tar -czf ""$BK"" -C ""$SITE"" .; echo Backup to $BK done.; ls -t /www/backup/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9]*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm -f; echo Old backups pruned." || (powershell -Command "Write-Host '[ERR] Remote backup failed.' -ForegroundColor Red" & call :fail_choice 4 step4_backup_clean)
+)
+powershell -Command "Write-Host '[INFO] Cleaning remote directory...' -ForegroundColor Green"
+%SSH% "set -e; SITE='%REMOTE_DIR%'; cd ""$SITE""; find . -mindepth 1 -maxdepth 1 -not -name '.well-known' -not -name '.user.ini' -exec rm -rf {} +;" || (powershell -Command "Write-Host '[ERR] Remote clean failed.' -ForegroundColor Red" & call :fail_choice 4 step4_backup_clean)
+call :step_end 4
+
+REM 5) Pack dist -> tar.gz
+:step5_pack
+call :step_begin 5 "Pack dist -> tar.gz · 打包 dist"
+if exist "%PKG_TGZ%" del /f /q "%PKG_TGZ%" >nul 2>&1
+powershell -Command "Write-Host '[INFO] Packing dist into tar.gz...' -ForegroundColor Green"
+"%TAR_CMD%" -czf "%PKG_TGZ%" -C "%BLOG_DIR%\%OUTPUT_DIR%" .
+if errorlevel 1 (powershell -Command "Write-Host '[ERR] Local packing failed.' -ForegroundColor Red" & call :fail_choice 5 step5_pack)
+call :step_end 5
+
+REM 6) Upload package
+:step6_upload
+call :step_begin 6 "Upload package · 上传压缩包到远端"
+powershell -Command "Write-Host '[INFO] Uploading package to server...' -ForegroundColor Green"
+%SSH% "mkdir -p %REMOTE_DIR%/.upload" || (powershell -Command "Write-Host '[ERR] Remote temp mkdir failed.' -ForegroundColor Red" & call :fail_choice 6 step6_upload)
+%SCP% "%PKG_TGZ%" %USER%@%HOST%:%REMOTE_DIR%/.upload/dist.tar.gz || (powershell -Command "Write-Host '[ERR] Upload failed.' -ForegroundColor Red" & call :fail_choice 6 step6_upload)
+if exist "%PKG_TGZ%" (
+  del /f /q "%PKG_TGZ%" >nul 2>&1
+  powershell -Command "Write-Host '[INFO] Local package removed.' -ForegroundColor Green"
+)
+call :step_end 6
+
+REM 7) Remote unpack & cleanup
+:step7_unpack
+call :step_begin 7 "Remote unpack & cleanup · 远端解压并清理"
+powershell -Command "Write-Host '[INFO] Extracting package on remote...' -ForegroundColor Green"
+%SSH% "set -e; SITE='%REMOTE_DIR%'; PKG=""$SITE/.upload/dist.tar.gz""; mkdir -p ""$SITE""; tar -xzf ""$PKG"" -C ""$SITE""; rm -f ""$PKG""; echo Unpacked dist.tar.gz." || (powershell -Command "Write-Host '[ERR] Remote unpack failed.' -ForegroundColor Red" & call :fail_choice 7 step7_unpack)
+call :step_end 7
+
+REM 8) Fix ownership & perms
+:step8_fixperms
+call :step_begin 8 "Fix ownership & perms · 修正属主与权限"
+powershell -Command "Write-Host '[INFO] Fixing file ownership and permissions...' -ForegroundColor Green"
+%SSH% "set -e; SITE='%REMOTE_DIR%'; find ""$SITE"" -not -name '.user.ini' -exec chown %WWW_USER%:%WWW_GROUP% {} +; find ""$SITE"" -type d -not -name '.user.ini' -exec chmod 755 {} \; ; find ""$SITE"" -type f -not -name '.user.ini' -exec chmod 644 {} \; ; echo Permission fixed." || (powershell -Command "Write-Host '[ERR] Ownership/permission fix failed.' -ForegroundColor Red" & call :fail_choice 8 step8_fixperms)
 call :step_end 8
 
 REM 9) Done

@@ -12,8 +12,6 @@ const totalHuman =
 	(typeof stats?.totalZhChars === "number" ? `${stats.totalZhChars} 字` : null);
 ---
 
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id:"3NEsX27WdZN8t0MQ",ck:"3NEsX27WdZN8t0MQ"})</script>
 <script defer src="https://umami.leehenry.top/script.js" data-website-id="1c0605dc-1e61-4db8-9a4f-5578e5e8480c"></script>
 
 <footer class="site-footer">
@@ -26,7 +24,7 @@ const totalHuman =
 <div class="footer-row">
     <span>最后落笔于 {stats.generatedAt}</span>
     <span class="sep">/</span>
-    留存 <span id="busuanzi_value_site_pv">0</span> 枚足迹，您是第 <span id="busuanzi_value_site_uv">0</span> 位同行者
+    留存 <span id="footer-pv">—</span> 枚足迹，您是第 <span id="footer-uv">—</span> 位同行者
   </div>
 
   <div class="footer-row powered">
@@ -61,4 +59,24 @@ const totalHuman =
   .site-footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 </style>
 
-<script defer src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+(function() {
+  function loadStats() {
+    fetch('https://twikoo.leehenry.top/stats/')
+      .then(function(r) { return r.json(); })
+      .then(function(d) {
+        var pv = document.getElementById('footer-pv');
+        var uv = document.getElementById('footer-uv');
+        if (pv) pv.textContent = d.pv ?? '—';
+        if (uv) uv.textContent = d.uv ?? '—';
+      })
+      .catch(function() {});
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadStats);
+  } else {
+    loadStats();
+  }
+  document.addEventListener('swup:contentReplaced', loadStats);
+})();
+</script>

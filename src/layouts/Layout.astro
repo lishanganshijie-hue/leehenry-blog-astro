@@ -161,7 +161,20 @@ const bannerOffset =
 
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
 
-	<script defer src="https://umami.leehenry.top/script.js" data-website-id="1c0605dc-1e61-4db8-9a4f-5578e5e8480c" data-swup-ignore></script>
+	<script defer src="https://umami.leehenry.top/script.js" data-website-id="1c0605dc-1e61-4db8-9a4f-5578e5e8480c" data-auto-track="false" data-swup-ignore-script></script>
+	<script data-swup-ignore-script>
+	(function() {
+		if (window._umamiTrackerAdded) return;
+		window._umamiTrackerAdded = true;
+		function trackPage() {
+			if (window.umami) { window.umami.track(); } else { setTimeout(trackPage, 200); }
+		}
+		trackPage();
+		document.addEventListener('swup:contentReplaced', function() {
+			if (window.umami) window.umami.track();
+		});
+	})();
+	</script>
 
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}

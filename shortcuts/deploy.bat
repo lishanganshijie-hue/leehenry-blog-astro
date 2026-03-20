@@ -177,43 +177,42 @@ powershell -Command "Write-Host '[INFO] Ensuring remote directory...' -Foregroun
 %SSH% "mkdir -p %REMOTE_DIR%" || (powershell -Command "Write-Host '[ERR] Remote mkdir failed.' -ForegroundColor Red" & call :fail_choice 3 step3_remote_dir)
 call :step_end 3
 
-REM 4) Remote backup & clean (keep .well-known / .user.ini)
-:step4_backup_clean
-call :step_begin 4 "Remote backup & clean · 远端备份并清理"
-if "%BACKUP%"=="1" (
-  powershell -Command "Write-Host '[INFO] Creating remote backup...' -ForegroundColor Green"
-  %SSH% "set -e; SITE='%REMOTE_DIR%'; BK=/www/backup/$(date +%%F_%%H%%M%%S).tar.gz; mkdir -p /www/backup; tar -czf ""$BK"" -C ""$SITE"" .; echo Backup to $BK done.; ls -t /www/backup/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9]*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm -f; echo Old backups pruned." || (powershell -Command "Write-Host '[ERR] Remote backup failed.' -ForegroundColor Red" & call :fail_choice 4 step4_backup_clean)
-)
-powershell -Command "Write-Host '[INFO] Cleaning remote directory...' -ForegroundColor Green"
-%SSH% "set -e; SITE='%REMOTE_DIR%'; cd ""$SITE""; find . -mindepth 1 -maxdepth 1 -not -name '.well-known' -not -name '.user.ini' -exec rm -rf {} +;" || (powershell -Command "Write-Host '[ERR] Remote clean failed.' -ForegroundColor Red" & call :fail_choice 4 step4_backup_clean)
-call :step_end 4
-
-REM 5) Pack dist -> tar.gz
-:step5_pack
-call :step_begin 5 "Pack dist -> tar.gz · 打包 dist"
+REM 4) Pack dist -> tar.gz
+:step4_pack
+call :step_begin 4 "Pack dist -> tar.gz · 打包 dist"
 if exist "%PKG_TGZ%" del /f /q "%PKG_TGZ%" >nul 2>&1
 powershell -Command "Write-Host '[INFO] Packing dist into tar.gz...' -ForegroundColor Green"
 "%TAR_CMD%" -czf "%PKG_TGZ%" -C "%BLOG_DIR%\%OUTPUT_DIR%" .
-if errorlevel 1 (powershell -Command "Write-Host '[ERR] Local packing failed.' -ForegroundColor Red" & call :fail_choice 5 step5_pack)
-call :step_end 5
+if errorlevel 1 (powershell -Command "Write-Host '[ERR] Local packing failed.' -ForegroundColor Red" & call :fail_choice 4 step4_pack)
+call :step_end 4
 
-REM 6) Upload package
-:step6_upload
-call :step_begin 6 "Upload package · 上传压缩包到远端"
-powershell -Command "Write-Host '[INFO] Uploading package to server...' -ForegroundColor Green"
-%SSH% "mkdir -p %REMOTE_DIR%/.upload" || (powershell -Command "Write-Host '[ERR] Remote temp mkdir failed.' -ForegroundColor Red" & call :fail_choice 6 step6_upload)
-%SCP% "%PKG_TGZ%" %USER%@%HOST%:%REMOTE_DIR%/.upload/dist.tar.gz || (powershell -Command "Write-Host '[ERR] Upload failed.' -ForegroundColor Red" & call :fail_choice 6 step6_upload)
+REM 5) Upload package (to /tmp — before touching live dir)
+:step5_upload
+call :step_begin 5 "Upload package · 上传压缩包到远端 /tmp"
+powershell -Command "Write-Host '[INFO] Uploading package to server /tmp...' -ForegroundColor Green"
+%SCP% "%PKG_TGZ%" %USER%@%HOST%:/tmp/blog-dist.tar.gz || (powershell -Command "Write-Host '[ERR] Upload failed.' -ForegroundColor Red" & call :fail_choice 5 step5_upload)
 if exist "%PKG_TGZ%" (
   del /f /q "%PKG_TGZ%" >nul 2>&1
   powershell -Command "Write-Host '[INFO] Local package removed.' -ForegroundColor Green"
 )
+call :step_end 5
+
+REM 6) Remote backup & clean (keep .well-known / .user.ini) — after upload so site stays up during transfer
+:step6_backup_clean
+call :step_begin 6 "Remote backup & clean · 远端备份并清理"
+if "%BACKUP%"=="1" (
+  powershell -Command "Write-Host '[INFO] Creating remote backup...' -ForegroundColor Green"
+  %SSH% "set -e; SITE='%REMOTE_DIR%'; BK=/www/backup/$(date +%%F_%%H%%M%%S).tar.gz; mkdir -p /www/backup; tar -czf ""$BK"" -C ""$SITE"" .; echo Backup to $BK done.; ls -t /www/backup/20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]_[0-9]*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm -f; echo Old backups pruned." || (powershell -Command "Write-Host '[ERR] Remote backup failed.' -ForegroundColor Red" & call :fail_choice 6 step6_backup_clean)
+)
+powershell -Command "Write-Host '[INFO] Cleaning remote directory...' -ForegroundColor Green"
+%SSH% "set -e; SITE='%REMOTE_DIR%'; cd ""$SITE""; find . -mindepth 1 -maxdepth 1 -not -name '.well-known' -not -name '.user.ini' -exec rm -rf {} +;" || (powershell -Command "Write-Host '[ERR] Remote clean failed.' -ForegroundColor Red" & call :fail_choice 6 step6_backup_clean)
 call :step_end 6
 
 REM 7) Remote unpack & cleanup
 :step7_unpack
 call :step_begin 7 "Remote unpack & cleanup · 远端解压并清理"
 powershell -Command "Write-Host '[INFO] Extracting package on remote...' -ForegroundColor Green"
-%SSH% "set -e; SITE='%REMOTE_DIR%'; PKG=""$SITE/.upload/dist.tar.gz""; mkdir -p ""$SITE""; tar -xzf ""$PKG"" -C ""$SITE""; rm -f ""$PKG""; echo Unpacked dist.tar.gz." || (powershell -Command "Write-Host '[ERR] Remote unpack failed.' -ForegroundColor Red" & call :fail_choice 7 step7_unpack)
+%SSH% "set -e; SITE='%REMOTE_DIR%'; PKG=/tmp/blog-dist.tar.gz; tar -xzf ""$PKG"" -C ""$SITE""; rm -f ""$PKG""; echo Unpacked blog-dist.tar.gz." || (powershell -Command "Write-Host '[ERR] Remote unpack failed.' -ForegroundColor Red" & call :fail_choice 7 step7_unpack)
 call :step_end 7
 
 REM 8) Fix ownership & perms

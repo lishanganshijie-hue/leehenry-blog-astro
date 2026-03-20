@@ -25,7 +25,6 @@
   });
 </script>
 
-<span>·</span>
-<span class="font-mono">{likes == null ? '—' : `${likes} ${likes === 1 ? 'like' : 'likes'}`}</span>
-<span>·</span>
-<span class="font-mono">{comments == null ? '—' : `${comments} ${comments === 1 ? 'reply' : 'replies'}`}</span>
+<span class="font-mono text-30">{likes == null ? '—' : `${likes} ${likes === 1 ? 'like' : 'likes'}`}</span>
+<span class="text-30">·</span>
+<span class="font-mono text-30">{comments == null ? '—' : `${comments} ${comments === 1 ? 'reply' : 'replies'}`}</span>

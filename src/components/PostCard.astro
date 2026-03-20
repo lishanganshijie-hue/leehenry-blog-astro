@@ -6,6 +6,9 @@ import { titleSplitConfig } from "../config";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { splitTitle } from "../utils/title-utils";
+import { formatDateToYYYYMMDD } from "../utils/date-utils";
+const formatDateToMMMDDYYYY = (date: Date) =>
+	date.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 import { getDir } from "../utils/url-utils";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
@@ -56,7 +59,12 @@ const hideSeparator = titleSplitConfig.homePage.hideSeparator;
 const suffixScale = titleSplitConfig.homePage.suffixScale;
 ---
 <div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
-    <div class:list={["pl-6 md:pl-9 pr-6 md:pr-2 pt-6 md:pt-7 pb-6 relative overflow-hidden", {"w-full md:w-[calc(100%_-_52px_-_12px)]": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
+    {tags.includes("🗃️当月事") && (
+        <div class="pointer-events-none absolute -right-4 -top-4 text-[var(--primary)] opacity-10">
+            <Icon name="material-symbols:flare" class="text-[7.5rem]" />
+        </div>
+    )}
+    <div class:list={["pl-6 md:pl-9 pr-6 md:pr-9 pt-6 md:pt-7 pb-6 relative overflow-hidden", {"w-full": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
         <a href={url}
            class="transition group inline-flex items-center font-bold mb-1 text-3xl md:text-3xl text-90
         active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
@@ -101,19 +109,25 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
         </a>
 
         <!-- metadata -->
-        <PostMetadata published={published} updated={updated} tags={tags} category={category} hideTagsForMobile={true} hideUpdateDate={true} class="mb-4"></PostMetadata>
+        <!-- <PostMetadata published={published} updated={updated} tags={tags} category={category} hideTagsForMobile={true} hideUpdateDate={true} class="mb-4"></PostMetadata> -->
 
         <!-- description -->
-        <div class:list={["transition text-75 mb-3.5 pr-4 text-base md:text-base", {"line-clamp-2 md:line-clamp-1": !description}]}>
+        <div class:list={["transition text-75 mt-9 mb-3 pb-3 border-b border-dashed border-black/10 dark:border-white/[0.15] text-base md:text-base font-serif", {"line-clamp-2 md:line-clamp-1": !description}]}>
             { description || remarkPluginFrontmatter.excerpt }
         </div>
 
         <!-- word count and read time  -->
-        <div class="text-sm text-black/30 dark:text-white/30 flex gap-2 transition items-center">
-            <span class="font-mono">{wordsK} ch</span>
-            <!-- <span>·</span> -->
-            <!-- <span class="font-mono">{remarkPluginFrontmatter.minutes} {remarkPluginFrontmatter.minutes === 1 ? 'min' : 'mins'}</span> -->
-            <PostStats path={url} client:visible />
+        <div class="text-sm flex transition items-center">
+            <div class="flex gap-2 items-center">
+                <span class="font-mono text-75">{formatDateToMMMDDYYYY(published)}</span>
+                <span class="text-30">·</span>
+                <span class="font-mono text-30">{wordsK} words</span>
+            </div>
+            <div class="ml-auto flex gap-2 items-center">
+                <!-- <span class="text-black/30 dark:text-white/30">·</span> -->
+                <!-- <span class="font-mono text-black/30 dark:text-white/30">{remarkPluginFrontmatter.minutes} {remarkPluginFrontmatter.minutes === 1 ? 'min' : 'mins'}</span> -->
+                <PostStats path={url} client:visible />
+            </div>
         </div>
 
     </div>
@@ -134,16 +148,6 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
         </ImageWrapper>
     </a>}
 
-    {!hasCover &&
-        <a href={url} aria-label={title} class="!hidden md:!flex btn-regular w-[3.25rem]
-         absolute right-3 top-3 bottom-3 rounded-xl bg-[var(--enter-btn-bg)]
-         hover:bg-[var(--enter-btn-bg-hover)] active:bg-[var(--enter-btn-bg-active)] active:scale-95
-        ">
-            <Icon name="material-symbols:chevron-right-rounded"
-                  class="transition text-[var(--primary)] text-4xl mx-auto">
-            </Icon>
-        </a>
-    }
 </div>
 <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 md:hidden"></div>
 

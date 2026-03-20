@@ -111,8 +111,8 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
         <!-- word count and read time  -->
         <div class="text-sm text-black/30 dark:text-white/30 flex gap-2 transition items-center">
             <span class="font-mono">{wordsK} ch</span>
-            <span>·</span>
-            <span class="font-mono">{remarkPluginFrontmatter.minutes} {remarkPluginFrontmatter.minutes === 1 ? 'min' : 'mins'}</span>
+            <!-- <span>·</span> -->
+            <!-- <span class="font-mono">{remarkPluginFrontmatter.minutes} {remarkPluginFrontmatter.minutes === 1 ? 'min' : 'mins'}</span> -->
             <PostStats path={url} client:visible />
         </div>
 

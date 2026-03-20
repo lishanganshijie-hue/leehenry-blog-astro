@@ -9,6 +9,7 @@ import { splitTitle } from "../utils/title-utils";
 import { getDir } from "../utils/url-utils";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
+import PostStats from "./misc/PostStats.svelte";
 
 interface Props {
 	class?: string;
@@ -43,6 +44,7 @@ const hasCover = image !== undefined && image !== null && image !== "";
 const coverWidth = "28%";
 
 const { remarkPluginFrontmatter } = await entry.render();
+const wordsK = (remarkPluginFrontmatter.words / 1000).toFixed(1) + 'k';
 
 // 分割标题以支持细体+半透明显示
 const titleParts = titleSplitConfig.enable ? splitTitle(title) : null;
@@ -107,14 +109,11 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
         </div>
 
         <!-- word count and read time  -->
-        <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
-            <div>
-                {remarkPluginFrontmatter.words} {" " + i18n(remarkPluginFrontmatter.words === 1 ? I18nKey.wordCount : I18nKey.wordsCount)}
-            </div>
-            <div>|</div>
-            <div>
-                {remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
-            </div>
+        <div class="text-sm text-black/30 dark:text-white/30 flex gap-2 transition items-center">
+            <span class="font-mono">{wordsK} ch</span>
+            <span>·</span>
+            <span class="font-mono">{remarkPluginFrontmatter.minutes} {remarkPluginFrontmatter.minutes === 1 ? 'min' : 'mins'}</span>
+            <PostStats path={url} client:visible />
         </div>
 
     </div>

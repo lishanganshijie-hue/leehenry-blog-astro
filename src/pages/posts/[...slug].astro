@@ -101,10 +101,10 @@ const jsonLd = {
             )}
 
             <!-- title -->
-            <div class="relative onload-animation">
+            <div class="relative onload-animation pr-6">
                 <div
                     data-pagefind-body data-pagefind-weight="10" data-pagefind-meta="title"
-                    class="transition w-full block font-bold mb-3
+                    class="transition w-full block font-bold mb-3 text-center
                     text-3xl md:text-[2.25rem]/[2.75rem]
                     text-black/90 dark:text-white/90
                 ">
@@ -112,7 +112,7 @@ const jsonLd = {
                         <>
                             <span class="font-bold inline-block pb-2 relative after:absolute after:bottom-0.5 after:left-0 after:right-0 after:h-[6px] after:bg-[var(--primary)] after:rounded-sm">{titleParts.prefix}</span>
                             {suffixNewLine ? <br /> : <span class="font-bold">{titleParts.separator}</span>}
-                            <span class="font-normal" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
+                            <span class="font-normal font-serif" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
                         </>
                     ) : (
                         <span class="inline-block pb-2 relative after:absolute after:bottom-0.5 after:left-0 after:right-0 after:h-[5px] after:bg-[var(--primary)] after:rounded-sm">{entry.data.title}</span>
@@ -121,16 +121,16 @@ const jsonLd = {
             </div>
 
             <!-- metadata -->
-            <div class="onload-animation">
+            <div class="onload-animation pr-6">
                 <PostMetadata
-                        class="mb-5"
+                        class="mb-5 justify-center"
                         published={entry.data.published}
                         updated={entry.data.updated}
                         tags={entry.data.tags}
                         category={entry.data.category}
                 ></PostMetadata>
-                {!entry.data.image && <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>}
             </div>
+            {!entry.data.image && <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5 onload-animation"></div>}
 
             <!-- always show cover as long as it has one -->
 

@@ -21,8 +21,10 @@
         margin-top: 2rem;  /* 你可以根据需要调整这个值，比如 1.5rem 或 2rem */
 
         &::before {
-            @apply content-[''] absolute w-8 h-8 rounded-md bg-[var(--primary)];
-            left: -7rem;
+            @apply content-[''] absolute bg-[var(--primary)];
+            width: 0.4rem;
+            height: 1.5rem;
+            left: -1.5rem;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -38,7 +40,7 @@
 
     h1, h2, h3, h4, h5, h6 {
         .anchor {
-            @apply transition -m-0.5 ml-[0.2ch] p-0.5 select-none opacity-0 no-underline !important;
+            @apply transition -m-0.5 ml-[0.2ch] p-0.5 select-none opacity-0 no-underline text-[var(--primary)] !important;
 
             .anchor-icon {
                 @apply mx-[0.45ch] !important;
@@ -47,7 +49,7 @@
 
         &:hover {
             .anchor {
-                @apply opacity-100 !important;
+                @apply opacity-60 !important;
             }
         }
     }
@@ -85,7 +87,7 @@
     code {
         @apply bg-[var(--inline-code-bg)] text-[var(--inline-code-color)] px-1 py-0.5 rounded-md overflow-hidden;
 
-        font-family: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        font-family: var(--font-mono);
         &:before {
             content:none;
         }

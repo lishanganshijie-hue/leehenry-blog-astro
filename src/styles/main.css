@@ -1,3 +1,9 @@
+:root {
+    --font-sans: 'Open Sans', 'vivo Sans', sans-serif;
+    --font-serif: 'BeiWeiKaiShu', serif;
+    --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
 @font-face {
     font-family: 'Open Sans';
     src: url('/fonts/OpenSans-BoldItalic.woff2') format('woff2'),
@@ -70,13 +76,13 @@ em, i,
 *[style*="font-style: italic"], 
 *[style*="font-style:italic"],
 *[style*="font-style:italic;"] {
-    font-family: 'Open Sans', 'vivo Sans', sans-serif !important;
+    font-family: var(--font-sans) !important;
 }
 
 /* map inline `font-family: serif` in Markdown to custom serif face */
 :where(.markdown-content, .custom-md) [style*="font-family: serif" i],
 :where(.markdown-content, .custom-md) [style*="font-family:serif" i] {
-    font-family: 'BeiWeiKaiShu', serif !important;
+    font-family: var(--font-serif) !important;
 }
 
 @tailwind components;

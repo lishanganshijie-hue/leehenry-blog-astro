@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import Icon from '@iconify/svelte';
 
   const LIKES_API   = 'https://twikoo.leehenry.top/likes/';
   const TWIKOO_API  = 'https://twikoo.leehenry.top/';
@@ -25,6 +26,12 @@
   });
 </script>
 
-<span class="font-mono text-30">{likes == null ? '—' : `${likes} ${likes === 1 ? 'like' : 'likes'}`}</span>
+<span class="font-mono text-30 inline-flex items-center gap-1">
+  <Icon icon="material-symbols:favorite-outline-rounded" class="text-base" />
+  {likes == null ? '—' : likes}
+</span>
 <span class="text-30">·</span>
-<span class="font-mono text-30">{comments == null ? '—' : `${comments} ${comments === 1 ? 'reply' : 'replies'}`}</span>
+<span class="font-mono text-30 inline-flex items-center gap-1">
+  <Icon icon="material-symbols:chat-bubble-outline-rounded" class="text-base" />
+  {comments == null ? '—' : comments}
+</span>

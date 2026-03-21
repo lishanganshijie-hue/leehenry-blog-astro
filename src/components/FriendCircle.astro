@@ -326,12 +326,22 @@ else document.addEventListener("swup:enable", setup);
 	}
 
 	.fcircle-random-title span {
-		text-decoration: underline;
-		text-decoration-style: solid;
-		text-decoration-color: var(--link-underline);
-		text-decoration-thickness: 8px;
-		text-underline-offset: 4px;
-		transition: text-decoration-color 0.2s;
+		position: relative;
+		z-index: 0;
+		text-decoration: none;
+		&::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: -4px;
+			height: 8px;
+			background: var(--link-underline);
+			filter: url(#xerox);
+			pointer-events: none;
+			transition: background 0.2s;
+			z-index: -1;
+		}
 	}
 
 

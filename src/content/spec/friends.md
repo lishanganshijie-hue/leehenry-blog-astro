@@ -21,7 +21,7 @@
 - 站名：伏枥之间
 - 签名：何妨吟啸且徐行
 - 头像：`https://leehenry.top/friends/my-avatar-portrait.jpg`
-- 按钮：`http://localhost:4321/88x31.gif`
+- 按钮：`https://leehenry.top/88x31.gif`
 - 链接：`https://www.leehenry.top`
 ```
 

@@ -7,6 +7,7 @@ import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import { splitTitle } from "../utils/title-utils";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
+import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
 const formatDateToMMMDDYYYY = (date: Date) =>
 	date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 import { getDir } from "../utils/url-utils";
@@ -47,7 +48,7 @@ const hasCover = image !== undefined && image !== null && image !== "";
 const coverWidth = "28%";
 
 const { remarkPluginFrontmatter } = await entry.render();
-const wordsK = (remarkPluginFrontmatter.words / 1000).toFixed(1) + 'k';
+const wordsK = remarkPluginFrontmatter.words;
 
 // 分割标题以支持细体+半透明显示
 const titleParts = titleSplitConfig.enable ? splitTitle(title) : null;
@@ -58,19 +59,15 @@ const showOnHover = titleSplitConfig.homePage.showOnHover;
 const hideSeparator = titleSplitConfig.homePage.hideSeparator;
 const suffixScale = titleSplitConfig.homePage.suffixScale;
 ---
-<div class:list={["group card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
-    {tags.includes("🗃️当月事") && (
-        <div class="pointer-events-none absolute -right-4 -top-4 text-[var(--primary)] opacity-10">
-            <Icon name="material-symbols:flare" class="text-[7.5rem]" />
-        </div>
-    )}
+<div class:list={["card-base flex flex-col-reverse md:flex-col w-full rounded-[var(--radius-large)] overflow-hidden relative", className]} style={style}>
     <div class:list={["pl-6 md:pl-9 pr-6 md:pr-9 pt-6 md:pt-7 pb-6 relative overflow-hidden", {"w-full": !hasCover, "w-full md:w-[calc(100%_-_var(--coverWidth)_-_12px)]": hasCover}]}>
+        <div class="flex items-end justify-between gap-3 mb-1">
         <a href={url}
-           class="transition inline-flex items-center font-bold mb-1 text-2xl md:text-2xl text-90
+           class="transition group inline-flex items-center font-bold text-3xl md:text-3xl text-90
         active:text-[var(--title-active)] dark:active:text-[var(--title-active)]
         pb-2 relative title-with-stroke
         after:absolute after:top-1/2 after:-translate-y-1/2 after:left-[-1rem] after:h-[1.1rem] after:bg-[var(--primary)] after:w-[0.4rem] after:opacity-100 after:transition-all after:duration-300 after:ease-out after:z-0
-        group-hover:after:w-[calc(100%+1.9rem)] group-hover:after:opacity-30
+        hover:after:w-[calc(100%+1.9rem)] hover:after:opacity-30
         ">
             <span class="relative z-10">
                 {titleParts ? (
@@ -107,24 +104,33 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
             <!-- <Icon class="inline text-[2rem] text-[var(--primary)] md:hidden translate-y-0.5 absolute" name="material-symbols:chevron-right-rounded" ></Icon> -->
             <!-- <Icon class="text-[var(--primary)] text-[2rem] transition hidden md:inline absolute translate-y-0.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0" name="material-symbols:chevron-right-rounded"></Icon> -->
         </a>
+        {tags && tags.length > 0 && (
+            <a href={getTagUrl(tags[0].trim())} class="relative z-10 shrink-0 transition text-sm text-30 hover:text-[var(--primary)] whitespace-nowrap hidden md:inline pb-2">
+                #{tags[0].trim()}
+            </a>
+        )}
+        </div>
 
         <!-- metadata -->
         <!-- <PostMetadata published={published} updated={updated} tags={tags} category={category} hideTagsForMobile={true} hideUpdateDate={true} class="mb-4"></PostMetadata> -->
 
+        <!-- top divider -->
+        <div class="hidden md:block border-t border-dashed border-black/10 dark:border-white/[0.15]"></div>
+
         <!-- description -->
-        <div class:list={["transition text-75 mt-3 mb-6 text-base md:text-base text-center font-serif", {"line-clamp-2 md:line-clamp-1": !description}]}>
+        <div class:list={["transition text-75 py-3 text-base md:text-base", {"line-clamp-2 md:line-clamp-1": !description}]}>
             { description || remarkPluginFrontmatter.excerpt }
         </div>
 
-        <!-- divider -->
-        <div class="border-t border-dashed border-black/10 dark:border-white/[0.15] mb-3"></div>
+        <!-- bottom divider -->
+        <div class="hidden md:block border-t border-dashed border-black/10 dark:border-white/[0.15] mb-3"></div>
 
         <!-- word count and read time  -->
         <div class="text-sm flex transition items-center">
             <div class="flex gap-2 items-center">
-                <span class="font-mono text-75">{formatDateToMMMDDYYYY(published)}</span>
+                <span class="font-mono text-30">{formatDateToYYYYMMDD(published)}</span>
                 <span class="text-30">·</span>
-                <span class="font-mono text-30">{wordsK} ch</span>
+                <span class="font-mono text-30">{wordsK} 字</span>
             </div>
             <div class="ml-auto hidden md:flex gap-2 items-center">
                 <!-- <span class="text-black/30 dark:text-white/30">·</span> -->
@@ -162,12 +168,6 @@ const suffixScale = titleSplitConfig.homePage.suffixScale;
     .title-with-stroke {
         -webkit-text-stroke: 0px var(--card-bg);
         text-stroke: 1px var(--card-bg);
-    }
-    .title-with-stroke::before {
-        content: '';
-        position: absolute;
-        inset: -9999px;
-        z-index: 0;
     }
     .title-with-stroke::after {
         filter: url(#xerox);

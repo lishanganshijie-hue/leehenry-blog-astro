@@ -110,12 +110,12 @@ const jsonLd = {
                 ">
                     {titleParts ? (
                         <>
-                            <span class="post-title-text font-bold inline-block pb-2 relative after:absolute after:bottom-0.5 after:left-0 after:right-0 after:h-[6px] after:bg-[var(--primary)] after:rounded-sm">{titleParts.prefix}</span>
+                            <span class="post-title-text font-bold inline-block relative">{titleParts.prefix}</span>
                             {suffixNewLine ? <br /> : <span class="font-bold">{titleParts.separator}</span>}
-                            <span class="font-normal font-serif" style={`opacity: ${suffixOpacity}; font-size: ${suffixScale * 100}%;`}>{titleParts.suffix}</span>
+                            <span class="font-normal font-serif" style={`opacity: ${suffixOpacity}; font-size: 1.5rem;`}>{titleParts.suffix}</span>
                         </>
                     ) : (
-                        <span class="post-title-text inline-block pb-2 relative after:absolute after:bottom-0.5 after:left-0 after:right-0 after:h-[5px] after:bg-[var(--primary)] after:rounded-sm">{entry.data.title}</span>
+                        <span class="post-title-text inline-block relative">{entry.data.title}</span>
                     )}
                 </div>
             </div>
@@ -204,6 +204,15 @@ const jsonLd = {
     .post-title-text {
         z-index: 0;
         &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -1rem;
+            width: calc(100% + 1.9rem);
+            height: 1.1rem;
+            background: var(--primary);
+            opacity: 0.3;
             filter: url(#xerox);
             z-index: -1;
         }

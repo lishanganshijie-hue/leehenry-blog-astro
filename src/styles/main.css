@@ -1,7 +1,7 @@
 :root {
-    --font-sans: 'Open Sans', 'vivo Sans', sans-serif;
-    --font-serif: 'BeiWeiKaiShu', serif;
-    --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --font-sans: 'vivo Sans', 'Noto Color Emoji', sans-serif;
+    --font-serif: 'BeiWeiKaiShu', 'Noto Color Emoji', serif;
+    --font-mono: 'JetBrains Mono Variable', 'Noto Color Emoji', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 
 @font-face {
@@ -71,12 +71,12 @@
 }
 
 /* 斜体文本使用 Open Sans */
-em, i, 
+em, i,
 .italic,
-*[style*="font-style: italic"], 
+*[style*="font-style: italic"],
 *[style*="font-style:italic"],
 *[style*="font-style:italic;"] {
-    font-family: var(--font-sans) !important;
+    font-family: 'Open Sans', 'vivo Sans', 'Noto Color Emoji', sans-serif !important;
 }
 
 /* map inline `font-family: serif` in Markdown to custom serif face */

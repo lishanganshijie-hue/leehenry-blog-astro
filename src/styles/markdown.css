@@ -12,8 +12,22 @@
     }
 
     h1 {
-        @apply text-4xl;
+        @apply text-4xl relative inline-block;
         margin-top: 2rem;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -0.5rem;
+            width: calc(100% + 1rem - 1.5ch);
+            height: 1.1rem;
+            background: var(--primary);
+            opacity: 0.3;
+            filter: url(#xerox);
+            z-index: -1;
+        }
     }
 
     h2 {
@@ -322,6 +336,9 @@
             font-size: 1rem;
             letter-spacing: 1.5rem;
             line-height: 1;
+            @media (max-width: 768px) {
+                letter-spacing: 0.8rem;
+            }
         }
     }
 

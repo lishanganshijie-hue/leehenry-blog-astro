@@ -18,9 +18,9 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				// sans: ["Roboto", "sans-serif", ...defaultTheme.fontFamily.sans],
-				sans: ["vivo Sans", "sans-serif", ...defaultTheme.fontFamily.sans],
-				serif: ["BeiWeiKaiShu", "serif", ...defaultTheme.fontFamily.serif],
-				mono: ["JetBrains Mono Variable", ...defaultTheme.fontFamily.mono],
+				sans: ["vivo Sans", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "sans-serif", ...defaultTheme.fontFamily.sans],
+				serif: ["BeiWeiKaiShu", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "serif", ...defaultTheme.fontFamily.serif],
+				mono: ["JetBrains Mono Variable", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", ...defaultTheme.fontFamily.mono],
 			},
 		},
 	},

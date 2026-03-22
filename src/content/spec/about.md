@@ -1,6 +1,6 @@
-# 👋 *有人顶着感叹号向你用力挥手
+# 💬 *留意到有人正对你用力招手
 
-你只是经过，但突然弹出的对话框拦住你的去路。要不听听看他想说些什么？
+你经过，突然弹出的对话框拦住你的去路。要不听听看他想说些什么？
 
 ---
 
@@ -14,7 +14,7 @@
 
 **你能发现这里真是太好了，茶歇备妥，欢迎进来多坐坐！**
 
-## 👤 Intro
+## 🎐 Intro
 
 > <p style="text-align: center; font-family: serif;">
 >         「三分钟热度，也有三分钟收获。」
@@ -28,7 +28,7 @@
 - 始终信仰进一步有进一步的欢喜，永远相信美好的事情即将发生。
 - **不求全能，但保持好奇。一直是学徒，永远在路上。**
 
-## 📖 Words
+## 🪶 Words
 
 ### 0x0｜[Debug2Deploy · 推理到跑通](https://leehenry.top/archive/?category=推理到跑通)
 
@@ -103,7 +103,7 @@
 
 - ……
 
-## 💌 Credits
+## 🕊 Credits
 
 - **首图** - Banner：[Dean Johns  (Behance)](https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589)
 - **头像** - Avatar：[@textrnr (X)](https://x.com/textrnr/status/1956856773299622091?s=20)
@@ -113,7 +113,7 @@
 
 本站开源，你可以在文后的 [Github 仓库](https://github.com/LeeHero0803/leehenry-blog) 中找到主题和文章内容的全部源码。
 
-## 🧠 To-Dos
+## 🧾 To-Dos
 
 - 📃「光影」页面：展示精选作品。全量作品迁移至 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe)；
 - 📃「藏阁」页面：将书影音游页面独立出来，数据来源于 [NeoDB](https://neodb.net/)；

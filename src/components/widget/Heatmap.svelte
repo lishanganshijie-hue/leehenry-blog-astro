@@ -1,101 +1,78 @@
 <script lang="ts">
-/** 输入：文章发布日期数组 ['YYYY-MM-DD'] */
 export let dates: string[] = [];
-
-/** 可调尺寸（默认接近 GitHub） */
 export let cell = 10;
-export let gap = 10;
+export let gap = 2;
 
-// —— 归一化与计数 ——
 const norm = (d: string) => {
 	const dt = new Date(d);
 	if (isNaN(dt.getTime())) return null;
 	return dt.toISOString().slice(0, 10);
 };
+
 const allDays = Array.from(
 	new Set(dates.map(norm).filter(Boolean) as string[]),
 ).sort();
-const counts = new Map<string, number>();
-for (const d of allDays) counts.set(d, (counts.get(d) ?? 0) + 1);
 
-// 年份
+function getWeek(iso: string): number {
+	const d = new Date(iso + 'T00:00:00Z');
+	const start = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+	return Math.min(Math.floor((d.getTime() - start.getTime()) / (7 * 86400000)) + 1, 53);
+}
+
+const weekCounts = new Map<string, number>();
+for (const d of allDays) {
+	const key = `${d.slice(0, 4)}-${String(getWeek(d)).padStart(2, '0')}`;
+	weekCounts.set(key, (weekCounts.get(key) ?? 0) + 1);
+}
+
 const years = Array.from(
 	new Set(allDays.map((d) => Number(d.slice(0, 4)))),
 ).sort((a, b) => a - b);
-let year = years.at(-1) ?? new Date().getFullYear();
+
+const WEEKS = 53;
+const WINDOW = 3;
+
+// 默认显示最近 3 年
+let windowEnd = years.length; // exclusive
+
+$: visibleYears = years.slice(Math.max(0, windowEnd - WINDOW), windowEnd);
+
+function toggle() {
+	if (years.length <= WINDOW) return;
+	// 往上滚动一年（显示更早的），到头后循环回最新
+	windowEnd = windowEnd <= WINDOW ? years.length : windowEnd - 1;
+}
 
 function colorClass(n: number) {
-	if (n <= 0) return "lvl-0";
-	return "lvl-1";
+	if (n <= 0) return 'lvl-0';
+	if (n === 1) return 'lvl-1';
+	if (n === 2) return 'lvl-2';
+	if (n === 3) return 'lvl-3';
+	return 'lvl-4';
 }
 
-function makeWeeks(y: number) {
-	const first = new Date(Date.UTC(y, 0, 1));
-	const start = new Date(Date.UTC(y, 0, 1 - first.getUTCDay())); // 周日对齐
-	const end = new Date(Date.UTC(y + 1, 0, 1));
-
-	const weeks: { iso: string; inYear: boolean; count: number }[][] = [];
-	let cur = new Date(start);
-	while (cur < end || cur.getUTCDay() !== 0) {
+function calcStreak(): number {
+	let streak = 0;
+	let cur = new Date();
+	for (let i = 0; i < 200; i++) {
 		const iso = cur.toISOString().slice(0, 10);
-		const inYear =
-			cur.getUTCFullYear() === y &&
-			cur >= new Date(Date.UTC(y, 0, 1)) &&
-			cur < end;
-		const count = counts.get(iso) ?? 0;
-
-		if (cur.getUTCDay() === 0) weeks.push([]);
-		weeks[weeks.length - 1].push({ iso, inYear, count });
-
-		cur = new Date(
-			Date.UTC(cur.getUTCFullYear(), cur.getUTCMonth(), cur.getUTCDate() + 1),
-		);
-	}
-	return weeks;
-}
-
-const M = [
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"Jun",
-	"Jul",
-	"Aug",
-	"Sep",
-	"Oct",
-	"Nov",
-	"Dec",
-];
-$: weeks = makeWeeks(year);
-
-/** 月份列标签 */
-function monthLabels(weeks: { iso: string }[][], y: number) {
-	const out: { text: string; col: number }[] = [];
-	let last = -1;
-	for (let i = 0; i < weeks.length; i++) {
-		const iso = weeks[i][0]?.iso;
-		if (!iso) continue;
-		const d = new Date(iso);
-		if (d.getUTCFullYear() !== y) continue;
-		const m = d.getUTCMonth();
-		if (m !== last) {
-			out.push({ text: M[m], col: i });
-			last = m;
+		const key = `${iso.slice(0, 4)}-${String(getWeek(iso)).padStart(2, '0')}`;
+		if ((weekCounts.get(key) ?? 0) > 0) {
+			streak++;
+			cur = new Date(cur.getTime() - 7 * 86400000);
+		} else {
+			break;
 		}
 	}
-	return out;
+	return streak;
 }
-$: labels = monthLabels(weeks, year);
+const streak = calcStreak();
 
-// —— 年份选择：改为点击倒序循环 ——
-function toggle() {
-	if (years.length === 0) return;
-	const idx = years.indexOf(year);
-	const prev = (idx - 1 + years.length) % years.length;
-	year = years[prev];
-}
+const weekLabelAt = new Set([1, 14, 27, 40, 53]);
+
+const now = new Date();
+const currentYear = now.getUTCFullYear();
+const currentWeek = getWeek(now.toISOString().slice(0, 10));
 </script>
 
 <style>
@@ -109,149 +86,192 @@ function toggle() {
   }
 
   .card {
-    padding: 16px 32px;
-    position: relative;   /* 为绝对定位的装饰图标提供锚点 */
+    padding: 24px 32px;
   }
 
-  .toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-  .legend { display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); }
-  .legend .chip { width: var(--cell); height: var(--cell); border-radius: 2px; }
-
-  .months {
-    display:grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc(var(--cell) + var(--gap));
-    gap: var(--gap);
-    font-size: 11px;
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-family: var(--font-mono);
     color: var(--muted);
-    padding: 4px 8px 2px;
+  }
+  .legend-label { margin-right: 2px; }
+  .chip {
+    width: var(--cell);
+    height: calc(var(--cell) * 1.5);
+    border-radius: 0;
+    flex-shrink: 0;
+  }
+  .streak {
+    font-size: 14px;
+    font-family: var(--font-sans);
+    color: var(--primary);
+    opacity: 0.75;
+    white-space: nowrap;
+  }
+
+  .scroller {
+    width: 100%;
+  }
+
+  .matrix {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .year-label {
+    font-size: 14px;
+    font-family: var(--font-sans);
+    color: var(--muted);
+    width: 2.8rem;
+    text-align: left;
+    flex-shrink: 0;
     user-select: none;
   }
-  .months .spacer { width: 8px; }
-
-  .scroller { overflow-x:auto; scrollbar-width:none; padding: 0 8px 2px; }
-  .scroller::-webkit-scrollbar { display:none; }
-
-  .grid {
-    display:grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc(var(--cell) + var(--gap));
-    gap: var(--gap);
-  }
-  .week { display:grid; grid-template-rows: repeat(7, var(--cell)); gap: var(--gap); }
-
-  .day { width: var(--cell); height: var(--cell);}
-  .dim { opacity: .15; }
-
-  .lvl-0 { background: #e2f0ff; }
-  /* 高亮格子使用站点主色 */
-  .lvl-1 { background: var(--primary); }
-  
-  :global(.dark) .lvl-0 { background: #283747; }
-  :global(.dark) .lvl-1 { background: var(--primary); }
-
-  /* 年份按钮 */
-  .hm-year { position: relative; }
-  .year-btn {
-    border: 1px solid var(--panel-border, rgba(0,0,0,.08));
-    /* background: var(--btn-regular-bg); */
-    color: var(--fg);
-    height: 2.25rem;
-    padding: 0 0.75rem;
-    display:flex; align-items:center; gap:.35rem;
-    cursor: pointer;
-    transition: transform .08s ease;
-  }
-  .year-btn:active { transform: scale(.97); }
-
-  /* 左右布局容器 */
-  .hm-row {
+  .weeks-row {
     display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .hm-graph {
+    gap: 0;
     flex: 1;
     min-width: 0;
   }
-  .hm-year {
-    position: relative;
-    margin-left: 4px;
-  }
-  @media (max-width: 640px) {
-    .hm-row { flex-direction: column; gap: 12px; }
-    .hm-year { align-self: flex-end; }
+
+  .cell {
+    flex: 1;
+    height: calc(var(--cell) * 1.5);
+    border-radius: 0;
+    min-width: 0;
   }
 
-  .decor-icon {
-  position: absolute;
-  bottom: -5px;
-  right: -25px;
-  width: 110px;
-  height: 110px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  user-select: none;
-  transform: translateZ(0);
-  transition: opacity .12s ease, transform .12s ease;
-  color: var(--btn-regular-bg-active);
-  opacity: 0.2;
-  filter: none;
-}
-  .decor-icon svg { width: 100%; height: 100%; display:block; fill: currentColor; }
+  .week-label-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 2px;
+    width: 100%;
+  }
+  .week-label-spacer {
+    width: 2.8rem;
+    flex-shrink: 0;
+  }
+  .week-labels {
+    display: flex;
+    gap: 0;
+    flex: 1;
+    min-width: 0;
+  }
+  .wl {
+    flex: 1;
+    font-size: 14px;
+    font-family: var(--font-mono);
+    color: rgb(0 0 0 / 0.3);
+    text-align: center;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: visible;
+    user-select: none;
+  }
+  :global(.dark) .wl {
+    color: rgb(255 255 255 / 0.3);
+  }
+  .wl-first { text-align: left; }
+  .wl-last { transform: translateX(-1rem); }
+
+  /* 年份切换标签 */
+  .year-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .year-btn:hover { color: var(--primary); }
+
+  /* 未来的周 */
+  .future { opacity: 0.2; }
+
+  /* 颜色 */
+  .lvl-0 { background: var(--btn-regular-bg); }
+  .lvl-1 { background: var(--primary); opacity: 0.35; }
+  .lvl-2 { background: var(--primary); opacity: 0.55; }
+  .lvl-3 { background: var(--primary); opacity: 0.75; }
+  .lvl-4 { background: var(--primary); opacity: 1; }
+
+  :global(.dark) .lvl-0 { background: var(--btn-regular-bg); }
+  :global(.dark) .lvl-1 { background: var(--primary); opacity: 0.35; }
+  :global(.dark) .lvl-2 { background: var(--primary); opacity: 0.55; }
+  :global(.dark) .lvl-3 { background: var(--primary); opacity: 0.75; }
+  :global(.dark) .lvl-4 { background: var(--primary); opacity: 1; }
 </style>
 
 <div class="hm" style={`--cell:${cell}px; --gap:${gap}px;`}>
-  <div class="card card-base hm-card" style="overflow: visible;">
+  <div class="card card-base">
 
-    <div class="hm-row">
-      <!-- 左侧：月份 + 网格 -->
-      <div class="hm-graph">
-        <div class="months" aria-hidden="true">
-          <span class="spacer"></span>
-          {#each Array(weeks.length) as _, i}
-            {#if labels.find(l => l.col === i)}
-              <span>{labels.find(l => l.col === i)?.text}</span>
-            {:else}
-              <span></span>
-            {/if}
-          {/each}
-          <span class="spacer"></span>
-        </div>
+    <div class="toolbar">
+      <div class="legend">
+        {#each [0, 1, 2, 3, 4] as n}
+          <div class={"chip lvl-" + (n >= 4 ? 4 : n)}></div>
+          <span>{n >= 4 ? '4+' : n}</span>
+        {/each}
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        {#if streak > 0}
+          <span class="streak">{streak} week streak</span>
+        {/if}
+        {#if years.length > WINDOW}
+          <button class="year-btn" on:click={toggle}>
+            于 {visibleYears[0]} – {visibleYears[visibleYears.length - 1]} 散落
+          </button>
+        {/if}
+      </div>
+    </div>
 
-        <div class="scroller">
-          <div class="grid">
-            {#each weeks as w}
-              <div class="week">
-                {#each w as c}
-                  <div
-                    class={"day " + (c.inYear ? "" : "dim") + " " + colorClass(c.count)}
-                    title={`${c.iso}：${c.count} 篇`}
-                    aria-label={`${c.iso}，${c.count} 篇`}>
-                  </div>
-                {/each}
-              </div>
+    <div class="scroller">
+      <div class="matrix">
+        {#each visibleYears as y}
+          <div class="row">
+            <span class="year-label">{y}</span>
+            <div class="weeks-row">
+              {#each Array(WEEKS) as _, w}
+                {@const count = weekCounts.get(`${y}-${String(w + 1).padStart(2, '0')}`) ?? 0}
+                <div
+                  class={"cell " + colorClass(count) + (y === currentYear && w + 1 > currentWeek ? ' future' : '')}
+                  title={`${y} W${w + 1}：${count} 篇`}
+                  aria-label={`${y} 第 ${w + 1} 周，${count} 篇`}
+                ></div>
+              {/each}
+            </div>
+          </div>
+        {/each}
+
+        <div class="week-label-row">
+          <div class="week-label-spacer"></div>
+          <div class="week-labels">
+            {#each Array(WEEKS) as _, w}
+              <span class={"wl" + (w === 0 ? ' wl-first' : '') + (w === WEEKS - 1 ? ' wl-last' : '')}>{weekLabelAt.has(w + 1) ? `W${w + 1}` : ''}</span>
             {/each}
           </div>
         </div>
       </div>
-
-      <!-- 右侧：年份点击倒序循环 -->
-      <div class="hm-year">
-        <button
-          class="year-btn btn-plain scale-animation"
-          on:click={toggle}
-        >
-          {year}<span style="opacity:.55">↻</span>
-        </button>
-      </div>
     </div>
 
-    <!-- 装饰图标（SVG） -->
-    <div class="decor-icon subtle" aria-hidden="true">
-      <svg t="1760717462857" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="35357"><path d="M951.523556 376.149333c-14.563556-51.313778-75.776-85.560889-163.043556-100.010666 12.970667 15.246222 24.803556 31.516444 35.157333 48.810666 48.583111 13.767111 81.578667 35.271111 89.088 61.895111 4.437333 15.473778 0.682667 33.564444-11.264 53.930667-12.743111 21.845333-35.84 46.421333-67.811555 70.997333 0-1.592889 0.227556-3.072 0.227555-4.664888 0-175.786667-144.270222-318.350222-322.332444-318.350223-177.948444 0-322.332444 142.563556-322.332445 318.350223 0 53.816889 13.653333 104.448 37.546667 148.935111-63.715556-12.856889-107.406222-37.091556-116.394667-68.494223-4.437333-15.473778-0.682667-33.564444 11.264-53.930666 6.485333-11.036444 16.270222-22.869333 27.761778-34.816 0.455111-20.707556 2.503111-40.96 6.485334-60.643556-65.194667 52.679111-98.531556 109.909333-84.195556 160.085334 15.815111 55.523556 86.129778 91.249778 185.116444 103.196444 58.936889 75.320889 151.096889 124.017778 254.862223 124.017778 158.037333 0 289.223111-112.412444 316.757333-260.664889 90.680889-59.960889 140.060444-129.137778 123.107556-188.643556zM511.658667 785.635556c-77.027556 0-146.773333-30.606222-197.632-80.099556 6.826667 0.227556 13.767111 0.341333 20.821333 0.341333 70.087111 0 149.048889-9.784889 230.4-30.378666 80.896-20.48 153.827556-49.038222 214.357333-81.806223-36.977778 111.502222-142.904889 191.943111-267.946666 191.943112z m279.665777-244.736c-59.164444 36.750222-138.695111 71.566222-236.088888 96.256-75.434667 19.000889-151.665778 29.127111-220.501334 29.127111-19.911111 0-38.570667 1.706667-56.547555 0.113777-30.606222-44.600889-48.583111-101.262222-48.583111-159.175111 0-153.827556 126.293333-278.528 282.055111-278.528s282.055111 124.700444 282.055111 278.528c-0.113778 11.377778-1.024 22.641778-2.389334 33.678223z m-420.750222 45.852444c-44.487111 0-80.554667-35.726222-80.554666-79.644444s36.181333-79.530667 80.554666-79.530667c44.487111 0 80.554667 35.726222 80.554667 79.530667 0 43.918222-36.181333 79.644444-80.554667 79.644444z m0-119.466667c-22.186667 0-40.277333 17.863111-40.277333 39.822223s18.090667 39.822222 40.277333 39.822222 40.277333-17.863111 40.277334-39.822222-18.090667-39.822222-40.277334-39.822223z m171.235556-99.441777c-27.761778 0-50.403556-22.300444-50.403556-49.720889s22.528-49.720889 50.403556-49.720889c27.761778 0 50.403556 22.300444 50.403555 49.720889-0.113778 27.420444-22.641778 49.720889-50.403555 49.720889z m0-59.733334c-5.575111 0-10.126222 4.437333-10.126222 9.898667 0 5.461333 4.551111 9.898667 10.126222 9.898667s10.126222-4.437333 10.126222-9.898667c-0.113778-5.347556-4.551111-9.898667-10.126222-9.898667z m110.819555 238.819556c-22.186667 0-40.277333-17.863111-40.277333-39.822222s18.090667-39.822222 40.277333-39.822223 40.277333 17.863111 40.277334 39.822223-18.090667 39.822222-40.277334 39.822222z m0 0" p-id="35358"></path><path d="M511.658667 833.422222c-51.996444 0-101.717333-11.605333-147.797334-34.588444-42.894222-21.390222-81.351111-52.337778-111.274666-89.884445-49.834667-6.371556-91.249778-18.318222-123.335111-35.726222-34.929778-19.000889-56.888889-43.463111-65.194667-72.704-14.677333-51.541333 16.156444-111.388444 86.812444-168.504889 2.616889-2.161778 6.257778-2.389333 9.102223-0.568889 2.844444 1.706667 4.323556 5.12 3.754666 8.305778-3.754667 18.773333-5.802667 38.798222-6.257778 59.278222 0 1.934222-0.796444 3.868444-2.161777 5.347556-12.401778 13.084444-21.162667 24.007111-26.624 33.336889-10.695111 18.318222-14.222222 34.360889-10.467556 47.672889 7.054222 25.031111 41.073778 46.193778 94.094222 59.278222-20.252444-42.894222-30.833778-90.112-30.833777-137.557333 0-87.153778 34.360889-169.187556 96.824888-230.741334 62.350222-61.553778 145.294222-95.573333 233.472-95.573333s171.121778 33.905778 233.472 95.573333c59.505778 58.823111 93.525333 136.192 96.597334 218.908445 24.120889-20.024889 42.325333-40.049778 53.020444-58.481778 10.695111-18.318222 14.222222-34.360889 10.467556-47.672889-6.485333-22.983111-36.181333-43.008-83.626667-56.433778-1.934222-0.568889-3.640889-1.820444-4.664889-3.527111-10.012444-16.725333-21.617778-32.768-34.360889-47.672889-2.161778-2.503111-2.503111-6.144-0.910222-9.102222 1.592889-2.958222 4.892444-4.437333 8.192-3.982222 94.321778 15.587556 154.510222 53.020444 169.415111 105.699555 17.180444 60.302222-27.875556 131.527111-123.676444 195.584-14.336 72.817778-53.816889 139.264-111.502222 187.278223-59.392 49.265778-134.940444 76.458667-212.536889 76.458666zM144.497778 458.296889c-53.816889 48.241778-76.913778 96.711111-65.194667 137.898667 14.222222 49.948444 79.189333 85.447111 178.403556 97.507555 2.048 0.227556 3.982222 1.365333 5.347555 2.958222 28.785778 36.750222 66.104889 67.242667 107.861334 88.064 43.918222 21.845333 91.249778 32.881778 140.743111 32.881778 73.955556 0 145.749333-25.941333 202.183111-72.931555 55.751111-46.421333 93.639111-110.819556 106.723555-181.248 0.341333-2.161778 1.592889-3.982222 3.413334-5.233778 44.487111-29.354667 78.961778-61.326222 99.669333-92.273778 21.048889-31.402667 27.761778-60.871111 20.252444-87.495111-6.599111-23.096889-23.665778-43.008-50.744888-59.164445-22.528-13.425778-50.972444-23.893333-84.992-31.175111 7.395556 9.784889 14.336 19.797333 20.593777 30.151111 51.882667 15.246222 83.512889 38.229333 91.591111 66.56 5.006222 17.635556 1.024 37.888-11.946666 60.074667-13.539556 23.324444-37.774222 48.583111-69.859556 73.272889-2.389333 1.820444-5.688889 2.161778-8.419555 0.796444a8.0896 8.0896 0 0 1-4.437334-7.168c0-1.024 0.113778-1.934222 0.113778-2.730666 0-0.682667 0.113778-1.365333 0.113778-1.820445 0-82.830222-32.654222-160.768-92.046222-219.477333-59.392-58.595556-138.353778-90.908444-222.321778-90.908444s-162.929778 32.312889-222.321778 90.908444c-59.392 58.595556-92.046222 136.533333-92.046222 219.477333 0 50.403556 12.629333 100.693333 36.636444 145.180445 1.479111 2.730667 1.251556 6.030222-0.568889 8.533333s-4.892444 3.640889-7.964444 3.072c-69.404444-13.994667-112.867556-40.277333-122.424889-74.183111-5.006222-17.635556-1.024-37.888 11.946667-60.074667 5.802667-9.898667 14.563556-21.048889 26.737778-34.133333 0.455111-12.743111 1.365333-25.258667 2.958222-37.319111z m367.160889 335.303111c-76.458667 0-148.593778-29.240889-203.207111-82.261333-2.389333-2.275556-3.072-5.802667-1.820445-8.874667s4.323556-5.006222 7.623111-4.892444c7.850667 0.227556 14.336 0.341333 20.593778 0.341333 71.566222 0 150.528-10.353778 228.465778-30.037333 76.913778-19.456 150.414222-47.445333 212.423111-81.123556 2.844444-1.592889 6.371556-1.251556 8.874667 0.910222 2.503111 2.048 3.527111 5.461333 2.503111 8.647111-18.887111 56.888889-54.727111 105.927111-103.765334 141.653334-50.062222 36.408889-109.454222 55.637333-171.690666 55.637333z m-176.583111-79.644444c49.379556 41.301333 111.274667 63.715556 176.583111 63.715555 58.936889 0 115.029333-18.204444 162.360889-52.679111 40.732444-29.582222 71.793778-68.949333 90.794666-114.460444-59.050667 29.923556-126.862222 54.954667-197.632 72.817777-79.075556 20.024889-159.402667 30.606222-232.106666 30.606223zM295.822222 674.929778c-6.144 0-12.288-0.227556-18.432-0.796445-2.389333-0.227556-4.551111-1.479111-5.802666-3.413333-32.199111-46.876444-49.948444-105.016889-49.948445-163.726222 0-76.572444 30.151111-148.48 84.992-202.638222 54.727111-54.044444 127.544889-83.854222 205.027556-83.854223s150.300444 29.809778 205.027555 83.854223c54.840889 54.158222 84.992 126.065778 84.992 202.638222 0 10.695111-0.796444 22.072889-2.389333 34.816-0.341333 2.389333-1.706667 4.551111-3.754667 5.802666-65.763556 40.846222-148.252444 74.410667-238.364444 97.166223-76.003556 19.228444-152.917333 29.354667-222.435556 29.354666-6.712889 0-13.425778 0.227556-19.911111 0.341334-6.485333 0.341333-12.743111 0.455111-19.000889 0.455111z m-13.198222-16.270222c10.126222 0.682667 20.707556 0.341333 31.744 0 6.599111-0.227556 13.425778-0.455111 20.366222-0.455112 68.266667 0 143.815111-10.012444 218.567111-28.899555 87.04-21.959111 166.684444-54.158222 230.627556-93.297778 1.137778-10.467556 1.820444-20.024889 1.820444-29.013333 0-72.248889-28.444444-140.174222-80.213333-191.260445-51.768889-51.086222-120.604444-79.303111-193.877333-79.303111s-142.108444 28.216889-193.763556 79.303111c-51.768889 51.086222-80.213333 119.011556-80.213333 191.260445-0.113778 54.272 15.815111 107.975111 44.942222 151.665778z m508.700444-117.76z m-420.750222 53.816888c-48.810667 0-88.519111-39.253333-88.519111-87.608888 0-48.241778 39.708444-87.495111 88.519111-87.495112s88.519111 39.253333 88.519111 87.495112c0 48.241778-39.708444 87.608889-88.519111 87.608888z m0-159.175111c-40.049778 0-72.590222 32.085333-72.590222 71.566223s32.540444 71.68 72.590222 71.68c40.049778 0 72.590222-32.085333 72.590222-71.68 0-39.480889-32.540444-71.566222-72.590222-71.566223z m282.055111 119.352889c-26.624 0-48.241778-21.390222-48.241777-47.786666 0-26.282667 21.617778-47.786667 48.241777-47.786667s48.241778 21.390222 48.241778 47.786667-21.731556 47.786667-48.241778 47.786666z m0-79.644444c-17.863111 0-32.312889 14.222222-32.312889 31.857778 0 17.521778 14.449778 31.857778 32.312889 31.857777s32.312889-14.336 32.312889-31.857777-14.563556-31.857778-32.312889-31.857778z m-282.055111 79.644444c-26.624 0-48.241778-21.390222-48.241778-47.786666 0-26.282667 21.617778-47.786667 48.241778-47.786667s48.241778 21.390222 48.241778 47.786667-21.617778 47.786667-48.241778 47.786666z m0-79.644444c-17.863111 0-32.312889 14.222222-32.312889 31.857778 0 17.521778 14.449778 31.857778 32.312889 31.857777s32.312889-14.336 32.312889-31.857777-14.449778-31.857778-32.312889-31.857778z m171.235556-99.441778c-32.199111 0-58.368-25.941333-58.368-57.685333 0-31.857778 26.168889-57.685333 58.368-57.685334 32.199111 0 58.368 25.941333 58.368 57.685334-0.113778 31.744-26.282667 57.685333-58.368 57.685333z m0-99.441778c-23.324444 0-42.439111 18.773333-42.439111 41.756445 0 22.983111 19.000889 41.756444 42.439111 41.756444 23.324444 0 42.439111-18.773333 42.439111-41.756444-0.113778-23.096889-19.114667-41.756444-42.439111-41.756445z m0 59.619556c-9.898667 0-18.090667-8.078222-18.090667-17.863111 0-9.898667 8.078222-17.863111 18.090667-17.863111 9.898667 0 18.090667 8.078222 18.090666 17.863111-0.113778 9.898667-8.192 17.863111-18.090666 17.863111z m0-19.911111c-1.137778 0-2.161778 0.910222-2.161778 1.934222 0 1.024 0.910222 1.934222 2.161778 1.934222 1.137778 0 2.161778-0.910222 2.161778-1.934222-0.113778-1.024-1.024-1.934222-2.161778-1.934222z" p-id="35359"></path></svg>  
-    </div>
   </div>
 </div>

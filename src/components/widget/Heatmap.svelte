@@ -1,17 +1,8 @@
 <script lang="ts">
-export let dates: string[] = [];
+import Icon from "@iconify/svelte";
+export let entries: { date: string; words: number }[] = [];
 export let cell = 10;
 export let gap = 2;
-
-const norm = (d: string) => {
-	const dt = new Date(d);
-	if (isNaN(dt.getTime())) return null;
-	return dt.toISOString().slice(0, 10);
-};
-
-const allDays = Array.from(
-	new Set(dates.map(norm).filter(Boolean) as string[]),
-).sort();
 
 function getWeek(iso: string): number {
 	const d = new Date(iso + 'T00:00:00Z');
@@ -19,35 +10,36 @@ function getWeek(iso: string): number {
 	return Math.min(Math.floor((d.getTime() - start.getTime()) / (7 * 86400000)) + 1, 53);
 }
 
-const weekCounts = new Map<string, number>();
-for (const d of allDays) {
-	const key = `${d.slice(0, 4)}-${String(getWeek(d)).padStart(2, '0')}`;
-	weekCounts.set(key, (weekCounts.get(key) ?? 0) + 1);
+// 每年每周的总字数
+const weekWords = new Map<string, number>();
+for (const { date, words } of entries) {
+	const iso = date.slice(0, 10);
+	const key = `${iso.slice(0, 4)}-${String(getWeek(iso)).padStart(2, '0')}`;
+	weekWords.set(key, (weekWords.get(key) ?? 0) + words);
 }
 
 const years = Array.from(
-	new Set(allDays.map((d) => Number(d.slice(0, 4)))),
+	new Set(entries.map((e) => Number(e.date.slice(0, 4)))),
 ).sort((a, b) => a - b);
 
 const WEEKS = 53;
 const WINDOW = 3;
 
-// 默认显示最近 3 年
-let windowEnd = years.length; // exclusive
+let windowEnd = years.length;
 
 $: visibleYears = years.slice(Math.max(0, windowEnd - WINDOW), windowEnd);
 
 function toggle() {
 	if (years.length <= WINDOW) return;
-	// 往上滚动一年（显示更早的），到头后循环回最新
 	windowEnd = windowEnd <= WINDOW ? years.length : windowEnd - 1;
 }
 
-function colorClass(n: number) {
-	if (n <= 0) return 'lvl-0';
-	if (n === 1) return 'lvl-1';
-	if (n === 2) return 'lvl-2';
-	if (n === 3) return 'lvl-3';
+// 按字数分级：0 / <3k / <6k / <9k / 9k+
+function colorClass(w: number) {
+	if (w <= 0) return 'lvl-0';
+	if (w < 3000) return 'lvl-1';
+	if (w < 6000) return 'lvl-2';
+	if (w < 9000) return 'lvl-3';
 	return 'lvl-4';
 }
 
@@ -57,7 +49,7 @@ function calcStreak(): number {
 	for (let i = 0; i < 200; i++) {
 		const iso = cur.toISOString().slice(0, 10);
 		const key = `${iso.slice(0, 4)}-${String(getWeek(iso)).padStart(2, '0')}`;
-		if ((weekCounts.get(key) ?? 0) > 0) {
+		if ((weekWords.get(key) ?? 0) > 0) {
 			streak++;
 			cur = new Date(cur.getTime() - 7 * 86400000);
 		} else {
@@ -101,22 +93,37 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
     align-items: center;
     gap: 6px;
     font-size: 14px;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     color: var(--muted);
   }
-  .legend-label { margin-right: 2px; }
+  .legend-label { margin-right: 2px; font-weight: 700; color: rgb(0 0 0 / 0.75); }
+  :global(.dark) .legend-label { color: rgb(255 255 255 / 0.75); }
   .chip {
     width: var(--cell);
     height: var(--cell);
     border-radius: 0;
     flex-shrink: 0;
   }
-  .streak {
-    font-size: 14px;
-    font-family: var(--font-mono);
-    color: var(--primary);
-    opacity: 0.75;
-    white-space: nowrap;
+  .year-trigger {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 1;
+  }
+  :global(.year-trigger-icon) {
+    width: 16px;
+    height: 16px;
+    color: var(--btn-content);
+    opacity: 0.45;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+  .year-trigger:hover :global(.year-trigger-icon) {
+    opacity: 1;
   }
 
   .scroller {
@@ -194,19 +201,6 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
   .wl-first { text-align: left; }
   .wl-last { transform: translateX(-0.3rem); }
 
-  /* 年份切换标签 */
-  .year-btn {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-family: var(--font-mono);
-    font-size: 14px;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-  .year-btn:hover { color: var(--primary); }
-
   /* 未来的周 */
   .future { opacity: 0.2; }
 
@@ -228,21 +222,20 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
   <div class="card card-base">
 
     <div class="toolbar">
-      <div class="legend">
-        {#each [0, 1, 2, 3, 4] as n}
-          <div class={"chip lvl-" + (n >= 4 ? 4 : n)}></div>
-          <span>{n >= 4 ? '4+' : n}</span>
-        {/each}
-      </div>
-      <div style="display:flex; align-items:center; gap:12px;">
-        {#if streak > 0}
-          <span class="streak">{streak} week streak</span>
-        {/if}
+      <div style="display:flex; align-items:center; gap:6px;">
+        <span class="legend-label">Words per week</span>
         {#if years.length > WINDOW}
-          <button class="year-btn" on:click={toggle}>
-            {visibleYears[0]} – {visibleYears[visibleYears.length - 1]} · 溯游
+          <button class="year-trigger" on:click={toggle} aria-label="切换年份">
+            <Icon icon="material-symbols:history" class="year-trigger-icon" />
           </button>
         {/if}
+      </div>
+      <div class="legend">
+        <span>Less</span>
+        {#each [0, 1, 2, 3, 4] as n}
+          <div class={"chip lvl-" + n}></div>
+        {/each}
+        <span>More</span>
       </div>
     </div>
 
@@ -253,11 +246,11 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
             <span class="year-label">{y}</span>
             <div class="weeks-row">
               {#each Array(WEEKS) as _, w}
-                {@const count = weekCounts.get(`${y}-${String(w + 1).padStart(2, '0')}`) ?? 0}
+                {@const words = weekWords.get(`${y}-${String(w + 1).padStart(2, '00')}`) ?? 0}
                 <div
-                  class={"cell " + colorClass(count) + (y === currentYear && w + 1 > currentWeek ? ' future' : '')}
-                  title={`${y} W${w + 1}：${count} 篇`}
-                  aria-label={`${y} 第 ${w + 1} 周，${count} 篇`}
+                  class={"cell " + colorClass(words) + (y === currentYear && w + 1 > currentWeek ? ' future' : '')}
+                  title={`${y} W${w + 1}：${words} 字`}
+                  aria-label={`${y} 第 ${w + 1} 周，${words} 字`}
                 ></div>
               {/each}
             </div>

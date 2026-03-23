@@ -13,6 +13,7 @@ const POSTS_DIR = "src/content/posts";
 let totalZhChars = 0;
 let totalEnWords = 0;
 let totalPosts = 0;
+const postEntries = []; // { date: string, words: number }[]
 
 function trimTrailingZeros(value) {
 	return value.replace(/\.0+$/, "").replace(/(\.\d*?)0+$/, "$1");
@@ -36,6 +37,11 @@ function formatCharCount(count) {
 	}
 
 	return `${count} 字`;
+}
+
+function extractDate(raw) {
+	const m = raw.match(/^---[\s\S]*?published\s*:\s*["']?(\d{4}-\d{2}-\d{2})/m);
+	return m ? m[1] : null;
 }
 
 function stripMdText(input) {
@@ -72,6 +78,11 @@ function walkDir(dir) {
 				totalZhChars += zh;
 				totalEnWords += en;
 				totalPosts += 1;
+
+				const date = extractDate(raw);
+				if (date) {
+					postEntries.push({ date, words: zh + en });
+				}
 			}
 		}
 	}
@@ -107,5 +118,6 @@ mkdirSync("src/data", { recursive: true });
 
 writeFileSync("public/stats.json", JSON.stringify(stats, null, 2), "utf8");
 writeFileSync("src/data/stats.json", JSON.stringify(stats, null, 2), "utf8");
+writeFileSync("src/data/post-words.json", JSON.stringify(postEntries, null, 2), "utf8");
 
 console.log("[stats]", stats);

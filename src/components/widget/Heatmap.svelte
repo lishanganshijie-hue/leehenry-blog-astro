@@ -107,13 +107,13 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
   .legend-label { margin-right: 2px; }
   .chip {
     width: var(--cell);
-    height: calc(var(--cell) * 1.5);
+    height: var(--cell);
     border-radius: 0;
     flex-shrink: 0;
   }
   .streak {
     font-size: 14px;
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     color: var(--primary);
     opacity: 0.75;
     white-space: nowrap;
@@ -137,7 +137,7 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
   }
   .year-label {
     font-size: 14px;
-    font-family: var(--font-sans);
+    font-family: var(--font-mono);
     color: var(--muted);
     width: 2.8rem;
     text-align: left;
@@ -149,6 +149,7 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
     gap: 0;
     flex: 1;
     min-width: 0;
+    filter: url(#xerox);
   }
 
   .cell {
@@ -177,7 +178,8 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
   }
   .wl {
     flex: 1;
-    font-size: 14px;
+    font-size: 10.4px;
+    line-height: 1;
     font-family: var(--font-mono);
     color: rgb(0 0 0 / 0.3);
     text-align: center;
@@ -190,7 +192,7 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
     color: rgb(255 255 255 / 0.3);
   }
   .wl-first { text-align: left; }
-  .wl-last { transform: translateX(-1rem); }
+  .wl-last { transform: translateX(-0.3rem); }
 
   /* 年份切换标签 */
   .year-btn {
@@ -198,8 +200,8 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
     border: none;
     padding: 0;
     cursor: pointer;
-    font-family: var(--font-sans);
-    font-size: 16px;
+    font-family: var(--font-mono);
+    font-size: 14px;
     color: var(--muted);
     transition: color 0.2s;
   }
@@ -238,7 +240,7 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
         {/if}
         {#if years.length > WINDOW}
           <button class="year-btn" on:click={toggle}>
-            于 {visibleYears[0]} – {visibleYears[visibleYears.length - 1]} 散落
+            {visibleYears[0]} – {visibleYears[visibleYears.length - 1]} · 溯游
           </button>
         {/if}
       </div>

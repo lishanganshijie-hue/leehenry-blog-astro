@@ -43,5 +43,11 @@ const dates: string[] = Array.from(dateSet, (d) =>
 <style>
   .archive-heatmap {
     margin-bottom: 20px;
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .archive-heatmap {
+      display: block;
+    }
   }
 </style>

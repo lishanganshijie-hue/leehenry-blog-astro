@@ -31,6 +31,16 @@ const description =
 	(entry.data as { description?: string }).description ??
 	"互相串门～欢迎交换友链";
 
+// 手动构建目录 headings（对应页面各 section 的 id）
+const friendsHeadings = [
+	{ depth: 2, slug: "friends-stamps", text: "🏷️ 88x31 Stamps" },
+	{ depth: 2, slug: "friends-real", text: "🤝 知交" },
+	{ depth: 2, slug: "friends-online", text: "☁️ 云间" },
+	{ depth: 2, slug: "friends-stash", text: "🌄 远望" },
+	{ depth: 2, slug: "friends-org", text: "🏛️ 同道" },
+	{ depth: 2, slug: "friend-circle-section", text: "👂 侧耳" },
+];
+
 // 枚举映射：机器可读 -> 展示文案
 const CATEGORIES = {
 	real: { title: "🤝 知交", tip: "// 日常可晤的友人" },
@@ -90,7 +100,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 	.filter((g) => g.items.length > 0);
 ---
 
-<MainGridLayout title={title} description={description}>
+<MainGridLayout title={title} description={description} headings={friendsHeadings}>
   <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
     <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full">
 
@@ -109,7 +119,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         const coolSites = typedStamps.slice(1).filter(s => !s.type || s.type === 'cool-sites');
         const attitude = typedStamps.filter(s => s.type === 'attitude');
         return (
-          <div class="not-prose mb-6 px-6 md:px-12">
+          <div id="friends-stamps" class="not-prose mb-6 px-6 md:px-12">
             <div class="stamps-container">
               <div class="stamps-titlebar">
                 <div class="stamps-titlebar-left">

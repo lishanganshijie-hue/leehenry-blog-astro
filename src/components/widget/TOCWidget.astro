@@ -92,7 +92,8 @@ class TOCWidget extends HTMLElement {
 
     markVisibleSection = (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
-            const id = entry.target.children[0]?.getAttribute("id");
+            // Support both: ID on the section itself (friends/about), or ID on first child (post pages)
+            const id = entry.target.getAttribute("id") ?? entry.target.children[0]?.getAttribute("id");
             const idx = id ? this.headingIdxMap.get(id) : undefined;
             if (idx != undefined)
                 this.active[idx] = entry.isIntersecting;
@@ -206,15 +207,18 @@ class TOCWidget extends HTMLElement {
     };
 
     connectedCallback() {
-        // wait for the onload animation to finish, which makes the `getBoundingClientRect` return correct values
-        const element = document.querySelector('.prose');
-        if (element) {
-            element.addEventListener('animationend', () => {
-                this.init();
-            }, { once: true });
-        } else {
-            console.debug('Animation element not found');
+        // Post pages: #post-container children have onload-animation whose animationend
+        // bubbles up to .prose — use that as the trigger so getBoundingClientRect is accurate.
+        // Other pages (about, friends…): sections are static, double-RAF is sufficient.
+        const postContainer = document.querySelector('#post-container');
+        if (postContainer) {
+            const prose = document.querySelector('.prose');
+            if (prose) {
+                prose.addEventListener('animationend', () => this.init(), { once: true });
+                return;
+            }
         }
+        requestAnimationFrame(() => requestAnimationFrame(() => this.init()));
     };
 
     init() {
@@ -239,8 +243,12 @@ class TOCWidget extends HTMLElement {
         for (let i = 0; i < this.tocEntries.length; i++) {
             const id = decodeURIComponent(this.tocEntries[i].hash?.substring(1));
             const heading = document.getElementById(id);
-            const section = heading?.parentElement;
-            if (heading instanceof HTMLElement && section instanceof HTMLElement) {
+            if (!(heading instanceof HTMLElement)) continue;
+            // If the ID element is itself a container (section/div/article),
+            // observe it directly; otherwise observe its parent (post-page pattern).
+            const isContainer = ['SECTION', 'DIV', 'ARTICLE'].includes(heading.tagName);
+            const section = isContainer ? heading : heading.parentElement;
+            if (section instanceof HTMLElement) {
                 this.headings[i] = heading;
                 this.sections[i] = section;
                 this.headingIdxMap.set(id, i);

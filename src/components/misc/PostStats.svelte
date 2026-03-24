@@ -26,12 +26,22 @@
   });
 </script>
 
-<span class="font-mono text-30 inline-flex items-center gap-1">
+<a href={`${path}#like-button`} class="stat-link font-mono text-30 inline-flex items-center gap-1">
   <Icon icon="material-symbols:favorite-outline-rounded" class="text-base" />
   {likes == null ? '—' : likes}
-</span>
+</a>
 <span class="text-30">·</span>
-<span class="font-mono text-30 inline-flex items-center gap-1">
+<a href={`${path}#tcomment`} class="stat-link font-mono text-30 inline-flex items-center gap-1">
   <Icon icon="material-symbols:chat-bubble-outline-rounded" class="text-base" />
   {comments == null ? '—' : comments}
-</span>
+</a>
+
+<style>
+  .stat-link {
+    transition: color 0.15s;
+    text-decoration: none;
+  }
+  .stat-link:hover {
+    color: var(--primary);
+  }
+</style>

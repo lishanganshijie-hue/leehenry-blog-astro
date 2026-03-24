@@ -194,7 +194,7 @@
   });
 </script>
 
-<div class="like-wrapper">
+<div id="like-button" class="like-wrapper">
   <canvas bind:this={canvas} class="hearts-canvas"></canvas>
   <button
     class="like-btn"

@@ -88,28 +88,32 @@ const fallbackQR = "/wechat-qrcode.png";
           ? config.links.map((item) => (
               item?.popup
                 ? (
-                  <button
-                    type="button"
-                    aria-label={item.name}
-                    class="btn-regular h-8 w-8 active:scale-90"
-                    data-qr-trigger
-                    data-qr-src={item.popupImage ?? fallbackQR}
-                    title={item.name}
-                  >
-                    <Icon name={item.icon} class="text-[1.2rem]" />
-                  </button>
+                  <span class="social-tip-wrap">
+                    <button
+                      type="button"
+                      aria-label={item.name}
+                      class="btn-regular h-8 w-8 active:scale-90"
+                      data-qr-trigger
+                      data-qr-src={item.popupImage ?? fallbackQR}
+                    >
+                      <Icon name={item.icon} class="text-[1.2rem]" />
+                    </button>
+                    <span class="social-tip">{item.name}</span>
+                  </span>
                 )
                 : (
-                  <a
-                    rel="me"
-                    aria-label={item.name}
-                    href={item.url}
-                    target="_blank"
-                    class="btn-regular h-8 w-8 active:scale-90"
-                    title={item.name}
-                  >
-                    <Icon name={item.icon} class="text-[1.2rem]" />
-                  </a>
+                  <span class="social-tip-wrap">
+                    <a
+                      rel="me"
+                      aria-label={item.name}
+                      href={item.url}
+                      target="_blank"
+                      class="btn-regular h-8 w-8 active:scale-90"
+                    >
+                      <Icon name={item.icon} class="text-[1.2rem]" />
+                    </a>
+                    <span class="social-tip">{item.name}</span>
+                  </span>
                 )
             ))
           : (
@@ -121,7 +125,6 @@ const fallbackQR = "/wechat-qrcode.png";
                   class="btn-regular h-10 gap-3 px-3 font-bold active:scale-95"
                   data-qr-trigger
                   data-qr-src={config.links[0].popupImage ?? fallbackQR}
-                  title={config.links[0].name}
                 >
                   <Icon name={config.links[0].icon} class="text-[1.2rem]" />
                   {config.links[0].name}
@@ -134,7 +137,6 @@ const fallbackQR = "/wechat-qrcode.png";
                   href={config.links[0].url}
                   target="_blank"
                   class="btn-regular h-10 gap-2 px-3 font-bold active:scale-95"
-                  title={config.links[0].name}
                 >
                   <Icon name={config.links[0].icon} class="text-[1.2rem]" />
                   {config.links[0].name}
@@ -285,6 +287,38 @@ const fallbackQR = "/wechat-qrcode.png";
   .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; background:transparent; border-radius: 0; }
   .btn-row { display:flex; justify-content:center; margin-top:0.875rem; }
   .btn-close { padding:0.5rem 1rem; background:var(--primary); color:#fff; cursor:pointer; }
+
+  /* 社交按钮 Tooltip */
+  .social-tip-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+  .social-tip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 6px;
+    padding: 0.3rem 0.6rem;
+    background: var(--card-bg);
+    color: var(--btn-content);
+    border: 1px solid var(--btn-card-bg-active);
+    border-radius: var(--radius-medium);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    font-size: 0.8rem;
+    font-family: var(--font-sans);
+    font-weight: normal;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease-in-out, visibility 0.18s ease-in-out;
+    z-index: 200;
+  }
+  .social-tip-wrap:hover .social-tip {
+    opacity: 1;
+    visibility: visible;
+  }
 
   /* 签名图片样式 */
   .signature-container {

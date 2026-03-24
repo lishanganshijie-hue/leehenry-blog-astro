@@ -1,5 +1,6 @@
 <script lang="ts">
 import Icon from "@iconify/svelte";
+import { onDestroy } from 'svelte';
 export let entries: { date: string; words: number }[] = [];
 export let cell = 10;
 export let gap = 2;
@@ -65,6 +66,38 @@ const weekLabelAt = new Set([1, 14, 27, 40, 53]);
 const now = new Date();
 const currentYear = now.getUTCFullYear();
 const currentWeek = getWeek(now.toISOString().slice(0, 10));
+
+// Tooltip mounted directly to document.body to escape transform ancestors
+let tipEl: HTMLElement | null = null;
+
+function ensureTip(): HTMLElement {
+	if (!tipEl) {
+		tipEl = document.createElement('div');
+		tipEl.className = 'hm-tip';
+		tipEl.style.visibility = 'hidden';
+		document.body.appendChild(tipEl);
+	}
+	return tipEl;
+}
+
+function showTip(e: MouseEvent, text: string) {
+	const el = ensureTip();
+	const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+	el.style.left = (rect.left + rect.width / 2) + 'px';
+	el.style.top = rect.top + 'px';
+	el.textContent = text;
+	el.style.visibility = 'visible';
+	el.style.opacity = '1';
+}
+
+function hideTip() {
+	if (tipEl) {
+		tipEl.style.opacity = '0';
+		tipEl.style.visibility = 'hidden';
+	}
+}
+
+onDestroy(() => { tipEl?.remove(); tipEl = null; });
 </script>
 
 <style>
@@ -204,6 +237,26 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
   /* 未来的周 */
   .future { opacity: 0.2; }
 
+  /* Global cell tooltip — fixed so it escapes the SVG filter */
+  :global(.hm-tip) {
+    position: fixed;
+    transform: translate(-50%, calc(-100% - 6px));
+    padding: 0.3rem 0.6rem;
+    background: var(--card-bg);
+    color: var(--btn-content);
+    border: 1px solid var(--btn-card-bg-active);
+    border-radius: var(--radius-medium);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    font-size: 0.8rem;
+    font-family: var(--font-sans);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.18s ease-in-out, visibility 0.18s ease-in-out;
+    z-index: 9999;
+  }
+
   /* 颜色 */
   .lvl-0 { background: var(--btn-regular-bg); }
   .lvl-1 { background: var(--primary); opacity: 0.35; }
@@ -249,8 +302,9 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
                 {@const words = weekWords.get(`${y}-${String(w + 1).padStart(2, '00')}`) ?? 0}
                 <div
                   class={"cell " + colorClass(words) + (y === currentYear && w + 1 > currentWeek ? ' future' : '')}
-                  title={`${y} W${w + 1}：${words} 字`}
                   aria-label={`${y} 第 ${w + 1} 周，${words} 字`}
+                  on:mouseenter={(e) => showTip(e, `${y} W${w + 1} · ${words} 字`)}
+                  on:mouseleave={hideTip}
                 ></div>
               {/each}
             </div>
@@ -270,3 +324,4 @@ const currentWeek = getWeek(now.toISOString().slice(0, 10));
 
   </div>
 </div>
+

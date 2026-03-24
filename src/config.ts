@@ -110,9 +110,9 @@ export const profileConfig: ProfileConfig = {
 			url: "https://github.com/LeeHero0803",
 		},
 		{
-			name: "Bilibili",
-			icon: "tv",
-			url: "https://space.bilibili.com/29402544",
+			name: "Mastodon",
+			icon: "fediverse",
+			url: "https://c7.io/@LeeHenry",
 		},
 		{
 			name: "WeChat",

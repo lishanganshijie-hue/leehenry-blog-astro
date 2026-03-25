@@ -189,7 +189,7 @@ onDestroy(() => { tipEl?.remove(); tipEl = null; });
     gap: 0;
     flex: 1;
     min-width: 0;
-    filter: url(#xerox);
+    /* filter: url(#xerox); */
   }
 
   .cell {

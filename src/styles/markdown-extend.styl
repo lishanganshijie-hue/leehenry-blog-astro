@@ -297,3 +297,207 @@ a.card-github.fetch-error
   transition-property: all
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)
   transition-duration: 0.15s
+
+/* ── Music Card ─────────────────────────────────────────── */
+
+.mc-wrap
+  margin: 0.5rem 0
+
+.card-music
+  display: flex
+  align-items: center
+  gap: 1rem
+  background: var(--license-block-bg)
+  position: relative
+  padding: 0.9rem 1.25rem
+  color: var(--tw-prose-body)
+  border-radius: var(--radius-large)
+  cursor: default
+  transition: background 0.15s cubic-bezier(0.4, 0, 0.2, 1)
+
+.mc-cover
+  width: 72px
+  height: 72px
+  flex-shrink: 0
+  border-radius: var(--radius-medium)
+  background-color: var(--primary)
+  background-size: cover
+  background-position: center
+  opacity: 0.9
+  transition: opacity 0.15s
+
+.mc-body
+  flex: 1
+  min-width: 0
+
+.mc-title
+  font-size: 1rem
+  font-weight: 600
+  color: var(--tw-prose-headings)
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.mc-artist
+  font-size: 0.875rem
+  font-weight: 300
+  color: var(--tw-prose-body)
+  margin-top: 0.15rem
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+.mc-meta
+  font-size: 0.8rem
+  color: var(--tw-prose-body)
+  opacity: 0.55
+  margin-top: 0.4rem
+
+.mc-actions
+  display: flex
+  align-items: center
+  gap: 0.5rem
+  flex-shrink: 0
+  align-self: center
+
+/* Play button (tracks only) */
+.mc-play
+  width: 2rem
+  height: 2rem
+  border-radius: 50%
+  background: var(--primary)
+  display: flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  opacity: 0.82
+  transition: opacity 0.15s, scale 0.15s
+  outline: none
+
+  &:hover
+    opacity: 1
+
+  &:active
+    scale: 0.9
+
+  &:focus-visible
+    outline: 2px solid var(--primary)
+    outline-offset: 2px
+
+  &.mc-no-preview
+    opacity: 0.25
+    cursor: default
+    pointer-events: none
+
+  .mc-play-icon
+    display: block
+    width: 0.75rem
+    height: 0.75rem
+    background-color: #fff
+    mask-size: contain
+    mask-position: center
+    mask-repeat: no-repeat
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E")
+
+.card-music.is-playing .mc-play .mc-play-icon
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 19h4V5H6v14zm8-14v14h4V5h-4z'/%3E%3C/svg%3E")
+
+/* Album icon (albums only — non-interactive disc placeholder) */
+.mc-album-icon
+  width: 2rem
+  height: 2rem
+  border-radius: 50%
+  background: var(--btn-regular-bg)
+  display: flex
+  align-items: center
+  justify-content: center
+  opacity: 0.6
+
+  .mc-album-icon-inner
+    display: block
+    width: 0.875rem
+    height: 0.875rem
+    background-color: var(--tw-prose-headings)
+    mask-size: contain
+    mask-position: center
+    mask-repeat: no-repeat
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z'/%3E%3C/svg%3E")
+
+/* Apple Music link button */
+.mc-amlink
+  width: 2rem
+  height: 2rem
+  border-radius: 50%
+  background: var(--btn-regular-bg)
+  display: flex
+  align-items: center
+  justify-content: center
+  text-decoration: none
+  opacity: 0.72
+  transition: opacity 0.15s, scale 0.15s, background 0.15s
+  outline: none
+  flex-shrink: 0
+
+  &:hover
+    opacity: 1
+    background: var(--btn-regular-bg-hover)
+
+  &:active
+    scale: 0.9
+    background: var(--btn-regular-bg-active)
+
+  &:focus-visible
+    outline: 2px solid var(--primary)
+    outline-offset: 2px
+
+  .mc-amlink-icon
+    display: block
+    width: 0.875rem
+    height: 0.875rem
+    background-color: var(--tw-prose-headings)
+    mask-size: contain
+    mask-position: center
+    mask-repeat: no-repeat
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/%3E%3C/svg%3E")
+
+/* Loading skeleton — mirrors fetch-waiting on card-github */
+.card-music.fetch-waiting
+  pointer-events: none
+  opacity: 0.7
+
+  .mc-cover
+    background-color: var(--tw-prose-body)
+    opacity: 0.15
+    animation: pulsate 2s infinite linear
+
+  .mc-title, .mc-artist, .mc-meta
+    background-color: var(--tw-prose-body)
+    color: transparent
+    opacity: 0.15
+    animation: pulsate 2s infinite linear
+    border-radius: 0.3rem
+    user-select: none
+
+.card-music.fetch-error
+  opacity: 0.8
+
+  /* 强制重置骨架动画（无论 fetch-waiting 是否仍存在） */
+  .mc-cover, .mc-title, .mc-artist, .mc-meta
+    animation: none !important
+
+  .mc-cover
+    opacity: 0.12
+
+  .mc-title, .mc-artist, .mc-meta
+    color: var(--tw-prose-body) !important
+    background-color: transparent !important
+    opacity: 0.45
+
+  &:after
+    content: '未能加载'
+    position: absolute
+    right: 1.25rem
+    bottom: 0.75rem
+    font-size: 0.75rem
+    color: var(--tw-prose-body)
+    opacity: 0.5

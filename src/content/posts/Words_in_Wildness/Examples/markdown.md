@@ -5,7 +5,7 @@ description: 支持的 Markdown 特性显示测试。
 image: "./cover.jpeg"
 tags: ["Markdown"]
 category: 野语不成篇
-draft: true
+draft: false
 ---
 
 # An h1 header
@@ -603,5 +603,72 @@ published: 2023-10-19
 
 ## Music
 
-::music{id="1234567" platform="netease"}
+音乐卡片通过 iTunes 公开 API 自动获取封面、歌手、专辑、时长信息，无需任何密钥。默认使用中国区商店（`country="cn"`）。
 
+---
+
+**仅 `query`：最简写法**，按歌名搜索，返回最相关的一首。
+
+```markdown
+::music{query="梅雨季"}
+```
+
+::music{query="梅雨季"}
+
+---
+
+**`query` + `artist`：消除同名歌曲歧义**，两者拼合后一起发给 iTunes。
+
+```markdown
+::music{query="吉他手" artist="陈绮贞"}
+```
+
+::music{query="吉他手" artist="陈绮贞"}
+
+---
+
+**`query` + `album`：通过专辑定位单曲**，适合同名歌曲收录在不同专辑的情形。
+
+```markdown
+::music{query="晴天" album="叶惠美"}
+```
+
+::music{query="晴天" album="叶惠美"}
+
+---
+
+**`type="album"`：搜索专辑**，专辑卡片显示曲目数，左侧图标为唱片样式（不可播放）。
+
+```markdown
+::music{query="Go With The Flow" artist="A-Yue Chang" type="album"}
+```
+
+::music{query="Go With The Flow" artist="A-Yue Chang" type="album"}
+
+---
+
+**`id`：iTunes ID，完全消除歧义，最精准**。ID 可在 Apple Music 网页版 URL 中找到（`/album/name/[id]` 或 `/song/name/[id]`）。
+
+```markdown
+::music{id="1524793738" type="album"}
+```
+
+::music{id="1524793738" type="album"}
+
+---
+
+**`country`：切换商店地区**，影响搜索结果语言与链接。默认 `cn`，可按需覆盖。
+
+```markdown
+::music{query="Creep" artist="Radiohead" country="us"}
+```
+
+::music{query="Creep" artist="Radiohead" country="us"}
+
+---
+
+**手动模式：完全离线，不请求任何 API**。所有字段均在 Markdown 中直接指定，适合 iTunes 搜索结果不理想或自定义信息的场景。
+
+```markdown
+::music{title="标题" artist="歌手" cover="https://..." preview="https://..." link="https://..."}
+```

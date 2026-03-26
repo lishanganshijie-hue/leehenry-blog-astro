@@ -309,21 +309,23 @@ a.card-github.fetch-error
   gap: 1rem
   background: var(--license-block-bg)
   position: relative
-  padding: 0.9rem 1.25rem
+  padding: 0.9rem 1.25rem 0.9rem 0
   color: var(--tw-prose-body)
   border-radius: var(--radius-large)
   cursor: default
   transition: background 0.15s cubic-bezier(0.4, 0, 0.2, 1)
 
 .mc-cover
-  width: 72px
-  height: 72px
+  width: 111.5px
+  height: 111.5px
   flex-shrink: 0
-  border-radius: var(--radius-medium)
+  border-radius: var(--radius-large) 0 0 var(--radius-large)
   background-color: var(--primary)
   background-size: cover
   background-position: center
   opacity: 0.9
+  margin-top: -0.9rem
+  margin-bottom: -0.9rem
   transition: opacity 0.15s
 
 .mc-body
@@ -331,24 +333,41 @@ a.card-github.fetch-error
   min-width: 0
 
 .mc-title
-  font-size: 1rem
+  font-size: 1.05rem
   font-weight: 600
   color: var(--tw-prose-headings)
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
 
+.mc-type-badge
+  display: inline-block
+  font-size: 0.6rem
+  font-weight: 500
+  line-height: 1rem
+  padding: 0 0.38rem
+  border-radius: 0
+  background: var(--btn-regular-bg)
+  color: var(--btn-content)
+  opacity: 0.85
+  margin-left: 0.45rem
+  vertical-align: middle
+
 .mc-artist
   font-size: 0.875rem
   font-weight: 300
   color: var(--tw-prose-body)
-  margin-top: 0.15rem
   white-space: nowrap
   overflow: hidden
   text-overflow: ellipsis
 
+.mc-album-ref
+  opacity: 0.45
+  margin-left: 0.3rem
+
 .mc-meta
   font-size: 0.8rem
+  font-family: var(--font-mono)
   color: var(--tw-prose-body)
   opacity: 0.55
   margin-top: 0.4rem
@@ -360,17 +379,47 @@ a.card-github.fetch-error
   flex-shrink: 0
   align-self: center
 
+.mc-btn-wrap
+  position: relative
+  display: inline-flex
+
+.mc-btn-tip
+  position: absolute
+  bottom: 100%
+  left: 50%
+  transform: translateX(-50%)
+  margin-bottom: 6px
+  padding: 0.3rem 0.6rem
+  background: var(--card-bg)
+  color: var(--btn-content)
+  border: 1px solid var(--btn-card-bg-active)
+  border-radius: var(--radius-medium)
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12)
+  font-size: 0.8rem
+  font-family: var(--font-sans)
+  font-weight: normal
+  white-space: nowrap
+  pointer-events: none
+  opacity: 0
+  visibility: hidden
+  transition: opacity 0.18s ease-in-out, visibility 0.18s ease-in-out
+  z-index: 200
+
+.mc-btn-wrap:hover .mc-btn-tip
+  opacity: 1
+  visibility: visible
+
 /* Play button (tracks only) */
 .mc-play
-  width: 2rem
-  height: 2rem
+  width: 2.25rem
+  height: 2.25rem
   border-radius: 50%
-  background: var(--primary)
+  background: var(--btn-regular-bg)
   display: flex
   align-items: center
   justify-content: center
   cursor: pointer
-  opacity: 0.82
+  opacity: 0.72
   transition: opacity 0.15s, scale 0.15s
   outline: none
 
@@ -385,15 +434,15 @@ a.card-github.fetch-error
     outline-offset: 2px
 
   &.mc-no-preview
-    opacity: 0.25
+    opacity: 0.2
     cursor: default
     pointer-events: none
 
   .mc-play-icon
     display: block
-    width: 0.75rem
-    height: 0.75rem
-    background-color: #fff
+    width: 1.1rem
+    height: 1.1rem
+    background-color: var(--tw-prose-headings)
     mask-size: contain
     mask-position: center
     mask-repeat: no-repeat
@@ -402,63 +451,40 @@ a.card-github.fetch-error
 .card-music.is-playing .mc-play .mc-play-icon
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 19h4V5H6v14zm8-14v14h4V5h-4z'/%3E%3C/svg%3E")
 
-/* Album icon (albums only — non-interactive disc placeholder) */
-.mc-album-icon
-  width: 2rem
-  height: 2rem
-  border-radius: 50%
-  background: var(--btn-regular-bg)
-  display: flex
-  align-items: center
-  justify-content: center
-  opacity: 0.6
-
-  .mc-album-icon-inner
-    display: block
-    width: 0.875rem
-    height: 0.875rem
-    background-color: var(--tw-prose-headings)
-    mask-size: contain
-    mask-position: center
-    mask-repeat: no-repeat
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z'/%3E%3C/svg%3E")
-
 /* Apple Music link button */
 .mc-amlink
-  width: 2rem
-  height: 2rem
+  width: 2.25rem
+  height: 2.25rem
   border-radius: 50%
-  background: var(--btn-regular-bg)
+  background: #fa586a
   display: flex
   align-items: center
   justify-content: center
   text-decoration: none
-  opacity: 0.72
-  transition: opacity 0.15s, scale 0.15s, background 0.15s
+  opacity: 0.88
+  transition: opacity 0.15s, scale 0.15s
   outline: none
   flex-shrink: 0
 
   &:hover
     opacity: 1
-    background: var(--btn-regular-bg-hover)
 
   &:active
     scale: 0.9
-    background: var(--btn-regular-bg-active)
 
   &:focus-visible
-    outline: 2px solid var(--primary)
+    outline: 2px solid #fa586a
     outline-offset: 2px
 
   .mc-amlink-icon
     display: block
-    width: 0.875rem
-    height: 0.875rem
-    background-color: var(--tw-prose-headings)
+    width: 1.2rem
+    height: 1.2rem
+    background-color: #fff
     mask-size: contain
     mask-position: center
     mask-repeat: no-repeat
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/%3E%3C/svg%3E")
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V6L21,3Z'/%3E%3C/svg%3E")
 
 /* Loading skeleton — mirrors fetch-waiting on card-github */
 .card-music.fetch-waiting

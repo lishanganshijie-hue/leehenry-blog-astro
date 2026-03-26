@@ -60,29 +60,33 @@ export function MusicCardComponent(properties, children) {
 	);
 	const audioEl = h(`audio#${id}-audio`, { preload: "none" });
 
-	// Left action: play button for tracks, album icon for albums
+	// Left action: play button (tracks only), wrapped with tooltip
 	const leftAction = type === "album"
-		? h("span", { class: "mc-album-icon", "aria-hidden": "true" }, [
-			h("span", { class: "mc-album-icon-inner" }),
-		])
-		: h(
-			`span#${id}-play`,
-			{ class: "mc-play", role: "button", tabindex: "0", "aria-label": "Play preview" },
-			[h("span", { class: "mc-play-icon" })],
-		);
+		? null
+		: h("span", { class: "mc-btn-wrap" }, [
+			h(
+				`span#${id}-play`,
+				{ class: "mc-play", role: "button", tabindex: "0", "aria-label": "Play preview" },
+				[h("span", { class: "mc-play-icon" })],
+			),
+			h("span", { class: "mc-btn-tip" }, "试听 30 s"),
+		]);
 
-	// Apple Music link button (href set by JS)
-	const amLink = h(
-		`a#${id}-link`,
-		{
-			class: "mc-amlink no-styling",
-			href: isManual ? link || "#" : "#",
-			target: "_blank",
-			rel: "noopener noreferrer",
-			"aria-label": "Open in Apple Music",
-		},
-		[h("span", { class: "mc-amlink-icon" })],
-	);
+	// Apple Music link button (href set by JS), wrapped with tooltip
+	const amLink = h("span", { class: "mc-btn-wrap" }, [
+		h(
+			`a#${id}-link`,
+			{
+				class: "mc-amlink no-styling",
+				href: isManual ? link || "#" : "#",
+				target: "_blank",
+				rel: "noopener noreferrer",
+				"aria-label": "Open in Apple Music",
+			},
+			[h("span", { class: "mc-amlink-icon" })],
+		),
+		h("span", { class: "mc-btn-tip" }, "在 Apple Music 打开"),
+	]);
 
 	const card = h(
 		`div#${id}-card`,
@@ -90,7 +94,7 @@ export function MusicCardComponent(properties, children) {
 		[
 			coverEl,
 			h("div", { class: "mc-body" }, [titleEl, artistEl, metaEl]),
-			h("div", { class: "mc-actions" }, [leftAction, amLink]),
+			h("div", { class: "mc-actions" }, [leftAction, amLink].filter(Boolean)),
 			audioEl,
 		],
 	);
@@ -157,14 +161,27 @@ function applyItemSnippet(id) {
       var coverEl = document.getElementById('${id}-cover');
       coverEl.style.backgroundImage = 'url(' + coverUrl + ')';
       coverEl.style.backgroundColor = 'transparent';
-      document.getElementById('${id}-title').textContent  = item.trackName || item.collectionName || '';
-      document.getElementById('${id}-artist').textContent = item.artistName || '';
+      var titleEl = document.getElementById('${id}-title');
+      titleEl.textContent = '';
+      titleEl.appendChild(document.createTextNode(item.trackName || item.collectionName || ''));
+      var badge = document.createElement('span');
+      badge.className = 'mc-type-badge';
+      badge.textContent = item.wrapperType === 'collection' ? '专辑' : '单曲';
+      titleEl.appendChild(badge);
+      var artistEl = document.getElementById('${id}-artist');
+      artistEl.textContent = item.artistName || '';
+      if (item.wrapperType !== 'collection' && item.collectionName && item.trackName) {
+        var albumRef = document.createElement('span');
+        albumRef.className = 'mc-album-ref';
+        albumRef.textContent = ' 收录于「' + item.collectionName + '」';
+        artistEl.appendChild(albumRef);
+      }
       var meta = [];
       if (item.wrapperType === 'collection') {
         if (item.primaryGenreName) meta.push(item.primaryGenreName);
         if (item.trackCount) meta.push(item.trackCount + ' tracks');
       } else {
-        if (item.collectionName) meta.push(item.collectionName);
+        if (item.primaryGenreName) meta.push(item.primaryGenreName);
         if (item.trackTimeMillis) {
           var m = Math.floor(item.trackTimeMillis / 60000);
           var s = Math.floor((item.trackTimeMillis % 60000) / 1000);

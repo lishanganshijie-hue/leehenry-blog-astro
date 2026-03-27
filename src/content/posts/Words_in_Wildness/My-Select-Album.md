@@ -44,7 +44,7 @@ draft: false
 
 
 
-::music{id="please please please"}
+::music{query="please please please"}
 
 
 

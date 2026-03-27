@@ -69,7 +69,7 @@ export function MusicCardComponent(properties, children) {
 				{ class: "mc-play", role: "button", tabindex: "0", "aria-label": "Play preview" },
 				[h("span", { class: "mc-play-icon" })],
 			),
-			h("span", { class: "mc-btn-tip" }, "试听 30 s"),
+			h("span", { class: "mc-btn-tip" }, "试听 30s"),
 		]);
 
 	// Apple Music link button (href set by JS), wrapped with tooltip
@@ -166,14 +166,14 @@ function applyItemSnippet(id) {
       titleEl.appendChild(document.createTextNode(item.trackName || item.collectionName || ''));
       var badge = document.createElement('span');
       badge.className = 'mc-type-badge';
-      badge.textContent = item.wrapperType === 'collection' ? '专辑' : '单曲';
+      badge.textContent = item.wrapperType === 'collection' ? 'Album' : 'Single';
       titleEl.appendChild(badge);
       var artistEl = document.getElementById('${id}-artist');
       artistEl.textContent = item.artistName || '';
       if (item.wrapperType !== 'collection' && item.collectionName && item.trackName) {
         var albumRef = document.createElement('span');
         albumRef.className = 'mc-album-ref';
-        albumRef.textContent = '-「' + item.collectionName + '」';
+        albumRef.textContent = '' + item.collectionName + '';
         artistEl.appendChild(albumRef);
       }
       var meta = [];

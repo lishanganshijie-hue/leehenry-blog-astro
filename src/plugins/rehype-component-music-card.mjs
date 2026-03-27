@@ -173,7 +173,7 @@ function applyItemSnippet(id) {
       if (item.wrapperType !== 'collection' && item.collectionName && item.trackName) {
         var albumRef = document.createElement('span');
         albumRef.className = 'mc-album-ref';
-        albumRef.textContent = ' 收录于「' + item.collectionName + '」';
+        albumRef.textContent = '-「' + item.collectionName + '」';
         artistEl.appendChild(albumRef);
       }
       var meta = [];

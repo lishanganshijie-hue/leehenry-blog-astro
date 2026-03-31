@@ -138,6 +138,9 @@ export async function GET(context: APIContext) {
                  href="${new URL("/rss.xml", site).toString()}"
                  rel="self"
                  type="application/rss+xml" />
+      <atom:link xmlns:atom="http://www.w3.org/2005/Atom"
+                 href="https://pubsubhubbub.appspot.com/"
+                 rel="hub" />
     `,
 	});
 

@@ -179,6 +179,11 @@
 			"Cytrogen",
 			"https://cytrogen.icu/",
 			"https://blog.cytrogen.icu/favicon.png"
+		],
+		[
+			"Taxodium",
+			"https://taxodium.ink/index.html",
+			"https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://taxodium.ink/index.html&size=64"
 		]
 	]
 }

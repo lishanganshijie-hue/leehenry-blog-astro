@@ -162,6 +162,9 @@ const bannerOffset =
 		<slot name="head"></slot>
 
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
+		<link rel="webmention" href="https://webmention.io/leehenry.top/webmention" />
+		<link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+		<link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
 
 	<script defer src="https://umami.leehenry.top/script.js" data-website-id="1c0605dc-1e61-4db8-9a4f-5578e5e8480c" data-auto-track="false" data-swup-ignore-script></script>
 	<script data-swup-ignore-script>

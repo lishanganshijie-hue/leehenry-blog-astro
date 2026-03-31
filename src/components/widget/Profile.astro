@@ -8,7 +8,8 @@ const config = profileConfig;
 const fallbackQR = "/wechat-qrcode.png";
 ---
 
-<div class="card-base p-3">
+<div class="card-base p-3 h-card">
+  <a class="u-url u-uid hidden" href="https://leehenry.top" rel="me"></a>
   <a
     aria-label="Go to About Page"
     href={url('/about/')}
@@ -29,13 +30,13 @@ const fallbackQR = "/wechat-qrcode.png";
         <ImageWrapper
           src={config.avatarLight}
           alt="Profile Image of the Author"
-          class="mx-auto lg:w-full h-full lg:mt-0 dark:hidden"
+          class="mx-auto lg:w-full h-full lg:mt-0 dark:hidden u-photo"
           noFade={true}
         />
         <ImageWrapper
           src={config.avatar || ""}
           alt="Profile Image of the Author"
-          class="mx-auto lg:w/full h/full lg:mt-0 hidden dark:block"
+          class="mx-auto lg:w/full h/full lg:mt-0 hidden dark:block u-photo"
           noFade={true}
         />
       </>
@@ -43,7 +44,7 @@ const fallbackQR = "/wechat-qrcode.png";
       <ImageWrapper
         src={config.avatar || ""}
         alt="Profile Image of the Author"
-        class="mx-auto lg:w-full h/full lg:mt-0 "
+        class="mx-auto lg:w-full h/full lg:mt-0 u-photo"
         noFade={true}
       />
     )}
@@ -52,7 +53,7 @@ const fallbackQR = "/wechat-qrcode.png";
   <div class="px-2">
     <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition relative signature-container">
       <!-- 移动端和平板端：始终显示文字 -->
-      <span class="lg:hidden">{config.name}</span>
+      <span class="lg:hidden p-name">{config.name}</span>
       <!-- PC端：根据配置显示签名图片或文字 -->
       {config.useSignature &&
       (config.signatureLight || config.signatureDark) ? (
@@ -75,11 +76,11 @@ const fallbackQR = "/wechat-qrcode.png";
           )}
         </>
       ) : (
-        <span class="hidden lg:inline">{config.name}</span>
+        <span class="hidden lg:inline p-name">{config.name}</span>
       )}
     </div>
     <div class="h-1 w-5 bg-[var(--primary)] mx-auto mb-2 transition"></div>
-    <div class="text-center text-neutral-400 mb-2.5 transition">{config.bio}</div>
+    <div class="text-center text-neutral-400 mb-2.5 transition p-note">{config.bio}</div>
 
     <!-- 社交图标：支持 popup（弹二维码） -->
     <div class="flex gap-3 justify-center mb-1 relative" style="z-index: 100;">

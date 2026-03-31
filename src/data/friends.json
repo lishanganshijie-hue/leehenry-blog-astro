@@ -106,7 +106,7 @@
 		"avatar": "/friends/jk.png",
 		"category": "online",
 		"badge": "star",
-		"note": "Eltrac 思考犀利且独到，遣句锋利而精准。在文字组织与网站建设上影响我非常多。"
+		"note": "Eltrac 思考犀利且独到，遣句锋利而精准。在文字组织与网站设计上对我影响深远。"
 	},
 
 	{
@@ -146,7 +146,7 @@
 		"avatar": "/friends/mobius.jpg",
 		"category": "online",
 		"badge": "star",
-		"note": "ONO 将写作视为自我悖驳的旅程，永远为自己而写。有令我非常敬佩的思考与写作内驱力。"
+		"note": "ONO 将写作视为自我悖驳的旅程，永远为自己而写。他思考与写作的内驱力尤其令我敬佩。"
 	},
 	{
 		"name": "纸鹿摸鱼处",
@@ -346,5 +346,13 @@
 		"avatar": "https://blog.cytrogen.icu/favicon.png",
 		"category": "online",
 		"note": "在长毛象结识了 Cytrogen！作为这里的「领主」，他正在蓬勃兴建着「领地」的城堡与邻邦。"
+	},
+	{
+		"name": "Taxodium",
+		"url": "https://taxodium.ink/index.html",
+		"desc": "The play goes on, write your verse",
+		"avatar": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://taxodium.ink/index.html&size=64",
+		"category": "online",
+		"note": "Spike Leung 持续学习与输出着，Zine 系列很棒，此外还是个喜欢在文章中用颜文字的有趣大人~"
 	}
 ]

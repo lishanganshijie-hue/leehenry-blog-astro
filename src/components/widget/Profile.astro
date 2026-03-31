@@ -10,6 +10,7 @@ const fallbackQR = "/wechat-qrcode.png";
 
 <div class="card-base p-3 h-card">
   <a class="u-url u-uid hidden" href="https://leehenry.top" rel="me"></a>
+  <img class="u-photo hidden" src={config.avatar || ""} alt="" />
   <a
     aria-label="Go to About Page"
     href={url('/about/')}
@@ -30,13 +31,13 @@ const fallbackQR = "/wechat-qrcode.png";
         <ImageWrapper
           src={config.avatarLight}
           alt="Profile Image of the Author"
-          class="mx-auto lg:w-full h-full lg:mt-0 dark:hidden u-photo"
+          class="mx-auto lg:w-full h-full lg:mt-0 dark:hidden"
           noFade={true}
         />
         <ImageWrapper
           src={config.avatar || ""}
           alt="Profile Image of the Author"
-          class="mx-auto lg:w/full h/full lg:mt-0 hidden dark:block u-photo"
+          class="mx-auto lg:w/full h/full lg:mt-0 hidden dark:block"
           noFade={true}
         />
       </>
@@ -44,7 +45,7 @@ const fallbackQR = "/wechat-qrcode.png";
       <ImageWrapper
         src={config.avatar || ""}
         alt="Profile Image of the Author"
-        class="mx-auto lg:w-full h/full lg:mt-0 u-photo"
+        class="mx-auto lg:w-full h/full lg:mt-0 "
         noFade={true}
       />
     )}

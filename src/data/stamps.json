@@ -119,5 +119,41 @@
 		"url": "",
 		"img": "/stamps/bestviewedcomputer.gif",
 		"alt": "best viewed computer"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "https://taxodium.ink/images/88x31/imagine.gif",
+		"alt": "powered by imagination"
+	},
+	{
+		"type": "attitude",
+		"url": "https://xn--sr8hvo.ws/",
+		"img": "https://v1sta.xyz/wp-content/uploads/2026/03/88x31-IndieWeb-Webring.png",
+		"alt": "a member of IndieWeb Webring"
+	},
+	{
+		"type": "attitude",
+		"url": "https://indieweb.org/",
+		"img": "https://indieweb.org/images/4/42/indieweb88x31-flat.png?20240103194746",
+		"alt": "a member of IndieWeb Camp"
+	},
+	{
+		"type": "attitude",
+		"url": "https://indieweb.org/Webmention",
+		"img": "https://indieweb.org/images/0/03/webmention88x31-flat.png",
+		"alt": "webmentions supported"
+	},
+	{
+		"type": "attitude",
+		"url": "https://indieweb.org/microformats",
+		"img": "https://indieweb.org/images/e/e6/microformats88x31-flat.png",
+		"alt": "microformats supported"
+	},
+	{
+		"type": "attitude",
+		"url": "mailto:leehenry1024@qq.com",
+		"img": "https://taxodium.ink/images/88x31/email.png",
+		"alt": "glad to receive letters!"
 	}
 ]

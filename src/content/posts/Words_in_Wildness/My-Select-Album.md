@@ -1,7 +1,7 @@
 ---
 title: 「我之所在」
 published: 2026-03-27
-description: '从陪我走到今天的旋律中阅读我'
+description: '欢迎从陪我走到今天的旋律中阅读我。'
 image: ''
 tags: [视听生活]
 category: 野语不成篇

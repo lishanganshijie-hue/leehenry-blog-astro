@@ -6,13 +6,15 @@
 
 你好！<mbr>**「伏枥之间」**<mbr>喜欢您来！
 
+![W 君赠与的微缩房间「伏枥之间编辑部」](about/image-20260411003130981.png)
+
 > <p style="text-align: center; font-family: serif;">
 >         「莫听穿林打叶声，何妨吟啸且徐行。」
 > </p>
 
 我坚信每一种相遇都值得纪念。在记忆褪色之前，我想把一些路途的风景，留存在这个我亲手打理的赛博桃花源。
 
-**你能发现这里真是太好了，茶歇备妥，欢迎进来多坐坐！**
+**你能发现这里真是太好了，茶歇已备妥，进来多坐坐！**
 
 ## 🎐 Intro
 
@@ -101,6 +103,8 @@
 
 - `2025-09-13` 本站「伏枥之间」上线 [RSS](https://leehenry.top/rss.xml) 订阅。
 
+- `2026-04-01` 本站「伏枥之间」支持 [IndieWeb](indieweb.org/) 主要交互技术 [Webmention](indieweb.org/microformats) 与 [Microformat](indieweb.org/microformats)，加入 [IndieWeb Ring](xn--sr8hvo.ws/)。
+
 - ……
 
 ## 🕊 Credits
@@ -135,7 +139,7 @@
 
 <mbr>
 
-| ✎ · 最后更新于 2026 年 3 月 19 日 |
+| ✎ · 最后更新于 2026 年 4 月 11 日 |
 | --------------------------------: |
 
 ::github{repo="LeeHero0803/leehenry-blog"}

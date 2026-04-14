@@ -51,6 +51,11 @@
 			"https://leehenry.top/friends/JXPL.webp"
 		],
 		[
+			"李鹏坤",
+			"https://www.lipk.org/",
+			"https://leehenry.top/friends/lipk.png"
+		],
+		[
 			"極客死亡計劃",
 			"https://www.geedea.pro/",
 			"https://leehenry.top/friends/jk.png"
@@ -62,7 +67,7 @@
 		],
 		[
 			"莫比乌斯",
-			"https://onojyun.com/",
+			"https://mobius.blog/",
 			"https://leehenry.top/friends/mobius.jpg"
 		],
 		[
@@ -182,8 +187,18 @@
 		],
 		[
 			"Taxodium",
-			"https://taxodium.ink/index.html",
-			"https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://taxodium.ink/index.html&size=64"
+			"https://taxodium.ink/",
+			"https://leehenry.top/friends/Taxodium.png"
+		],
+		[
+			"松易涅的写作分享站",
+			"https://www.sungyinieh.com/",
+			"https://leehenry.top/friends/sungyinieh.png"
+		],
+		[
+			"polebug's blog",
+			"https://polebug.github.io/",
+			"https://leehenry.top/friends/polebug.png"
 		]
 	]
 }

@@ -366,5 +366,22 @@
 		"desc": "保持思考｜等待｜斋戒",
 		"avatar": "/friends/polebug.png",
 		"category": "stash"
+	},
+	{
+		"name": "資工小廢物 - JN",
+		"url": "https://blog.giveanornot.com/",
+		"desc": "資工系畢業，但其實沒有很會寫程式",
+		"avatar": "https://blog.giveanornot.com/img/avatar_hu_8a21430ccd887c92.png",
+		"category": "online"
+	},
+	{
+		"name": "时歌",
+		"url": "https://www.lapis.cafe/",
+		"desc": "持续不断记录，意义自然浮现。",
+		"avatar": "https://www.lapis.cafe/avatar.webp",
+		"category": "stash"
+	},
+	{
+		"category": "org"
 	}
 ]

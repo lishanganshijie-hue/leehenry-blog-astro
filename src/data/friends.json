@@ -95,8 +95,7 @@
 		"url": "https://www.lipk.org/",
 		"desc": "「执手对影成双」",
 		"avatar": "/friends/lipk.png",
-		"category": "stash",
-		"hidden": true
+		"category": "stash"
 	},
 
 	{
@@ -141,7 +140,7 @@
 	},
 	{
 		"name": "莫比乌斯",
-		"url": "https://onojyun.com/",
+		"url": "https://mobius.blog/",
 		"desc": "凡真实的，必会相遇",
 		"avatar": "/friends/mobius.jpg",
 		"category": "online",
@@ -199,8 +198,7 @@
 		"desc": "但是我从不怕挖出我火热的心",
 		"avatar": "/friends/shadow.webp",
 		"category": "stash",
-		"note": "献出绝望的日落，不知东方之既白。rovingsun 的站点像是一本独家艺术展览与诗集。",
-		"badge": "star"
+		"note": "献出绝望的日落，不知东方之既白。rovingsun 的站点像是一本独家艺术展览与诗集。"
 	},
 	{
 		"name": "非理勿试",
@@ -345,14 +343,28 @@
 		"desc": "不断迭代想法的独立思考者",
 		"avatar": "https://blog.cytrogen.icu/favicon.png",
 		"category": "online",
-		"note": "在长毛象结识了 Cytrogen！作为这里的「领主」，他正在蓬勃兴建着「领地」的城堡与邻邦。"
+		"note": "在长毛象结识了有趣的 Cytrogen！他是这里的「领主」，蓬勃兴建着「领地」的城堡与邻邦。"
 	},
 	{
 		"name": "Taxodium",
-		"url": "https://taxodium.ink/index.html",
+		"url": "https://taxodium.ink/",
 		"desc": "The play goes on, write your verse",
-		"avatar": "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://taxodium.ink/index.html&size=64",
+		"avatar": "/friends/Taxodium.png",
 		"category": "online",
-		"note": "Spike Leung 持续学习与输出着，Zine 系列很棒，此外还是个喜欢在文章中用颜文字的有趣大人~"
+		"note": "Spike Leung 持续学习与输出着，Zine 系列收获很大，还是个喜欢在文章中用颜文字的有趣大人~"
+	},
+	{
+		"name": "松易涅的写作分享站",
+		"url": "https://www.sungyinieh.com/",
+		"desc": "保持好奇，阅读与思考",
+		"avatar": "/friends/sungyinieh.png",
+		"category": "stash"
+	},
+	{
+		"name": "polebug's blog",
+		"url": "https://polebug.github.io/",
+		"desc": "保持思考｜等待｜斋戒",
+		"avatar": "/friends/polebug.png",
+		"category": "stash"
 	}
 ]

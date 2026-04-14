@@ -44,7 +44,7 @@ export async function GET(context: APIContext) {
 	// ⚠️ 关键：一定要 await
 	const feed = await rss({
 		title: siteConfig.title,
-		description: `${siteConfig.subtitle || "No description"} feedId:214322314523419648+userId:214752500038094848`,
+		description: `${siteConfig.subtitle || "No description"}「别让今天叫住我了」`,
 		site, // 必须是绝对 URL
 		items: await Promise.all(
 			posts.map(async (post) => {

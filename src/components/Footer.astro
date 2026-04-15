@@ -14,36 +14,42 @@ const totalHuman =
 
 
 <footer class="site-footer">
+
   <div class="footer-row">
-    <span>自公元后第二个乙巳年启程，已走过 {days} 天</span>
-    <span class="sep">/</span>
-    <span>集 {totalPosts ?? "—"} 篇，合 {totalHuman ?? "—"}</span>
+    承蒙光临「伏枥之间」！此间已留存 <span class="footer-pv">—</span> 枚足迹，您是第 <span class="footer-uv">—</span> 位来客
   </div>
 
-<div class="footer-row">
-    <span>最后落笔于 {stats.generatedAt}</span>
+  <div class="footer-row">
+    <span>同行 {days} 日</span>
     <span class="sep">/</span>
-    留存 <span class="footer-pv">—</span> 枚足迹，您是第 <span class="footer-uv">—</span> 位同行者
+    <span>云集 {totalPosts ?? "—"} 篇</span>
+    <span class="sep">/</span>
+    <span>合记 {totalHuman ?? "—"}</span>
+    <span class="sep">/</span>
+    <span>续笔 {stats.generatedAt}</span>
   </div>
 
   <div class="footer-row powered">
-    <span>© 2025–{thisYear} LeeHenry</span>
-    <span class="sep">/</span>
-    <span>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">CC BY-NC-SA 4.0</a></span>
-    <!-- <span class="sep">/</span>
-    <span><a href="https://beian.miit.gov.cn">琼ICP备2025060528号</a></span>
-    <span class="sep">/</span> -->
-    <!-- <a href="/rss.xml">RSS</a>
-    <span class="sep">/</span>
-    <a href="/sitemap-index.xml">Sitemap</a>
-    <span class="sep">/</span> -->
-    <!-- <span><a href="https://astro.build">Astro</a> × <a href="https://github.com/saicaca/fuwari">Fuwari</a></span> -->
-    <!-- <span class="sep">/</span>
-    <span>本站已加入 <a href="https://blogscn.fun/">BLOGS·CN</a></span> -->
-    <span class="sep">/</span>
-      <a href="https://xn--sr8hvo.ws/previous">←</a>
-      🕸 <a href="https://xn--sr8hvo.ws">IndieWeb</a> 💍
-      <a href="https://xn--sr8hvo.ws/next">→</a>
+    <em>
+      <span>© 2025–{thisYear} LeeHenry</span>
+      <span class="sep">/</span>
+      <!-- <span>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">CC BY-NC-SA 4.0</a></span> -->
+      <!-- <span class="sep">/</span>
+      <span><a href="https://beian.miit.gov.cn">琼ICP备2025060528号</a></span>
+      <span class="sep">/</span> -->
+      <!-- <a href="/rss.xml">RSS</a>
+      <span class="sep">/</span>
+      <a href="/sitemap-index.xml">Sitemap</a> -->
+      <!-- <span>Powered by <a href="https://astro.build">Astro</a> × <a href="https://github.com/saicaca/fuwari">Fuwari</a></span>
+      <span class="sep">/</span> -->
+      <span><a href="https://www.travellings.cn/">Travelling</a></span> 
+      <span class="sep">/</span>
+      <span><a href="https://blogscn.fun/">BLOGS·CN</a></span> 
+      <span class="sep">/</span>
+        <a href="https://xn--sr8hvo.ws/previous">←</a>
+        <a href="https://xn--sr8hvo.ws">IndieWeb</a>
+        <a href="https://xn--sr8hvo.ws/next">→</a>
+    </em>
 </footer>
 
 <style>
@@ -56,7 +62,7 @@ const totalHuman =
   }
   .footer-row { margin: .25rem 0; line-height: 1.6; }
   .stats { color: var(--text-1, #e8eaed); }
-  .powered { opacity: .9; }
+  .powered { opacity: .8; }
   .sep { margin: 0 .5rem; opacity: .6; }
   .site-footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 </style>

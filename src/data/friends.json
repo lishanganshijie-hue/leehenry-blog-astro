@@ -2,7 +2,7 @@
 	{
 		"name": "secrun",
 		"url": "https://sec.run",
-		"desc": "一切伟大的行动和思想，都有一个微不足道的开始",
+		"desc": "一切的伟大背后，都有个微不足道的开始",
 		"avatar": "/friends/Lennox.jpg",
 		"category": "real",
 		"note": "勒勒叉，谦逊而随和，友善而强大，帮过我很多。现在是在信工所学网安的厉害博士生。"
@@ -95,7 +95,8 @@
 		"url": "https://www.lipk.org/",
 		"desc": "「执手对影成双」",
 		"avatar": "/friends/lipk.png",
-		"category": "stash"
+		"category": "stash",
+		"hidden": true
 	},
 
 	{
@@ -331,7 +332,7 @@
 	{
 		"name": "金色河流",
 		"url": "https://goldenriver.site/",
-		"desc": "生活，思考，困惑，成长",
+		"desc": "记录我的思考、困惑和成长",
 		"avatar": "https://goldenriver.site/avatar_hu_9a4ef5a8c8ee9aa9.webp",
 		"category": "online",
 		"note": "和我一样，Goldenriver 用「非典型理工男」自喻。他珍惜表达者的主体性，于喧哗众生中发声。",
@@ -382,6 +383,10 @@
 		"category": "online"
 	},
 	{
+		"name": "An IndieWeb Webring",
+		"url": "https://xn--sr8hvo.ws/",
+		"desc": "Weaving independent voices online",
+		"avatar": "/friends/ring.webp",
 		"category": "org"
 	}
 ]

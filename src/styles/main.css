@@ -1,6 +1,6 @@
 :root {
     --font-sans: 'vivo Sans', 'Noto Color Emoji', sans-serif;
-    --font-serif: 'BeiWeiKaiShu', 'Noto Color Emoji', serif;
+    --font-serif: 'BeiWeiKaiShu', 'STKaiti', 'KaiTi', 'Noto Color Emoji', serif;
     --font-mono: 'JetBrains Mono Variable', 'Noto Color Emoji', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 

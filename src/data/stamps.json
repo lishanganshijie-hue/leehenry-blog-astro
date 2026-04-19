@@ -75,7 +75,7 @@
 	{
 		"type": "cool-sites",
 		"url": "https://lucida.to/",
-		"img": "https://lucida.to/buttons/88x31.gif",
+		"img": "/stamps/lucida.gif",
 		"alt": "lucida.to"
 	},
 	{
@@ -100,7 +100,7 @@
 		"type": "attitude",
 		"url": "https://www.minecraft.net/",
 		"img": "/stamps/minecraft.png",
-		"alt": "I love Minecraft!"	
+		"alt": "I love Minecraft!"
 	},
 	{
 		"type": "attitude",
@@ -124,7 +124,7 @@
 		"type": "attitude",
 		"url": "",
 		"img": "/stamps/bestviewedcomputer.gif",
-		"alt": "best viewed computer"
+		"alt": "best viewed on computers"
 	},
 	{
 		"type": "attitude",

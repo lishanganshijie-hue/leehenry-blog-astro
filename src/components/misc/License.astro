@@ -16,26 +16,29 @@ const profileConf = profileConfig;
 const licenseConf = licenseConfig;
 const postUrl = decodeURIComponent(Astro.url.toString());
 ---
-<div class={`relative transition overflow-hidden bg-[var(--license-block-bg)] pt-[21px] px-[21px] pb-[14px] md:py-5 md:px-12 -mx-6 md:mx-0 !mb-0 md:!mb-6 ${className}`}>
-    <div class="transition font-bold text-black/75 dark:text-white/75">
-        {title}
+<div class={`relative transition overflow-hidden bg-[var(--license-block-bg)] pt-[21px] px-[21px] pb-[14px] md:py-5 md:px-12 -mx-6 md:mx-0 !mb-0 md:!mb-6 flex items-center gap-6 ${className}`}>
+    <div class="flex-1 min-w-0">
+        <div class="transition font-bold text-black/75 dark:text-white/75">
+            {title}
+        </div>
+        <a href={postUrl} class="transition text-[var(--primary)] break-all hover:bg-[var(--selection-bg)] active:bg-[var(--selection-bg)]" style="box-decoration-break: clone; -webkit-box-decoration-break: clone;">
+            {postUrl}
+        </a>
+        <div class="flex gap-6 mt-2">
+            <div>
+                <div class="transition text-black/30 dark:text-white/30 text-sm">作者</div>
+                <div class="transition text-black/75 dark:text-white/75 line-clamp-2">{profileConf.name}</div>
+            </div>
+            <div>
+                <div class="transition text-black/30 dark:text-white/30 text-sm">发布于</div>
+                <div class="transition text-black/75 dark:text-white/75 line-clamp-2">{formatDateToYYYYMMDD(pubDate)}</div>
+            </div>
+            <div>
+                <div class="transition text-black/30 dark:text-white/30 text-sm">版权所有</div>
+                <a href={licenseConf.url} target="_blank" class="transition text-[var(--primary)] hover:bg-[var(--selection-bg)] active:bg-[var(--selection-bg)]" style="box-decoration-break: clone; -webkit-box-decoration-break: clone;">{licenseConf.name}</a>
+            </div>
+        </div>
     </div>
-    <a href={postUrl} class="link text-[var(--primary)] break-all">
-        {postUrl}
-    </a>
-    <div class="flex gap-6 mt-2">
-        <div>
-            <div class="transition text-black/30 dark:text-white/30 text-sm">作者</div>
-            <div class="transition text-black/75 dark:text-white/75 line-clamp-2">{profileConf.name}</div>
-        </div>
-        <div>
-            <div class="transition text-black/30 dark:text-white/30 text-sm">发布于</div>
-            <div class="transition text-black/75 dark:text-white/75 line-clamp-2">{formatDateToYYYYMMDD(pubDate)}</div>
-        </div>
-        <div>
-            <div class="transition text-black/30 dark:text-white/30 text-sm">版权所有</div>
-            <a href={licenseConf.url} target="_blank" class="link text-[var(--primary)] line-clamp-2">{licenseConf.name}</a>
-        </div>
-    </div>
-    <Icon name="fa6-brands:creative-commons" class="transition text-[15rem] absolute pointer-events-none right-6 top-1/2 -translate-y-1/2 text-black/5 dark:text-white/5"></Icon>
+    <img src="/signature_en.webp" alt="signature" class="transition flex-none pointer-events-none h-28 opacity-30 invert dark:invert-0 hidden md:block" />
+    <Icon name="fa6-brands:creative-commons" class="transition text-[15rem] absolute pointer-events-none right-8 top-1/2 -translate-y-1/2 text-black/5 dark:text-white/5"></Icon>
 </div>

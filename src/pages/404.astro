@@ -41,12 +41,11 @@ import Layout from "@layouts/Layout.astro";
 
 	.ascii-art {
 		color: var(--primary);
-		font-size: 0.65rem;
+		font-size: clamp(0.3rem, 1.2vw, 0.65rem);
 		line-height: 1.15;
 		margin: 0 0 2rem 0;
 		text-align: center;
-		overflow-x: auto;
-		max-width: 100vw;
+		overflow: hidden;
 	}
 
 	.error-text {

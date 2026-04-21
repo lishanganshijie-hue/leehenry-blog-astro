@@ -2,11 +2,11 @@
 import ArchivePanel from "@components/ArchivePanel.svelte";
 import Heatmap from "@components/widget/Heatmap.svelte";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
-import { getSortedPostsList } from "../utils/content-utils";
 import postWordsRaw from "../data/post-words.json";
+import { getSortedPostsList } from "../utils/content-utils";
 
 const sortedPostsList = await getSortedPostsList();
-const postWords: { date: string; words: number }[] = postWordsRaw as any;
+const postWords = postWordsRaw as { date: string; words: number }[];
 ---
 
 <MainGridLayout title="旧简">

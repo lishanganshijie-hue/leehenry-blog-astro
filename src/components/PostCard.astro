@@ -3,9 +3,9 @@ import type { CollectionEntry } from "astro:content";
 import path from "node:path";
 import { Icon } from "astro-icon/components";
 import { titleSplitConfig } from "../config";
-import { splitTitle } from "../utils/title-utils";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
-import { getTagUrl, getDir } from "../utils/url-utils";
+import { splitTitle } from "../utils/title-utils";
+import { getDir, getTagUrl } from "../utils/url-utils";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostStats from "./misc/PostStats.svelte";
 
@@ -23,16 +23,8 @@ interface Props {
 	draft: boolean;
 	style: string;
 }
-const {
-	entry,
-	title,
-	url,
-	published,
-	tags,
-	image,
-	description,
-	style,
-} = Astro.props;
+const { entry, title, url, published, tags, image, description, style } =
+	Astro.props;
 const className = Astro.props.class;
 
 const hasCover = image !== undefined && image !== null && image !== "";

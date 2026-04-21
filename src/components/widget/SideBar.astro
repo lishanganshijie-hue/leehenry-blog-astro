@@ -18,8 +18,11 @@ const { headings = [] } = Astro.props;
 // 检查页面类型
 const isPostsRoute = Astro.url.pathname.startsWith(url("/posts/"));
 const isGalleryRoute = Astro.url.pathname.startsWith(url("/gallery"));
-const isAboutRoute = Astro.url.pathname === url("/about") || Astro.url.pathname === url("/about/");
-const isFriendsRoute = Astro.url.pathname === url("/friends") || Astro.url.pathname === url("/friends/");
+const isAboutRoute =
+	Astro.url.pathname === url("/about") || Astro.url.pathname === url("/about/");
+const isFriendsRoute =
+	Astro.url.pathname === url("/friends") ||
+	Astro.url.pathname === url("/friends/");
 const isTocPage = isPostsRoute || isAboutRoute || isFriendsRoute;
 const isNormalPage = !isTocPage && !isGalleryRoute;
 ---

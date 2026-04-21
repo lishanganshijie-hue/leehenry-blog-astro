@@ -12,7 +12,7 @@ if (!aboutPost) {
 }
 
 const { Content, headings: rawHeadings } = await render(aboutPost);
-const headings = rawHeadings.filter(h => h.depth > 1);
+const headings = rawHeadings.filter((h) => h.depth > 1);
 ---
 <MainGridLayout title="一隅" description="一隅" headings={headings}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">

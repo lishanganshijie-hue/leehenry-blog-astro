@@ -1,21 +1,24 @@
 <script lang="ts">
 import Icon from "@iconify/svelte";
-import { onDestroy } from 'svelte';
+import { onDestroy } from "svelte";
 export let entries: { date: string; words: number }[] = [];
 export let cell = 10;
 export let gap = 2;
 
 function getWeek(iso: string): number {
-	const d = new Date(iso + 'T00:00:00Z');
+	const d = new Date(`${iso}T00:00:00Z`);
 	const start = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-	return Math.min(Math.floor((d.getTime() - start.getTime()) / (7 * 86400000)) + 1, 53);
+	return Math.min(
+		Math.floor((d.getTime() - start.getTime()) / (7 * 86400000)) + 1,
+		53,
+	);
 }
 
 // 每年每周的总字数
 const weekWords = new Map<string, number>();
 for (const { date, words } of entries) {
 	const iso = date.slice(0, 10);
-	const key = `${iso.slice(0, 4)}-${String(getWeek(iso)).padStart(2, '0')}`;
+	const key = `${iso.slice(0, 4)}-${String(getWeek(iso)).padStart(2, "0")}`;
 	weekWords.set(key, (weekWords.get(key) ?? 0) + words);
 }
 
@@ -37,11 +40,11 @@ function toggle() {
 
 // 按字数分级：0 / <3k / <6k / <9k / 9k+
 function colorClass(w: number) {
-	if (w <= 0) return 'lvl-0';
-	if (w < 3000) return 'lvl-1';
-	if (w < 6000) return 'lvl-2';
-	if (w < 9000) return 'lvl-3';
-	return 'lvl-4';
+	if (w <= 0) return "lvl-0";
+	if (w < 3000) return "lvl-1";
+	if (w < 6000) return "lvl-2";
+	if (w < 9000) return "lvl-3";
+	return "lvl-4";
 }
 
 function calcStreak(): number {
@@ -49,7 +52,7 @@ function calcStreak(): number {
 	let cur = new Date();
 	for (let i = 0; i < 200; i++) {
 		const iso = cur.toISOString().slice(0, 10);
-		const key = `${iso.slice(0, 4)}-${String(getWeek(iso)).padStart(2, '0')}`;
+		const key = `${iso.slice(0, 4)}-${String(getWeek(iso)).padStart(2, "0")}`;
 		if ((weekWords.get(key) ?? 0) > 0) {
 			streak++;
 			cur = new Date(cur.getTime() - 7 * 86400000);
@@ -72,9 +75,9 @@ let tipEl: HTMLElement | null = null;
 
 function ensureTip(): HTMLElement {
 	if (!tipEl) {
-		tipEl = document.createElement('div');
-		tipEl.className = 'hm-tip';
-		tipEl.style.visibility = 'hidden';
+		tipEl = document.createElement("div");
+		tipEl.className = "hm-tip";
+		tipEl.style.visibility = "hidden";
 		document.body.appendChild(tipEl);
 	}
 	return tipEl;
@@ -83,21 +86,24 @@ function ensureTip(): HTMLElement {
 function showTip(e: MouseEvent, text: string) {
 	const el = ensureTip();
 	const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-	el.style.left = (rect.left + rect.width / 2) + 'px';
-	el.style.top = rect.top + 'px';
+	el.style.left = `${rect.left + rect.width / 2}px`;
+	el.style.top = `${rect.top}px`;
 	el.textContent = text;
-	el.style.visibility = 'visible';
-	el.style.opacity = '1';
+	el.style.visibility = "visible";
+	el.style.opacity = "1";
 }
 
 function hideTip() {
 	if (tipEl) {
-		tipEl.style.opacity = '0';
-		tipEl.style.visibility = 'hidden';
+		tipEl.style.opacity = "0";
+		tipEl.style.visibility = "hidden";
 	}
 }
 
-onDestroy(() => { tipEl?.remove(); tipEl = null; });
+onDestroy(() => {
+	tipEl?.remove();
+	tipEl = null;
+});
 </script>
 
 <style>

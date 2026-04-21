@@ -61,16 +61,22 @@ export function MusicCardComponent(properties, children) {
 	const audioEl = h(`audio#${id}-audio`, { preload: "none" });
 
 	// Left action: play button (tracks only), wrapped with tooltip
-	const leftAction = type === "album"
-		? null
-		: h("span", { class: "mc-btn-wrap" }, [
-			h(
-				`span#${id}-play`,
-				{ class: "mc-play", role: "button", tabindex: "0", "aria-label": "Play preview" },
-				[h("span", { class: "mc-play-icon" })],
-			),
-			h("span", { class: "mc-btn-tip" }, "试听 30s"),
-		]);
+	const leftAction =
+		type === "album"
+			? null
+			: h("span", { class: "mc-btn-wrap" }, [
+					h(
+						`span#${id}-play`,
+						{
+							class: "mc-play",
+							role: "button",
+							tabindex: "0",
+							"aria-label": "Play preview",
+						},
+						[h("span", { class: "mc-play-icon" })],
+					),
+					h("span", { class: "mc-btn-tip" }, "试听 30s"),
+				]);
 
 	// Apple Music link button (href set by JS), wrapped with tooltip
 	const amLink = h("span", { class: "mc-btn-wrap" }, [

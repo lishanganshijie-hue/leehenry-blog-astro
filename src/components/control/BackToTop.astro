@@ -3,7 +3,7 @@ import { Icon } from "astro-icon/components";
 ---
 
 <!-- There can't be a filter on parent element, or it will break `fixed` -->
-<div class="back-to-top-wrapper hidden lg:block">
+<div class="back-to-top-wrapper">
     <div id="back-to-top-btn" class="back-to-top-btn hide flex items-center justify-center rounded-2xl overflow-visible transition" onclick="backToTop()">
         <!-- 方形边框进度条（连续笔画） -->
         <svg class="progress-border-svg" width="60" height="60" viewBox="0 0 60 60">
@@ -21,8 +21,18 @@ import { Icon } from "astro-icon/components";
             <Icon name="material-symbols:rocket-outline" class="mx-auto"></Icon>
         </button>
     </div>
-    <div id="scroll-to-comment-btn" class="scroll-to-comment-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="scrollToComment()" style="display: none;">
-        <button aria-label="Scroll to Comment" class="btn-card h-[3.75rem] w-[3.75rem]">
+    <div id="scroll-to-comment-btn" class="scroll-to-comment-btn hide flex items-center rounded-2xl overflow-visible transition" onclick="scrollToComment()" style="display: none;">
+        <svg class="progress-border-svg" width="60" height="60" viewBox="0 0 60 60">
+            <path
+                d="M 2 2 L 58 2 L 58 58 L 2 58 L 2 2"
+                fill="none"
+                stroke="var(--primary)"
+                stroke-width="4"
+                stroke-linecap="square"
+                stroke-linejoin="round"
+            />
+        </svg>
+        <button aria-label="Scroll to Comment" class="btn-card h-[3.75rem] w-[3.75rem] relative z-10">
             <Icon name="material-symbols:comic-bubble-outline" class="mx-auto"></Icon>
         </button>
     </div>
@@ -30,32 +40,39 @@ import { Icon } from "astro-icon/components";
 
 <style lang="stylus">
 .back-to-top-wrapper
-    width: 3.75rem
-    height: auto
-    position: absolute
-    right: 0
-    top: 0
+    position: fixed
+    right: 1.5rem
+    bottom: 1.5rem
+    z-index: 50
+    display: flex
+    flex-direction: column
+    gap: 0.5rem
+    align-items: center
     pointer-events: none
+    @media (max-width: 1023px)
+        opacity: 0.35
+        transition: opacity 0.3s ease
+        &.mobile-active
+            opacity: 1
 
 .back-to-top-btn
     color: var(--primary)
     font-size: 2.25rem
     font-weight: bold
     border: none
-    position: fixed
-    bottom: 10rem
     opacity: 1
     cursor: pointer
-    transform: translateX(5rem)
+    transform: scale(1)
     pointer-events: auto
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease
     i
         font-size: 1.75rem
     &.hide
-        transform: translateX(5rem) scale(0.9)
+        transform: scale(0.9)
         opacity: 0
         pointer-events: none
     &:active
-      transform: translateX(5rem) scale(0.9)
+        transform: scale(0.9)
 
 .progress-border-svg
     position: absolute
@@ -75,20 +92,19 @@ import { Icon } from "astro-icon/components";
     font-size: 2.25rem
     font-weight: bold
     border: none
-    position: fixed
-    bottom: 5.5rem
     opacity: 1
     cursor: pointer
-    transform: translateX(5rem)
+    transform: scale(1)
     pointer-events: auto
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease
     i
         font-size: 1.75rem
     &.hide
-        transform: translateX(5rem) scale(0.9)
+        transform: scale(0.9)
         opacity: 0
         pointer-events: none
     &:active
-      transform: translateX(5rem) scale(0.9)
+        transform: scale(0.9)
 
 </style>
 
@@ -194,6 +210,21 @@ function updateScrollProgress() {
     const offset = pathLength * (1 - progress);
     progressPath.style.strokeDashoffset = offset;
 }
+
+// 移动端点击 wrapper 临时激活（恢复不透明），2s 后还原
+(function() {
+    var wrapper = document.querySelector('.back-to-top-wrapper');
+    var mobileActiveTimer = null;
+    if (wrapper) {
+        wrapper.addEventListener('touchstart', function() {
+            wrapper.classList.add('mobile-active');
+            clearTimeout(mobileActiveTimer);
+            mobileActiveTimer = setTimeout(function() {
+                wrapper.classList.remove('mobile-active');
+            }, 2000);
+        }, { passive: true });
+    }
+})();
 
 // 根据当前路径显示/隐藏"跳转评论"按钮
 function updateCommentButtonVisibility() {

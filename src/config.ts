@@ -102,7 +102,7 @@ export const profileConfig: ProfileConfig = {
 	bio: "别让今天叫住我了",
 	useSignature: true, // 是否使用签名图片替代文字名字
 	signatureLight: "/signature_light.webp", // 亮色模式签名图片
-	signatureDark: "/signature_dark.webp", // 暗色模式签名图片
+	signatureDark: "/signature.webp", // 暗色模式签名图片
 	links: [
 		{
 			name: "GitHub",
@@ -130,6 +130,7 @@ export const profileConfig: ProfileConfig = {
 			name: "RSS",
 			icon: "rss",
 			url: "https://leehenry.top/rss.xml",
+			copyOnClick: true,
 		},
 	],
 };

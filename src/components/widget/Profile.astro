@@ -56,8 +56,7 @@ const fallbackQR = "/wechat-qrcode.png";
       <!-- 移动端和平板端：始终显示文字 -->
       <span class="lg:hidden p-name">{config.name}</span>
       <!-- PC端：根据配置显示签名图片或文字 -->
-      {config.useSignature &&
-      (config.signatureLight || config.signatureDark) ? (
+      {config.useSignature && (config.signatureLight || config.signatureDark) ? (
         <>
           {config.signatureLight && (
             <img
@@ -101,6 +100,23 @@ const fallbackQR = "/wechat-qrcode.png";
                       <Icon name={item.icon} class="text-[1.2rem]" />
                     </button>
                     <span class="social-tip">{item.name}</span>
+                  </span>
+                )
+                : item?.copyOnClick
+                ? (
+                  <span class="social-tip-wrap">
+                    <button
+                      type="button"
+                      aria-label={item.name}
+                      class="btn-regular h-8 w-8 active:scale-90 social-copy-btn"
+                      data-copy-url={item.url}
+                    >
+                      <Icon name={item.icon} class="text-[1.2rem] copy-btn-main-icon transition" />
+                      <svg viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg" class="text-[1.2rem] copy-btn-check-icon transition absolute opacity-0 w-[1.2rem] h-[1.2rem]">
+                        <path d="m389-377.13 294.7-294.7q12.58-12.67 29.52-12.67 16.93 0 29.61 12.67 12.67 12.68 12.67 29.53 0 16.86-12.28 29.14L419.07-288.41q-12.59 12.67-29.52 12.67-16.94 0-29.62-12.67L217.41-430.93q-12.67-12.68-12.79-29.45-.12-16.77 12.55-29.45 12.68-12.67 29.62-12.67 16.93 0 29.28 12.67L389-377.13Z" />
+                      </svg>
+                    </button>
+                    <span class="social-tip" data-tip-default={item.name} data-tip-copied="已复制">{item.name}</span>
                   </span>
                 )
                 : (
@@ -164,6 +180,26 @@ const fallbackQR = "/wechat-qrcode.png";
 </dialog>
 
 <script is:inline>
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.social-copy-btn');
+    if (!btn) return;
+    var url = btn.getAttribute('data-copy-url');
+    if (!url) return;
+    navigator.clipboard.writeText(url);
+
+    var timeoutId = btn._copyTimeout;
+    if (timeoutId) clearTimeout(timeoutId);
+
+    var tip = btn.closest('.social-tip-wrap')?.querySelector('.social-tip');
+    btn.classList.add('copy-success');
+    if (tip) tip.textContent = tip.getAttribute('data-tip-copied');
+
+    btn._copyTimeout = setTimeout(function() {
+      btn.classList.remove('copy-success');
+      if (tip) tip.textContent = tip.getAttribute('data-tip-default');
+    }, 1500);
+  });
+
   function initQRModal() {
     const modal = document.getElementById('profile-qr-modal');
     const content = document.getElementById('profile-qr-content');
@@ -289,6 +325,33 @@ const fallbackQR = "/wechat-qrcode.png";
   .qr-img { display:block; width:100%; height:auto; max-height:80vh; object-fit:contain; background:transparent; border-radius: 0; }
   .btn-row { display:flex; justify-content:center; margin-top:0.875rem; }
   .btn-close { padding:0.5rem 1rem; background:var(--primary); color:#fff; cursor:pointer; }
+
+  /* RSS 复制按钮图标切换 */
+  .social-copy-btn {
+    position: relative;
+    transition: background-color 0.15s;
+  }
+  .social-copy-btn .copy-btn-check-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.15s;
+    fill: white;
+  }
+  .social-copy-btn .copy-btn-main-icon {
+    transition: opacity 0.15s;
+  }
+  .social-copy-btn.copy-success {
+    background-color: var(--primary) !important;
+  }
+  .social-copy-btn.copy-success .copy-btn-main-icon {
+    opacity: 0;
+  }
+  .social-copy-btn.copy-success .copy-btn-check-icon {
+    opacity: 1;
+  }
 
   /* 社交按钮 Tooltip */
   .social-tip-wrap {

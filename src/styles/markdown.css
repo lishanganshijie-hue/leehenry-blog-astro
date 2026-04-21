@@ -93,28 +93,15 @@
     }
 
     a:not(.no-styling):not(.anchor) {
-        @apply relative bg-none link font-medium text-[inherit]
+        @apply font-medium text-[inherit]
         underline decoration-[var(--link-underline)] decoration-2 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
-
-        &::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: transparent;
-            filter: url(#xerox);
-            pointer-events: none;
-            transition: background 0.2s;
-        }
+        transition: background-color 0.2s, border-bottom 0.2s;
 
         &:hover, &:active {
-            @apply decoration-transparent;
-            border-bottom: 1px dashed var(--link-hover);
-            text-decoration: none;
-            &::before {
-                background: var(--btn-plain-bg-hover);
-            }
+            background-color: var(--selection-bg);
+            text-decoration-color: var(--link-hover);
         }
     }
 

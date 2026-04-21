@@ -84,8 +84,9 @@ export type ProfileConfig = {
 		name: string;
 		url: string;
 		icon: string;
-		popup?: boolean; // 新增
-		popupImage?: string; // 新增
+		popup?: boolean;
+		popupImage?: string;
+		copyOnClick?: boolean;
 	}[];
 };
 

@@ -1,7 +1,5 @@
 ---
 import type { MarkdownHeading } from "astro";
-import I18nKey from "../../i18n/i18nKey";
-import { i18n } from "../../i18n/translation";
 import WidgetLayout from "./WidgetLayout.astro";
 
 interface Props {
@@ -33,7 +31,7 @@ let heading1Count = 1;
 const maxLevel = 3; // 限制显示层级
 ---
 
-<WidgetLayout name={i18n(I18nKey.toc)} id="toc-widget" class={className} style={style}>
+<WidgetLayout name="经纬" id="toc-widget" class={className} style={style}>
     <div id="toc-widget-inner" class="toc-widget-scrollable">
         {headings.length > 0 ? (
             <toc-widget class="group">
@@ -64,7 +62,7 @@ const maxLevel = 3; // 限制显示层级
             </toc-widget>
         ) : (
             <div class="px-2 py-6 text-center text-black/30 dark:text-white/30 text-sm">
-                {i18n(I18nKey.noToc)}
+                本文暂无目录
             </div>
         )}
     </div>

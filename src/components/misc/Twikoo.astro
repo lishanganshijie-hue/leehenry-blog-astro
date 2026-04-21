@@ -3,6 +3,7 @@ import { siteConfig } from "../../config";
 
 interface Props {
 	class?: string;
+	path?: string;
 }
 
 const { class: className } = Astro.props;
@@ -150,7 +151,7 @@ const twikooConfig = siteConfig.twikoo;
                 initTwikoo();
             };
             
-            script.onerror = function(error) {
+            script.onerror = function(_error) {
                 console.warn('[Twikoo] ✗ CDN 加载失败: ' + cdn.name);
                 currentCdnIndex++;
                 if (currentCdnIndex < cdnSources.length) {

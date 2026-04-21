@@ -166,8 +166,8 @@ const bannerOffset =
 		<link rel="authorization_endpoint" href="https://indieauth.com/auth" />
 		<link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
 
-	<script defer src="https://umami.leehenry.top/script.js" data-website-id="1c0605dc-1e61-4db8-9a4f-5578e5e8480c" data-auto-track="false" data-swup-ignore-script></script>
-	<script data-swup-ignore-script>
+	{import.meta.env.PROD && <script is:inline defer src="https://umami.leehenry.top/script.js" data-website-id="1c0605dc-1e61-4db8-9a4f-5578e5e8480c" data-auto-track="false" data-swup-ignore-script></script>}
+	{import.meta.env.PROD && <script is:inline data-swup-ignore-script>
 	(function() {
 		if (window._umamiTrackerAdded) return;
 		window._umamiTrackerAdded = true;
@@ -181,7 +181,7 @@ const bannerOffset =
 			});
 		});
 	})();
-	</script>
+	</script>}
 
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}

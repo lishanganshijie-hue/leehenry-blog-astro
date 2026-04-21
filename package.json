@@ -7,7 +7,7 @@
 		"start": "astro dev",
 		"check": "astro check",
 		"gen:stats": "node scripts/gen-stats.mjs",
-		"gen:gallery": "node generate-gallery.js",
+		"gen:gallery": "node scripts/gen-gallery.mjs",
 		"gen:fcircle": "node scripts/gen-fcircle-friends.mjs",
 		"build": "pnpm gen:gallery && pnpm gen:fcircle && pnpm gen:stats && astro build && node scripts/fix-rss-images.mjs && pagefind --site dist",
 		"preview": "astro preview",

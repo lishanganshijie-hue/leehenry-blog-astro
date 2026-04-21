@@ -10,8 +10,6 @@ interface Props {
 
 const className = Astro.props.class;
 const style = Astro.props.style;
-const currentCategory = Astro.props.currentCategory || "all";
-
 // 计算每个类别的图片数量
 const categoryCounts = galleryData.categories.map((cat) => {
 	if (cat.id === "all") {

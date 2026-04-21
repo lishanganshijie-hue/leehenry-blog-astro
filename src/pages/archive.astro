@@ -1,8 +1,6 @@
 ---
 import ArchivePanel from "@components/ArchivePanel.svelte";
 import Heatmap from "@components/widget/Heatmap.svelte";
-import I18nKey from "@i18n/i18nKey";
-import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getSortedPostsList } from "../utils/content-utils";
 import postWordsRaw from "../data/post-words.json";
@@ -11,7 +9,7 @@ const sortedPostsList = await getSortedPostsList();
 const postWords: { date: string; words: number }[] = postWordsRaw as any;
 ---
 
-<MainGridLayout title={i18n(I18nKey.archive)}>
+<MainGridLayout title="旧简">
   <section class="archive-heatmap">
     <Heatmap entries={postWords} client:only="svelte" cell={9} gap={2} />
   </section>

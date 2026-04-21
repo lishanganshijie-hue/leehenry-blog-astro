@@ -259,7 +259,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                     <label 
                       for={noteId} 
                       class="friend-note-icon-label"
-                      onclick="event.stopPropagation();"
+                      onclick={"(function(e){e.stopPropagation();})(event)" as string}
                     >
                         <svg 
                           xmlns="http://www.w3.org/2000/svg" 

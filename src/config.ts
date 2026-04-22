@@ -13,22 +13,23 @@ export const siteConfig: SiteConfig = {
 	title: "伏枥之间",
 	subtitle: "WhistleWanderer",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
-	themeColor: {
-		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
-		fixed: true, // Hide the theme color picker for visitors
-	},
 	theme: {
 		fixed: true, // 是否固定主题模式（固定后用户无法切换）
 		default: DARK_MODE, // 默认主题模式：'light' | 'dark' | 'auto'
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/banner.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "assets/images/banner.webp",       // dark mode banner (or default). Relative to /src, or /public if starts with '/'
+		srcLight: "assets/images/banner-light.gif", // light mode banner (optional)
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: true, // Display the credit text of the banner image
-			text: "Dean Johns", // Credit text to be displayed
+			text: "Dean Johns", // Credit text to be displayed (dark mode)
 			url: "https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589", // (Optional) URL link to the original artwork or artist's page
+		},
+		creditLight: {
+			text: "Dean Johns", // Credit text for light mode banner
+			url: "https://www.behance.net/gallery/134625455/Kodak-and-the-Ruins-of-Altmerta/modules/761835293",
 		},
 	},
 	toc: {
@@ -101,8 +102,7 @@ export const profileConfig: ProfileConfig = {
 	name: "伏枥",
 	bio: "别让今天叫住我了",
 	useSignature: true, // 是否使用签名图片替代文字名字
-	signatureLight: "/signature_light.webp", // 亮色模式签名图片
-	signatureDark: "/signature.webp", // 暗色模式签名图片
+	signatureDark: "/signature.webp", // 签名图片（需透明背景）
 	links: [
 		{
 			name: "GitHub",

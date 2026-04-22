@@ -19,8 +19,8 @@ export function pluginLanguageBadge() {
         font-size: 0.75rem;
         font-weight: bold;
         text-transform: uppercase;
-        color: oklch(0.75 0.1 var(--hue));
-        background: oklch(0.33 0.035 var(--hue));
+        color: oklch(0.75 0.1 250);
+        background: oklch(0.33 0.035 250);
         border-radius: 9999px;
         pointer-events: none;
         transition: opacity 0.3s;

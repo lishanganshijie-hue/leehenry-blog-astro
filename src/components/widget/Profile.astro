@@ -56,24 +56,15 @@ const fallbackQR = "/wechat-qrcode.png";
       <!-- 移动端和平板端：始终显示文字 -->
       <span class="lg:hidden p-name">{config.name}</span>
       <!-- PC端：根据配置显示签名图片或文字 -->
-      {config.useSignature && (config.signatureLight || config.signatureDark) ? (
+      {config.useSignature && config.signatureDark ? (
         <>
-          {config.signatureLight && (
-            <img
-              src={config.signatureLight}
-              alt="Signature"
-              class="signature-img hidden lg:block dark:lg:hidden"
-              data-no-fade
-            />
-          )}
-          {config.signatureDark && (
-            <img
-              src={config.signatureDark}
-              alt="Signature"
-              class="signature-img hidden lg:hidden dark:lg:block"
-              data-no-fade
-            />
-          )}
+          {/* 亮色模式：img 占位撑开尺寸，绝对定位 div 用 alpha mask 显示 primary 色 */}
+          <div class="signature-img hidden lg:block dark:lg:hidden relative" data-no-fade>
+            <img src={config.signatureDark} alt="" class="invisible w-full" />
+            <div class="absolute inset-0" style={`background: var(--primary); mask-image: url('${config.signatureDark}'); -webkit-mask-image: url('${config.signatureDark}'); mask-size: contain; -webkit-mask-size: contain; mask-repeat: no-repeat; -webkit-mask-repeat: no-repeat; mask-position: center; -webkit-mask-position: center;`} />
+          </div>
+          {/* 暗色模式：原图显示 */}
+          <img src={config.signatureDark} alt="Signature" class="signature-img hidden lg:hidden dark:lg:block" data-no-fade />
         </>
       ) : (
         <span class="hidden lg:inline p-name">{config.name}</span>
@@ -395,10 +386,10 @@ const fallbackQR = "/wechat-qrcode.png";
     height: auto;
     object-fit: contain;
     margin: 0 auto;
-    transform: translateY(-75%); /* 上移高度覆盖在头像上 */
+    transform: translateY(-75%);
     position: relative;
-    z-index: 60; /* 高于头像hover效果的z-50，确保签名在最上层 */
-    margin-bottom: -40%; /* 负边距抵消向上偏移造成的空白 */
+    z-index: 60;
+    margin-bottom: -40%;
   }
   /* 移动端和平板端隐藏签名图片，避免布局问题 */
   @media (max-width: 1023px) {

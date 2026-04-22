@@ -4,6 +4,7 @@ import path from "node:path";
 interface Props {
 	id?: string;
 	src: string;
+	srcLight?: string;
 	class?: string;
 	alt?: string;
 	position?: string;
@@ -17,6 +18,7 @@ import { url } from "../../utils/url-utils";
 const {
 	id,
 	src,
+	srcLight,
 	alt,
 	position = "center",
 	basePath = "/",
@@ -31,6 +33,14 @@ const isLocal = !(
 	src.startsWith("data:")
 );
 const isPublic = src.startsWith("/");
+
+const isLocalLight = srcLight && !(
+	srcLight.startsWith("/") ||
+	srcLight.startsWith("http") ||
+	srcLight.startsWith("https") ||
+	srcLight.startsWith("data:")
+);
+const isPublicLight = srcLight?.startsWith("/");
 
 // TODO temporary workaround for images dynamic import
 // https://github.com/withastro/astro/issues/3373
@@ -52,11 +62,36 @@ if (isLocal) {
 	img = await file();
 }
 
+// biome-ignore lint/suspicious/noImplicitAnyLet: <check later>
+let imgLightUrl: string | undefined;
+if (isLocalLight && srcLight) {
+	const files = import.meta.glob<string>("../../**", {
+		query: "?url",
+		import: "default",
+	});
+	const normalizedPath = path
+		.normalize(path.join("../../", basePath, srcLight))
+		.replace(/\\/g, "/");
+	const file = files[normalizedPath];
+	if (!file) {
+		console.error(
+			`\n[ERROR] Image file not found: ${normalizedPath.replace("../../", "src/")}`,
+		);
+	} else {
+		imgLightUrl = await file();
+	}
+}
+
 const imageClass = "w-full h-full object-cover";
 const imageStyle = `object-position: ${position}`;
+const hasSrcLight = !!srcLight;
 ---
 <div id={id} class:list={[className, 'overflow-hidden relative']}>
     <div class="transition absolute inset-0 dark:bg-black/10 bg-opacity-50 pointer-events-none"></div>
-    {isLocal && img && <Image src={img} alt={alt || ""} class={imageClass} style={imageStyle} data-no-fade={noFade ? true : undefined}/>}
-    {!isLocal && <img src={isPublic ? url(src) : src} alt={alt || ""} class={imageClass} style={imageStyle} data-no-fade={noFade ? true : undefined}/>}
+    {/* Dark banner (or sole banner when no srcLight) */}
+    {isLocal && img && <Image src={img} alt={alt || ""} class:list={[imageClass, {"hidden dark:block": hasSrcLight}]} style={imageStyle} data-no-fade={noFade ? true : undefined}/>}
+    {!isLocal && <img src={isPublic ? url(src) : src} alt={alt || ""} class:list={[imageClass, {"hidden dark:block": hasSrcLight}]} style={imageStyle} data-no-fade={noFade ? true : undefined}/>}
+    {/* Light banner — always use <img> to preserve GIF animation and avoid Sharp processing */}
+    {hasSrcLight && isLocalLight && imgLightUrl && <img src={imgLightUrl} alt={alt || ""} class:list={[imageClass, "block dark:hidden"]} style={imageStyle} data-no-fade={noFade ? true : undefined}/>}
+    {hasSrcLight && !isLocalLight && srcLight && <img src={isPublicLight ? url(srcLight) : srcLight} alt={alt || ""} class:list={[imageClass, "block dark:hidden"]} style={imageStyle} data-no-fade={noFade ? true : undefined}/>}
 </div>

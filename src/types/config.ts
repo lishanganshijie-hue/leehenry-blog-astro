@@ -16,10 +16,6 @@ export type SiteConfig = {
 		| "tr"
 		| "id";
 
-	themeColor: {
-		hue: number;
-		fixed: boolean;
-	};
 	theme: {
 		fixed: boolean; // 是否固定主题模式
 		default: LIGHT_DARK_MODE; // 默认主题模式
@@ -27,9 +23,14 @@ export type SiteConfig = {
 	banner: {
 		enable: boolean;
 		src: string;
+		srcLight?: string;
 		position?: "top" | "center" | "bottom";
 		credit: {
 			enable: boolean;
+			text: string;
+			url?: string;
+		};
+		creditLight?: {
 			text: string;
 			url?: string;
 		};
@@ -78,8 +79,7 @@ export type ProfileConfig = {
 	name: string;
 	bio?: string;
 	useSignature?: boolean; // 是否使用签名图片替代文字名字
-	signatureLight?: string; // 亮色模式签名图，相对于 /public 目录
-	signatureDark?: string; // 暗色模式签名图，相对于 /public 目录
+	signatureDark?: string; // 签名图片，需透明背景，相对于 /public 目录
 	links: {
 		name: string;
 		url: string;

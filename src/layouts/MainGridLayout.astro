@@ -34,6 +34,8 @@ const {
 const hasBannerCredit =
 	siteConfig.banner.enable && siteConfig.banner.credit.enable;
 const hasBannerLink = !!siteConfig.banner.credit.url;
+const hasBannerLightLink = !!siteConfig.banner.creditLight?.url;
+const hasLightCredit = hasBannerCredit && !!siteConfig.banner.srcLight && !!siteConfig.banner.creditLight;
 
 const mainPanelTop = siteConfig.banner.enable
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
@@ -53,7 +55,7 @@ const mainPanelTop = siteConfig.banner.enable
 <!-- Banner -->
 {siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
     <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
-                  src={siteConfig.banner.src} position={siteConfig.banner.position}
+                  src={siteConfig.banner.src} srcLight={siteConfig.banner.srcLight} position={siteConfig.banner.position}
     >
     </ImageWrapper>
 </div>}
@@ -65,15 +67,31 @@ const mainPanelTop = siteConfig.banner.enable
         <div id="main-grid" class="transition duration-700 w-full left-0 right-0 grid grid-cols-1 lg:grid-cols-[17.5rem_auto] grid-rows-[auto_1fr_auto] lg:grid-rows-[auto]
     mx-auto gap-4 px-0 md:px-4"
         >
-            <!-- Banner image credit -->
+            <!-- Banner image credit (dark mode) -->
             {hasBannerCredit && <a href={siteConfig.banner.credit.url} id="banner-credit" target="_blank" rel="noopener" aria-label="Visit image source"
                                    class:list={["group onload-animation transition-all absolute flex justify-center items-center " +
-                                   "px-3 right-4 -top-[3.25rem] bg-black/60 hover:bg-black/70 h-9", {"hover:pr-9 active:bg-black/80": hasBannerLink}]}
+                                   "px-3 right-4 -top-[3.25rem] bg-black/60 hover:bg-black/70 h-9",
+                                   {"hover:pr-9 active:bg-black/80": hasBannerLink},
+                                   hasLightCredit ? "hidden dark:flex" : ""]}
             >
                 <Icon class="text-white/75 text-[1.25rem] mr-1" name="material-symbols:copyright-outline-rounded" ></Icon>
                 <div class="text-white/75 text-xs">{siteConfig.banner.credit.text}</div>
-                <Icon class:list={["transition absolute text-[oklch(0.75_0.14_var(--hue))] right-4 text-[0.75rem] opacity-0",
+                <Icon class:list={["transition absolute text-[oklch(0.75_0.14_250)] right-4 text-[0.75rem] opacity-0",
                     {"group-hover:opacity-100": hasBannerLink}]}
+                      name="fa6-solid:arrow-up-right-from-square">
+                </Icon>
+            </a>}
+
+            <!-- Banner image credit (light mode) -->
+            {hasLightCredit && <a href={siteConfig.banner.creditLight!.url} target="_blank" rel="noopener" aria-label="Visit image source"
+                                   class:list={["group onload-animation transition-all absolute flex justify-center items-center " +
+                                   "px-3 right-4 -top-[3.25rem] bg-black/60 hover:bg-black/70 h-9 dark:hidden",
+                                   {"hover:pr-9 active:bg-black/80": hasBannerLightLink}]}
+            >
+                <Icon class="text-white/75 text-[1.25rem] mr-1" name="material-symbols:copyright-outline-rounded" ></Icon>
+                <div class="text-white/75 text-xs">{siteConfig.banner.creditLight!.text}</div>
+                <Icon class:list={["transition absolute text-[oklch(0.75_0.14_250)] right-4 text-[0.75rem] opacity-0",
+                    {"group-hover:opacity-100": hasBannerLightLink}]}
                       name="fa6-solid:arrow-up-right-from-square">
                 </Icon>
             </a>}

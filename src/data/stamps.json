@@ -85,6 +85,12 @@
 		"alt": "stupied.net"
 	},
 	{
+		"type": "cool-sites",
+		"url": "https://snakewater.nekoweb.org/",
+		"img": "https://snakewater.nekoweb.org/img/knop.gif",
+		"alt": "snakewater.nekoweb.org"
+	},
+	{
 		"type": "attitude",
 		"url": "https://en.wikipedia.org/wiki/WorldWideWeb",
 		"img": "/stamps/anlucas3.gif",
@@ -161,5 +167,11 @@
 		"url": "mailto:leehenry1024@qq.com",
 		"img": "/stamps/email.gif",
 		"alt": "glad to receive letters!"
+	},
+	{
+		"type": "attitude",
+		"url": "",
+		"img": "/stamps/site_always_under_construction.gif",
+		"alt": "site always under construction!"
 	}
 ]

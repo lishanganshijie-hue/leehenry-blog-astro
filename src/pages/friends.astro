@@ -33,12 +33,12 @@ const description =
 
 // 手动构建目录 headings（对应页面各 section 的 id）
 const friendsHeadings = [
-	{ depth: 2, slug: "friends-stamps", text: "🏷️ 88x31 Stamps" },
+	{ depth: 2, slug: "friend-circle-section", text: "👂 侧耳" },
 	{ depth: 2, slug: "friends-real", text: "🤝 知交" },
 	{ depth: 2, slug: "friends-online", text: "☁️ 云间" },
 	{ depth: 2, slug: "friends-stash", text: "🌄 远望" },
 	{ depth: 2, slug: "friends-org", text: "🏛️ 同道" },
-	{ depth: 2, slug: "friend-circle-section", text: "👂 侧耳" },
+	{ depth: 2, slug: "friends-stamps", text: "🏷️ 88x31 Stamps" },
 ];
 
 // 枚举映射：机器可读 -> 展示文案
@@ -111,6 +111,163 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         </Markdown>
       )}
 
+      <!-- 友链侧耳 -->
+      <section id="friend-circle-section" aria-label="友链侧耳" class="not-prose mt-6">
+        <div class="mb-3 px-6 md:px-12">
+          <h2 class="text-[1.2rem] font-normal text-[var(--primary)]">
+            👂 侧耳
+            <span class="ml-2 font-normal align-middle text-base px-2 py-0.5 text-[var(--btn-content)] opacity-80">
+              // 八方传来的新声
+            </span>
+          </h2>
+        </div>
+        <div class="px-6 md:px-12">
+          <FriendCircle />
+        </div>
+      </section>
+
+      <!-- 分类段落渲染 -->
+      {groups.map(({ key, meta, items }) => (
+        <section id={`friends-${key}`} aria-label={meta.title} class="not-prose mt-6">
+            <!-- 分段标题 + 折叠按钮 -->
+            <div class="mb-3 px-6 md:px-12 flex items-center justify-between">
+            <h2 class="text-[1.2rem] font-normal text-[var(--primary)]">
+              {key === "stash" ? (
+                <span class="stash-tip" aria-label="远望分组说明" role="note">
+                  {meta.title}
+                  <div class="stash-tip-panel">
+                    收录偶然遇见、因文字或设计驻足的好站。心有所仰，谨作单向记录，便于时常探访。若有不妥之处，敬请联系删除。
+                  </div>
+                </span>
+              ) : (
+                meta.title
+              )}
+              <span class="ml-2 font-normal align-middle text-base px-2 py-0.5
+                     text-[var(--btn-content)] opacity-80">
+              {meta.tip}
+              </span>
+            </h2>
+            <button
+              class="friend-toggle-btn btn-plain rounded-lg w-8 h-8 flex-shrink-0 flex items-center justify-center"
+              data-section={key}
+              aria-label="收起/展开"
+            >
+              <Icon name="fa6-solid:chevron-up" class="friend-toggle-icon text-[0.75rem] transition-transform duration-300" />
+            </button>
+            </div>
+
+            <!-- 收起状态：头像叠排卡片 -->
+            <div class="friend-section-collapsed px-6 md:px-12" data-section={key}>
+              <div class="friend-collapsed-card flex items-center border p-3 transition cursor-pointer
+                hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)] active:scale-[0.98]"
+                style="background-color: var(--card-bg); border-color: var(--btn-card-bg-active); color: var(--btn-content);">
+                <div class="friend-avatar-stack flex items-center">
+                  {items.slice(0, 10).map((f) => (
+                    <img
+                      src={f.avatar}
+                      alt={f.name}
+                      title={f.name}
+                      width="32"
+                      height="32"
+                      loading="lazy"
+                      class="h-8 w-8 rounded-full object-cover border-2 border-[var(--card-bg)] bg-[var(--btn-regular-bg)]"
+                    />
+                  ))}
+                  {items.length > 10 && (
+                    <div class="friend-avatar-more h-8 w-8 rounded-full border-2 flex items-center justify-center text-xs flex-shrink-0"
+                      style="border-color: var(--card-bg); background-color: var(--btn-regular-bg); margin-left: -0.625rem; opacity: 0.55;">
+                      …
+                    </div>
+                  )}
+                </div>
+                <span class="ml-auto text-sm opacity-50 flex-shrink-0">{items.length} 位</span>
+              </div>
+            </div>
+
+            <!-- 展开状态：原有卡片栅格 -->
+            <div class="friend-section-expanded hidden grid gap-4 grid-cols-1 sm:grid-cols-2 px-6 md:px-12" data-section={key}>
+            {items.map((f, index) => {
+              const noteId = `friend-note-${key}-${index}`;
+              return (
+              <a
+              href={f.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-note={f.note || undefined}
+              style={{
+                'background-color': 'var(--card-bg)',
+                'border-color': 'var(--btn-card-bg-active)',
+                'color': 'var(--btn-content)',
+              }}
+              class="friend-card group flex items-center gap-3 border p-3 transition
+                  hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
+                  active:scale-[0.98] relative overflow-hidden"
+              >
+              {f.note && (
+                <input type="checkbox" id={noteId} class="friend-note-checkbox" />
+              )}
+              {f.badge && (
+                <>
+                  <div class={`badge badge-${f.badge}`}></div>
+                  {f.badge === "star" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="badge-icon badge-icon-star">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  )}
+                  {f.badge === "error" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1026 1024" class="badge-icon badge-icon-error">
+                      <path d="M795.648 229.888c-155.648-155.648-409.6-155.648-565.248 0-155.648 155.648-155.648 409.088 0 564.736 74.752 74.752 176.64 117.248 282.624 116.736 102.4 0 204.8-38.912 282.624-116.736 156.16-155.648 156.16-409.088 0-564.736z m-91.136 433.152c14.848 14.848 14.848 38.912 0 53.76-14.848 14.848-38.912 14.848-53.76 0l-140.8-140.8L368.64 716.8c-7.168 7.168-16.896 11.264-27.136 11.264s-19.968-4.096-27.136-11.264c-7.168-7.168-11.264-16.896-11.264-27.136s4.096-19.968 11.264-27.136L455.68 522.24 314.88 381.44c-14.848-14.848-14.848-38.912 0-53.76s38.912-14.848 53.76 0l140.8 140.8 147.456-147.456c14.848-14.848 38.912-14.848 53.76 0 14.848 14.848 14.848 38.912 0 53.76L563.712 522.24l140.8 140.8z"/>
+                    </svg>
+                  )}
+                  {f.badge === "stale" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1224 1024" class="badge-icon badge-icon-stale">
+                      <path d="M996.325855 284.728647c116.311149-21.120545 153.340732 81.052868 169.334741 117.02577 10.662672 23.983387 30.197106 55.189243 58.601123 93.619745-110.469991-47.409021-186.150128 9.845651-227.042587 171.759659-59.315745 234.866383-351.349651 321.971745-475.63057 242.934196-18.31217-11.645277-40.17566-13.213957-58.001975-20.039898-6.693038-2.562179-11.874043-4.834587-15.54737-6.812868-66.636255 20.885243-124.96286 63.88017-174.981991 128.986962C198.030706 1109.863489-109.341413 528.699915 43.313021 512.300664c214.828664 66.806196 352.543591 101.142877 413.142605 103.010042-98.948902-26.532494-175.27394-94.205821-228.975115-203.022161C173.779336 303.474383 170.999285 166.376034 219.138179 1.002213c59.701379 61.856136 132.202757 114.7904 217.501957 158.800613 127.956426 66.017498 126.381209 55.583591 252.627336 138.9568 84.164085 55.579234 126.810417 120.208885 127.941175 193.882417 41.870706-124.527115 101.576443-193.832306 179.117208-207.911217z m56.463796 95.417191c2.766979-7.161464-0.899813-14.837106-8.172391-17.153089-7.272579-2.318162-15.403574 1.588289-18.166196 8.736681-2.749549 7.15057 0.899813 14.837106 8.170213 17.16834 7.272579 2.315983 15.418826-1.599183 18.170553-8.751932z"/>
+                    </svg>
+                  )}
+                </>
+              )}
+              <img
+                src={f.avatar}
+                alt={f.name}
+                width="50"
+                height="50"
+                loading="lazy"
+                class="h-10 w-10 rounded-full object-cover bg-[var(--btn-regular-bg)]"
+              />
+              <div class="min-w-0 flex-1">
+                <div class="font-semibold truncate flex items-center gap-2">
+                  <span class="truncate">{f.name}</span>
+                  {f.note && (
+                    <label 
+                      for={noteId} 
+                      class="friend-note-icon-label"
+                      onclick={"(function(e){e.stopPropagation();})(event)" as string}
+                    >
+                        <svg 
+                          xmlns="http://www.w3.org/2000/svg" 
+                          viewBox="0 0 24 24" 
+                          fill="none"
+                          class="friend-note-icon flex-shrink-0"
+                        >
+                          <path d="M8 10.5H16M8 14.5H11M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </label>
+                  )}
+                </div>
+                <div class="text-sm truncate text-[var(--btn-content)] opacity-50">{f.desc}</div>
+              </div>
+              {f.note && (
+                <div class="friend-note-content">
+                  {f.note}
+                </div>
+              )}
+              </a>
+              );
+            })}
+</div>
+        </section>
+      ))}
+
       <!-- 88×31 Stamps -->
       {stamps.length > 0 && (() => {
         type StampItem = { type?: string; url: string; img: string; alt: string; style?: string };
@@ -119,7 +276,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         const coolSites = typedStamps.slice(1).filter(s => !s.type || s.type === 'cool-sites');
         const attitude = typedStamps.filter(s => s.type === 'attitude');
         return (
-          <div id="friends-stamps" class="not-prose mb-6 px-6 md:px-12">
+          <div id="friends-stamps" class="not-prose mt-6 px-6 md:px-12">
             <div class="stamps-container">
               <div class="stamps-titlebar">
                 <div class="stamps-titlebar-left">
@@ -179,128 +336,6 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
         );
       })()}
 
-      <!-- 分类段落渲染 -->
-      {groups.map(({ key, meta, items }) => (
-        <section id={`friends-${key}`} aria-label={meta.title} class="not-prose mt-6">
-            <!-- 分段标题（简洁含蓄） -->
-            <div class="mb-3 px-6 md:px-12">
-            <h2 class="text-[1.2rem] font-normal text-[var(--primary)]">
-              {key === "stash" ? (
-                <span class="stash-tip" aria-label="远望分组说明" role="note">
-                  {meta.title}
-                  <div class="stash-tip-panel">
-                    收录偶然遇见、因文字或设计驻足的好站。心有所仰，谨作单向记录，便于时常探访。若有不妥之处，敬请联系删除。
-                  </div>
-                </span>
-              ) : (
-                meta.title
-              )}
-              <span class="ml-2 font-normal align-middle text-base px-2 py-0.5
-                     text-[var(--btn-content)] opacity-80">
-              {meta.tip}
-              </span>
-            </h2>
-            </div>
-
-            <!-- 复用原卡片栅格与样式 -->
-            <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 px-6 md:px-12">
-            {items.map((f, index) => {
-              const noteId = `friend-note-${key}-${index}`;
-              return (
-              <a
-              href={f.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-note={f.note || undefined}
-              style={{
-                'background-color': 'var(--card-bg)',
-                'border-color': 'var(--btn-card-bg-active)',
-                'color': 'var(--btn-content)',
-              }}
-              class="friend-card group flex items-center gap-3 border p-3 transition
-                  hover:shadow-[6px_6px_0_var(--btn-plain-bg-hover)]
-                  active:scale-[0.98] relative overflow-hidden"
-              >
-              {f.note && (
-                <input type="checkbox" id={noteId} class="friend-note-checkbox" />
-              )}
-              {f.badge && (
-                <>
-                  <div class={`badge badge-${f.badge}`}></div>
-                  {f.badge === "star" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="badge-icon badge-icon-star">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                  )}
-                  {f.badge === "error" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1026 1024" class="badge-icon badge-icon-error">
-                      <path d="M795.648 229.888c-155.648-155.648-409.6-155.648-565.248 0-155.648 155.648-155.648 409.088 0 564.736 74.752 74.752 176.64 117.248 282.624 116.736 102.4 0 204.8-38.912 282.624-116.736 156.16-155.648 156.16-409.088 0-564.736z m-91.136 433.152c14.848 14.848 14.848 38.912 0 53.76-14.848 14.848-38.912 14.848-53.76 0l-140.8-140.8L368.64 716.8c-7.168 7.168-16.896 11.264-27.136 11.264s-19.968-4.096-27.136-11.264c-7.168-7.168-11.264-16.896-11.264-27.136s4.096-19.968 11.264-27.136L455.68 522.24 314.88 381.44c-14.848-14.848-14.848-38.912 0-53.76s38.912-14.848 53.76 0l140.8 140.8 147.456-147.456c14.848-14.848 38.912-14.848 53.76 0 14.848 14.848 14.848 38.912 0 53.76L563.712 522.24l140.8 140.8z"/>
-                    </svg>
-                  )}
-                  {f.badge === "stale" && (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1224 1024" class="badge-icon badge-icon-stale">
-                      <path d="M996.325855 284.728647c116.311149-21.120545 153.340732 81.052868 169.334741 117.02577 10.662672 23.983387 30.197106 55.189243 58.601123 93.619745-110.469991-47.409021-186.150128 9.845651-227.042587 171.759659-59.315745 234.866383-351.349651 321.971745-475.63057 242.934196-18.31217-11.645277-40.17566-13.213957-58.001975-20.039898-6.693038-2.562179-11.874043-4.834587-15.54737-6.812868-66.636255 20.885243-124.96286 63.88017-174.981991 128.986962C198.030706 1109.863489-109.341413 528.699915 43.313021 512.300664c214.828664 66.806196 352.543591 101.142877 413.142605 103.010042-98.948902-26.532494-175.27394-94.205821-228.975115-203.022161C173.779336 303.474383 170.999285 166.376034 219.138179 1.002213c59.701379 61.856136 132.202757 114.7904 217.501957 158.800613 127.956426 66.017498 126.381209 55.583591 252.627336 138.9568 84.164085 55.579234 126.810417 120.208885 127.941175 193.882417 41.870706-124.527115 101.576443-193.832306 179.117208-207.911217z m56.463796 95.417191c2.766979-7.161464-0.899813-14.837106-8.172391-17.153089-7.272579-2.318162-15.403574 1.588289-18.166196 8.736681-2.749549 7.15057 0.899813 14.837106 8.170213 17.16834 7.272579 2.315983 15.418826-1.599183 18.170553-8.751932z"/>
-                    </svg>
-                  )}
-                </>
-              )}
-              <img
-                src={f.avatar}
-                alt={f.name}
-                width="50"
-                height="50"
-                loading="lazy"
-                class="h-10 w-10 rounded-full object-cover"
-              />
-              <div class="min-w-0 flex-1">
-                <div class="font-semibold truncate flex items-center gap-2">
-                  <span class="truncate">{f.name}</span>
-                  {f.note && (
-                    <label 
-                      for={noteId} 
-                      class="friend-note-icon-label"
-                      onclick={"(function(e){e.stopPropagation();})(event)" as string}
-                    >
-                        <svg 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          viewBox="0 0 24 24" 
-                          fill="none"
-                          class="friend-note-icon flex-shrink-0"
-                        >
-                          <path d="M8 10.5H16M8 14.5H11M21.0039 12C21.0039 16.9706 16.9745 21 12.0039 21C9.9675 21 3.00463 21 3.00463 21C3.00463 21 4.56382 17.2561 3.93982 16.0008C3.34076 14.7956 3.00391 13.4372 3.00391 12C3.00391 7.02944 7.03334 3 12.0039 3C16.9745 3 21.0039 7.02944 21.0039 12Z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </label>
-                  )}
-                </div>
-                <div class="text-sm truncate text-[var(--btn-content)] opacity-50">{f.desc}</div>
-              </div>
-              {f.note && (
-                <div class="friend-note-content">
-                  {f.note}
-                </div>
-              )}
-              </a>
-              );
-            })}
-</div>
-        </section>
-      ))}
-
-      <!-- 友链侧耳 -->
-      <section id="friend-circle-section" aria-label="友链侧耳" class="not-prose mt-6">
-        <div class="mb-3 px-6 md:px-12">
-          <h2 class="text-[1.2rem] font-normal text-[var(--primary)]">
-            👂 侧耳
-            <span class="ml-2 font-normal align-middle text-base px-2 py-0.5 text-[var(--btn-content)] opacity-80">
-              // 八方传来的新声
-            </span>
-          </h2>
-        </div>
-        <div class="px-6 md:px-12">
-          <FriendCircle />
-        </div>
-      </section>
-
       <!-- Markdown 正文（保留） -->
       <Markdown class="mt-0">
         <Content />
@@ -316,11 +351,11 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
     (function() {
       function initFriendNoteMouseLeave() {
         const friendCards = document.querySelectorAll('.friend-card');
-        
+
         friendCards.forEach((card) => {
           const checkbox = card.querySelector('.friend-note-checkbox');
           if (!checkbox || !(checkbox instanceof HTMLInputElement)) return;
-          
+
           // 每次重新绑定，因为Swup切换时DOM会被完全替换
           card.addEventListener('mouseleave', () => {
             if (checkbox.checked) {
@@ -329,11 +364,53 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
           });
         });
       }
-      
+
+      function initFriendToggles() {
+        document.querySelectorAll('.friend-toggle-btn').forEach((btn) => {
+          const key = btn.dataset.section;
+          const collapsed = document.querySelector(`.friend-section-collapsed[data-section="${key}"]`);
+          const expanded = document.querySelector(`.friend-section-expanded[data-section="${key}"]`);
+          const icon = btn.querySelector('.friend-toggle-icon');
+
+          // 默认收起；若用户曾展开则恢复展开状态
+          if (localStorage.getItem(`friend-section-${key}`) === 'expanded') {
+            collapsed && collapsed.classList.add('hidden');
+            expanded && expanded.classList.remove('hidden');
+            icon && (icon.style.transform = '');
+          } else {
+            // 默认收起，chevron 朝下
+            icon && (icon.style.transform = 'rotate(180deg)');
+          }
+
+          function toggleSection() {
+            const isCollapsed = !collapsed.classList.contains('hidden');
+            if (isCollapsed) {
+              collapsed.classList.add('hidden');
+              expanded.classList.remove('hidden');
+              btn.classList.remove('is-collapsed');
+              icon && (icon.style.transform = '');
+              localStorage.setItem(`friend-section-${key}`, 'expanded');
+            } else {
+              collapsed.classList.remove('hidden');
+              expanded.classList.add('hidden');
+              btn.classList.add('is-collapsed');
+              icon && (icon.style.transform = 'rotate(180deg)');
+              localStorage.removeItem(`friend-section-${key}`);
+            }
+          }
+
+          btn.addEventListener('click', toggleSection);
+
+          const collapsedCard = collapsed.querySelector('.friend-collapsed-card');
+          collapsedCard && collapsedCard.addEventListener('click', toggleSection);
+        });
+      }
+
       // 延迟执行确保DOM准备好
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           initFriendNoteMouseLeave();
+          initFriendToggles();
         });
       });
     })();
@@ -342,6 +419,14 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 
 <style>
   .friend-card:hover {
+    border-color: var(--primary) !important;
+  }
+
+  .friend-avatar-stack img + img {
+    margin-left: -0.625rem;
+  }
+
+  .friend-collapsed-card:hover {
     border-color: var(--primary) !important;
   }
 

@@ -1,54 +1,71 @@
 ---
 import stats from "../data/stats.json";
+import { Icon } from "astro-icon/components";
 
-// 建站日期：改成你的建站日
 const LAUNCH = new Date("2025-08-20T00:00:00+08:00");
 const days = Math.floor((Date.now() - LAUNCH.getTime()) / 86400000);
-
 const thisYear = new Date().getFullYear();
 const totalPosts = stats?.totalPosts ?? null;
 const totalHuman =
 	stats?.totalHumanReadable ??
 	(typeof stats?.totalZhChars === "number" ? `${stats.totalZhChars} 字` : null);
----
 
+function formatGeneratedAt(str: string): string {
+	const [datePart, timePart] = str.split(" ");
+	const h = parseInt(timePart);
+	const period = h < 6 ? "凌晨" : h < 12 ? "上午" : h < 18 ? "下午" : "晚间";
+	const [y, m, d] = datePart.split("-").map(Number);
+	const nowCST = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Shanghai" }));
+	const [ty, tm, td] = [nowCST.getFullYear(), nowCST.getMonth() + 1, nowCST.getDate()];
+	if (y === ty && m === tm && d === td) return `今日${period}`;
+	const yest = new Date(nowCST);
+	yest.setDate(yest.getDate() - 1);
+	if (y === yest.getFullYear() && m === yest.getMonth() + 1 && d === yest.getDate()) return `昨日${period}`;
+	return `${m}月${d}日${period}`;
+}
+const generatedAtFmt = formatGeneratedAt(stats.generatedAt);
+---
 
 <footer class="site-footer">
 
-  <div class="footer-row">
-    承蒙光临！此间已留存 <span class="footer-pv">—</span> 枚足迹，您是第 <span class="footer-uv">—</span> 位来客
+  <div class="footer-top">
+    <div class="footer-welcome">
+      承蒙光临！此间已留存&thinsp;<span class="footer-pv footer-num">—</span>&thinsp;枚足迹，您是第&thinsp;<span class="footer-uv footer-num">—</span>&thinsp;位来客
+    </div>
+    <div class="footer-stats">
+      <span>同行&thinsp;<b>{days}</b>&thinsp;日</span>
+      <span class="sep">·</span>
+      <span>云集&thinsp;<b>{totalPosts ?? "—"}</b>&thinsp;篇</span>
+      <span class="sep">·</span>
+      <span>合记&thinsp;<b>{totalHuman ?? "—"}</b></span>
+      <span class="sep">·</span>
+      <span>续笔&thinsp;<b>{generatedAtFmt}</b></span>
+    </div>
   </div>
 
-  <div class="footer-row">
-    <span>同行 {days} 日</span>
-    <span class="sep">/</span>
-    <span>云集 {totalPosts ?? "—"} 篇</span>
-    <span class="sep">/</span>
-    <span>合记 {totalHuman ?? "—"}</span>
-    <span class="sep">/</span>
-    <span>续笔 {stats.generatedAt}</span>
+  <div class="footer-bottom">
+    <em class="footer-copy">© 2019–{thisYear}&ensp;LeeHenry</em>
+    <div class="footer-webrings">
+      <a href="https://www.travellings.cn/"><em>Travelling</em></a>
+      <span class="sep">ᯓ</span>
+      <a href="https://blogscn.fun/"><em>BLOGS·CN</em></a>
+      <span class="sep">ᯓ</span>
+      <a href="https://xn--sr8hvo.ws/previous" aria-label="上一站"><em>←</em></a>
+      <a href="https://xn--sr8hvo.ws"><em>IndieWeb Webring</em></a>
+      <a href="https://xn--sr8hvo.ws/next" aria-label="下一站"><em>→</em></a>
+    </div>
+    <div class="footer-tools">
+      <a href="https://umami.leehenry.top" target="_blank" rel="noopener noreferrer" class="tool-link" title="站点统计">
+        <Icon name="fa6-solid:chart-line" aria-hidden="true" />
+        <span>Analytics</span>
+      </a>
+      <a href="https://status.leehenry.top" target="_blank" rel="noopener noreferrer" class="tool-link" title="服务监控">
+        <Icon name="fa6-solid:heart-pulse" aria-hidden="true" />
+        <span>Status</span>
+      </a>
+    </div>
   </div>
 
-  <div class="footer-row powered">
-    
-    <em><span>© 2019–{thisYear} LeeHenry</span></em>
-      <span class="sep">ᯓ</span>
-      <!-- <span>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">CC BY-NC-SA 4.0</a></span> -->
-      <!-- <span class="sep">/</span>
-      <span><a href="https://beian.miit.gov.cn">琼ICP备2025060528号</a></span>
-      <span class="sep">/</span> -->
-      <!-- <a href="/rss.xml">RSS</a>
-      <span class="sep">/</span>
-      <a href="/sitemap-index.xml">Sitemap</a> -->
-      <!-- <span>Powered by <a href="https://astro.build">Astro</a> × <a href="https://github.com/saicaca/fuwari">Fuwari</a></span>
-      <span class="sep">/</span> -->
-      <em><span><a href="https://www.travellings.cn/">Travelling</a></span> </em>
-      <span class="sep">ᯓ</span>
-      <em><span><a href="https://blogscn.fun/">BLOGS·CN</a></span></em>
-      <span class="sep">ᯓ</span>
-      <a href="https://xn--sr8hvo.ws/previous">←</a>
-      <em><a href="https://xn--sr8hvo.ws">IndieWeb Webring</a></em>
-        <a href="https://xn--sr8hvo.ws/next">→</a>
 </footer>
 
 <style>
@@ -56,14 +73,134 @@ const totalHuman =
     margin-top: 2rem;
     padding: 1.25rem 0 2rem;
     text-align: center;
-    font-size: 0.93rem;
+    font-size: 0.875rem;
     color: var(--text-2, #9aa0a6);
   }
-  .footer-row { margin: .25rem 0; line-height: 1.6; }
-  .stats { color: var(--text-1, #e8eaed); }
-  .powered { color: var(--primary); opacity: .8; }
-  .sep { margin: 0 .5rem; opacity: .6; }
-  .site-footer a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+  .footer-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: 0.25rem 0 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-welcome {
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .footer-num {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .footer-stats {
+    line-height: 1.6;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-align: right;
+  }
+
+  .footer-stats b {
+    font-weight: 600;
+    color: var(--btn-content);
+    opacity: 0.9;
+  }
+
+  .footer-webrings {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    opacity: 0.5;
+  }
+
+  .footer-webrings .sep {
+    opacity: 1;
+  }
+
+
+  .sep { margin: 0 0.4rem; opacity: 0.45; }
+
+  .site-footer a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 2px;
+    transition: text-decoration-color 0.15s;
+  }
+  .site-footer a:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* ── Bottom bar ──────────────────────────────────────────── */
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.75rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  }
+
+  .footer-copy {
+    font-style: italic;
+    color: var(--primary);
+    opacity: 0.75;
+    font-size: 0.8rem;
+  }
+
+  .footer-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .tool-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--text-2) !important;
+    text-decoration: none !important;
+    padding: 2px 8px 2px 6px;
+    border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    border-radius: 100px;
+    opacity: 0.55;
+    transition: opacity 0.15s, border-color 0.15s, color 0.15s;
+  }
+
+  .tool-link:hover {
+    opacity: 1;
+    border-color: var(--primary);
+    color: var(--primary) !important;
+  }
+
+  .tool-link :global(svg) {
+    width: 0.7rem;
+    height: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .footer-top {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.1rem;
+    }
+    .footer-welcome,
+    .footer-stats {
+      text-align: center;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
 </style>
 
 <script>

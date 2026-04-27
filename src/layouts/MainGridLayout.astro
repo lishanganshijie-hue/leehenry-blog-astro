@@ -40,6 +40,7 @@ const hasLightCredit = hasBannerCredit && !!siteConfig.banner.srcLight && !!site
 const lqipDark = bannerLqip?.dark ?? null;
 const lqipLight = bannerLqip?.light ?? null;
 const bannerPos = siteConfig.banner.position || "center";
+const isHomePage = Astro.url.pathname === "/";
 
 const mainPanelTop = siteConfig.banner.enable
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
@@ -59,9 +60,23 @@ const mainPanelTop = siteConfig.banner.enable
 <!-- Banner -->
 {siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
     {lqipDark && <div aria-hidden="true" class:list={["absolute inset-0", {"hidden dark:block": !!lqipLight && !!siteConfig.banner.srcLight}]}
-      style={`background-image:url(${lqipDark});background-size:cover;background-position:${bannerPos};filter:blur(16px);transform:scale(1.1);`}></div>}
+      style={`background-image:url(${lqipDark});background-size:cover;background-position:${bannerPos};filter:blur(16px);transform:scale(1.1);opacity:0.4;`}></div>}
     {lqipLight && siteConfig.banner.srcLight && <div aria-hidden="true" class="absolute inset-0 block dark:hidden"
-      style={`background-image:url(${lqipLight});background-size:cover;background-position:${bannerPos};filter:blur(16px);transform:scale(1.1);`}></div>}
+      style={`background-image:url(${lqipLight});background-size:cover;background-position:${bannerPos};filter:blur(16px);transform:scale(1.1);opacity:0.4;`}></div>}
+    {isHomePage && lqipDark && <>
+      <div id="banner-quote" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;pointer-events:none;text-align:center;padding:1rem;">
+        <p style="font-family:var(--font-serif);font-size:1.15rem;letter-spacing:0.18em;color:rgba(255,255,255,0.88);text-shadow:0 1px 10px rgba(0,0,0,0.45);margin:0;line-height:2;">莫听穿林打叶声，何妨吟啸且徐行。</p>
+      </div>
+      <script is:inline>
+        (function(){
+          if (!sessionStorage.getItem('bq-shown')) {
+            var el = document.getElementById('banner-quote');
+            if (el) el.style.display = 'flex';
+            sessionStorage.setItem('bq-shown', '1');
+          }
+        })();
+      </script>
+    </>}
     <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
                   src={siteConfig.banner.src} srcLight={siteConfig.banner.srcLight} position={siteConfig.banner.position}
     >

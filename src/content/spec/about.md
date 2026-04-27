@@ -103,7 +103,7 @@
 
 - `2025-09-13` 本站「伏枥之间」上线 [RSS](https://leehenry.top/rss.xml) 订阅。
 
-- `2026-04-01` 本站「伏枥之间」支持 [IndieWeb](indieweb.org/) 主要交互技术 [Webmention](indieweb.org/microformats) 与 [Microformat](indieweb.org/microformats)，加入 [IndieWeb Ring](xn--sr8hvo.ws/)。
+- `2026-04-01` 本站「伏枥之间」支持 [IndieWeb](https://indieweb.org/) 主要交互技术 [Webmention](https://indieweb.org/Webmention) 与 [Microformat](https://indieweb.org/microformats)，加入 [IndieWeb Ring](https://xn--sr8hvo.ws/)。
 
 - ……
 

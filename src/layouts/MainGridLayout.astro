@@ -7,6 +7,7 @@ import type { MarkdownHeading } from "astro";
 import { Icon } from "astro-icon/components";
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import { siteConfig } from "../config";
+import bannerLqip from "../data/banner-lqip.json";
 import {
 	BANNER_HEIGHT,
 	BANNER_HEIGHT_EXTEND,
@@ -36,6 +37,9 @@ const hasBannerCredit =
 const hasBannerLink = !!siteConfig.banner.credit.url;
 const hasBannerLightLink = !!siteConfig.banner.creditLight?.url;
 const hasLightCredit = hasBannerCredit && !!siteConfig.banner.srcLight && !!siteConfig.banner.creditLight;
+const lqipDark = bannerLqip?.dark ?? null;
+const lqipLight = bannerLqip?.light ?? null;
+const bannerPos = siteConfig.banner.position || "center";
 
 const mainPanelTop = siteConfig.banner.enable
 	? `calc(${BANNER_HEIGHT}vh - ${MAIN_PANEL_OVERLAPS_BANNER_HEIGHT}rem)`
@@ -54,6 +58,10 @@ const mainPanelTop = siteConfig.banner.enable
 
 <!-- Banner -->
 {siteConfig.banner.enable && <div id="banner-wrapper" class={`absolute z-10 w-full transition duration-700 overflow-hidden`} style={`top: -${BANNER_HEIGHT_EXTEND}vh`}>
+    {lqipDark && <div aria-hidden="true" class:list={["absolute inset-0", {"hidden dark:block": !!lqipLight && !!siteConfig.banner.srcLight}]}
+      style={`background-image:url(${lqipDark});background-size:cover;background-position:${bannerPos};filter:blur(16px);transform:scale(1.1);`}></div>}
+    {lqipLight && siteConfig.banner.srcLight && <div aria-hidden="true" class="absolute inset-0 block dark:hidden"
+      style={`background-image:url(${lqipLight});background-size:cover;background-position:${bannerPos};filter:blur(16px);transform:scale(1.1);`}></div>}
     <ImageWrapper id="banner" alt="Banner image of the blog" class:list={["object-cover h-full transition duration-700 opacity-0 scale-105"]}
                   src={siteConfig.banner.src} srcLight={siteConfig.banner.srcLight} position={siteConfig.banner.position}
     >

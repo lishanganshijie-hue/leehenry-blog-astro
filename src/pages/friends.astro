@@ -647,8 +647,12 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
   }
 
   .stamps-self:hover {
-    transform: translateX(calc(-100% - 4rem)) translateY(-50%) rotate(0deg);
+    transform: translateX(calc(-100% - 4rem)) translateY(-50%) rotate(0deg) scale(1.4);
     opacity: 0.85;
+  }
+
+  .stamps-self:hover img {
+    image-rendering: pixelated;
   }
 
   .stamps-title {
@@ -765,7 +769,9 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
   .stamps-link {
     display: block;
     line-height: 0;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease;
   }
 
   .stamps-link:nth-child(7n+1) { transform: rotate(-2.5deg); }
@@ -777,13 +783,22 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
   .stamps-link:nth-child(7n+7) { transform: rotate(-0.8deg); }
 
   .stamps-link:hover {
-    transform: rotate(0deg);
-    opacity: 0.85;
+    transform: rotate(0deg) scale(1.4);
+    z-index: 10;
+  }
+
+  .stamps-link:hover img {
+    image-rendering: pixelated;
+  }
+
+  .stamps-grid:has(.stamps-link:hover) .stamps-link:not(:hover) img {
+    filter: grayscale(1) opacity(0.4);
   }
 
   .stamps-link img {
     display: block;
     width: 88px;
     height: 31px;
+    transition: filter 0.2s ease;
   }
 </style>

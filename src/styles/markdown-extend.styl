@@ -279,7 +279,7 @@ a.card-github.fetch-waiting
     margin-left: -0.1rem
 
   .gc-description, .gc-infobar
-    border-radius: 0.5rem
+    border-radius: 0rem
 
 a.card-github.fetch-error
   pointer-events: all
@@ -315,22 +315,78 @@ a.card-github.fetch-error
   cursor: default
   transition: background 0.15s cubic-bezier(0.4, 0, 0.2, 1)
 
+.mc-cover-wrap
+  position: relative
+  flex-shrink: 0
+  margin-top: -0.9rem
+  margin-bottom: -0.9rem
+
 .mc-cover
   width: 111.5px
   height: 111.5px
-  flex-shrink: 0
   border-radius: var(--radius-large) 0 0 var(--radius-large)
   background-color: var(--primary)
   background-size: cover
   background-position: center
-  opacity: 0.9
-  margin-top: -0.9rem
-  margin-bottom: -0.9rem
+  opacity: 1
+  position: relative
+  z-index: 1
+  overflow: hidden
   transition: opacity 0.15s
+
+/* Album: plastic sheen overlay on cover surface */
+.mc-cover-wrap.mc-wrap-album .mc-cover::after
+  content: ''
+  position: absolute
+  inset: 0
+  pointer-events: none
+  z-index: 2
+
+/* Single: vinyl disc peeking from right */
+.mc-cover-wrap.mc-wrap-single
+  &::before
+    content: ''
+    position: absolute
+    right: -12px
+    top: 50%
+    transform: translateY(-50%)
+    width: 100px
+    height: 100px
+    border-radius: 80%
+    background: var(--btn-regular-bg)
+    box-shadow: unquote("0 0 0 8px color-mix(in srgb, var(--btn-regular-bg) 50%, transparent)")
+    z-index: 0
+
+/* Album: stacked layers showing thickness */
+.mc-cover-wrap.mc-wrap-album
+  &::before
+    content: ''
+    position: absolute
+    left: 0
+    width: 100%
+    height: 87px
+    top: 50%
+    transform: translateY(-50%) translateX(16px)
+    border-radius: var(--radius-large)
+    background: var(--btn-regular-bg)
+    z-index: 0
+    opacity: 50%
+  &::after
+    content: ''
+    position: absolute
+    left: 0
+    width: 100%
+    height: 99px
+    top: 50%
+    transform: translateY(-50%) translateX(8px)
+    border-radius: var(--radius-large)
+    background: var(--btn-regular-bg)
+    z-index: 0
 
 .mc-body
   flex: 1
   min-width: 0
+  padding-left: 1rem
 
 .mc-title
   font-size: 1.1rem
@@ -500,7 +556,6 @@ a.card-github.fetch-error
     color: transparent
     opacity: 0.15
     animation: pulsate 2s infinite linear
-    border-radius: 0.3rem
     user-select: none
 
 .card-music.fetch-error

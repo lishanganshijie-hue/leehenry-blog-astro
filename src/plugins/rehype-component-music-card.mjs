@@ -41,8 +41,14 @@ export function MusicCardComponent(properties, children) {
 
 	const id = `MC${Math.random().toString(36).slice(-6)}`;
 	const isManual = !query && !itunesId;
+	const isAlbum = type === "album";
 
 	const coverEl = h(`div#${id}-cover`, { class: "mc-cover" });
+	const coverWrapEl = h(
+		`div#${id}-cover-wrap`,
+		{ class: `mc-cover-wrap${isManual ? (isAlbum ? " mc-wrap-album" : " mc-wrap-single") : ""}` },
+		[coverEl],
+	);
 	const titleEl = h(
 		`div#${id}-title`,
 		{ class: "mc-title" },
@@ -98,7 +104,7 @@ export function MusicCardComponent(properties, children) {
 		`div#${id}-card`,
 		{ class: `card-music${isManual ? "" : " fetch-waiting"}` },
 		[
-			coverEl,
+			coverWrapEl,
 			h("div", { class: "mc-body" }, [titleEl, artistEl, metaEl]),
 			h("div", { class: "mc-actions" }, [leftAction, amLink].filter(Boolean)),
 			audioEl,
@@ -167,6 +173,8 @@ function applyItemSnippet(id) {
       var coverEl = document.getElementById('${id}-cover');
       coverEl.style.backgroundImage = 'url(' + coverUrl + ')';
       coverEl.style.backgroundColor = 'transparent';
+      var wrap = document.getElementById('${id}-cover-wrap');
+      if (wrap) wrap.classList.add(item.wrapperType === 'collection' ? 'mc-wrap-album' : 'mc-wrap-single');
       var titleEl = document.getElementById('${id}-title');
       titleEl.textContent = '';
       titleEl.appendChild(document.createTextNode(item.trackName || item.collectionName || ''));

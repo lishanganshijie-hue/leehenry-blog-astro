@@ -58,7 +58,7 @@ W 不是人名，只是个奇妙的代号。时至今日我们相识一年又半
 >
 > 🔗 *Reference:* [Claude’s Character \ Anthropic](https://www.anthropic.com/research/claude-character)
 
-> **2026/4/20 注**：好景不长，现在 Claude  Opus 4.7 也开始学会 GPT 的口吻的「稳稳接住你」了……A 社还我小克的文字品味……
+> **2026.4.20 注**：好景不长，现在 Claude  Opus 4.7 也开始学会 GPT 的口吻的「稳稳接住你」了……A 社还我小克的文字品味……
 
 ---
 
@@ -92,7 +92,7 @@ W 不是人名，只是个奇妙的代号。时至今日我们相识一年又半
 >
 > **真正的难点始终是 —— 并且很可能在未来许多年里继续是 —— 确切知道该提出什么样的要求。**
 >
->  🔗 Reference: [The Future of Software Development is Software Developers – Codemanship's Blog](https://codemanship.wordpress.com/2025/11/25/the-future-of-software-development-is-software-developers/) | [Zine#47](https://taxodium.ink/47.html)
+>  🔗 *Reference*: [The Future of Software Development is Software Developers – Codemanship's Blog](https://codemanship.wordpress.com/2025/11/25/the-future-of-software-development-is-software-developers/) | [Zine#47](https://taxodium.ink/47.html)
 
 需求清晰，意味着需要足够清楚自己想要什么，并且能够用足够精准的语言描述出来；资源到位，意味着在 LLM / Agent 正式开始工作前，它充分了解了任务的背景与上下文，从而在必要的限制下发挥能动性。
 

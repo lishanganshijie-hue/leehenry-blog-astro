@@ -216,7 +216,7 @@ const generatedAtFmt = formatGeneratedAt(stats.generatedAt);
     var diff = Math.round((today - gen) / 86400000);
     if (diff === 0) return "今日" + period;
     if (diff === 1) return "昨日" + period;
-    return d[1] + "月" + d[2] + "日" + period;
+    return d[1] + "." + d[2] + " " + period;
   }
   var genEl = document.getElementById("footer-generated");
   if (genEl && genEl.dataset.ts) genEl.textContent = formatGeneratedAt(genEl.dataset.ts);

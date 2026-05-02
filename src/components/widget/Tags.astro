@@ -1,5 +1,4 @@
 ---
-
 import { getTagList } from "../../utils/content-utils";
 import { getTagUrl } from "../../utils/url-utils";
 import ButtonTag from "../control/ButtonTag.astro";
@@ -7,8 +6,22 @@ import WidgetLayout from "./WidgetLayout.astro";
 
 const tags = await getTagList();
 
-const COLLAPSED_HEIGHT = "7.5rem";
+const isEmojiTag = (name: string) => /^\p{Emoji}/u.test(name.trim());
 
+const splitTag = (name: string): { emoji: string; text: string } => {
+	const trimmed = name.trim();
+	const match = trimmed.match(/^(\p{Emoji}[️⃣]?)\s*(.*)/su);
+	return match
+		? { emoji: match[1], text: match[2].trim() }
+		: { emoji: "", text: trimmed };
+};
+
+const seriesTags = tags.filter((t) => isEmojiTag(t.name));
+const regularTags = tags.filter((t) => !isEmojiTag(t.name));
+
+const ROTATIONS = [-3, 2.5, -1.5, 3, -2.5, 1.5, -2, 2];
+
+const COLLAPSED_HEIGHT = "12rem";
 const isCollapsed = tags.length >= 20;
 
 interface Props {
@@ -18,15 +31,116 @@ interface Props {
 const className = Astro.props.class;
 const style = Astro.props.style;
 ---
+
 <WidgetLayout name="文眼" id="tags" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT} class={className} style={style}>
-    <div class="flex gap-2 flex-wrap">
-        {tags.map(t => (
-            <ButtonTag href={getTagUrl(t.name)} label={`View all posts with the ${t.name.trim()} tag`}>
-                {t.name.trim()}
-            </ButtonTag>
-        ))}
-    </div>
+	<div class="tag-wall">
+		<div class="postit-grid">
+			{seriesTags.map((t, i) => {
+				const { emoji, text } = splitTag(t.name);
+				return (
+					<a
+						href={getTagUrl(t.name)}
+						class="postit"
+						aria-label={`查看「${t.name.trim()}」专题的所有文章`}
+						style={`--rot: ${ROTATIONS[i % ROTATIONS.length]}deg`}
+					>
+						<span class="postit-emoji">{emoji}</span>
+						<span class="postit-name">{text}</span>
+					</a>
+				);
+			})}
+		</div>
+
+		<div class="tag-divider"></div>
+
+		<div class="flex gap-2 flex-wrap">
+			{regularTags.map((t) => (
+				<ButtonTag href={getTagUrl(t.name)} label={`View all posts with the ${t.name.trim()} tag`}>
+					{t.name.trim()}
+				</ButtonTag>
+			))}
+		</div>
+	</div>
 </WidgetLayout>
 
+<style>
+	.tag-wall {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
 
+	.postit-grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 0.75rem;
+		padding: 0.6rem 0.2rem 0;
+	}
 
+	@media (min-width: 1024px) {
+		.postit-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.postit {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.55rem;
+		padding: 0.8rem 0.4rem 0.4rem;
+		aspect-ratio: 1;
+		text-decoration: none;
+		background: var(--card-bg);
+		color: var(--btn-content);
+		border: 1px solid var(--btn-card-bg-active);
+		transform: rotate(var(--rot));
+		transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+		z-index: 0;
+	}
+
+	/* Tape strip */
+	.postit::before {
+		content: "";
+		position: absolute;
+		top: -4px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 28px;
+		height: 10px;
+		background: var(--primary);
+		opacity: 0.3;
+		filter: url(#xerox);
+	}
+
+	.postit:hover {
+		border-color: var(--primary);
+		box-shadow: 5px 5px 0 var(--btn-plain-bg-hover);
+		z-index: 10;
+	}
+
+	.postit:hover .postit-name {
+		color: var(--primary);
+	}
+
+	.postit-emoji {
+		font-size: 1.2rem;
+		line-height: 1;
+	}
+
+	.postit-name {
+		font-size: 0.8rem;
+		font-weight: 500;
+		text-align: center;
+		line-height: 1.3;
+		word-break: break-all;
+		color: var(--tw-prose-body);
+	}
+
+	.tag-divider {
+		height: 1px;
+		background: var(--line-divider);
+	}
+</style>

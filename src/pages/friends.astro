@@ -180,7 +180,7 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
                     </div>
                   )}
                 </div>
-                <span class="ml-auto text-sm opacity-50 flex-shrink-0">{items.length} 位</span>
+                <span class="ml-auto text-sm opacity-50 flex-shrink-0">{items.length} {key === 'org' ? '家' : '位'}</span>
               </div>
             </div>
 
@@ -648,7 +648,6 @@ const groups = (Object.keys(CATEGORIES) as CatKey[])
 
   .stamps-self:hover {
     transform: translateX(calc(-100% - 4rem)) translateY(-50%) rotate(0deg) scale(1.4);
-    opacity: 0.85;
   }
 
   .stamps-self:hover img {

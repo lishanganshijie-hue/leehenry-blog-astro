@@ -205,7 +205,7 @@ const generatedAtFmt = formatGeneratedAt(stats.generatedAt);
 
 <script>
 (function() {
-  function formatGeneratedAt(str) {
+  function formatGeneratedAt(str: string) {
     var parts = str.split(" ");
     var h = parseInt(parts[1]);
     var period = h < 6 ? "凌晨" : h < 12 ? "上午" : h < 18 ? "下午" : "晚间";
@@ -213,7 +213,7 @@ const generatedAtFmt = formatGeneratedAt(stats.generatedAt);
     var now = new Date();
     var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var gen = new Date(d[0], d[1] - 1, d[2]);
-    var diff = Math.round((today - gen) / 86400000);
+    var diff = Math.round((today.getTime() - gen.getTime()) / 86400000);
     if (diff === 0) return "今日" + period;
     if (diff === 1) return "昨日" + period;
     return d[1] + "." + d[2] + " " + period;

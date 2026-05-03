@@ -701,3 +701,52 @@ if (window.swup) {
 	});
 })();
 </script>
+
+<script is:inline>
+(function() {
+	function initFootnoteTooltips() {
+		var refs = document.querySelectorAll('a[data-footnote-ref]');
+		refs.forEach(function(ref) {
+			if (ref.closest('.fn-tip-wrap')) return;
+
+			var targetId = ref.getAttribute('href').slice(1);
+			var fnItem = document.getElementById(targetId);
+			if (!fnItem) return;
+
+			var clone = fnItem.cloneNode(true);
+			clone.querySelectorAll('[data-footnote-backref]').forEach(function(el) {
+				el.remove();
+			});
+			var content = clone.innerHTML.trim();
+
+			var sup = ref.parentElement;
+			if (!sup) return;
+
+			var wrap = document.createElement('span');
+			wrap.className = 'fn-tip-wrap';
+			sup.parentNode.insertBefore(wrap, sup);
+			wrap.appendChild(sup);
+
+			var tip = document.createElement('span');
+			tip.className = 'fn-tip';
+			tip.innerHTML = content;
+			wrap.appendChild(tip);
+		});
+	}
+
+	function init() {
+		var footnotes = document.querySelector('section[data-footnotes]');
+		if (!footnotes) return;
+		var markdownContent = document.querySelector('.markdown-content');
+		if (markdownContent) markdownContent.after(footnotes);
+		initFootnoteTooltips();
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init);
+	} else {
+		init();
+	}
+	document.addEventListener('swup:page:view', init);
+})();
+</script>

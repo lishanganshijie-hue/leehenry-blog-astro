@@ -331,38 +331,83 @@
 
     /* 脚注引用样式（正文中的脚注数字） */
     sup {
-        /* 确保 sup 标签内的脚注引用有左右对称间距 */
-        margin-left: 0em;
         margin-right: 0.3em;
     }
     
     a[data-footnote-ref] {
-        text-decoration: none !important; /* 取消下划线 */
-        color: var(--primary) !important; /* 数字颜色设为 primary */
-        
+        text-decoration: none !important;
+        color: var(--primary) !important;
+        font-family: var(--font-mono);
+
+        &::before { content: "["; }
+        &::after  { content: "]"; }
+
         &:hover, &:active {
             text-decoration: none !important;
-            background: none !important; /* 取消 hover 背景 */
-            border-bottom: none !important; /* 取消 hover 边框 */
+            background: none !important;
         }
     }
 
-    /* 脚注返回链接图标样式 */
-    a[data-footnote-backref] {
-        text-decoration: none;
+
+}
+
+/* 脚注区：移出 .custom-md，与 License 卡片同级，样式完全对齐 */
+section[data-footnotes] {
+    background: var(--license-block-bg);
+    color: var(--btn-content);
+    overflow: hidden;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1.3125rem;
+
+    @media (min-width: 768px) {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1.25rem 3rem;
+    }
+
+    h2.sr-only {
+        display: none;
+    }
+
+    ol {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+        counter-reset: fn-counter;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    li {
+        counter-increment: fn-counter;
         position: relative;
-        display: inline-block;
-        line-height: 1.5;
-        
-        /* 隐藏原有的 ↩ 文本但保留空间 */
-        font-size: 0;
-        
-        &::after {
-            content: "↲";
-            font-size: 1rem;
-            line-height: inherit;
-            display: inline-block;
+        padding-left: 2.25rem;
+        font-size: 1rem;
+        line-height: 1.6;
+
+        &::before {
+            content: "[" counter(fn-counter) "]";
+            position: absolute;
+            left: 0;
+            top: 0.1em;
+            color: var(--primary);
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            line-height: 1.6;
         }
     }
-    
+
+    p {
+        margin: 0;
+        display: inline;
+        font-size: 1rem;
+    }
+
+    a[data-footnote-backref] {
+        text-decoration: none;
+        opacity: 0.5;
+    }
 }

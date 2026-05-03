@@ -29,7 +29,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content, headings } = await entry.render();
+const { Content, headings: rawHeadings } = await entry.render();
+const headings = rawHeadings.filter(h => h.slug !== 'footnote-label');
 
 const { remarkPluginFrontmatter } = await entry.render();
 

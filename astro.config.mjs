@@ -24,6 +24,7 @@ import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.
 import { MusicCardComponent } from "./src/plugins/rehype-component-music-card.mjs";
 import { rehypeImageCaption } from "./src/plugins/rehype-image-caption.mjs";
 import { rehypeCjkEmphasis } from "./src/plugins/rehype-cjk-emphasis.mjs";
+import { rehypeFootnoteText } from "./src/plugins/rehype-footnote-text.mjs";
 import { rehypeTableAlign } from "./src/plugins/rehype-table-align.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
@@ -138,6 +139,7 @@ export default defineConfig({
 			rehypeImageCaption,
 		rehypeTableAlign,
 			rehypeCjkEmphasis,
+			rehypeFootnoteText,
 			[
 				rehypeAutolinkHeadings,
 				{

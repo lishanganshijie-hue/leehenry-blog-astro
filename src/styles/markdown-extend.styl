@@ -660,3 +660,44 @@ a.card-github.fetch-error
   background-size: 1em 0.3em
   background-repeat: repeat-x
   background-position: left bottom
+
+/* Footnote tooltip */
+.fn-tip-wrap
+  position: relative
+  display: inline-block
+  line-height: inherit
+
+.fn-tip
+  position: absolute
+  bottom: 100%
+  left: 50%
+  transform: translateX(-50%)
+  margin-bottom: 8px
+  max-width: 300px !important
+  width: max-content
+  padding: 0.75rem 0.9rem
+  background: var(--card-bg)
+  color: var(--btn-content)
+  border: 1px solid var(--btn-card-bg-active)
+  border-radius: var(--radius-medium)
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12)
+  font-family: var(--font-sans)
+  font-weight: normal
+  letter-spacing: normal
+  text-transform: none
+  text-align: left
+  line-height: 1.6
+  white-space: normal
+  pointer-events: none
+  opacity: 0
+  visibility: hidden
+  transition: opacity 0.18s ease-in-out, visibility 0.18s ease-in-out
+  z-index: 200
+
+  p, ul, ol, li
+    margin: 0
+    font-size: 0.92rem !important
+
+.fn-tip-wrap:hover .fn-tip
+  opacity: 1
+  visibility: visible

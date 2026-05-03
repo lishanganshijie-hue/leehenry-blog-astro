@@ -20,7 +20,7 @@ module.exports = {
 				// sans: ["Roboto", "sans-serif", ...defaultTheme.fontFamily.sans],
 				sans: ["vivo Sans", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "sans-serif", ...defaultTheme.fontFamily.sans],
 				serif: ["BeiWeiKaiShu", "STKaiti", "KaiTi", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "serif", ...defaultTheme.fontFamily.serif],
-				mono: ["JetBrains Mono Variable", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", ...defaultTheme.fontFamily.mono],
+				mono: ["JetBrains Mono Variable", "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", "vivo Sans", ...defaultTheme.fontFamily.mono],
 			},
 		},
 	},

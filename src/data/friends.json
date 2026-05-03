@@ -93,10 +93,9 @@
 	{
 		"name": "李鹏坤",
 		"url": "https://www.lipk.org/",
-		"desc": "「执手对影成双」",
+		"desc": "向往山河大海，林荫小道",
 		"avatar": "/friends/lipk.png",
-		"category": "stash",
-		"hidden": true
+		"category": "stash"
 	},
 
 	{
@@ -167,14 +166,16 @@
 		"url": "https://www.owenyoung.com/",
 		"desc": "追求注意力自由而不是财富自由",
 		"avatar": "/friends/owen.jpg",
-		"category": "stash"
+		"category": "stash",
+		"hidden": true
 	},
 	{
 		"name": "SkyWT",
 		"url": "https://skywt.cn/",
 		"desc": "理想主義，我還年輕",
 		"avatar": "https://upload.storeweb.cn/upload/site/logo/1376/8aa06adad607fb7aceb90b439c8f9b92.jpg",
-		"category": "stash"
+		"category": "stash",
+		"badge": "stale"
 	},
 	{
 		"name": "谢谢所有的鱼",
@@ -287,7 +288,8 @@
 		"url": "https://www.7rees.cc/",
 		"desc": "自由流动的树",
 		"avatar": "https://s2.loli.net/2025/12/25/qf3ZGRr6iuCgO2e.jpg",
-		"category": "online"
+		"category": "online",
+		"badge": "stale"
 	},
 	{
 		"name": "ENCOM一号机",

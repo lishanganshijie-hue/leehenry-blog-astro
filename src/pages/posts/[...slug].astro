@@ -83,7 +83,7 @@ const jsonLd = {
                     {postMetaConfig.showWordCount && (
                         <div class="flex flex-row items-center">
                             <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
-                                <Icon name="material-symbols:notes-rounded"></Icon>
+                                <Icon name="material-symbols:notes-sharp"></Icon>
                             </div>
                             <div class="text-sm">{remarkPluginFrontmatter.words} 字</div>
                         </div>
@@ -91,7 +91,7 @@ const jsonLd = {
                     {postMetaConfig.showReadTime && (
                         <div class="flex flex-row items-center">
                             <div class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
-                                <Icon name="material-symbols:schedule-outline-rounded"></Icon>
+                                <Icon name="material-symbols:schedule-outline-sharp"></Icon>
                             </div>
                             <div class="text-sm">
                                 {remarkPluginFrontmatter.minutes} 分钟
@@ -165,7 +165,7 @@ const jsonLd = {
         <a href={entry.data.nextSlug ? getPostUrlBySlug(entry.data.nextSlug) : "#"}
            class:list={["w-full font-bold overflow-hidden active:scale-95", {"pointer-events-none": !entry.data.nextSlug}]}>
             {entry.data.nextSlug && <div class="btn-card rounded-2xl w-full h-[3.75rem] max-w-full px-4 flex items-center !justify-start gap-4" >
-                <Icon name="material-symbols:chevron-left-rounded" class="text-[2rem] text-[var(--primary)]" />
+                <Icon name="material-symbols:chevron-left-sharp" class="text-[2rem] text-[var(--primary)]" />
                 <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_3rem)] text-black/75 dark:text-white/75">
                     {nextTitleParts ? (
                         <>
@@ -194,7 +194,7 @@ const jsonLd = {
                         entry.data.prevTitle
                     )}
                 </div>
-                <Icon name="material-symbols:chevron-right-rounded" class="text-[2rem] text-[var(--primary)]" />
+                <Icon name="material-symbols:chevron-right-sharp" class="text-[2rem] text-[var(--primary)]" />
             </div>}
         </a>
     </div>

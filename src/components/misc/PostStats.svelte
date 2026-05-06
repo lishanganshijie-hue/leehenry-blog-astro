@@ -32,12 +32,12 @@ onMount(async () => {
 </script>
 
 <a href={`${path}#like-button`} class="stat-link font-mono text-30 inline-flex items-center gap-1">
-  <Icon icon="material-symbols:favorite-outline-rounded" class="text-base" />
+  <Icon icon="material-symbols:favorite-outline-sharp" class="text-base" />
   {likes == null ? '—' : likes}
 </a>
 <span class="text-30">·</span>
 <a href={`${path}#tcomment`} class="stat-link font-mono text-30 inline-flex items-center gap-1">
-  <Icon icon="material-symbols:chat-bubble-outline-rounded" class="text-base" />
+  <Icon icon="material-symbols:comic-bubble-outline-sharp" class="text-base" />
   {comments == null ? '—' : comments}
 </a>
 

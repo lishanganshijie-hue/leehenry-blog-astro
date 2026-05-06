@@ -70,18 +70,7 @@ export const siteConfig: SiteConfig = {
 export const navBarConfig: NavBarConfig = {
 	showHomeButton: false, // 是否显示主页按钮（与左上角网站标题功能重复，默认false不显示）
 	links: [
-		// { name: "初见", url: "/", icon: "fa6-solid:house" },
-		// { name: "旧简", url: "/archive/", icon: "fa6-solid:box-archive" },
-		// { name: "一隅", url: "/about/", icon: "fa6-solid:user" },
-		// { name: "留心", url: "/guestbook/", icon: "fa6-solid:message" },
-		// { name: "友邻", url: "/friends/", icon: "fa6-solid:link" },
-		// {
-		// 	name: "开往",
-		// 	url: "https://www.travellings.cn/train.html",
-		// 	external: true,
-		// 	icon: "fa6-solid:train-subway",
-		// },
-		{ name: "初见", url: "/", icon: "fa6-solid:house" },
+		{ name: "初见", url: "/", icon: "material-symbols:house-sharp" },
 		{ name: "旧简", url: "/archive/", icon: "archive" },
 		{ name: "光影", url: "/gallery/", icon: "camera" },
 		{ name: "留心", url: "/guestbook/", icon: "mail" },
@@ -106,29 +95,29 @@ export const profileConfig: ProfileConfig = {
 	links: [
 		{
 			name: "GitHub",
-			icon: "github",
+			icon: "fa6-brands:github-alt",
 			url: "https://github.com/LeeHero0803",
 		},
 		{
 			name: "Mastodon",
-			icon: "fediverse",
+			icon: "fa6-brands:mastodon",
 			url: "https://c7.io/@LeeHenry",
 		},
 		{
 			name: "WeChat",
-			icon: "wechat",
+			icon: "fa6-brands:weixin",
 			url: "#",
 			popup: true,
 			popupImage: "/wechat-qrcode.png",
 		},
 		{
 			name: "Email",
-			icon: "email",
+			icon: "material-symbols:mail-sharp",
 			url: "mailto:leehenry1024@qq.com",
 		},
 		{
 			name: "RSS",
-			icon: "rss",
+			icon: "material-symbols:rss-feed-sharp",
 			url: "https://leehenry.top/rss.xml",
 			copyOnClick: true,
 		},

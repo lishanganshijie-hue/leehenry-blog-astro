@@ -1,16 +1,17 @@
 :root {
-    --font-sans: 'vivo Sans', 'Noto Color Emoji', sans-serif;
-    --font-serif: 'BeiWeiKaiShu', 'STKaiti', 'KaiTi', 'Noto Color Emoji', serif;
-    --font-mono: 'JetBrains Mono Variable', 'Noto Color Emoji', 'vivo Sans', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --font-sans:  'vivo Sans', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', system-ui, sans-serif;
+    --font-serif: 'Zhuque Fangsong', 'STKaiti', 'KaiTi', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', serif;
+    --font-mono:  'JetBrains Mono Variable', 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji', 'vivo Sans', ui-monospace, monospace;
 }
 
 @font-face {
     font-family: 'Open Sans';
     src: url('/fonts/OpenSans-BoldItalic.woff2') format('woff2'),
          url('/fonts/OpenSans-BoldItalic.woff') format('woff');
-    font-weight: 700; /* bold 对应的数值是 700 */
+    font-weight: 700;
     font-style: italic;
     font-display: swap;
+    unicode-range: U+0020-007F, U+00A0-00FF, U+0100-024F;
 }
 
 @font-face {
@@ -20,6 +21,7 @@
     font-weight: 700;
     font-style: normal;
     font-display: swap;
+    unicode-range: U+0020-007F, U+00A0-00FF, U+0100-024F;
 }
 
 @font-face {
@@ -62,9 +64,9 @@
 }
 
 @font-face {
-    font-family: 'BeiWeiKaiShu';
-    src: url('/fonts/BeiWeiKaiShu-Regular.woff2') format('woff2'),
-         url('/fonts/BeiWeiKaiShu-Regular.woff') format('woff');
+    font-family: 'Zhuque Fangsong';
+    src: url('/fonts/ZhuqueFangsong-Regular.woff2') format('woff2'),
+         url('/fonts/ZhuqueFangsong-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;

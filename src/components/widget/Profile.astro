@@ -88,7 +88,7 @@ const fallbackQR = "/wechat-qrcode.png";
                       data-qr-trigger
                       data-qr-src={item.popupImage ?? fallbackQR}
                     >
-                      <Icon name={item.icon} class="text-[1.2rem]" />
+                      <Icon name={item.icon} class="text-[1rem]" />
                     </button>
                     <span class="social-tip">{item.name}</span>
                   </span>
@@ -102,7 +102,7 @@ const fallbackQR = "/wechat-qrcode.png";
                       class="btn-regular h-8 w-8 active:scale-90 social-copy-btn"
                       data-copy-url={item.url}
                     >
-                      <Icon name={item.icon} class="text-[1.2rem] copy-btn-main-icon transition" />
+                      <Icon name={item.icon} class="text-[1rem] copy-btn-main-icon transition" />
                       <svg viewBox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg" class="text-[1.2rem] copy-btn-check-icon transition absolute opacity-0 w-[1.2rem] h-[1.2rem]">
                         <path d="m389-377.13 294.7-294.7q12.58-12.67 29.52-12.67 16.93 0 29.61 12.67 12.67 12.68 12.67 29.53 0 16.86-12.28 29.14L419.07-288.41q-12.59 12.67-29.52 12.67-16.94 0-29.62-12.67L217.41-430.93q-12.67-12.68-12.79-29.45-.12-16.77 12.55-29.45 12.68-12.67 29.62-12.67 16.93 0 29.28 12.67L389-377.13Z" />
                       </svg>
@@ -119,7 +119,7 @@ const fallbackQR = "/wechat-qrcode.png";
                       target="_blank"
                       class="btn-regular h-8 w-8 active:scale-90"
                     >
-                      <Icon name={item.icon} class="text-[1.2rem]" />
+                      <Icon name={item.icon} class="text-[1rem]" />
                     </a>
                     <span class="social-tip">{item.name}</span>
                   </span>
@@ -135,7 +135,7 @@ const fallbackQR = "/wechat-qrcode.png";
                   data-qr-trigger
                   data-qr-src={config.links[0].popupImage ?? fallbackQR}
                 >
-                  <Icon name={config.links[0].icon} class="text-[1.2rem]" />
+                  <Icon name={config.links[0].icon} class="text-[1rem]" />
                   {config.links[0].name}
                 </button>
               )
@@ -147,7 +147,7 @@ const fallbackQR = "/wechat-qrcode.png";
                   target="_blank"
                   class="btn-regular h-10 gap-2 px-3 font-bold active:scale-95"
                 >
-                  <Icon name={config.links[0].icon} class="text-[1.2rem]" />
+                  <Icon name={config.links[0].icon} class="text-[1rem]" />
                   {config.links[0].name}
                 </a>
               )

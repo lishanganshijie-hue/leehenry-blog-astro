@@ -702,6 +702,50 @@ if (window.swup) {
 
 <script is:inline>
 (function() {
+	function initLqipOverlays() {
+		var imgs = document.querySelectorAll('img[data-lqip]:not([data-lqip-init])');
+		imgs.forEach(function(img) {
+			img.setAttribute('data-lqip-init', 'true');
+			var lqipSrc = img.getAttribute('data-lqip');
+
+			// Wrap the img in a span so the overlay can be sized to match it exactly
+			var wrap = document.createElement('span');
+			wrap.className = 'lqip-wrap';
+			img.parentNode.insertBefore(wrap, img);
+			wrap.appendChild(img);
+
+			var overlay = document.createElement('div');
+			overlay.className = 'lqip-overlay';
+			overlay.style.backgroundImage = "url('" + lqipSrc + "')";
+			wrap.appendChild(overlay);
+
+			function removeOverlay() {
+				overlay.classList.add('lqip-hidden');
+				overlay.addEventListener('transitionend', function() {
+					overlay.remove();
+				}, { once: true });
+			}
+
+			if (img.complete && img.naturalHeight !== 0) {
+				removeOverlay();
+			} else {
+				img.addEventListener('load', removeOverlay, { once: true });
+				img.addEventListener('error', function() { overlay.remove(); }, { once: true });
+			}
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initLqipOverlays);
+	} else {
+		initLqipOverlays();
+	}
+	document.addEventListener('swup:page:view', initLqipOverlays);
+})();
+</script>
+
+<script is:inline>
+(function() {
 	function initFootnoteTooltips() {
 		var refs = document.querySelectorAll('a[data-footnote-ref]');
 		refs.forEach(function(ref) {

@@ -2,9 +2,11 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import { getCategoryUrl } from "@utils/url-utils.ts";
 
 // // Retrieve posts and sort them by publication date
-async function getRawSortedPosts() {
+async function getRawSortedPosts(excludeUnlisted = false) {
 	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
+		if (import.meta.env.PROD && data.draft === true) return false;
+		if (excludeUnlisted && data.unlisted === true) return false;
+		return true;
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
@@ -43,6 +45,22 @@ export async function getSortedPostsList(): Promise<PostForList[]> {
 	}));
 
 	return sortedPostsList;
+}
+
+/** Posts for homepage and RSS — excludes unlisted entries. */
+export async function getSortedPostsForFeeds() {
+	const sorted = await getRawSortedPosts(true);
+
+	for (let i = 1; i < sorted.length; i++) {
+		sorted[i].data.nextSlug = sorted[i - 1].slug;
+		sorted[i].data.nextTitle = sorted[i - 1].data.title;
+	}
+	for (let i = 0; i < sorted.length - 1; i++) {
+		sorted[i].data.prevSlug = sorted[i + 1].slug;
+		sorted[i].data.prevTitle = sorted[i + 1].data.title;
+	}
+
+	return sorted;
 }
 export type Tag = {
 	name: string;

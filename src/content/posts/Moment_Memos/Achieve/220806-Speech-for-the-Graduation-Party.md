@@ -3,7 +3,7 @@ title: 写在升学宴之前
 published: 2022-08-06
 description: ""
 image: ''
-tags: ["铭刻之时", "高考"]
+tags: ["铭刻之时", "高考之际"]
 category: 瞬间备忘录
 draft: false
 ---

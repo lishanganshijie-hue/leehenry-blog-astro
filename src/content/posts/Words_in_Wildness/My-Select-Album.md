@@ -1,14 +1,13 @@
 ---
-title: 「我之所在」
+title: 「我之所在」：从陪我走到今天的旋律中阅读我
 published: 2026-03-27
 description: '欢迎从陪我走到今天的旋律中阅读我。'
 image: ''
 tags: [视听生活]
 category: 野语不成篇
 draft: false
+unlisted: true
 ---
-
-> <p style="text-align: center; font-family: serif;">从陪我走到今天的旋律中阅读我</p>
 
 网易云[「我之所在」](https://music.163.com/playlist?id=17760750234&userid=346041527)歌单留档。这些是横跨并影响我过去二十年人生的专辑，我于每个专辑中挑选了一首加入此歌单。人生继续生长分叉，我也将长期维护这里。
 

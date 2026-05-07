@@ -1,5 +1,5 @@
 import rss from "@astrojs/rss";
-import { getSortedPosts } from "@utils/content-utils";
+import { getSortedPostsForFeeds } from "@utils/content-utils";
 import { url } from "@utils/url-utils";
 import type { APIContext } from "astro";
 import MarkdownIt from "markdown-it";
@@ -33,7 +33,7 @@ function absolutizeHtml(html: string, base: URL): string {
 }
 
 export async function GET(context: APIContext) {
-	const posts = await getSortedPosts();
+	const posts = await getSortedPostsForFeeds();
 
 	// 站点绝对地址：优先 context.site，否则用配置/兜底
 	const site =

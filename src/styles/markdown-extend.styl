@@ -152,6 +152,9 @@
     margin-right: auto
     max-width: 100%
 
+  a
+    font-family: var(--font-serif)
+
 a.card-github
   display: block
   background: var(--license-block-bg)
@@ -596,11 +599,15 @@ a.card-github.fetch-error
     color: var(--tw-prose-body)
 
 /* Details/summary collapsible block */
+.details-wrap
+  position: relative
+  margin: 1rem 0
+
 .details-block
   border: 1px solid var(--btn-card-bg-active)
   border-radius: var(--radius-large)
   border-bottom-right-radius: 0
-  margin: 1rem 0
+  margin: 0
   padding: 0
   position: relative
   transition: border-color 0.2s ease, box-shadow 0.2s ease, border-bottom-right-radius 0.25s ease
@@ -629,6 +636,35 @@ a.card-github.fetch-error
   &[open] .details-summary
     border-bottom: 1px solid var(--btn-card-bg-active)
     border-radius: var(--radius-large) var(--radius-large) 0 0
+
+  &[open]::after
+    display: none
+
+.details-fold-btn
+  display: none
+  position: absolute
+  bottom: 0
+  right: 0
+  width: 0.8rem
+  height: 0.8rem
+  padding: 0
+  border: none
+  cursor: pointer
+  background: var(--primary)
+  clip-path: polygon(100% 0, 100% 100%, 0 100%)
+  transition: width 0.2s ease, height 0.2s ease, transform 0.2s ease
+  z-index: 1
+
+.details-wrap:has(details[open]) .details-fold-btn
+  display: block
+
+.details-fold-btn:hover
+  width: 1.2rem
+  height: 1.2rem
+
+.details-wrap:has(.details-fold-btn:hover) .details-block
+  border-color: var(--primary)
+  box-shadow: 6px 6px 0 var(--btn-plain-bg-hover)
 
 .details-summary
   padding: 0.65rem 1rem

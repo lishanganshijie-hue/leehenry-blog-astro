@@ -17,8 +17,11 @@ export function DetailsComponent(properties, children) {
 
 	const summary = properties?.summary || "详细信息";
 
-	return h("details", { class: "details-block" }, [
-		h("summary", { class: "details-summary" }, summary),
-		h("div", { class: "details-body" }, children),
+	return h("div", { class: "details-wrap" }, [
+		h("details", { class: "details-block" }, [
+			h("summary", { class: "details-summary" }, summary),
+			h("div", { class: "details-body" }, children),
+		]),
+		h("button", { class: "details-fold-btn", type: "button", "aria-label": "收起" }),
 	]);
 }

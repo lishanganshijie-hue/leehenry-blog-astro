@@ -792,3 +792,30 @@ if (window.swup) {
 	document.addEventListener('swup:page:view', init);
 })();
 </script>
+
+<script is:inline>
+(function() {
+	function initDetailsFoldButtons() {
+		document.querySelectorAll('.details-fold-btn:not([data-init])').forEach(function(btn) {
+			btn.setAttribute('data-init', '1');
+			btn.addEventListener('click', function(e) {
+				e.stopPropagation();
+				var wrap = btn.closest('.details-wrap');
+				var details = wrap ? wrap.querySelector('details') : null;
+				if (!details) return;
+				details.open = false;
+				if (wrap) {
+					wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				}
+			});
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initDetailsFoldButtons);
+	} else {
+		initDetailsFoldButtons();
+	}
+	document.addEventListener('swup:page:view', initDetailsFoldButtons);
+})();
+</script>

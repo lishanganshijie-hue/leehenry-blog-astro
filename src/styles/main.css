@@ -81,6 +81,11 @@ em, i,
     font-family: 'Open Sans', 'vivo Sans', 'Noto Color Emoji', sans-serif !important;
 }
 
+/* KaTeX math: keep KaTeX fonts first, fall back to custom serif stack */
+.katex {
+    font-family: KaTeX_Main, var(--font-serif);
+}
+
 /* map inline `font-family: serif` in Markdown to custom serif face */
 :where(.markdown-content, .custom-md) [style*="font-family: serif" i],
 :where(.markdown-content, .custom-md) [style*="font-family:serif" i] {
@@ -96,6 +101,9 @@ em, i,
     }
     h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
         @apply transition;
+    }
+    .prose td, .prose th {
+        vertical-align: middle;
     }
     .card-shadow {
         @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.005)]

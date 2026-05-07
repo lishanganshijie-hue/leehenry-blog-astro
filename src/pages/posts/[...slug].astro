@@ -30,6 +30,12 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content, headings: rawHeadings } = await entry.render();
+
+const AI_LEVELS = {
+	0: { label: "手自一心", range: "0~5% AI",   icon: "material-symbols:volunteer-activism-sharp", varName: "ai-badge-0" },
+	1: { label: "执一驭万", range: "5~20% AI",  icon: "material-symbols:swords-sharp",             varName: "ai-badge-1" },
+	2: { label: "借舟渡海", range: "20~50% AI", icon: "material-symbols:sailing-sharp",            varName: "ai-badge-2" },
+} as const;
 const headings = rawHeadings.filter(h => h.slug !== 'footnote-label');
 
 const { remarkPluginFrontmatter } = await entry.render();
@@ -77,6 +83,24 @@ const jsonLd = {
             <a class="u-url u-uid hidden" href={Astro.url.href}></a>
             <time class="dt-published hidden" datetime={entry.data.published.toISOString()}>{formatDateToYYYYMMDD(entry.data.published)}</time>
             <span class="p-author hidden">{profileConfig.name}</span>
+
+            {entry.data.aiUsage && (() => {
+                const ai = AI_LEVELS[entry.data.aiUsage.level];
+                const badgeStyle = `--badge-bg: var(--${ai.varName}-bg); --badge-content: var(--${ai.varName}-content);`;
+                return (
+                <div class="ai-mark" style={badgeStyle}>
+                    <div class="ai-mark-body">
+                        <Icon name={ai.icon} class="ai-mark-icon text-[1.1rem] flex-none" />
+                        <span class="ai-mark-text">{ai.label}</span>
+                    </div>
+                    <div class="ai-mark-tip">
+                        <div class="ai-tip-level">{ai.label}<span class="ai-tip-range">（{ai.range}）</span></div>
+                        <p class="ai-tip-desc">{entry.data.aiUsage.description}</p>
+                    </div>
+                </div>
+                );
+            })()}
+
             <!-- word count and reading time -->
             {(postMetaConfig.showWordCount || postMetaConfig.showReadTime) && (
                 <div class="flex flex-row text-black/30 dark:text-white/30 gap-5 mb-3 transition onload-animation">
@@ -202,6 +226,76 @@ const jsonLd = {
 </MainGridLayout>
 
 <style>
+    /* AI usage bookmark */
+    .ai-mark {
+        position: absolute;
+        top: 0;
+        right: 0.75rem;
+        z-index: 50;
+    }
+    .ai-mark-body {
+        width: 2.25rem;
+        padding: 0.625rem 0.375rem 1.5rem;
+        background: var(--badge-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 14px), 0 100%);
+        cursor: default;
+    }
+    .ai-mark-icon,
+    .ai-mark-text {
+        color: var(--badge-content);
+    }
+    .ai-mark-text {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1;
+    }
+    .ai-mark-tip {
+        position: absolute;
+        right: calc(100% + 8px);
+        top: 0.75rem;
+        width: 13rem;
+        background: var(--card-bg);
+        border: 1px solid var(--btn-card-bg-active);
+        border-radius: var(--radius-medium);
+        padding: 0.75rem 0.9rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(6px);
+        transition: opacity 0.18s ease, visibility 0.18s ease, transform 0.18s ease;
+        pointer-events: none;
+    }
+    .ai-mark:hover .ai-mark-tip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+    .ai-tip-level {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: var(--badge-content);
+        margin-bottom: 0.3rem;
+    }
+    .ai-tip-range {
+        font-size: 0.78rem;
+        font-weight: 400;
+        opacity: 0.65;
+    }
+    .ai-tip-desc {
+        font-size: 0.92rem;
+        color: var(--btn-content);
+        line-height: 1.6;
+        margin: 0;
+    }
+
     .post-title-text {
         z-index: 0;
         &::after {

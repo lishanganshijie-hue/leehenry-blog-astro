@@ -6,6 +6,9 @@ image: ""
 tags: [创作表达]
 category: 多懂一点点
 draft: false
+aiUsage:
+    level: 1
+    description: 维持原意的前提下，少量表述经 LLM 润色
 ---
 
 ![](./SS-Vol01/image-20250816195139438.png)

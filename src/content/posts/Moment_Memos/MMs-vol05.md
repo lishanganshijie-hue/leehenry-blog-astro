@@ -6,7 +6,9 @@ image: './MMs-vol05/image-20251026023653607.png'
 tags: [🛒拾物语, 数码生活]
 category: 瞬间备忘录
 draft: false
-
+aiUsage:
+    level: 1
+    description: 维持原意的前提下，少量表述经 LLM 润色
 ---
 
 ## I want it, I got it.

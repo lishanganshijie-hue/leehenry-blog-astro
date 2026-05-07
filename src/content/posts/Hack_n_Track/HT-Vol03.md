@@ -5,6 +5,9 @@ description: 一次完整的 OneDrive 冷备份复盘：用 WinDirStat 软件查
 tags: [折腾记录, 存储管理]
 category: 我这样做事
 draft: false
+aiUsage:
+    level: 2
+    description: 在人工核查真实性的前提下，内容经 LLM 润色整合
 ---
 
 这次折腾起因很简单：OneDrive 越塞越满，本地空间不足。最近购入了一块希捷 4T 的 HDD，刚好有机会把工作文件夹留一份离线、可控、可随时拔走的冷备份；备份完，还得释放本地空间。下面是这个过程的复盘。
@@ -15,7 +18,7 @@ draft: false
 
 打开磁盘或文件夹，等扫描结束，下方可以通过方块大小一眼锁定大文件，并且定位、删除、打开所在目录。比资源管理器更能显著定位资源大小情况，方便清理空间。
 
-![image-20250830144113794.B_VjtD8u_1B1jMC](./HT-Vol03/image-20250830144113794.B_VjtD8u_1B1jMC.webp)
+![](./HT-Vol03/image-20250830144113794.B_VjtD8u_1B1jMC.webp)
 
 ## 增量备份：采用稳定可校验的 `robocopy`
 

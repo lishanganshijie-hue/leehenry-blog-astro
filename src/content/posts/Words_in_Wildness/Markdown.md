@@ -7,6 +7,9 @@ tags: ["大兴土木","Markdown"]
 category: 野语不成篇
 draft: false
 unlisted: true
+aiUsage:
+    level: 2
+    description: 想法原创，主体由 LLM 生成，人类审查并润色表述
 ---
 
 # H1 ☆ 草莓蛋糕失踪事件调查报告[^1]

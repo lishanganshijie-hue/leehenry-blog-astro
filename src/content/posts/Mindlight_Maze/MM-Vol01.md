@@ -6,6 +6,9 @@ image: ""
 tags: [艺术脑袋]
 category: 话从哪说起
 draft: false
+aiUsage:
+    level: 2
+    description: 维持观点原意的前提下，结构与表述经 LLM 润色整合
 ---
 
 谈起令人费解的文学和艺术，朋友这样和我说：

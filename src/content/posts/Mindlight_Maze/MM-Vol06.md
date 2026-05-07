@@ -7,6 +7,9 @@ tags: ["我与秩序", "见招拆招", "🔍找自己"]
 category: 话从哪说起
 draft: false
 lang: ''
+aiUsage:
+    level: 0
+    description: LLM 参与选题讨论，内容完全由人工设计撰写
 ---
 
 ## 难以抵达的秩序

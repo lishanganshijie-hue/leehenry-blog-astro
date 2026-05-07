@@ -6,6 +6,9 @@ image: ""
 tags: [创作表达]
 category: 话从哪说起
 draft: false
+aiUsage:
+    level: 2
+    description: 维持观点原意的前提下，结构与表述经 LLM 润色整合
 ---
 
 ![](./MM-Vol02/image-20250812200758416.png)

@@ -7,6 +7,9 @@ tags: [絮絮叨叨]
 category: 瞬间备忘录
 draft: false
 serif: true
+aiUsage:
+    level: 1
+    description: 维持原意的前提下，部分表述经 LLM 润色
 ---
 
 ![2025.7.4 摄于上海环球港](MMs-Vol00/image-20251017193448883.png)

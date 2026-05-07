@@ -7,6 +7,9 @@ tags: [🗺小行迹]
 category: 瞬间备忘录
 draft: false
 serif: true
+aiUsage:
+    level: 1
+    description: 维持原意的前提下，少量表述经 LLM 润色
 ---
 
 ## 引子

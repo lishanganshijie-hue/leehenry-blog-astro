@@ -6,6 +6,9 @@ image: ""
 tags: [当我实习]
 category: 瞬间备忘录
 draft: false
+aiUsage:
+    level: 1
+    description: 维持原意的前提下，部分表述经 LLM 润色
 ---
 
 ![](./MMs-Vol01/image-20250725204250123.png)

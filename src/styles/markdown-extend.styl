@@ -132,6 +132,20 @@
     border-color: var(--line-divider)
     border-style: dashed
 
+  /* 统一列表行间距：无论 loose/tight、有无缩进、引用块内外，点与点之间保持一致。
+     - li > p：loose 列表的 <p> 包裹会额外撑开间距
+     - li > ul/ol：嵌套列表自身的 margin 会在缩进前后产生多余空隙 */
+  li > p,
+  li > ul,
+  li > ol
+    margin-top: 0
+    margin-bottom: 0
+
+  /* 列表紧跟在段落后面时，去掉列表顶部多余的间距 */
+  p + ul,
+  p + ol
+    margin-top: 0
+
   iframe
     border-radius: 0.75rem
     margin-left: auto

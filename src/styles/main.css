@@ -282,3 +282,20 @@ img.img-loaded {
 .collapsed {
     height: var(--collapsedHeight);
 }
+
+@media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) {
+        animation: none;
+    }
+    ::view-transition-new(root) {
+        animation: theme-circle-reveal 0.45s ease-out;
+    }
+    @keyframes theme-circle-reveal {
+        from {
+            clip-path: circle(0px at var(--theme-x, 50%) var(--theme-y, 0%));
+        }
+        to {
+            clip-path: circle(var(--theme-radius, 150vmax) at var(--theme-x, 50%) var(--theme-y, 0%));
+        }
+    }
+}

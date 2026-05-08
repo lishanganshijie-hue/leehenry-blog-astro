@@ -32,9 +32,33 @@ onMount(() => {
 	};
 });
 
+function getToggleBtnCenter() {
+	const btn = document.getElementById("scheme-switch");
+	if (!btn) return { x: window.innerWidth / 2, y: 0 };
+	const rect = btn.getBoundingClientRect();
+	return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+}
+
+function applyWithTransition(newMode: LIGHT_DARK_MODE) {
+	const { x, y } = getToggleBtnCenter();
+	const maxRadius = Math.hypot(
+		Math.max(x, window.innerWidth - x),
+		Math.max(y, window.innerHeight - y),
+	);
+	document.documentElement.style.setProperty("--theme-x", `${x}px`);
+	document.documentElement.style.setProperty("--theme-y", `${y}px`);
+	document.documentElement.style.setProperty("--theme-radius", `${maxRadius}px`);
+
+	if (typeof document.startViewTransition !== "function") {
+		setTheme(newMode);
+		return;
+	}
+	document.startViewTransition(() => setTheme(newMode));
+}
+
 function switchScheme(newMode: LIGHT_DARK_MODE) {
 	mode = newMode;
-	setTheme(newMode);
+	applyWithTransition(newMode);
 }
 
 function toggleScheme() {

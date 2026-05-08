@@ -94,7 +94,7 @@
 
     a:not(.no-styling):not(.anchor) {
         @apply font-medium text-[inherit]
-        underline decoration-[var(--link-underline)] decoration-2 decoration-dashed underline-offset-4;
+        underline decoration-[var(--link-underline)] decoration-2 underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
         transition: background-color 0.2s, border-bottom 0.2s;

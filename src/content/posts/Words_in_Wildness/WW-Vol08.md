@@ -96,7 +96,7 @@ W 不是人名，只是个奇妙的代号。时至今日我们相识一年又半
 
 需求清晰，意味着需要足够清楚自己想要什么，并且能够用足够精准的语言描述出来；资源到位，意味着在 LLM / Agent 正式开始工作前，它充分了解了任务的背景与上下文，从而在必要的限制下发挥能动性。
 
-正如我在 [《如何在上级的压迫下自如地浑水摸鱼》](https://leehenry.top/posts/mindlight_maze/mm-vol05/)中的「向上管理」小节提到的那样，在这里我们不过是从「任务的完成者」的角色变成了「任务的分配者」，而上下游有效沟通的底层逻辑是相通的。**从这个角度上讲，与硅基生命共事，和碳基生命没有什么本质上的区别。**
+正如我在 《[如何在上级的压迫下自如地浑水摸鱼](https://leehenry.top/posts/mindlight_maze/mm-vol05/)》中的「向上管理」小节提到的那样，在这里我们不过是从「任务的完成者」的角色变成了「任务的分配者」，而上下游有效沟通的底层逻辑是相通的。**从这个角度上讲，与硅基生命共事，和碳基生命没有什么本质上的区别。**
 
 因此，我很鄙夷一些过于神话 Skill 和 Prompt 的言论，妄想不需要经过任何主动的思考，复制粘贴一些文本，再下载注入更多文本，就可以一次性让结果符合自己料想的一切，把自己的大脑彻底扔掉。
 
@@ -108,7 +108,7 @@ W 不是人名，只是个奇妙的代号。时至今日我们相识一年又半
 
 #### 一些新的组件
 
-**[88x31 徽章墙。](https://leehenry.top/friends/#friends-stamps)**<mbr>受到 [Eltrac](https://www.geedea.pro/weekly/73/#%E7%BD%91%E9%A1%B5%E6%A8%AA%E5%B9%85%E6%8C%89%E9%92%AE%E8%80%83%E5%8F%A4) 和 JN 一篇关于 Y2K 文化的 [文章](https://blog.giveanornot.com/you-should-check-out-the-indie-web/) 影响，了解到这一特别的独立网站文化。[88×31](https://indieweb.org/88x31) 尺寸的站点徽章诞生于 1990s 的 Web 1.0 时代，那时候以论坛和 BBS 为主体的站长们用精心设计的徽章介绍自己、表达态度，现在更多流行于 [IndieWeb](https://indieweb.org/) 和 [Neocities](https://neocities.org/) 等社群，设计也更加现代多元了。
+[**88x31 徽章墙**](https://leehenry.top/friends/#friends-stamps)。受到 [Eltrac](https://www.geedea.pro/weekly/73/#%E7%BD%91%E9%A1%B5%E6%A8%AA%E5%B9%85%E6%8C%89%E9%92%AE%E8%80%83%E5%8F%A4) 和 JN 一篇关于 Y2K 文化的 [文章](https://blog.giveanornot.com/you-should-check-out-the-indie-web/) 影响，了解到这一特别的独立网站文化。[88×31](https://indieweb.org/88x31) 尺寸的站点徽章诞生于 1990s 的 Web 1.0 时代，那时候以论坛和 BBS 为主体的站长们用精心设计的徽章介绍自己、表达态度，现在更多流行于 [IndieWeb](https://indieweb.org/) 和 [Neocities](https://neocities.org/) 等社群，设计也更加现代多元了。
 
 下面是我在制作「伏枥之间」的 88x31 徽章时找到的一些网站，他们收录了涵盖各种领域、多种多样的 88x31 设计，或许可以由此一窥互联网变迁历程的一角。
 
@@ -126,19 +126,19 @@ W 不是人名，只是个奇妙的代号。时至今日我们相识一年又半
 
 ![88x31 徽章墙](WW-Vol08/image-20260411181252446.png)
 
-**[点赞回应交互。](https://leehenry.top/guestbook/)**<mbr>为了鼓励读者积极回应，增加了文章的点赞功能，配合上一个有趣的动画 —— 点赞 Section 初始化时会落下当前点赞数量的心心，如果你也点了一个爱心，你的心心就会落入心心的海洋 ❤️ 
+[**点赞回应交互**](https://leehenry.top/guestbook/)。为了鼓励读者积极回应，增加了文章的点赞功能，配合上一个有趣的动画 —— 点赞 Section 初始化时会落下当前点赞数量的心心，如果你也点了一个爱心，你的心心就会落入心心的海洋 ❤️ 
 
 ![来试试看吧！](WW-Vol08/image-20260411181158144.png)
 
-**[嵌入式音乐卡片。](https://leehenry.top/posts/words_in_wildness/my-select-album/)**<mbr>调用了 [Apple Music](https://developer.apple.com/documentation/applemusicapi) 的接口，很方便的实现了歌曲和专辑信息的获取以及歌曲片段的试听。现在可以很好的嵌入到文章的内容之中。读到本期的「回响」章节你就会看到更多~
+[**嵌入式音乐卡片**](https://leehenry.top/posts/words_in_wildness/my-select-album/)。调用了 [Apple Music](https://developer.apple.com/documentation/applemusicapi) 的接口，很方便的实现了歌曲和专辑信息的获取以及歌曲片段的试听。现在可以很好的嵌入到文章的内容之中。读到本期的「回响」章节你就会看到更多~
 
 #### 一些设计调整
 
-**[文章卡片设计。](https://leehenry.top/)**<mbr>精简了首页卡片的陈列信息，删除了不必要的字段，增加了信息分级的对比度。另外学习（~~抄袭~~）了 Eltrac 网站上的扭曲滤镜 CSS 应用于标题的下划线，以期营造出类似「马克笔划过」的粗砺感。这一设计语言沿用到了文章正文的标题部分。
+[**文章卡片设计**](https://leehenry.top/)。精简了首页卡片的陈列信息，删除了不必要的字段，增加了信息分级的对比度。另外学习（~~抄袭~~）了 Eltrac 网站上的扭曲滤镜 CSS 应用于标题的下划线，以期营造出类似「马克笔划过」的粗砺感。这一设计语言沿用到了文章正文的标题部分。
 
 ![文章卡片新旧对比](WW-Vol08/image-20260411183404701.png)
 
-[**按周划分的热力图设计。**](https://leehenry.top/archive/)在联邦宇宙中刷到了椒盐豆豉老师的 [一条嘟文](https://douchi.space/@mtfront/116198023250247941)，介绍了一种按周分隔的热力图设计，灵感来源于 [rexarski](https://rexarski.com/now/) 的当下页面。
+[**按周划分的热力图设计**](https://leehenry.top/archive/)。在联邦宇宙中刷到了椒盐豆豉老师的 [一条嘟文](https://douchi.space/@mtfront/116198023250247941)，介绍了一种按周分隔的热力图设计，灵感来源于 [rexarski](https://rexarski.com/now/) 的当下页面。
 
 > [椒盐糖蒜](https://douchi.space/@mtfront)：rexarski 这个 now 页面的按周分隔的热力图或许才是适合大多数博客的热力图形式，毕竟绝大多数人一年中大多数时间是不更博客的，传统的 GitHub 形式的按天分布的热力图零零星星没什么意思。按周看则即能纵观历史又能信息密度大一些，感觉更实用。有点想抄~
 >

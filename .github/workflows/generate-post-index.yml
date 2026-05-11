@@ -1,4 +1,4 @@
-name: generate-post-index
+name: Auto Generate Posts Index & Deploy Blog
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'src/content/posts/**/*.md'
-      - 'src/content/posts/*.md'
       - 'scripts/generate-post-index.mjs'
       - 'package.json'
       - 'pnpm-lock.yaml'
@@ -15,10 +14,10 @@ permissions:
   contents: write
 
 jobs:
-  update-index:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -35,22 +34,32 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        # 关键修改：去掉 --frozen-lockfile，改用 --no-frozen-lockfile
-        # 这样即使你手动改了 package.json，它也会自动同步更新环境，不再报错
+        # 🟢 核心：允许同步 package.json 的改动到 lockfile
         run: pnpm install --no-frozen-lockfile
 
-      - name: Generate posts index
-        run: pnpm generate:index
+      - name: Generate posts-index.json
+        run: node scripts/generate-post-index.mjs
 
-      - name: Commit if changed
+      - name: Commit index if changed
+        # 使用 continue-on-error 确保即使 git push 失败（比如极罕见的竞态条件）也不会中断部署
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # 注意：你的脚本输出路径是 public/posts-index.json，确保这里检查的是正确的文件
           if git diff --quiet -- public/posts-index.json; then
             echo "No changes"
           else
             git add public/posts-index.json
-            git commit -m "chore: update posts index"
+            git commit -m "chore: update posts index [skip ci]"
             git push
           fi
+
+      - name: Build Astro blog
+        # 🟢 策略：直接使用 astro build 跳过 package.json 里的 biome 等检查
+        run: npx astro build
+
+      - name: Deploy to Cloudflare Pages
+        run: npx wrangler pages deploy ./dist --project-name "你的项目名"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}

@@ -1,0 +1,54 @@
+name: generate-post-index
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/content/posts/**/*.md'
+      - 'src/content/posts/*.md'
+      - 'scripts/generate-post-index.mjs'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate posts index
+        run: pnpm generate:index
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- src/content/posts/posts-index.json; then
+            echo "No changes"
+          else
+            git add src/content/posts/posts-index.json
+            git commit -m "chore: update posts index"
+            git push
+          fi

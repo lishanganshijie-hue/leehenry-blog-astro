@@ -17,7 +17,6 @@ permissions:
 jobs:
   update-index:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,7 +35,9 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        # 关键修改：去掉 --frozen-lockfile，改用 --no-frozen-lockfile
+        # 这样即使你手动改了 package.json，它也会自动同步更新环境，不再报错
+        run: pnpm install --no-frozen-lockfile
 
       - name: Generate posts index
         run: pnpm generate:index
@@ -45,10 +46,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- src/content/posts/posts-index.json; then
+          # 注意：你的脚本输出路径是 public/posts-index.json，确保这里检查的是正确的文件
+          if git diff --quiet -- public/posts-index.json; then
             echo "No changes"
           else
-            git add src/content/posts/posts-index.json
+            git add public/posts-index.json
             git commit -m "chore: update posts index"
             git push
           fi

@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # 加上这一行，以后 Actions 页面就会出现手动运行按钮    
-    paths:
+    paths: # 修正了缩进，确保只有改动这些文件才触发自动部署
       - 'src/content/posts/**/*.md'
       - 'scripts/generate-post-index.mjs'
       - 'package.json'
       - 'pnpm-lock.yaml'
+  workflow_dispatch: # 手动运行按钮现在是独立的了
 
 permissions:
   contents: write
@@ -22,6 +22,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # 🟢 增加这一行，确保 Action 有权限推送到你的仓库
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -35,28 +37,27 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        # 🟢 核心：允许同步 package.json 的改动到 lockfile
         run: pnpm install --no-frozen-lockfile
 
       - name: Generate posts-index.json
         run: node scripts/generate-post-index.mjs
 
       - name: Commit index if changed
-        # 使用 continue-on-error 确保即使 git push 失败（比如极罕见的竞态条件）也不会中断部署
         continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- public/posts-index.json; then
-            echo "No changes"
+          # 🟢 强制检查文件是否存在
+          ls -l public/posts-index.json || echo "File not found"
+          git add -f public/posts-index.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
           else
-            git add public/posts-index.json
             git commit -m "chore: update posts index [skip ci]"
-            git push
+            git push origin main
           fi
 
       - name: Build Astro blog
-        # 🟢 策略：直接使用 astro build 跳过 package.json 里的 biome 等检查
         run: npx astro build
 
       - name: Deploy to Cloudflare Pages

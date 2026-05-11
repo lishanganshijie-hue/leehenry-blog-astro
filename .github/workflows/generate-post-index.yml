@@ -1,8 +1,8 @@
 name: Auto Generate Posts Index & Deploy Blog
 
-on:
+于:
   push:
-    branches:
+    分支:
       - main
     paths:
       - 'src/content/posts/**/*.md'
@@ -59,7 +59,7 @@ jobs:
         run: npx astro build
 
       - name: Deploy to Cloudflare Pages
-        run: npx wrangler pages deploy ./dist --project-name "blog-adminior"--commit-dirty=true
+        run: npx wrangler pages deploy ./dist --project-name "leehenry-blog-astro"--commit-dirty=true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}

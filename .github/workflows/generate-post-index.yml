@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:  # 加上这一行，以后 Actions 页面就会出现手动运行按钮    
     paths:
       - 'src/content/posts/**/*.md'
       - 'scripts/generate-post-index.mjs'

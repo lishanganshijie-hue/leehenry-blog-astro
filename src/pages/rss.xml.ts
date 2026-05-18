@@ -22,8 +22,8 @@ function absolutizeHtml(html: string, base: URL): string {
 		/\s(?:src|href)=(['"])(.+?)\1/gi,
 		(_m, quote: string, raw: string) => {
 			try {
-				const abs = new URL(raw, base); // 绝对/./..// 开头都能解析
-				const attr = _m.trim().split("=")[0]; // "src" 或 "href"
+				const abs = new URL(raw, base); 
+				const attr = _m.trim().split("=")[0]; 
 				return ` ${attr}=${quote}${abs.toString()}${quote}`;
 			} catch {
 				return ` ${_m.trim()}`;
@@ -35,37 +35,27 @@ function absolutizeHtml(html: string, base: URL): string {
 export async function GET(context: APIContext) {
 	const posts = await getSortedPostsForFeeds();
 
-	// 站点绝对地址：优先 context.site，否则用配置/兜底
 	const site =
 		context.site instanceof URL
 			? context.site
 			: new URL("https://blogo.ccwu.cc");
 
-	// ⚠️ 关键：一定要 await
+	// 规避模板字符串内包含中文标点引发的编译歧义，移出到外层作为纯文本常量
+	const rssDescription = (siteConfig.subtitle || "No description") + " - 人生苦短，绝不做闭口禅！";
+
 	const feed = await rss({
 		title: siteConfig.title,
-		description: `${siteConfig.subtitle || "No description"}「人生苦短，绝不做闭口禅！」`,
-		site, // 必须是绝对 URL
+		description: rssDescription,
+		site, 
 		items: await Promise.all(
 			posts.map(async (post) => {
-				// 如果你的文章不在 /posts/ 下，请改这里
 				const articleUrl = new URL(url(`/posts/${post.slug}/`), site);
-
-				// 获取原始 Markdown 内容
-				const raw =
-					typeof post.body === "string" ? post.body : String(post.body ?? "");
+				const raw = typeof post.body === "string" ? post.body : String(post.body ?? "");
 				const cleaned = stripInvalidXmlChars(raw);
 
-				// Markdown -> HTML
 				let renderedHtml = md.render(cleaned);
-
-				// 注意：图片路径会在构建后通过 fix-rss-images.mjs 脚本修复
-				// 该脚本会将相对路径替换为 Astro 优化后的 _astro/ 路径
-
-				// 清理无效的 XML 字符
 				renderedHtml = stripInvalidXmlChars(renderedHtml);
 
-				// 清理和验证 HTML
 				const safeHtml = sanitizeHtml(renderedHtml, {
 					allowedTags: sanitizeHtml.defaults.allowedTags.concat([
 						"img",
@@ -87,7 +77,7 @@ export async function GET(context: APIContext) {
 						source: ["src", "srcset", "type", "sizes"],
 						video: ["src", "poster", "controls", "preload", "width", "height"],
 						"*": ["id", "class", "style"],
-					}，
+					},
 					transformTags: {
 						a: (_tag, attrs) => ({
 							tagName: "a",
@@ -96,10 +86,8 @@ export async function GET(context: APIContext) {
 					},
 				});
 
-				// 将相对路径转换为绝对路径（图片路径应该已经是正确的 _astro/ 路径了）
 				const htmlWithAbs = absolutizeHtml(safeHtml, site);
 
-				// 添加感谢信息和评论区链接的引用框
 				const commentUrl = `${articleUrl.toString()}#comment-section`;
 				const thankYouMarkdown = `> 感谢读到这里！您的声音将对我非常重要，欢迎点击[此处](${commentUrl})查看并参与朋友们关于本文的讨论:)))。`;
 				const thankYouHtml = md.render(thankYouMarkdown);
@@ -144,7 +132,6 @@ export async function GET(context: APIContext) {
     `,
 	});
 
-	// 统一拿到纯字符串（feed 可能是 Response 或 string）
 	const xml =
 		feed &&
 		typeof (feed as unknown as { text?: () => Promise<string> }).text ===

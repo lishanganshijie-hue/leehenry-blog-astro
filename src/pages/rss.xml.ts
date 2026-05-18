@@ -87,7 +87,7 @@ export async function GET(context: APIContext) {
 						source: ["src", "srcset", "type", "sizes"],
 						video: ["src", "poster", "controls", "preload", "width", "height"],
 						"*": ["id", "class", "style"],
-					},
+					}，
 					transformTags: {
 						a: (_tag, attrs) => ({
 							tagName: "a",
@@ -110,7 +110,7 @@ export async function GET(context: APIContext) {
 					},
 					transformTags: {
 						a: (_tag, attrs) => ({
-							tagName: "a"，
+							tagName: "a",
 							attribs: { ...attrs, rel: attrs.rel ?? "noopener noreferrer" },
 						}),
 					},

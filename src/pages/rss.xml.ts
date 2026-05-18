@@ -39,12 +39,12 @@ export async function GET(context: APIContext) {
 	const site =
 		context.site instanceof URL
 			? context.site
-			: new URL("https://leehenry.top");
+			: new URL("https://blogo.ccwu.cc");
 
 	// ⚠️ 关键：一定要 await
 	const feed = await rss({
 		title: siteConfig.title,
-		description: `${siteConfig.subtitle || "No description"}「别让今天叫住我了」`,
+		description: `${siteConfig.subtitle || "No description"}「人生苦短，绝不做闭口禅！」`,
 		site, // 必须是绝对 URL
 		items: await Promise.all(
 			posts.map(async (post) => {
@@ -92,7 +92,7 @@ export async function GET(context: APIContext) {
 						a: (_tag, attrs) => ({
 							tagName: "a",
 							attribs: { ...attrs, rel: attrs.rel ?? "noopener noreferrer" },
-						}),
+						})，
 					},
 				});
 
@@ -101,7 +101,7 @@ export async function GET(context: APIContext) {
 
 				// 添加感谢信息和评论区链接的引用框
 				const commentUrl = `${articleUrl.toString()}#comment-section`;
-				const thankYouMarkdown = `> 感谢读到这里！您的声音将对我非常重要，欢迎点击[此处](${commentUrl})查看并参与读者们关于本文的讨论:)))。`;
+				const thankYouMarkdown = `> 感谢读到这里！您的声音将对我非常重要，欢迎点击[此处](${commentUrl})查看并参与朋友们关于本文的讨论:)))。`;
 				const thankYouHtml = md.render(thankYouMarkdown);
 				const thankYouSafe = sanitizeHtml(thankYouHtml, {
 					allowedTags: sanitizeHtml.defaults.allowedTags,
@@ -110,7 +110,7 @@ export async function GET(context: APIContext) {
 					},
 					transformTags: {
 						a: (_tag, attrs) => ({
-							tagName: "a",
+							tagName: "a"，
 							attribs: { ...attrs, rel: attrs.rel ?? "noopener noreferrer" },
 						}),
 					},

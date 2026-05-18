@@ -88,7 +88,7 @@ export default defineConfig({
 					terminalBackground: "var(--codeblock-bg)",
 					terminalTitlebarBackground: "var(--codeblock-topbar-bg)",
 					editorTabBarBackground: "var(--codeblock-topbar-bg)",
-					editorActiveTabBackground: "none"，
+					editorActiveTabBackground: "none",
 					editorActiveTabIndicatorBottomColor: "var(--primary)",
 					editorActiveTabIndicatorTopColor: "none",
 					editorTabBarBorderBottomColor: "var(--codeblock-topbar-bg)",

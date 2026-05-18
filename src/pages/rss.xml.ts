@@ -92,7 +92,7 @@ export async function GET(context: APIContext) {
 						a: (_tag, attrs) => ({
 							tagName: "a",
 							attribs: { ...attrs, rel: attrs.rel ?? "noopener noreferrer" },
-						})，
+						}),
 					},
 				});
 

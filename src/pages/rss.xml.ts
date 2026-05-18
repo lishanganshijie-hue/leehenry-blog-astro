@@ -40,8 +40,8 @@ export async function GET(context: APIContext) {
 			? context.site
 			: new URL("https://blogo.ccwu.cc");
 
-	// 规避模板字符串内包含中文标点引发的编译歧义，移出到外层作为纯文本常量
-	const rssDescription = (siteConfig.subtitle || "No description") + " - 人生苦短，绝不做闭口禅！";
+	// 规避模板字符串内包含中文标点引发的编译歧义,移出到外层作为纯文本常量
+	const rssDescription = (siteConfig.subtitle || "No description") + " - 人生苦短,绝不做闭口禅！";
 
 	const feed = await rss({
 		title: siteConfig.title,
@@ -89,7 +89,7 @@ export async function GET(context: APIContext) {
 				const htmlWithAbs = absolutizeHtml(safeHtml, site);
 
 				const commentUrl = `${articleUrl.toString()}#comment-section`;
-				const thankYouMarkdown = `> 感谢读到这里！您的声音将对我非常重要，欢迎点击[此处](${commentUrl})查看并参与朋友们关于本文的讨论:)))。`;
+				const thankYouMarkdown = `> 感谢读到这里！您的声音将对我非常重要,欢迎点击[此处](${commentUrl})查看并参与朋友们关于本文的讨论:)))。`;
 				const thankYouHtml = md.render(thankYouMarkdown);
 				const thankYouSafe = sanitizeHtml(thankYouHtml, {
 					allowedTags: sanitizeHtml.defaults.allowedTags,

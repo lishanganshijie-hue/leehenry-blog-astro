@@ -25,11 +25,11 @@ export const siteConfig: SiteConfig = {
 		credit: {
 			enable: true, // Display the credit text of the banner image
 			text: "Dean Johns", // Credit text to be displayed (dark mode)
-			url: "https://www.behance.net/gallery/136096999/Jpeg-Hunting/modules/769956589", // (Optional) URL link to the original artwork or artist's page
+			url: "https://jianai.ccwu.cc", // (Optional) URL link to the original artwork or artist's page
 		},
 		creditLight: {
 			text: "Dean Johns", // Credit text for light mode banner
-			url: "https://www.behance.net/gallery/134625455/Kodak-and-the-Ruins-of-Altmerta/modules/761835293",
+			url: "https://jianai.ccwu.cc",
 		},
 	},
 	toc: {
@@ -77,7 +77,7 @@ export const navBarConfig: NavBarConfig = {
 		{ name: "见人笑", url: "/friends/", icon: "smile" },
 		{ name: "我这人", url: "/about/", icon: "anchor" },
 		{
-			name: "开往",
+			name: "闲溜达",
 			url: "https://www.travellings.cn/train.html",
 			external: true,
 			icon: "arcadestick",

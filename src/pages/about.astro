@@ -14,7 +14,7 @@ if (!aboutPost) {
 const { Content, headings: rawHeadings } = await render(aboutPost);
 const headings = rawHeadings.filter((h) => h.depth > 1);
 ---
-<MainGridLayout title="一隅" description="一隅" headings={headings}>
+<MainGridLayout title="我这人" description="我这人" headings={headings}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-4 md:px-9 py-6 relative w-full ">
             <Markdown class="mt-0">

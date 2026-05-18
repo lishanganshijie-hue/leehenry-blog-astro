@@ -15,14 +15,6 @@ export interface PageIntro {
 }
 
 export const pageIntros = {
-	guests: {
-		title: "🏠 客邸",
-		subtitle: "路过几处颜色各异的小房子",
-		paragraphs: [
-			"这里收藏着几位好友的字句，它们原本住在各种社交平台。雨大风疏，我担心中心化公司一次突如其来的变故，让这些自有灵气的表达消弭在数字荒原深处。",
-			"经同意，我帮他们抄录在这里。他们精神世界的一隅，在此独立成屋，屋门虚掩。",
-		],
-	},
 	guestbook: {
 		title: "🪧 留心",
 		subtitle: "发现一块满是便签的破木板",

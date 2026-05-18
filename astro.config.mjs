@@ -33,7 +33,7 @@ import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://leehenry.top/",
+	site: "https://blogo.ccwu.cc/",
 	base: "/",
 	trailingSlash: "always",
 	integrations: [
@@ -88,7 +88,7 @@ export default defineConfig({
 					terminalBackground: "var(--codeblock-bg)",
 					terminalTitlebarBackground: "var(--codeblock-topbar-bg)",
 					editorTabBarBackground: "var(--codeblock-topbar-bg)",
-					editorActiveTabBackground: "none",
+					editorActiveTabBackground: "none"，
 					editorActiveTabIndicatorBottomColor: "var(--primary)",
 					editorActiveTabIndicatorTopColor: "none",
 					editorTabBarBorderBottomColor: "var(--codeblock-topbar-bg)",

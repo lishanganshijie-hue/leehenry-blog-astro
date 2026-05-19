@@ -6,6 +6,8 @@ on:
       - main
     paths: # 修正了缩进，确保只有改动这些文件才触发自动部署
       - 'src/content/posts/**/*.md'
+      - 'src/data/gallery.json'               # 🌟 新增：只要这个相册 JSON 变了，也立刻自动触发部署！
+      - 'scripts/generate-post-index.mjs'
       - 'scripts/generate-post-index.mjs'
       - 'package.json'
       - 'pnpm-lock.yaml'
